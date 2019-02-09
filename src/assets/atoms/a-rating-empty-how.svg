@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>a-rating-empty-how</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Styles" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Style-Guide-1" transform="translate(-120.000000, -438.000000)">
+            <g id="Atoms/Content/Rating---Empty---Low" transform="translate(120.000000, 438.000000)">
+                <circle id="Oval" fill="#F7F8F9" fill-rule="evenodd" cx="16" cy="16" r="16"></circle>
+                <path d="" id="Path-3" stroke="#979797" stroke-width="0.5"></path>
+                <path d="M13.6766726,10.6493113 L15.1172214,18.0369716 C15.2913835,18.9301383 14.7085151,19.7953792 13.8153483,19.9695413 C13.7114546,19.9898 13.6058505,20 13.5,20 L13.5,20 C12.5900114,20 11.8523199,19.2623085 11.8523199,18.3523199 C11.8523199,18.2464695 11.86252,18.1408653 11.8827786,18.0369716 L13.3233274,10.6493113 C13.3423537,10.5517377 13.4368765,10.4880626 13.5344501,10.5070888 C13.6063929,10.5211172 13.6626441,10.5773685 13.6766726,10.6493113 Z" id="Combined-Shape" fill="#CED4D6" fill-rule="evenodd" transform="translate(13.500000, 15.250000) rotate(-50.000000) translate(-13.500000, -15.250000) "></path>
+                <path d="M28.5,17 C28.5,13.553786 27.1053981,10.4332987 24.8497701,8.17211399 C22.5868563,5.90362565 19.4573453,4.5 16,4.5 C12.5510037,4.5 9.42826022,5.89685472 7.16663895,8.15569488 C4.90136742,10.4181808 3.5,13.545437 3.5,17" id="Oval" stroke="#CED4D6" stroke-width="3" opacity="0.200000003" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>Atoms/Icons/icon-plus</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Atoms/Icons/icon-plus" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M16,27 L14,27 C13.4477153,27 13,26.5522847 13,26 L13,17 L4,17 C3.44771525,17 3,16.5522847 3,16 L3,14 C3,13.4477153 3.44771525,13 4,13 L13,13 L13,4 C13,3.44771525 13.4477153,3 14,3 L16,3 C16.5522847,3 17,3.44771525 17,4 L17,13 L26,13 C26.5522847,13 27,13.4477153 27,14 L27,16 C27,16.5522847 26.5522847,17 26,17 L17,17 L17,26 C17,26.5522847 16.5522847,27 16,27 Z" id="Shape" fill="#203641"></path>
+    </g>
+</svg>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>Atoms/Icons/icon-chevron-down</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Atoms/Icons/icon-chevron-down" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M13.6568542,16.7279221 L22.8492424,25.9203102 C23.2397667,26.3108345 23.2397667,26.9439995 22.8492424,27.3345238 L21.4350288,28.7487373 C21.0445046,29.1392616 20.4113396,29.1392616 20.0208153,28.7487373 L8.70710678,17.4350288 C8.31658249,17.0445046 8.31658249,16.4113396 8.70710678,16.0208153 L20.0208153,4.70710678 C20.4113396,4.31658249 21.0445046,4.31658249 21.4350288,4.70710678 L22.8492424,6.12132034 C23.2397667,6.51184464 23.2397667,7.14500961 22.8492424,7.53553391 L13.6568542,16.7279221 Z" id="Shape" fill="#203641" transform="translate(15.778175, 16.727922) rotate(270.000000) translate(-15.778175, -16.727922) "></path>
+    </g>
+</svg>

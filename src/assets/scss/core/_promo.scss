@@ -1,0 +1,35 @@
+.promo {
+  background-color: white;
+  border-radius: 20px;
+}
+
+.promo-header, .promo-body {
+  width: 100%;
+  padding: 10px;
+}
+
+.promo-header {
+  background-image: url("assets/icons/iconA-promo.svg");
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  background-color: $promo-yellow;
+
+  > div {
+    margin-left: 15px;
+  }
+}
+
+.promo-title {
+  margin-top: 10px;
+  font-family: 'Rubik-Bold';
+  font-size: 22px;
+}
+
+.promo-body {
+  margin-left: 15px;
+  margin-top: 10px;
+}
+
+.promo-price, .promo-store-name {
+  font-family: 'Rubik-Bold';
+}

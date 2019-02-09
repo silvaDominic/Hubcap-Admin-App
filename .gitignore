@@ -1,0 +1,4 @@
+#Ignore folders
+_MACOSX/
+.idea/
+e2e/

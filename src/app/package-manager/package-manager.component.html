@@ -1,0 +1,27 @@
+<div class="package-manager-block main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="menu-section">
+                    <div class="row">
+                        <div class="col-md-4" *ngFor="let menu of menuList?.menus">
+                            <app-menu [name]="menu.name"
+                                      [price] = "menu.price"
+                                      [menuOptions]="menu.menuOptions"
+                                      [subOptions]="menu.menuOptions.subOptions"
+                                      (click)="setFocusMenu(menu.id)"></app-menu>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-options-section">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <app-menu-options [focusMenu]="focusMenu"></app-menu-options>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

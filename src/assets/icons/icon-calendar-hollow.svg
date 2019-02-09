@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>Atoms/Icons/icon-calendar-hollow</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Atoms/Icons/icon-calendar-hollow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M5,12 L25,12 L25,9 C25,8.44771525 24.5522847,8 24,8 L22,8 L22,9 C22,9.55228475 21.5522847,10 21,10 L20,10 C19.4477153,10 19,9.55228475 19,9 L19,8 L11,8 L11,9 C11,9.55228475 10.5522847,10 10,10 L9,10 C8.44771525,10 8,9.55228475 8,9 L8,8 L6,8 C5.44771525,8 5,8.44771525 5,9 L5,12 Z M5,15 L5,24 C5,24.5522847 5.44771525,25 6,25 L24,25 C24.5522847,25 25,24.5522847 25,24 L25,15 L5,15 Z M22,5.5 L24,5.5 C25.9329966,5.5 27.5,7.06700338 27.5,9 L27.5,24 C27.5,25.9329966 25.9329966,27.5 24,27.5 L6,27.5 C4.06700338,27.5 2.5,25.9329966 2.5,24 L2.5,9 C2.5,7.06700338 4.06700338,5.5 6,5.5 L8,5.5 L8,3 C8,2.44771525 8.44771525,2 9,2 L10,2 C10.5522847,2 11,2.44771525 11,3 L11,5.5 L19,5.5 L19,3 C19,2.44771525 19.4477153,2 20,2 L21,2 C21.5522847,2 22,2.44771525 22,3 L22,5.5 Z" id="Combined-Shape" fill="#203641"></path>
+    </g>
+</svg>

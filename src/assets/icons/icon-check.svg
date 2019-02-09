@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>Atoms/Icons/icon-check</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Atoms/Icons/icon-check" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M24.9744632,6.29289322 L26.3886768,7.70710678 C26.7792011,8.09763107 26.7792011,8.73079605 26.3886768,9.12132034 L11.5497371,23.96026 C11.1592128,24.3507843 10.5260478,24.3507843 10.1355235,23.96026 L3.29289322,17.1176297 C2.90236893,16.7271055 2.90236893,16.0939405 3.29289322,15.7034162 L4.70710678,14.2892026 C5.09763107,13.8986783 5.73079605,13.8986783 6.12132034,14.2892026 L10.8426303,19.0105126 L23.5602497,6.29289322 C23.9507739,5.90236893 24.5839389,5.90236893 24.9744632,6.29289322 Z" id="Shape" fill="#203641"></path>
+    </g>
+</svg>

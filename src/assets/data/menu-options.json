@@ -1,0 +1,82 @@
+{
+  "menuOptions": {
+    "id": "silver",
+    "name": "Silver",
+    "price": 8,
+    "menuOptions": [
+      {
+        "name": "Wash",
+        "subOptions": [
+          "Soft Touch",
+          "Hand Wash",
+          "Touch Free"
+        ],
+        "hasSubOptions": true,
+        "isMandatory": true
+      },
+      {
+        "name": "Dry",
+        "subOptions": [
+          "Machine",
+          "Hand"
+        ],
+        "hasSubOptions": true,
+        "isMandatory": true
+      },
+      {
+        "name": "Tire & Wheel Clean",
+        "subOptions": [],
+        "hasSubOptions": false,
+        "isMandatory": true
+      },
+      {
+        "name": "Undercarriage Wash",
+        "subOptions": [],
+        "hasSubOptions": false,
+        "isMandatory": false
+      },
+      {
+        "name": "Tire & Wheel Shine",
+        "subOptions": [],
+        "hasSubOptions": false,
+        "isMandatory": false
+      },
+      {
+        "name": "Exterior Gloss",
+        "subOptions": [],
+        "hasSubOptions": false,
+        "isMandatory": false
+      },
+      {
+        "name": "Windshield Applicant",
+        "subOptions": [],
+        "hasSubOptions": false,
+        "isMandatory": false
+      },
+      {
+        "name": "Exterior Protectant",
+        "subOptions": [],
+        "hasSubOptions": false,
+        "isMandatory": false
+      },
+      {
+        "name": "Bug Repellent",
+        "subOptions": [],
+        "hasSubOptions": false,
+        "isMandatory": false
+      },
+      {
+        "name": "Rust Inhibitor",
+        "subOptions": [],
+        "hasSubOptions": false,
+        "isMandatory": false
+      },
+      {
+        "name": "Free Self-Serve Vacuum",
+        "subOptions": [],
+        "hasSubOptions": false,
+        "isMandatory": false
+      }
+    ]
+  }
+}

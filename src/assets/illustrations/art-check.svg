@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="117px" height="117px" viewBox="0 0 117 117" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>art-check</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Styles" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Style-Guide-1" transform="translate(-163.000000, -3399.000000)">
+            <g id="Atoms/Illustrations/art-check" transform="translate(163.000000, 3399.000000)">
+                <g>
+                    <circle id="Oval" fill="#3883F2" cx="58.5" cy="58.5" r="58.5"></circle>
+                    <g id="Atoms/Icons/icon-check" transform="translate(27.000000, 25.000000)" fill="#FFFFFF">
+                        <path d="M54.9042028,13.1820298 L59.8068098,18.0846368 C60.1973341,18.4751611 60.1973341,19.1083261 59.8068098,19.4988504 L24.9223144,54.3833458 C24.5317902,54.7738701 23.8986252,54.7738701 23.5081009,54.3833458 L6.48202983,37.3572747 C6.09150553,36.9667504 6.09150553,36.3335855 6.48202983,35.9430612 L11.3846368,31.0404542 C11.7751611,30.6499299 12.4083261,30.6499299 12.7988504,31.0404542 L24.2152077,42.4568114 L53.4899893,13.1820298 C53.8805136,12.7915055 54.5136785,12.7915055 54.9042028,13.1820298 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

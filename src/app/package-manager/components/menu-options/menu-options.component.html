@@ -1,0 +1,37 @@
+<hr>
+<div class="menu-options">
+  <form>
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="price-container">
+          <mat-form-field>
+            <mat-label>Price</mat-label>
+            <input matNativeControl="true" placeholder="Enter the price for this package">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mat-form-field">
+      <div class="col-md-12">
+        <div class="option-container" *ngFor="let option of focusMenu.menuOptions">
+          <button class="mat-raised-button option-button" *ngIf="!option.hasSubOptions">{{option.name}}</button>
+          <mat-form-field *ngIf="option.hasSubOptions" class="option-button">
+            <mat-select [placeholder]="option.name">
+              <mat-option *ngFor="let option of option.subOptions" [value]="option">{{option}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="update-container">
+          <button mat-raised-button type="submit" class="btn btn-danger">Update Menu</button>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
