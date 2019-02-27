@@ -1,15 +1,15 @@
 import {PackageItem} from './package.item.model';
 
-export class Menu {
+export class Package {
   public id: string;
   public name: string;
   public price: number;
-  public menuOptions: PackageItem[];
+  public packageItems: PackageItem[];
 
-  constructor(name: string, price: number, menuOptions: PackageItem[], id: string) {
+  constructor(id: string, name: string, price: number, packageItems: PackageItem[]) {
     this.id = id;
     this.name = name;
     this.price = price;
-    this.menuOptions = menuOptions;
+    this.packageItems = packageItems;
   }
 }

@@ -1,0 +1,37 @@
+<hr>
+<div class="menu-options">
+  <form #packageOptionsForm="ngForm">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="price-container">
+          <div class="form-group">
+            <label for="name">Price</label>
+            <input type="text" class="form-control" id="name" required [(ngModel)]="focusPackage.price" name="focusPackage.price">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="input-group option-container" *ngFor="let item of focusPackage.packageItems; let outerIndex = index">
+          <div [ngClass]="{'input-group-prepend': item.subOptions.length > 0}">
+            <button type="button" class="btn option-button"
+                    [ngClass]="{'selected': item.isSelected}"
+                    (click)="buttonToggle($event, outerIndex)"
+                    [attr.required]="item.isRequired ? 'required' : null"
+                    [attr.disabled]="item.isRequired ? 'disabled' : null">
+<!--              <img class="packageItem-icon" *ngIf="item.itemType == itemType?.EXTERIOR" src="../../../../assets/icons/icon-detail-exterior.svg">
+              <img class="packageItem-icon" *ngIf="item.itemType == itemType?.INTERIOR" src="../../../../assets/icons/icon-detail-interior.svg">-->
+              {{item.name}}
+            </button>
+          </div>
+          <select *ngIf="item.subOptions.length !== 0" class="custom-select" [(ngModel)]="item.selectedSubOption" [attr.required]="item.isRequired ? 'required' : null" name="item.selectedSubOption">
+            <option *ngFor="let option of item.subOptions" [value]="option" name="option">{{option}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<ng-template #loading>Loading User Data...</ng-template>

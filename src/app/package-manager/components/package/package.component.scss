@@ -1,7 +1,6 @@
 .menu-block {
   position: relative;
   text-align: center;
-
 }
 
 .menu-block .card {
@@ -12,6 +11,10 @@
   margin: 15px 0;
 }
 
-.menu-list li {
-  border-top: solid 1px lightgray;
+.menu-list mat-list-item {
+  height: 32px !important;
+}
+
+.item-icon {
+  padding-right: 4px;
 }

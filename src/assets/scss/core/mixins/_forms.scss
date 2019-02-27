@@ -28,7 +28,7 @@
       // form-group focus could change multiple checkboxes/radios, disable that change by using the same color as non-form-group is-focused
       color: $bmd-label-color;
 
-      // correct the above focus color for disabled items
+      // correct the above focus color for disabled packageItems
       label:has(input[type=radio][disabled]),
       // css 4 which is unlikely to work for a while, but no other pure css way.
       label:has(input[type=checkbox][disabled]),
@@ -331,7 +331,7 @@
       color: $mdb-label-color-toggle-focus;
     }
 
-    // correct the above focus color for disabled items
+    // correct the above focus color for disabled packageItems
     fieldset[disabled] & {
       color: $mdb-label-color;
     }

@@ -1,0 +1,40 @@
+.menu-options-block {
+
+}
+
+.item {
+  margin: 6px;
+}
+
+.option-container, .option-container > div, select {
+  display: inline-block;
+  width: auto !important;
+}
+
+.option-container {
+  margin: 8px;
+}
+
+.price-container {
+  margin: 15px 0;
+}
+
+.option-button {
+  background-color: white;
+  color: black;
+}
+
+.option-button.selected {
+  background-color: #26c19d;
+  color: white;
+}
+
+.packageItem-icon {
+  margin: -8px;
+  padding-right: 20px;
+}
+
+.btn {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {PackageItems, PackageItemsService} from '../../../package-items/package.items.service';
+import {PackageService} from '../../../package-items/package.service';
 
 @Component({
   selector: 'app-promo-form',
@@ -17,20 +17,19 @@ export class PromoFormComponent implements OnInit {
     @Input() percentDiscount: number;
     @Input() discountAmount: number;
 
-    packageItems: PackageItems;
     error: string;
 
-    constructor(private packageItemsService: PackageItemsService) {
-        this.showPackageItems();
+    constructor(private packageItemsService: PackageService) {
+        // this.showPackageItems();
     }
 
-    showPackageItems() {
+/*    showPackageItems() {
         this.packageItemsService.getAllPackageItems()
             .subscribe(
                 (data: PackageItems) => this.packageItems = { ...data }, // success path
                 error => this.error = error // error path
             );
-    }
+    }*/
 
     ngOnInit() {
     }

@@ -1,45 +1,40 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Menu} from './shared/menu.model';
-import {GOLD_MENU} from './shared/MENU_LIST';
-import {MenuList, PackageItemsService} from '../package-items/package.items.service';
+import {Component, OnInit} from '@angular/core';
+import {Package} from './shared/package.model';
+import {PackageService} from '../package-items/package.service';
 
 @Component({
     selector: 'app-package-manager',
     templateUrl: './package-manager.component.html',
-    styleUrls: ['./package-manager.component.scss']
+    styleUrls: ['./package-manager.component.scss'],
+    providers: [PackageService]
 })
 export class PackageManagerComponent implements OnInit {
-    menuList: MenuList;
+    packages: Package[];
     error: string;
+    focusPackage: Package;
 
-    previousMenu: string;
-    focusMenu: Menu;
-
-    constructor(private packageItemsService: PackageItemsService) {
-        this.previousMenu = null;
-        this.focusMenu = GOLD_MENU;
+    constructor(private packageService: PackageService) {
     }
 
     ngOnInit() {
-        this.showAllDefaultMenus();
+        this.showAllPackages();
     }
 
-
-    setFocusMenu(id: string) {
-        for (const menu of this.menuList.menus) {
-            if (menu.id === id) {
-                this.previousMenu = this.focusMenu.id;
-                this.focusMenu = menu;
-            }
-        }
+    setFocusPackage(_package: Package) {
+        this.focusPackage = _package;
+        console.log('PACKAGE LIST: ', this.packages);
     }
 
-    showAllDefaultMenus() {
-        const _that = this;
-        this.packageItemsService.getAllPackageDefaults()
-            .subscribe(
-                (data: MenuList) => _that.menuList = { ...data }, // success path
-                error => this.error = error // error path
+    showAllPackages() {
+        this.packageService.getAllPackages()
+            .subscribe(packages => this.packages = packages,
+                    error => this.error = error,
+                () => this.setFocusPackage(this.packages[1])
             );
+    }
+
+    updatePackages(packages) {
+        this.packageService.updatePackages(packages);
+        console.log('PACKAGE LIST: ' + packages);
     }
 }
