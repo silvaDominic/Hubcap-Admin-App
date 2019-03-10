@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
 import {PackageItem} from '../../shared/package.item.model';
-import {PackageService} from '../../../package-items/package.service';
+import {PackageService} from '../../../shared/services/package.service';
 
 @Component({
     selector: 'app-package',

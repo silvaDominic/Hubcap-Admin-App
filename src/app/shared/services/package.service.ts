@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Package} from '../package-manager/shared/package.model';
+import {Package} from '../../package-manager/shared/package.model';
 import {Observable} from 'rxjs';
 
 @Injectable({

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Package} from './shared/package.model';
-import {PackageService} from '../package-items/package.service';
+import {PackageService} from '../shared/services/package.service';
 
 @Component({
     selector: 'app-package-manager',

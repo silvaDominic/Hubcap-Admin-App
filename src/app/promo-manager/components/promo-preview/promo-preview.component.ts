@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonFunctions } from '../../../utilities/common.functions';
 
 @Component({
   selector: 'app-promo-preview',

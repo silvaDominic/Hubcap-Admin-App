@@ -3,5 +3,7 @@ __MACOSX/
 __resources
 dist
 .idea/
-e2e/d
+e2e
 *.md
+node_modules
+
