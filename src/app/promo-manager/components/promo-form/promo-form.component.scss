@@ -5,3 +5,16 @@
 .option-container {
   display: inline-block;
 }
+
+.promo-radio-group {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.promo-radio-button {
+  margin: 5px;
+}
+
+.promo-selected-value {
+  margin: 15px 0;
+}

@@ -4,75 +4,71 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        <mat-form-field>
-          <input matInput placeholder="Enter a title for this promo">
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4 offset-md-4">
-        <mat-form-field>
-          <mat-select placeholder="Frequency">
-            <mat-option>One-time</mat-option>
-            <mat-option>Reoccurring</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <mat-form-field>
-          <input matInput [matDatepicker]="startDatePicker" placeholder="Start date">
-          <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
-          <mat-datepicker #startDatePicker></mat-datepicker>
-        </mat-form-field>
-      </div>
-      <div class="col-md-6">
-        <mat-form-field>
-          <input matInput [matDatepicker]="endDatePicker" placeholder="End date">
-          <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
-          <mat-datepicker #endDatePicker></mat-datepicker>
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <mat-form-field>
-          <input matInput [matDatepicker]="startTimePicker" placeholder="Start time">
-          <mat-datepicker-toggle matSuffix [for]="startTimePicker"></mat-datepicker-toggle>
-          <mat-datepicker #startTimePicker></mat-datepicker>
-        </mat-form-field>
-      </div>
-      <div class="col-md-6">
-        <mat-form-field>
-          <input matInput [matDatepicker]="endTimePicker" placeholder="End time">
-          <mat-datepicker-toggle matSuffix [for]="endTimePicker"></mat-datepicker-toggle>
-          <mat-datepicker #endTimePicker></mat-datepicker>
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4 offset-md-4">
-        <mat-form-field>
-          <mat-select placeholder="Discount Type">
-            <mat-option>Dollar</mat-option>
-            <mat-option>Percent</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="option-container" *ngFor="let item of packageItems?.items">
-          <button class="mat-raised-button option-button" *ngIf="!item.hasSubOptions">{{item.name}}</button>
-          <mat-form-field *ngIf="item.hasSubOptions" class="option-button">
-            <mat-select [placeholder]="item.name">
-              <mat-option *ngFor="let subOption of item.subOptions" [value]="subOption">{{subOption}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-    </div>
+        <mat-horizontal-stepper linear>
+          <!--Step 1-->
+          <mat-step label="Name">
+            <form [formGroup]="nameFormGroup">
+              <div class="form-group">
+                <input matInput placeholder="What is the name/title of this promo?" class="form-control" type="text" formControlName="nameCtrl" required>
+              </div>
+              <button mat-button matStepperNext>Next</button>
+            </form>
+          </mat-step>
+          <!--Step 2-->
+          <mat-step label="Frequency">
+            <form [formGroup]="frequencyFormGroup">
+              <div class="form-group">
+                <mat-radio-group class="promo-radio-group">
+                  <mat-radio-button class="promo-radio-button">One-Time</mat-radio-button>
+                  <mat-radio-button class="promo-radio-button">Reoccurring</mat-radio-button>
+                  <mat-radio-button class="promo-radio-button">Indefinite</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <button mat-button matStepperPrevious="">Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </form>
+          </mat-step>
+          <!--Step 3-->
+          <mat-step label="Date">
+            <form [formGroup]="dateFormGroup">
+              <p>This is the DATES when the promotion will be available</p>
+              <div class="form-group">
+                <input matInput [matDatepicker]="datePickerFrom" placeholder="Choose a start date" formControlName="datePickerFrom" required>
+                <mat-datepicker-toggle matSuffix [for]="datePickerFrom"></mat-datepicker-toggle>
+                <mat-datepicker #datePickerFrom startView="year" [startAt]="startDate" ></mat-datepicker>
+              </div>
 
+              <div class="form-group">
+                <input matInput [matDatepicker]="datePickerTo" placeholder="Choose an end date" formControlName="datePickerTo" required>
+                <mat-datepicker-toggle matSuffix [for]="datePickerTo"></mat-datepicker-toggle>
+                <mat-datepicker #datePickerTo startView="year" [startAt]="startDate" ></mat-datepicker>
+              </div>
+
+              <button mat-button matStepperPrevious="">Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </form>
+          </mat-step>
+
+          <mat-step label="Time">
+            <form [formGroup]="timeFormGroup">
+              <p>Choose the TIMES when this promotion will be available</p>
+
+              <div class="form-group">
+                <input id="startTime" type="time" atp-time-picker value="12:00">
+                <label for="startTime">Choose a start time</label>
+              </div>
+
+              <div class="form-group">
+                <input id="endTime" type="time" atp-time-picker value="12:00">
+                <label for="endTime">Choose an end time</label>
+              </div>
+
+              <button mat-button matStepperPrevious="">Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </form>
+          </mat-step>
+        </mat-horizontal-stepper>
+      </div>
+    </div>
   </div>
 </div>

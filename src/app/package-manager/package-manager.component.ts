@@ -22,7 +22,6 @@ export class PackageManagerComponent implements OnInit {
 
     setFocusPackage(_package: Package) {
         this.focusPackage = _package;
-        console.log('PACKAGE LIST: ', this.packages);
     }
 
     showAllPackages() {
@@ -33,8 +32,10 @@ export class PackageManagerComponent implements OnInit {
             );
     }
 
-    updatePackages(packages) {
-        this.packageService.updatePackages(packages);
-        console.log('PACKAGE LIST: ' + packages);
+    updatePackages(updatedPackages: Package[]) {
+        this.packageService.updatePackages(updatedPackages)
+            .subscribe(packages => this.packages = packages,
+                error => this.error = <any>error,
+                () => console.log('PACKAGE LIST: ', this.packages));
     }
 }

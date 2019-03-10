@@ -1,6 +1,6 @@
 <hr>
 <div class="menu-options">
-  <form #packageOptionsForm="ngForm">
+  <form #packageOptionsForm="ngForm" name="packageOptonsForm" autocomplete="off">
     <div class="row">
       <div class="col-md-6 offset-md-3">
         <div class="price-container">
@@ -27,7 +27,7 @@
             </button>
           </div>
           <select *ngIf="item.subOptions.length !== 0" class="custom-select" [(ngModel)]="item.selectedSubOption" [attr.required]="item.isRequired ? 'required' : null" name="item.selectedSubOption">
-            <option *ngFor="let option of item.subOptions" [value]="option" name="option">{{option}}</option>
+            <option *ngFor="let option of item.subOptions;" [value]="item.selectedSubOption === option ? option : null" name="item.selectedSubOption" [attr.selected]="item.selectedSubOption === option ? 'selected' : null">{{option}}</option>
           </select>
         </div>
       </div>

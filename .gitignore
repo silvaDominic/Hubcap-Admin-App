@@ -1,5 +1,6 @@
 #Ignore folders
-_MACOSX/
+__MACOSX/
+__resources
 .idea/
 e2e/
 *.md

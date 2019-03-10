@@ -24,6 +24,6 @@ export class PackageService {
     }
 
     updatePackages(_packages: Package[]): Observable<Package[]> {
-        return this.http.post<Package[]>(this.packagesUrl, _packages, this.httpOptions);
+        return this.http.put<Package[]>(this.packagesUrl, _packages);
     }
 }

@@ -20,9 +20,11 @@
     "@agm/core": "1.0.0-beta.5",
     "@angular/animations": "7.0.2",
     "@angular/cdk": "7.0.2",
+    "@angular/cli": "7.3.5",
     "@angular/common": "7.0.2",
     "@angular/compiler": "7.0.2",
     "@angular/core": "7.0.2",
+    "@angular/flex-layout": ">=7.0.0-beta.23",
     "@angular/forms": "7.0.2",
     "@angular/http": "7.0.2",
     "@angular/material": "7.0.2",
@@ -31,7 +33,7 @@
     "@angular/platform-server": "7.0.2",
     "@angular/router": "7.0.2",
     "ajv": "6.4.0",
-    "angular-cli": "^1.0.0-beta.28.3",
+    "amazing-time-picker": "^1.8.0",
     "arrive": "2.4.1",
     "bootstrap": "4.1.0",
     "bootstrap-material-design": "4.1.1",
@@ -48,6 +50,7 @@
     "popper.js": "1.14.3",
     "rxjs": "6.3.3",
     "rxjs-compat": "6.3.3",
+    "symbol-observable": "^1.2.0",
     "web-animations-js": "2.3.1",
     "zone.js": "0.8.26"
   },
@@ -73,6 +76,7 @@
     "protractor": "5.3.1",
     "ts-node": "5.0.1",
     "tslint": "5.9.1",
-    "typescript": "3.1.6"
+    "typescript": "3.1.6",
+    "webpack": "^4.29.6"
   }
 }

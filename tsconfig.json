@@ -1,8 +1,11 @@
 {
   "compileOnSave": false,
+  "include": [
+    "./src"
+  ],
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
-    "baseUrl": "src",
+    "baseUrl": "./src",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",

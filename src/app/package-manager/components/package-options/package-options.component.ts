@@ -11,12 +11,14 @@ export class PackageOptionsComponent implements OnInit {
   @Input() focusPackage: Package;
   toggleStyle: boolean;
   itemType = ITEM_TYPE;
+  selectedOption: string;
 
   constructor() {
     this.toggleStyle = false;
   }
 
   ngOnInit() {
+    this.selectedOption = '';
   }
 
     buttonToggle(event, index) {
