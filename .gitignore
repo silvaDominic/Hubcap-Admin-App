@@ -1,9 +1,8 @@
 #Ignore folders
 __MACOSX/
-__resources
-dist
+__resources/
+dist/
 .idea/
-e2e
-*.md
-node_modules
+e2e/
+node_modules/
 
