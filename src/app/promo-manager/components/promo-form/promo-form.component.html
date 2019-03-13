@@ -2,72 +2,145 @@
 
 <div class="promo-form-block">
   <div class="container-fluid">
-    <div class="row">
+
+    <button mat-raised-button (click)="toggleForm()">+</button>
+
+    <div class="row" *ngIf="show">
       <div class="col-md-12">
-        <mat-horizontal-stepper linear>
-          <!--Step 1-->
-          <mat-step label="Name">
+        <mat-vertical-stepper linear="false">
+
+          <mat-step [stepControl]="nameFormGroup" label="Name">
             <form [formGroup]="nameFormGroup">
-              <div class="form-group">
-                <input matInput placeholder="What is the name/title of this promo?" class="form-control" type="text" formControlName="nameCtrl" required>
-              </div>
+              <p>What is the name/title of this promo?</p>
+
+              <mat-form-field>
+                <input matInput placeholder="Ex: Early Bird Special" type="text" formControlName="nameCtrl" required>
+              </mat-form-field>
               <button mat-button matStepperNext>Next</button>
             </form>
           </mat-step>
-          <!--Step 2-->
-          <mat-step label="Frequency">
+
+          <mat-step [stepControl]="descriptionFormGroup" label="Description" optional="true">
+            <form [formGroup]="descriptionFormGroup">
+              <p>Briefly describe the promotion</p>
+
+              <mat-form-field>
+                <textarea matInput placeholder="Ex: Get a 10% discount when coming in between 8:00AM and 10:00AM" formControlName="descriptionCtrl"></textarea>
+              </mat-form-field>
+              <button mat-button matStepperNext>Next</button>
+            </form>
+          </mat-step>
+
+          <mat-step [stepControl]="frequencyFormGroup" label="Frequency">
             <form [formGroup]="frequencyFormGroup">
-              <div class="form-group">
-                <mat-radio-group class="promo-radio-group">
-                  <mat-radio-button class="promo-radio-button">One-Time</mat-radio-button>
-                  <mat-radio-button class="promo-radio-button">Reoccurring</mat-radio-button>
-                  <mat-radio-button class="promo-radio-button">Indefinite</mat-radio-button>
-                </mat-radio-group>
-              </div>
-              <button mat-button matStepperPrevious="">Back</button>
-              <button mat-button matStepperNext>Next</button>
-            </form>
-          </mat-step>
-          <!--Step 3-->
-          <mat-step label="Date">
-            <form [formGroup]="dateFormGroup">
-              <p>This is the DATES when the promotion will be available</p>
-              <div class="form-group">
-                <input matInput [matDatepicker]="datePickerFrom" placeholder="Choose a start date" formControlName="datePickerFrom" required>
-                <mat-datepicker-toggle matSuffix [for]="datePickerFrom"></mat-datepicker-toggle>
-                <mat-datepicker #datePickerFrom startView="year" [startAt]="startDate" ></mat-datepicker>
-              </div>
+              <p>How often will this promotion occur?</p>
 
-              <div class="form-group">
-                <input matInput [matDatepicker]="datePickerTo" placeholder="Choose an end date" formControlName="datePickerTo" required>
-                <mat-datepicker-toggle matSuffix [for]="datePickerTo"></mat-datepicker-toggle>
-                <mat-datepicker #datePickerTo startView="year" [startAt]="startDate" ></mat-datepicker>
-              </div>
+              <mat-radio-group class="promo-radio-group" formControlName="freqCtrl">
+                <mat-radio-button value="1" class="promo-radio-button">One-Time</mat-radio-button>
+                <mat-radio-button value="2" class="promo-radio-button">Reoccurring</mat-radio-button>
+                <mat-radio-button value="3" class="promo-radio-button">Indefinite</mat-radio-button>
+              </mat-radio-group>
 
-              <button mat-button matStepperPrevious="">Back</button>
-              <button mat-button matStepperNext>Next</button>
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+              </div>
             </form>
           </mat-step>
 
-          <mat-step label="Time">
-            <form [formGroup]="timeFormGroup">
-              <p>Choose the TIMES when this promotion will be available</p>
+          <mat-step [stepControl]="lifespanFormGroup" label="Lifespan">
+            <form [formGroup]="lifespanFormGroup">
+              <p>Between what dates will this promotion be available?</p>
+              <mat-form-field>
+                <input matInput [matDatepicker]="startDate" placeholder="Choose a START date" formControlName="startDate" required>
+                <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                <mat-datepicker #startDate startView="year" [startAt]="startDate" ></mat-datepicker>
+              </mat-form-field>
 
-              <div class="form-group">
-                <input id="startTime" type="time" atp-time-picker value="12:00">
-                <label for="startTime">Choose a start time</label>
-              </div>
+              <mat-form-field>
+                <input matInput [matDatepicker]="endDate" placeholder="Choose an END date" formControlName="endDate" required>
+                <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                <mat-datepicker #endDate startView="year" [startAt]="startDate" ></mat-datepicker>
+              </mat-form-field>
 
-              <div class="form-group">
-                <input id="endTime" type="time" atp-time-picker value="12:00">
-                <label for="endTime">Choose an end time</label>
-              </div>
-
-              <button mat-button matStepperPrevious="">Back</button>
+              <button mat-button matStepperPrevious>Back</button>
               <button mat-button matStepperNext>Next</button>
             </form>
           </mat-step>
-        </mat-horizontal-stepper>
+
+          <mat-step [stepControl]="discountFormGroup" label="Discount">
+            <form [formGroup]="discountFormGroup">
+              <p>What kind of discount will the consumer receive?</p>
+
+              <div class="input-group">
+                <select class="custom-select" name="discountSelect" id="discountSelect" formControlName="discountTypeCtrl">
+                  <option>Dollar Amount</option>
+                  <option>Percent Amount</option>
+                  <option>Free Feature</option>
+                </select>
+              </div>
+
+              <mat-form-field>
+                <input matInput type="text" placeholder="Enter discount amount" formControlName="discountAmtCtrl" required>
+              </mat-form-field>
+
+              <div class="input-group">
+                <select class="custom-select" name="discountFeatureSelect" id="discountFeatureSelect" formControlName="discountFeatureCtrl">
+                  <option *ngFor="let packageItem of packageItems">{{packageItem.name}}</option>
+                </select>
+              </div>
+
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </form>
+          </mat-step>
+
+          <mat-step [stepControl]="packageFormGroup" label="Package">
+            <form [formGroup]="packageFormGroup">
+              <p>What packages will the discount be for?</p>
+
+              <div>
+                <mat-checkbox class="promo-checkbox" formControlName="silverPackageCtrl">Silver</mat-checkbox>
+                <mat-checkbox class="promo-checkbox" formControlName="goldPackageCtrl">Gold</mat-checkbox>
+                <mat-checkbox class="promo-checkbox" formControlName="platinumPackageCtrl">Platinum</mat-checkbox>
+              </div>
+
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </form>
+          </mat-step>
+
+          <mat-step [stepControl]="activeTimeFormGroup" label="Promotion Time">
+            <form [formGroup]="activeTimeFormGroup">
+              <p>What hours will this promotion be active</p>
+
+                <mat-form-field>
+                  <input matInput id="startTime" type="time" atp-time-picker value="12:00" formControlName="startTime">
+                  <label for="startTime">Choose a start time</label>
+                </mat-form-field>
+
+                <mat-form-field>
+                  <input matInput id="endTime" type="time" atp-time-picker value="12:00" formControlName="endTime">
+                  <label for="endTime">Choose an end time</label>
+                </mat-form-field>
+
+                <div>
+                  <mat-checkbox class="promo-checkbox">All day</mat-checkbox>
+                </div>
+
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </form>
+          </mat-step>
+
+          <mat-step label="Create Promotion">
+            <p>All done! Click <strong>"Create Promo"</strong> to make package live!</p>
+
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button >Reset</button>
+            <button mat-button color="primary" type="button" (click)="printAllForms()"><strong>Create Promo</strong></button>
+          </mat-step>
+        </mat-vertical-stepper>
       </div>
     </div>
   </div>

@@ -1,4 +1,4 @@
-import {ITEM_TYPE} from './item.type.model';
+import {ITEM_TYPE} from './ITEM_TYPE.model';
 
 export class PackageItem {
     public name: string;

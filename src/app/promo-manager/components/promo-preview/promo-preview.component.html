@@ -4,28 +4,27 @@
       <div class="col-md-12">
         <div class="promo">
           <div class="promo-header">
-            <div class="promo-title"><span>Mid Day Power Wash</span></div>
-            <div class="promo-time"><span>11:00 AM - 1:00PM</span></div>
-            <div class="promo-date"><span>Mon-Fri</span></div>
+            <div class="promo-title"><span>{{focusPromotion.name}}</span></div>
+            <div class="promo-time"><span>{{focusPromotion.startTime}} -- {{focusPromotion.endTime}}</span></div>
+            <div class="promo-date"><span>{{focusPromotion.startDate}} -- {{focusPromotion.endDate}}</span></div>
           </div>
           <div class="promo-body">
-            <div class="promo-price"><span>$9.00</span></div>
+            <div class="promo-price" *ngIf="focusPromotion.discount.discountType != discountType.FREE"><span>{{focusPromotion.discount.discountAmount}}</span></div>
+            <div class="promo-price" *ngIf="focusPromotion.discount.discountType === discountType.FREE"><span>Receive free {{focusPromotion.discount.freeFeature}}</span></div>
             <div class="promo-store-name"><span>Union Sq. Wash</span></div>
             <div class="promo-address"><span>12 West 12th Street, 10029</span></div>
             <div class="promo-breakdown">
-                <mat-list>
-                    <mat-list-item>Dummy</mat-list-item>
-                </mat-list>
+              <p></p>
+              <p>{{focusPromotion.description}}</p>
             </div>
             <div class="terms-conditions">
               <p>Promotions will be charged upon service. Should the promotion be changed byu the service provider
                 prior to service or checkout, the item weill be removed from the...</p>
             </div>
-
-
           </div>
         </div>
       </div>
     </div>
   </div>
+
 </div>

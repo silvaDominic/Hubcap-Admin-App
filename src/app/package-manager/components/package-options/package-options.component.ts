@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Package} from '../../shared/package.model';
-import {ITEM_TYPE} from '../../shared/item.type.model';
+import {ITEM_TYPE} from '../../shared/ITEM_TYPE.model';
 
 @Component({
   selector: 'app-package-options',
