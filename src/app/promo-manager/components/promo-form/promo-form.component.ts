@@ -13,12 +13,14 @@ import {PackageItem} from '../../../package-manager/shared/package.item.model';
   styleUrls: ['./promo-form.component.scss']
 })
 export class PromoFormComponent implements OnInit {
-    @Input() title: string;
+/*    @Input() title: string;
     @Input() frequency: string;
     @Input() lifespan: Date;
     @Input() isStandardDiscount: boolean;
     @Input() percentDiscount: number;
-    @Input() discountAmount: number;
+    @Input() discountAmount: number;*/
+
+    @Input() focusPromotion: Promotion;
 
     nameFormGroup: FormGroup;
     descriptionFormGroup: FormGroup;

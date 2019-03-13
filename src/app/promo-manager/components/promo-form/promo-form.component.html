@@ -1,13 +1,16 @@
 <hr>
-
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Create New Promotion
+      </mat-panel-title>
+    </mat-expansion-panel-header>
 <div class="promo-form-block">
   <div class="container-fluid">
-
-    <button mat-raised-button (click)="toggleForm()">+</button>
-
-    <div class="row" *ngIf="show">
+    <div class="row">
       <div class="col-md-12">
-        <mat-vertical-stepper linear="false">
+        <mat-vertical-stepper id="promo-form-stepper" linear="false">
 
           <mat-step [stepControl]="nameFormGroup" label="Name">
             <form [formGroup]="nameFormGroup">
@@ -145,3 +148,5 @@
     </div>
   </div>
 </div>
+          </mat-expansion-panel>
+</mat-accordion>

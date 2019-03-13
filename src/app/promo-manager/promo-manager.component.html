@@ -1,19 +1,18 @@
 <div class="promo-manager-block main-content">
   <div class="container">
-    <div class="row">
+    <div id="top-row" class="row">
       <div class="col-md-7">
         <app-promo-preview [focusPromotion]="focusPromotion"></app-promo-preview>
       </div>
       <div class="col-md-5">
-        <app-promo-history></app-promo-history>
+        <app-promo-history [historyPromotions]="promotions" ></app-promo-history>
       </div>
     </div>
 
-    <div class="row">
+    <div id="bottom-row" class="row">
       <div class="col-md-12">
-        <app-promo-form></app-promo-form>
+        <app-promo-form [focusPromotion]="focusPromotion"></app-promo-form>
       </div>
     </div>
   </div>
-
 </div>

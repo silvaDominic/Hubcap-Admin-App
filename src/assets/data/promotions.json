@@ -20,7 +20,8 @@
     ],
     "startTime": "8:00",
     "endTime": "10:00",
-    "isAllDay": false
+    "isAllDay": false,
+    "isActive": true
   },
   {
     "id": "002",
@@ -41,6 +42,31 @@
     ],
     "startTime": "18:00",
     "endTime": "20:00",
-    "isAllDay": false
+    "isAllDay": false,
+    "isActive": true
+  },
+  {
+    "id": "003",
+    "name": "Ladies Day",
+    "description": "Ladies get a dollar off",
+    "frequency": "REOCCURRING",
+    "startDate": "2018-01-01",
+    "endDate": "2018-12-31",
+    "discountPackage": [
+      "SILVER",
+      "GOLD",
+      "PLATINUM"
+    ],
+    "discount": [
+      {
+        "discountType": "DOLLAR",
+        "discountAmount": "1",
+        "freeFeature": ""
+      }
+    ],
+    "startTime": "8:00",
+    "endTime": "17:00",
+    "isAllDay": true,
+    "isActive": false
   }
 ]

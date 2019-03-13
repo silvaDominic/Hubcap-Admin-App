@@ -14,13 +14,14 @@ export class Promotion {
     public startTime: string;
     public endTime: string;
     public isAllDay: boolean;
+    public isActive: boolean;
 
     constructor(id: string, name: string,
                 description: string, frequency: FREQUENCY,
                 startDate: string, endDate: string,
                 discountPackage: PACKAGE, discount: Discount,
                 startTime: string, endTime: string,
-                isAllDay: boolean) {
+                isAllDay: boolean, isActive: boolean) {
         this.name = name;
         this.description = description;
         this.frequency = frequency;
@@ -31,6 +32,7 @@ export class Promotion {
         this.startTime = startTime;
         this.endTime = endTime;
         this.isAllDay = isAllDay;
+        this.isActive = isActive;
     }
 }
 

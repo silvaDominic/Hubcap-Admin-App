@@ -15,7 +15,8 @@ import {
     MatTooltipModule,
     MatSelectModule, MatCheckboxModule, MatListModule, MatNativeDateModule,
     MatSnackBarModule,
-    MatRadioModule
+    MatRadioModule,
+    MatExpansionModule
 } from '@angular/material';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {AmazingTimePickerModule} from 'amazing-time-picker';
@@ -52,6 +53,7 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatCardModule,
     MatRadioModule,
     MatSnackBarModule,
+    MatExpansionModule,
     AmazingTimePickerModule
   ],
   declarations: [
