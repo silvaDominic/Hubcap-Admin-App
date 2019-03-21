@@ -1,3 +1,27 @@
 .promo {
-  height: 600px !important;
+  height: 550px !important;
+}
+
+.package-badge {
+  text-align: center;
+  opacity: 0.3;
+
+  img {
+    margin: 6px;
+    width: 65px;
+  }
+}
+
+.frequency-badge {
+  margin-right: 10px;
+  margin-top: 10px;
+  text-align: right;
+}
+
+.frequency-badge img {
+  width: 60px;
+}
+
+.selected {
+  opacity: 1.0;
 }

@@ -11,15 +11,23 @@
         <div class="promo-body">
           <mat-tab-group>
             <mat-tab label="Active">
-              <h6>These promotions are currently LIVE</h6>
-              <div class="list-group">
-                <button *ngFor="let promo of getActivePromos()" type="button" class="list-group-item list-group-item-action">{{promo.name}}</button>
+              <div class="note"><h6>These promotions are currently ACTIVE</h6></div>
+              <div class="list-group-item list-group-item-action" *ngFor="let promo of activePromos;" (click)="callChangePreview(promo)">
+                  <span>{{promo.name}}</span>
+                  <div class="button-group">
+                    <button type="button" class="btn note-btn btn-edit" (click)="callFillForm(promo)">Edit</button>
+                    <button type="button" class="btn note-btn btn-danger" (click)="markInactive(promo)">Deactivate</button>
+                  </div>
               </div>
             </mat-tab>
             <mat-tab label="Inactive">
-              <h6>These promotions have ended</h6>
-              <div class="list-group">
-                <button *ngFor="let promo of getInActivePromos()" type="button" class="list-group-item list-group-item-action">{{promo.name}}</button>
+              <div class="note"><h6>These promotions are currently NOT ACTIVE</h6></div>
+              <div class="list-group-item list-group-item-action" *ngFor="let promo of inActivePromos; trackBy: trackByFn" (click)="callChangePreview(promo)">
+                <span>{{promo.name}}</span>
+                <div class="button-group">
+                  <button type="button" class="btn note-btn btn-edit" (click)="callFillForm(promo)">Edit</button>
+                  <button type="button" class="btn note-btn btn-success" (click)="markActive(promo)">Activate</button>
+                </div>
               </div>
             </mat-tab>
           </mat-tab-group>

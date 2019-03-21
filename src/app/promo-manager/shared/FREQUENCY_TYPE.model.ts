@@ -1,0 +1,4 @@
+export enum FREQUENCY_TYPE {
+    ONE_TIME = 'ONE_TIME',
+    REOCCURRING = 'REOCCURRING'
+}

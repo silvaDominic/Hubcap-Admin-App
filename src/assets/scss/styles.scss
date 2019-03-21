@@ -1,0 +1,134 @@
+// Use this for global SCSS styling
+:root {
+  --cloud: #f7f8f9;
+  --dust: #ced4d6;
+  --smoke: #8c989e;
+  --tire: #203641;
+
+  --hc-blue: #3883f2;
+  --go: #26c19d;
+  --hc-yellow: #fccf47;
+  --stop: #f74f9e;
+
+  --hc-primary: #3883f2;
+  --hc-secondary: #2cb9d9;
+
+  --promo-orange: #ff8d17;
+  --promo-yellow: #ffdf80;
+}
+
+/* rubik-regular - latin */
+@font-face {
+  font-family: 'Rubik';
+  src: url("../fonts/rubik/Rubik-Regular.ttf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Rubik-Black';
+  src: url("../fonts/rubik/Rubik-Black.ttf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Rubik-Bold';
+  src: url("../fonts/rubik/Rubik-Bold.ttf");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Rubik-BoldItalic';
+  src: url("../fonts/rubik/Rubik-BoldItalic.ttf");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Rubik-Italic';
+  src: url("../fonts/rubik/Rubik-Italic.ttf");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Rubik-Light';
+  src: url("../fonts/rubik/Rubik-Light.ttf");
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: 'Rubik-LightItalic';
+  src: url("../fonts/rubik/Rubik-LightItalic.ttf");
+  font-weight: 100;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Rubik-Medium';
+  src: url("../fonts/rubik/Rubik-Medium.ttf");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'Rubik-MediumItalic';
+  src: url("../fonts/rubik/Rubik-MediumItalic.ttf");
+  font-weight: 300;
+  font-style: italic;
+}
+
+body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4 {
+  font-family: 'Rubik' !important;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.promo {
+  position: relative;
+  background-color: white;
+  border-radius: 20px;
+}
+
+.promo-header, .promo-body {
+  width: 100%;
+  padding: 10px;
+}
+
+.promo-header {
+  background-image: url("assets/icons/iconA-promo.svg");
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  background-color: var(--promo-yellow);
+
+  .header-content {
+    margin-left: 15px;
+  }
+}
+
+.header-content {
+  display: inline-block;
+}
+
+.promo-title {
+  margin-top: 10px;
+  font-family: 'Rubik-Bold';
+  font-size: 22px;
+}
+
+.promo-body {
+  padding: 0 25px;
+  margin-top: 10px;
+}
+
+.promo-price, .promo-store-name {
+  font-family: 'Rubik-Bold';
+}
+
+.promo-price {
+  color: var(--go);
+  margin: 10px 0;
+  font-size: 22px;
+}
+
+.full-width {
+  width: 100%;
+}

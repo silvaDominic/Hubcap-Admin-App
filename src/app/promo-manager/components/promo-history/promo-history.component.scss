@@ -1,9 +1,47 @@
 .promo {
-  height: 600px !important;
-  max-height: 600px;
+  height: 550px !important;
 }
 
 .promo-header {
   background-image: none !important;
   background-color: white !important;
 }
+
+.promo-body {
+  margin-left: 0;
+
+  .note {
+    margin: 12px 0;
+  }
+}
+
+.list-group-item:hover {
+  cursor: pointer;
+
+  .button-group {
+    display: inline-block;
+  }
+}
+
+.button-group button {
+  margin: 0 5px;
+  padding: 10px 12px;
+}
+
+.button-group {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 15px;
+  margin-right: 0;
+  display: none;
+}
+
+.promo-body .mat-tab-label {
+  width: 50% !important;
+}
+
+/*mat-ink-bar .mat-tab-group.mat-primary .mat-ink-bar {
+  background-color: var(--go) !important;
+}*/

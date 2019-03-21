@@ -10,23 +10,19 @@ import {PromotionService} from '../shared/services/promotion.service';
 export class PromoManagerComponent implements OnInit {
   promotions: Promotion[];
   error: string;
-  public focusPromotion: Promotion;
 
-  constructor(private promotionService: PromotionService) {}
+  constructor(private promotionService: PromotionService) {
+  }
 
   ngOnInit() {
     this.showAllPromotions();
-  }
-
-  setFocusPromotion(_promotion: Promotion) {
-    this.focusPromotion = _promotion;
   }
 
   showAllPromotions() {
     this.promotionService.getAllPromotions()
         .subscribe(promotions => this.promotions = promotions,
             error => this.error = error,
-            () => this.setFocusPromotion(this.promotions[0])
+            () => this.promotionService.focusPromotion = this.promotions[0]
         );
   }
 

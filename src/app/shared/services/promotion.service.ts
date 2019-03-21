@@ -7,11 +7,29 @@ import {Promotion} from '../../promo-manager/shared/promotion.model';
     providedIn: 'root'
 })
 export class PromotionService {
-    promotionsUrl = 'http://localhost:4200/assets/data/promotions.json';
+    private _focusPromotion: Promotion;
+    private promotionsUrl = 'http://localhost:4200/assets/data/promotions.json';
 
     constructor(private http: HttpClient) {}
 
     getAllPromotions(): Observable<Promotion[]> {
         return this.http.get<Promotion[]>(this.promotionsUrl);
+    }
+
+    updatePromotions(_promotions: Promotion[]): Observable<Promotion[]> {
+        return this.http.put<Promotion[]>(this.promotionsUrl, _promotions);
+    }
+
+    updatePromotion(_promotion: Promotion): Observable<Promotion> {
+        return this.http.put<Promotion>(this.promotionsUrl, _promotion);
+    }
+
+    get focusPromotion(): Promotion {
+        return this._focusPromotion;
+    }
+
+    set focusPromotion(value: Promotion) {
+        this._focusPromotion = value;
+        console.log('FOCUS PACKAGE: ', this._focusPromotion);
     }
 }

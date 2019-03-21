@@ -3,21 +3,21 @@
     "id": "001",
     "name": "Early Bird Special",
     "description": "Get a 10% discount when coming in between 8:00AM and 10:00AM",
-    "frequency": "ONE_TIME",
+    "frequencyType": "ONE_TIME",
+    "frequency": null,
     "startDate": "2019-03-15",
     "endDate": "2019-04-15",
-    "discountPackage": [
-      "SILVER",
-      "GOLD",
-      "PLATINUM"
+    "discountPackages": [
+      true,
+      true,
+      true
     ],
-    "discount": [
+    "discount":
       {
         "discountType": "PERCENT",
         "discountAmount": "10",
         "freeFeature": ""
-      }
-    ],
+      },
     "startTime": "8:00",
     "endTime": "10:00",
     "isAllDay": false,
@@ -27,19 +27,21 @@
     "id": "002",
     "name": "Late Night Special",
     "description": "Get a 5% discount when coming in between 6:00PM and 8:00PM",
-    "frequency": "ONE_TIME",
+    "frequencyType": "REOCCURRING",
+    "frequency": "WEEKLY",
     "startDate": "2019-07-15",
     "endDate": "2019-08-31",
-    "discountPackage": [
-      "SILVER"
+    "discountPackages": [
+      false,
+      true,
+      false
     ],
-    "discount": [
+    "discount":
       {
-        "discountType": "PERCENT",
-        "discountAmount": "5",
-        "freeFeature": ""
-      }
-    ],
+        "discountType": "FREE",
+        "discountAmount": "",
+        "freeFeature": "Window Clean"
+      },
     "startTime": "18:00",
     "endTime": "20:00",
     "isAllDay": false,
@@ -49,21 +51,21 @@
     "id": "003",
     "name": "Ladies Day",
     "description": "Ladies get a dollar off",
-    "frequency": "REOCCURRING",
+    "frequencyType": "REOCCURRING",
+    "frequency": "DAILY",
     "startDate": "2018-01-01",
     "endDate": "2018-12-31",
-    "discountPackage": [
-      "SILVER",
-      "GOLD",
-      "PLATINUM"
+    "discountPackages": [
+      false,
+      true,
+      true
     ],
-    "discount": [
+    "discount":
       {
         "discountType": "DOLLAR",
         "discountAmount": "1",
         "freeFeature": ""
-      }
-    ],
+      },
     "startTime": "8:00",
     "endTime": "17:00",
     "isAllDay": true,
