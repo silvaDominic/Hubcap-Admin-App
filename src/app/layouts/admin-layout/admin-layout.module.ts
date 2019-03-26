@@ -16,7 +16,8 @@ import {
     MatSelectModule, MatCheckboxModule, MatListModule, MatNativeDateModule,
     MatSnackBarModule,
     MatRadioModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatChipsModule,
 } from '@angular/material';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {AmazingTimePickerModule} from 'amazing-time-picker';
@@ -28,6 +29,8 @@ import {PromoManagerComponent} from '../../promo-manager/promo-manager.component
 import {PromoFormComponent} from '../../promo-manager/components/promo-form/promo-form.component';
 import {PromoPreviewComponent} from '../../promo-manager/components/promo-preview/promo-preview.component';
 import {PromoHistoryComponent} from '../../promo-manager/components/promo-history/promo-history.component';
+import {UsersComponent} from '../../users/users.component';
+import {StoreComponent} from '../../store/store.component';
 import {MatIconModule} from '@angular/material';
 import {MatStepperModule} from '@angular/material/stepper';
 
@@ -53,6 +56,7 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatCardModule,
     MatRadioModule,
     MatSnackBarModule,
+    MatChipsModule,
     MatExpansionModule,
     AmazingTimePickerModule
   ],
@@ -65,7 +69,9 @@ import {MatStepperModule} from '@angular/material/stepper';
     PromoFormComponent,
     PromoPreviewComponent,
     PromoHistoryComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    UsersComponent,
+    StoreComponent
   ]
 })
 

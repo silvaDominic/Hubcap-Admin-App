@@ -8,6 +8,7 @@ import {PackageItem} from '../../../package-manager/shared/package.item.model';
 import {PromotionService} from '../../../shared/services/promotion.service';
 import {FREQUENCY_TYPE} from '../../shared/FREQUENCY_TYPE.model';
 import {FREQUENCY} from '../../shared/FREQUENCY.model';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-promo-form',
@@ -15,32 +16,41 @@ import {FREQUENCY} from '../../shared/FREQUENCY.model';
   styleUrls: ['./promo-form.component.scss']
 })
 export class PromoFormComponent implements OnInit {
+    // Dynamic promotion
     @Input() focusPromotion: Promotion;
+    @Input() promotions: Promotion[];
 
+    // Form Builder Groups
     nameFormGroup: FormGroup;
     descriptionFormGroup: FormGroup;
     frequencyFormGroup: FormGroup;
-    lifespanFormGroup: FormGroup;
     discountFormGroup: FormGroup;
     packageFormGroup: FormGroup;
     activeTimeFormGroup: FormGroup;
 
+    // Enums
     discountType = DISCOUNT_TYPE;
     frequencyType = FREQUENCY_TYPE;
-    frequency = FREQUENCY;
 
+    // Package list for "Free Feature" input
     packageItems: PackageItem[];
 
+    // For initialization
     currentDate: Date;
     startDate: Date;
 
+    isNew: boolean;
+    isEdit: boolean;
     error: string;
 
-    constructor(private fb: FormBuilder, private atpService: AmazingTimePickerService,
+    constructor(private fb: FormBuilder, private atpService: AmazingTimePickerService, private snackBar: MatSnackBar,
                 private packageService: PackageService, private promotionService: PromotionService) {
+
         this.currentDate = new Date();
         this.startDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDay());
 
+        this.isEdit = false;
+        this.isNew = false;
         this.nameFormGroup = this.fb.group({
             nameCtrl: ['', Validators.required]
         });
@@ -75,17 +85,8 @@ export class PromoFormComponent implements OnInit {
         });
     }
 
-    public printAllForms() {
-/*        console.log(this.nameFormGroup.value);
-        console.log(this.descriptionFormGroup.value);
-        console.log(this.frequencyFormGroup.value);
-        console.log(this.discountFormGroup.value);
-        console.log(this.packageFormGroup.value);
-        console.log(this.activeTimeFormGroup.value);*/
-
-        console.log(this.focusPromotion.discountPackages[0]);
-        console.log(this.focusPromotion.discountPackages[1]);
-        console.log(this.focusPromotion.discountPackages[2]);
+    ngOnInit() {
+        this.showAllPackageItems();
     }
 
     showAllPackageItems() {
@@ -96,8 +97,6 @@ export class PromoFormComponent implements OnInit {
     }
 
     fillForm(promo: Promotion) {
-        console.log('BEFORE');
-        this.printAllForms();
         this.focusPromotion = promo;
 
         this.nameFormGroup.setValue({
@@ -132,12 +131,49 @@ export class PromoFormComponent implements OnInit {
             endTime: this.focusPromotion.endTime,
             allDayCtrl: this.focusPromotion.isAllDay
         });
-        console.log('AFTER');
-        this.printAllForms();
     }
 
-    ngOnInit() {
-        this.showAllPackageItems();
+    discardForm() {
+        this.promotionService.focusPromotion = this.promotions[0];
+        this.isNew = false;
+        this.isEdit = false;
+    }
+
+    createPromo(promo: Promotion) {
+        this.promotions.push(promo);
+        this.discardForm();
+        /*        this.promotionService.newPromotion(promo)
+                    .subscribe(_promo => this.promotions.push(_promo));*/
+    }
+
+    editPromo(promo: Promotion) {
+        this.isEdit = true;
+        this.fillForm(promo);
+    }
+
+    newPromo() {
+        this.isNew = true;
+        this.clearForm();
+    }
+
+    updatePromo(promo: Promotion) {
+        const promoIndex = this.promotions.indexOf(promo);
+        this.promotions.push(promo);
+        this.promotionService.focusPromotion = this.promotions[promoIndex];
+        this.isEdit = false;
+/*        this.promotionService.updatePromotion(promo)
+            .subscribe(_promo => this.promotions.push(_promo));*/
+    }
+
+    openSnackBar(message: string, action: string) {
+        this.snackBar.open(message, action, {
+            duration: 4000,
+        });
+    }
+
+    clearForm() {
+        this.promotionService.createNewPromotion();
+        this.fillForm(new Promotion());
     }
 }
 

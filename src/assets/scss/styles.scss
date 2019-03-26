@@ -105,11 +105,11 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4 {
 }
 
 .header-content {
-  display: inline-block;
+  margin: 10px 0;
 }
 
 .promo-title {
-  margin-top: 10px;
+  margin-bottom: 5px;
   font-family: 'Rubik-Bold';
   font-size: 22px;
 }
@@ -126,6 +126,8 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4 {
 .promo-price {
   color: var(--go);
   margin: 10px 0;
+  margin-right: 15px;
+  text-align: right;
   font-size: 22px;
 }
 

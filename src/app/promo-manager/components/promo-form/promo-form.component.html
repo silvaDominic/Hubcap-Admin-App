@@ -1,10 +1,22 @@
 <hr>
-<button mat-icon-button type="button"><mat-icon>add_circle</mat-icon></button>
+
 <div class="promo-form-block">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        <mat-vertical-stepper id="promo-form-stepper" class="custom-class" linear="false">
+        <div class="form-button-block">
+          <button id="new-promo-button" class="form-button" mat-icon-button type="button" data-toggle="collapse" data-target="#promo-form-stepper" *ngIf="!isNew && !isEdit" (click)="newPromo()"><mat-icon>add_circle</mat-icon><strong>New Promo</strong></button>
+          <button id="discard-promo-button" class="form-button" mat-icon-button type="button" data-toggle="collapse" data-target="#promo-form-stepper" *ngIf="isNew || isEdit" (click)="discardForm()"><mat-icon>remove_circle_outline</mat-icon><strong>Discard</strong></button>
+        </div>
+
+        <div class="form-button-block">
+          <button id="edit-promo-button" mat-raised-button color="primary" type="button" data-toggle="collapse" data-target="#promo-form-stepper" *ngIf="isEdit" (click)="updatePromo(focusPromotion); openSnackBar(focusPromotion.name + ' Promo', 'Updated')">Update Promo</button>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="isNew || isEdit">
+      <div class="col-md-12">
+        <mat-vertical-stepper id="promo-form-stepper" class="custom-class collapse" linear="false" [ngClass]="{'collapse': !isEdit}">
 
           <mat-step [stepControl]="nameFormGroup" label="Name">
             <form [formGroup]="nameFormGroup">
@@ -139,13 +151,13 @@
               <div class="row">
                 <div class="col-sm-6">
                   <mat-form-field>
-                    <input matInput id="startTime" type="time" formControlName="startTime" [(ngModel)]="focusPromotion.startTime">
+                    <input matInput id="startTime" type="time" atp-time-picker formControlName="startTime" [(ngModel)]="focusPromotion.startTime">
                     <label for="startTime">Choose a start time</label>
                   </mat-form-field>
                 </div>
                 <div class="col-sm-6">
                   <mat-form-field>
-                    <input matInput id="endTime" type="time" formControlName="endTime" [(ngModel)]="focusPromotion.endTime">
+                    <input matInput id="endTime" type="time" atp-time-picker formControlName="endTime" [(ngModel)]="focusPromotion.endTime">
                     <label for="endTime">Choose an end time</label>
                   </mat-form-field>
                 </div>
@@ -164,8 +176,8 @@
             <p>All done! Click <strong>"Create Promo"</strong> to make package live!</p>
 
             <button mat-button matStepperPrevious>Back</button>
-            <button mat-button >Reset</button>
-            <button mat-button color="primary" type="button" (click)="printAllForms()"><strong>Create Promo</strong></button>
+            <button mat-button type="button" (click)="clearForm()">Reset</button>
+            <button mat-raised-button color="primary" type="button" *ngIf="isNew" (click)="createPromo(focusPromotion); openSnackBar(focusPromotion.name + ' Promo', 'Created')"><strong>Create Promo</strong></button>
           </mat-step>
         </mat-vertical-stepper>
       </div>

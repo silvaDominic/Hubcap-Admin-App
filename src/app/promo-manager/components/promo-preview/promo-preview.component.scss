@@ -12,16 +12,20 @@
   }
 }
 
-.frequency-badge {
-  margin-right: 10px;
-  margin-top: 10px;
-  text-align: right;
-}
+.header-icon {
+  display: inline-block;
+  margin-right: 5px;
 
-.frequency-badge img {
-  width: 60px;
+  img {
+    width: 20px;
+  }
 }
 
 .selected {
   opacity: 1.0;
+}
+
+.terms-conditions {
+  padding-top: 20px;
+  margin-bottom: 15px;
 }

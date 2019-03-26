@@ -78,8 +78,8 @@ export class PromoHistoryComponent implements OnInit {
     this.promoPreview.changePreview(promo);
   }
 
-  callFillForm(promo: Promotion) {
-    this.promoForm.fillForm(promo);
+  callEditPromo(promo: Promotion) {
+    this.promoForm.editPromo(promo);
   }
 
   trackByFn(index, item) {

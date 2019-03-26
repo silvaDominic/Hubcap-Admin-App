@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Promotion} from '../../promo-manager/shared/promotion.model';
+import {PromoHistoryComponent} from '../../promo-manager/components/promo-history/promo-history.component';
 
 @Injectable({
     providedIn: 'root'
@@ -24,6 +25,10 @@ export class PromotionService {
         return this.http.put<Promotion>(this.promotionsUrl, _promotion);
     }
 
+    newPromotion(_promotion: Promotion): Observable<Promotion> {
+        return this.http.post<Promotion>(this.promotionsUrl, _promotion);
+    }
+
     get focusPromotion(): Promotion {
         return this._focusPromotion;
     }
@@ -32,4 +37,12 @@ export class PromotionService {
         this._focusPromotion = value;
         console.log('FOCUS PACKAGE: ', this._focusPromotion);
     }
+
+    createNewPromotion() {
+        this._focusPromotion = new Promotion();
+    }
+
+/*    callRefreshHistory() {
+        this.promoHistory.refreshHistory();
+    }*/
 }

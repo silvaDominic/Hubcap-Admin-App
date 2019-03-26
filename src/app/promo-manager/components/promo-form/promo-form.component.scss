@@ -23,5 +23,23 @@
   margin: 0 10px;
 }
 
+.form-button-block {
+  display: inline-block;
+  padding-right: 12px;
+  padding-bottom: 15px;
+
+  button {
+    width: auto !important;
+  }
+}
+
+.form-button mat-icon {
+  font-size: 50px !important;
+}
+
+.form-button strong {
+  padding-left: 30px;
+}
+
 mat-expansion-panel {
 }
