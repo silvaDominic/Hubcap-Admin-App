@@ -1,0 +1,17 @@
+<div class="exceptions-block">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="exception-form-container">
+                <!--<app-exception-form [parentFormGroup]="parentFormGroup"></app-exception-form>-->
+            </div>
+
+            <hr>
+
+            <div class="exception-list-container" *ngIf="exceptions">
+                <div *ngFor="let exception of exceptions">
+                    <app-exception [thisException]="exception"></app-exception>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

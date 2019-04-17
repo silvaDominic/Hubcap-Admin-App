@@ -1,0 +1,47 @@
+// General
+mat-expansion-panel-header {
+  min-height: 50px !important;
+}
+
+mat-expansion-panel {
+  margin-bottom: 15px;
+}
+
+.user-fields {
+  margin-top: 10px;
+}
+
+.mat-expansion-panel-header-title,
+.mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mat-expanded {
+  margin-bottom: 15px !important;
+}
+
+mat-form-field {
+  margin-right: 12px;
+}
+
+mat-expansion-panel-header {
+  background-color: var(--cloud);
+}
+
+.user-actions button {
+  margin-right: 8px;
+}
+
+.active-status {
+  // TODO Properly float left
+  // float: left;
+}
+
+mat-checkbox {
+  margin: 0 12px;
+}

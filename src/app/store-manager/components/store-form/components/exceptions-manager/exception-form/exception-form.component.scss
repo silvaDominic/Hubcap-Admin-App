@@ -1,0 +1,6 @@
+@import "../../../../../shared/scss/exceptions-styles";
+
+.exception-create-accordion mat-expansion-panel-header {
+  min-height: 70px !important;
+  background-color: var(--promo-yellow);
+}

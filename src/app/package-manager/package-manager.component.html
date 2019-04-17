@@ -1,34 +1,30 @@
 <div class="package-manager-block main-content">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="menu-section">
-                    <div class="row">
-                        <div class="menu-container" *ngFor="let _package of packages">
-                            <app-package [name]="_package.name"
-                                         [price] = "_package.price"
-                                         [packageItems]="_package.packageItems"
-                                         (click)="setFocusPackage(_package)"
-                                         [class.selected]="_package == focusPackage"></app-package>
-                        </div>
-                    </div>
+        <div class="menu-section">
+            <div class="row">
+                <div class="col-md-4 menu-container" *ngFor="let _package of packages">
+                    <app-package [name]="_package.name"
+                                 [price] = "_package.price"
+                                 [packageItems]="_package.packageItems"
+                                 (click)="setFocusPackage(_package)"
+                                 [class.selected]="_package == focusPackage"></app-package>
                 </div>
+            </div>
+        </div>
 
-                <div class="menu-options-section">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <app-package-options [focusPackage]="focusPackage"></app-package-options>
-                        </div>
-                    </div>
+        <div class="menu-options-section">
+            <div class="row">
+                <div class="col-md-12">
+                    <app-package-options [focusPackage]="focusPackage"></app-package-options>
                 </div>
+            </div>
+        </div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="update-container">
-                            <button type="submit" class="btn btn-danger" (click)="updatePackages(packages)">Update Menu</button>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
+        <div class="update-container">
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-danger" (click)="updatePackages(packages)">Update Menu</button>
+                    <div class="clearfix"></div>
                 </div>
             </div>
         </div>

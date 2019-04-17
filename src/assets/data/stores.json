@@ -1,0 +1,155 @@
+[
+  {
+    "id": "1140",
+    "name": "Union Square Wash",
+    "address": "12W 12 Street",
+    "phoneNumber": "2121235678",
+    "email": "unionwash@gmail.com",
+    "website": "unionwashnyc.com",
+    "city": "NYC",
+    "state": "NY",
+    "zip": "10027",
+    "vehicleTypes": [
+      "SMALL",
+      "MIDSIZED",
+      "LARGE"
+    ],
+    "storeHours": [
+      {
+        "day": "MONDAY",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "18:00"
+      },
+      {
+        "day": "TUESDAY",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "18:00"
+      },
+      {
+        "day": "WEDNESDAY",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "18:00"
+      },
+      {
+        "day": "THURSDAY",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "18:00"
+      },
+      {
+        "day": "FRIDAY",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "17:00"
+      },
+      {
+        "day": "SATURDAY",
+        "isOpen": false,
+        "openTime": "",
+        "closeTime": ""
+      },
+      {
+        "day": "SUNDAY",
+        "isOpen": false,
+        "openTime": "",
+        "closeTime": ""
+      }
+    ],
+    "exceptions": [
+      {
+        "id": "#12345678890",
+        "name": "Christmas Eve",
+        "exceptionType": "MODIFIED",
+        "openTime": "10:00",
+        "closeTime": "14:00"
+      },
+      {
+        "id": "#080976757588",
+        "name": "Christmas Day",
+        "exceptionType": "CLOSED"
+      },
+      {
+        "id": "#8023890324093",
+        "name": "Easter",
+        "exceptionType": "CLOSED"
+      }
+    ]
+  },
+  {
+    "id": "1141",
+    "name": "Jorge's Wash",
+    "address": "1513 Gates Ave.",
+    "phoneNumber": "2124563212",
+    "email": "jorgeswash@gmail.com",
+    "website": "jorgewash.com",
+    "city": "NYC",
+    "state": "NY",
+    "zip": "11237",
+    "vehicleTypes": [
+      "SMALL",
+      "MIDSIZED",
+      "LARGE"
+    ],
+    "storeHours": [
+      {
+        "day": "MONDAY",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "18:00"
+      },
+      {
+        "day": "TUESDAY",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "18:00"
+      },
+      {
+        "day": "WEDNESDAY",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "18:00"
+      },
+      {
+        "day": "THURSDAY",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "18:00"
+      },
+      {
+        "day": "FRIDAY",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "17:00"
+      },
+      {
+        "day": "SATURDAY",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "16:00"
+      },
+      {
+        "day": "SUNDAY",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "15:00"
+      }
+    ],
+    "exceptions": [
+      {
+        "id": "#1045858209834",
+        "name": "Christmas Eve",
+        "exceptionType": "MODIFIED",
+        "openTime": "10:00",
+        "closeTime": "14:00"
+      },
+      {
+        "id": "#10589498598323",
+        "name": "Christmas Day",
+        "exceptionType": "CLOSED"
+      }
+    ]
+  }
+]

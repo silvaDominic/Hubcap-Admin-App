@@ -1,0 +1,54 @@
+[
+  {
+    "id": "12qw34as56zx",
+    "email": "dom123@gmail.com",
+    "storeIds": ["1140", "1141"],
+    "name": "Dom",
+    "password": "bestpassword",
+    "role": {
+      "name": "Full Admin",
+      "permissionLevel": "FULL_ADMIN_CONTROL"
+    },
+    "isActive": true,
+    "isRegistered": true
+  },
+  {
+    "id": "09po87;l65/.",
+    "email": "ruzin23@gmail.com",
+    "storeIds": ["1140"],
+    "name": "Ruzin",
+    "password": "okaypassword",
+    "role": {
+      "name": "Local Admin",
+      "permissionLevel": "LOCAL_ADMIN_CONTROL"
+    },
+    "isActive": true,
+    "isRegistered": true
+  },
+  {
+    "id": "*89-+562pp3",
+    "email": "shah.ahmed@gmail.com",
+    "storeIds": ["1140"],
+    "name": "Shahroz",
+    "password": "nopassword",
+    "role": {
+      "name": "Field Worker",
+      "permissionLevel": "FIELD_CONTROL"
+    },
+    "isActive": true,
+    "isRegistered": true
+  },
+  {
+    "id": "10293948576",
+    "email": "chachybeta@gmail.com",
+    "storeIds": ["1140", "1141"],
+    "name": "Chatrik",
+    "password": "1password",
+    "role": {
+      "name": "Field Worker",
+      "permissionLevel": "FIELD_CONTROL"
+    },
+    "isActive": false,
+    "isRegistered": true
+  }
+]

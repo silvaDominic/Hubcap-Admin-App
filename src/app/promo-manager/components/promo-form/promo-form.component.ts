@@ -3,11 +3,10 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AmazingTimePickerService} from 'amazing-time-picker';
 import {PackageService} from '../../../shared/services/package.service';
 import {Promotion} from '../../shared/promotion.model';
-import {DISCOUNT_TYPE} from '../../shared/DISCOUNT_TYPE.model';
+import {DISCOUNT_TYPE} from '../../../shared/models/DISCOUNT_TYPE.model';
 import {PackageItem} from '../../../package-manager/shared/package.item.model';
 import {PromotionService} from '../../../shared/services/promotion.service';
-import {FREQUENCY_TYPE} from '../../shared/FREQUENCY_TYPE.model';
-import {FREQUENCY} from '../../shared/FREQUENCY.model';
+import {FREQUENCY_TYPE} from '../../../shared/models/FREQUENCY_TYPE.model';
 import {MatSnackBar} from '@angular/material';
 
 @Component({
@@ -142,6 +141,7 @@ export class PromoFormComponent implements OnInit {
     createPromo(promo: Promotion) {
         this.promotions.push(promo);
         this.discardForm();
+        this.openSnackBar(promo.name + ' Promo', 'Created');
         /*        this.promotionService.newPromotion(promo)
                     .subscribe(_promo => this.promotions.push(_promo));*/
     }
@@ -161,6 +161,7 @@ export class PromoFormComponent implements OnInit {
         this.promotions.push(promo);
         this.promotionService.focusPromotion = this.promotions[promoIndex];
         this.isEdit = false;
+        this.openSnackBar(promo.name + ' Promo', 'Updated');
 /*        this.promotionService.updatePromotion(promo)
             .subscribe(_promo => this.promotions.push(_promo));*/
     }

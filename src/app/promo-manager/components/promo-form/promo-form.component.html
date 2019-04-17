@@ -66,7 +66,6 @@
                   </div>
                 </div>
 
-
                 <div class="col-md-5">
                   <p *ngIf="focusPromotion.frequencyType === frequencyType.ONE_TIME">Choose when the promotion will be available to use</p>
                   <p *ngIf="focusPromotion.frequencyType === frequencyType.REOCCURRING">Choose when the promotion will begin.<br>It will reoccur on a {{focusPromotion.frequency}} basis.</p>
@@ -151,14 +150,14 @@
               <div class="row">
                 <div class="col-sm-6">
                   <mat-form-field>
+                    <mat-label for="startTime">Choose a start time</mat-label>
                     <input matInput id="startTime" type="time" atp-time-picker formControlName="startTime" [(ngModel)]="focusPromotion.startTime">
-                    <label for="startTime">Choose a start time</label>
                   </mat-form-field>
                 </div>
                 <div class="col-sm-6">
                   <mat-form-field>
+                    <mat-label for="endTime">Choose an end time</mat-label>
                     <input matInput id="endTime" type="time" atp-time-picker formControlName="endTime" [(ngModel)]="focusPromotion.endTime">
-                    <label for="endTime">Choose an end time</label>
                   </mat-form-field>
                 </div>
               </div>
@@ -172,11 +171,12 @@
             </form>
           </mat-step>
 
-          <mat-step label="Create Promotion">
-            <p>All done! Click <strong>"Create Promo"</strong> to make package live!</p>
+          <mat-step label="Complete Promo">
+            <p>All done! Click <strong *ngIf="isNew">"Create Promo"</strong><strong *ngIf="isEdit">Update Promo</strong> to make package live!</p>
 
             <button mat-button matStepperPrevious>Back</button>
             <button mat-button type="button" (click)="clearForm()">Reset</button>
+            <button mat-raised-button color="primary" type="button" *ngIf="isEdit" (click)="updatePromo(focusPromotion); openSnackBar(focusPromotion.name + ' Promo', 'Updated')">Update Promo</button>
             <button mat-raised-button color="primary" type="button" *ngIf="isNew" (click)="createPromo(focusPromotion); openSnackBar(focusPromotion.name + ' Promo', 'Created')"><strong>Create Promo</strong></button>
           </mat-step>
         </mat-vertical-stepper>

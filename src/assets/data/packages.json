@@ -8,7 +8,7 @@
                     "name": "Wash",
                     "isSelected": true,
                     "isRequired" : true,
-                    "selectedSubOption": "",
+                    "selectedSubOption": "Hand Wash",
                     "selectedSubOptions": [],
                     "itemType": "EXTERIOR",
                     "subOptions" : [

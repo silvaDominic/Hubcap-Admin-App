@@ -10,13 +10,13 @@
                   <div class="promo-title"><span>{{focusPromotion.name}}</span></div>
                   <div class="promo-time">
                     <div id="time-icon" class="header-icon">
-                      <img src="../../../../assets/icons/icon-clock-hollow.svg">
+                      <img src="./assets/icons/icon-clock-hollow.svg">
                     </div>
                     <span>{{startTime}} -- {{endTime}}</span></div>
                   <div class="promo-date">
                     <div id="frequency-icon" class="header-icon">
-                      <img class="one-time" *ngIf="focusPromotion.frequencyType === frequencyType.ONE_TIME" src="../../../../assets/icons/icon-calendar-hollow.svg">
-                      <img class="reoccurring" *ngIf="focusPromotion.frequencyType === frequencyType.REOCCURRING" src="../../../../assets/icons/icon-repeat.svg">
+                      <img class="one-time" *ngIf="focusPromotion.frequencyType === frequencyType.ONE_TIME" src="./assets/icons/icon-calendar-hollow.svg">
+                      <img class="reoccurring" *ngIf="focusPromotion.frequencyType === frequencyType.REOCCURRING" src="./assets/icons/icon-repeat.svg">
                     </div>
                     <span>{{focusPromotion.startDate}} -- {{focusPromotion.endDate}}</span></div>
                 </div>
@@ -41,19 +41,19 @@
             <div class="row">
               <div class="col-4">
                 <div class="package-badge" [ngClass]="{'selected': focusPromotion.discountPackages[0] == true}">
-                  <img src="../../../../assets/icons/iconA-wash-bronze.svg">
+                  <img src="./assets/icons/iconA-wash-bronze.svg">
                   <div class="text-center"><strong>Silver</strong></div>
                 </div>
               </div>
               <div class="col-4">
                 <div class="package-badge" [ngClass]="{'selected': focusPromotion.discountPackages[1] == true}">
-                  <img src="../../../../assets/icons/iconA-wash-silver.svg">
+                  <img src="./assets/icons/iconA-wash-silver.svg">
                   <div class="text-center"><strong>Gold</strong></div>
                 </div>
               </div>
               <div class="col-4">
                 <div class="package-badge" [ngClass]="{'selected': focusPromotion.discountPackages[2] == true}">
-                  <img src="../../../../assets/icons/iconA-wash-gold.svg">
+                  <img src="./assets/icons/iconA-wash-gold.svg">
                   <div class="text-center"><strong>Platinum</strong></div>
                 </div>
               </div>

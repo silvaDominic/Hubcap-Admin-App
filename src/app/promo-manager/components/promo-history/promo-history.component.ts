@@ -65,9 +65,9 @@ export class PromoHistoryComponent implements OnInit {
   }
 
   markActive(promo: Promotion) {
-    for (const i_promo of this.inActivePromos) {
-      if (i_promo === promo) {
-        i_promo.isActive = true;
+    for (const ia_promo of this.inActivePromos) {
+      if (ia_promo === promo) {
+        ia_promo.isActive = true;
       }
     }
     // this.promotionService.updatePromotion(promo);

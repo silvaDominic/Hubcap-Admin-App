@@ -1,5 +1,5 @@
-import {FREQUENCY_TYPE} from './FREQUENCY_TYPE.model';
-import {FREQUENCY} from './FREQUENCY.model';
+import {FREQUENCY_TYPE} from '../../shared/models/FREQUENCY_TYPE.model';
+import {FREQUENCY} from '../../shared/models/FREQUENCY.model';
 import {Discount} from './discount.model';
 
 export class Promotion {

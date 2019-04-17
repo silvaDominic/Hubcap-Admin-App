@@ -1,0 +1,32 @@
+@import "../../shared/scss/user-list-item.scss";
+
+mat-expansion-panel-header {
+  min-height: 50px !important;
+}
+
+.is-active mat-icon {
+  color: var(--success);
+}
+
+.not-active mat-icon {
+  color: var(--danger);
+}
+
+.not-registered {
+  opacity: 0.6;
+
+  mat-icon {
+    color: var(--promo-orange);
+  }
+}
+
+.register-warning {
+  opacity: 1.0 !important;
+  background-color: var(--promo-orange);
+  text-align: center;
+  margin: 0 -30px !important;
+
+  h5 {
+    margin: 5px 0 !important;
+  }
+}

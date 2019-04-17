@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Promotion} from '../../promo-manager/shared/promotion.model';
-import {PromoHistoryComponent} from '../../promo-manager/components/promo-history/promo-history.component';
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +12,7 @@ export class PromotionService {
 
     constructor(private http: HttpClient) {}
 
-    getAllPromotions(): Observable<Promotion[]> {
+    fetchAllPromotions(): Observable<Promotion[]> {
         return this.http.get<Promotion[]>(this.promotionsUrl);
     }
 

@@ -17,14 +17,14 @@ export class PackageManagerComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.showAllPackages();
+        this.getAllPackages();
     }
 
     setFocusPackage(_package: Package) {
         this.focusPackage = _package;
     }
 
-    showAllPackages() {
+    getAllPackages() {
         this.packageService.getAllPackages()
             .subscribe(packages => this.packages = packages,
                     error => this.error = error,

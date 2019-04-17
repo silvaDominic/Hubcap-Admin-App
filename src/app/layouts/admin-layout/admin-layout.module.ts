@@ -4,8 +4,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule} from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
-import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import {
     MatButtonModule,
     MatCardModule,
@@ -13,15 +11,23 @@ import {
     MatRippleModule,
     MatFormFieldModule,
     MatTooltipModule,
-    MatSelectModule, MatCheckboxModule, MatListModule, MatNativeDateModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatListModule,
+    MatNativeDateModule,
     MatSnackBarModule,
     MatRadioModule,
     MatExpansionModule,
     MatChipsModule,
+    MatIconModule,
+    MatStepperModule,
+    MatTabsModule
 } from '@angular/material';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+
+import { DashboardComponent } from '../../dashboard/dashboard.component';
+import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import {AmazingTimePickerModule} from 'amazing-time-picker';
-import {MatTabsModule} from '@angular/material/tabs';
 import {PackageManagerComponent} from '../../package-manager/package-manager.component';
 import {PackageComponent} from '../../package-manager/components/package/package.component';
 import {PackageOptionsComponent} from '../../package-manager/components/package-options/package-options.component';
@@ -29,10 +35,15 @@ import {PromoManagerComponent} from '../../promo-manager/promo-manager.component
 import {PromoFormComponent} from '../../promo-manager/components/promo-form/promo-form.component';
 import {PromoPreviewComponent} from '../../promo-manager/components/promo-preview/promo-preview.component';
 import {PromoHistoryComponent} from '../../promo-manager/components/promo-history/promo-history.component';
-import {UsersComponent} from '../../users/users.component';
-import {StoreComponent} from '../../store/store.component';
-import {MatIconModule} from '@angular/material';
-import {MatStepperModule} from '@angular/material/stepper';
+import {UserManagerComponent} from '../../user-manager/user-manager.component';
+import {UserComponent} from '../../user-manager/components/user/user.component';
+import {UserFormComponent} from '../../user-manager/components/user-form/user-form.component';
+import {StoreManagerComponent} from '../../store-manager/store-manager.component';
+import {StoreComponent} from '../../store-manager/components/store/store.component';
+import {StoreFormComponent} from '../../store-manager/components/store-form/store-form.component';
+import {ExceptionsManagerComponent} from '../../store-manager/components/store-form/components/exceptions-manager/exceptions-manager.component';
+import { ExceptionFormComponent } from '../../store-manager/components/store-form/components/exceptions-manager/exception-form/exception-form.component';
+import { ExceptionComponent } from '../../store-manager/components/store-form/components/exceptions-manager/exception/exception.component';
 
 @NgModule({
   imports: [
@@ -70,8 +81,15 @@ import {MatStepperModule} from '@angular/material/stepper';
     PromoPreviewComponent,
     PromoHistoryComponent,
     UserProfileComponent,
-    UsersComponent,
-    StoreComponent
+    UserManagerComponent,
+    UserComponent,
+    UserFormComponent,
+    StoreManagerComponent,
+    StoreComponent,
+    StoreFormComponent,
+    ExceptionsManagerComponent,
+    ExceptionComponent,
+    ExceptionFormComponent
   ]
 })
 

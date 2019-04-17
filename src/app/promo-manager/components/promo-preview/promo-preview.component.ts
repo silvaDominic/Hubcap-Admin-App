@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Promotion} from '../../shared/promotion.model';
-import {DISCOUNT_TYPE} from '../../shared/DISCOUNT_TYPE.model';
-import {FREQUENCY_TYPE} from '../../shared/FREQUENCY_TYPE.model';
+import {DISCOUNT_TYPE} from '../../../shared/models/DISCOUNT_TYPE.model';
+import {FREQUENCY_TYPE} from '../../../shared/models/FREQUENCY_TYPE.model';
 
 @Component({
   selector: 'app-promo-preview',
@@ -36,7 +36,7 @@ export class PromoPreviewComponent implements OnInit {
 
   formatTime(stringHour: string) {
       let numHour = parseInt(stringHour, 10);
-      const suffix = numHour >= 12 ? 'PM':'AM';
+      const suffix = numHour >= 12 ? 'PM' : 'AM';
       numHour = ((numHour + 11) % 12 + 1);
       return numHour.toString() + suffix;
   }

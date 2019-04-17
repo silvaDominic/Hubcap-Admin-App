@@ -15,11 +15,11 @@ export class PromoManagerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.showAllPromotions();
+    this.getAllPromotions();
   }
 
-  showAllPromotions() {
-    this.promotionService.getAllPromotions()
+  getAllPromotions() {
+    this.promotionService.fetchAllPromotions()
         .subscribe(promotions => this.promotions = promotions,
             error => this.error = error,
             () => this.promotionService.focusPromotion = this.promotions[0]
