@@ -1,5 +1,8 @@
 export enum PACKAGE {
-    SILVER = "SILVER",
-    GOLD = "GOLD",
-    PLATINUM = "PLATINUM"
+    SILVER = 'SILVER',
+    GOLD = 'GOLD',
+    PLATINUM = 'PLATINUM',
+    INTERIOR = 'INTERIOR',
+    EXTERIOR = 'EXTERIOR',
+    COMPLETE = 'COMPLETE'
 }

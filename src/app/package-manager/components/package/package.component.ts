@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {PackageItem} from '../../shared/package.item.model';
-import {PackageService} from '../../../shared/services/package.service';
+import {PACKAGE_TYPE} from '../../../shared/models/PACKAGE_TYPE';
 
 @Component({
     selector: 'app-package',
@@ -12,8 +12,13 @@ export class PackageComponent implements OnInit {
     @Input() name: string;
     @Input() price: number;
     @Input() packageItems: PackageItem[];
+    @Input() thisPackageType: PACKAGE_TYPE;
 
-    constructor() {}
+    packageType = PACKAGE_TYPE;
+
+    constructor() {
+        this.thisPackageType = PACKAGE_TYPE.WASH;
+    }
 
     ngOnInit() {
     }

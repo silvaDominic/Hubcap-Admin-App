@@ -89,7 +89,7 @@ export class PromoFormComponent implements OnInit {
     }
 
     showAllPackageItems() {
-        this.packageService.getAllPackageItems()
+        this.packageService.fetchAllWashPackageItems()
             .subscribe(packageItems => this.packageItems = packageItems,
                 error => this.error = error
             );

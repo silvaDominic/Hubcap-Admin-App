@@ -1,6 +1,7 @@
 [
         {
             "id": "silver",
+            "type": "WASH",
             "name": "Silver",
             "price": 8,
             "packageItems": [
@@ -8,7 +9,7 @@
                     "name": "Wash",
                     "isSelected": true,
                     "isRequired" : true,
-                    "selectedSubOption": "Hand Wash",
+                    "selectedSubOption": "",
                     "selectedSubOptions": [],
                     "itemType": "EXTERIOR",
                     "subOptions" : [
@@ -218,6 +219,7 @@
         },
         {
             "id": "gold",
+            "type": "WASH",
             "name": "Gold",
             "price": 10,
             "packageItems": [
@@ -274,6 +276,7 @@
         },
         {
             "id": "platinum",
+            "type": "WASH",
             "name": "Platinum",
             "price": 12,
             "packageItems": [

@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card">
-        <div class="card-header card-header-primary">
+        <div class="card-header card-header-primary" [ngClass]="{'card-header-info': thisPackageType === packageType.DETAIL}">
           <h4>{{name}}</h4>
         </div>
         <div class="menu-price">
@@ -14,8 +14,10 @@
               <div [ngSwitch]="item.isRequired">
                 <img *ngSwitchCase="true"  class="item-icon" src="./assets/icons/icon-oval-check-hollow.svg" alt="">
                 <img *ngSwitchCase="false"  class="item-icon" src="./assets/icons/icon-oval-plus-hollow.svg" alt="">
-                <span >{{item.name}}</span>
-                <strong *ngIf="item.selectedSubOption">&nbsp;({{item.selectedSubOption}})</strong>
+              </div>
+              <div>
+                <span>{{item.name}}</span>
+                <strong>&nbsp;{{item.selectedSubOption}}</strong>
               </div>
             </mat-list-item>
           </mat-list>

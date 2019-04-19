@@ -9,12 +9,10 @@ import {ITEM_TYPE} from '../../../shared/models/ITEM_TYPE.model';
 })
 export class PackageOptionsComponent implements OnInit {
   @Input() focusPackage: Package;
-  toggleStyle: boolean;
   itemType = ITEM_TYPE;
   selectedOption: string;
 
   constructor() {
-    this.toggleStyle = false;
   }
 
   ngOnInit() {

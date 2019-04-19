@@ -8,9 +8,10 @@ import {PackageItem} from '../../package-manager/shared/package.item.model';
     providedIn: 'root',
 })
 export class PackageService {
-    packagesUrl = 'http://localhost:4200/assets/data/packages.json';
-    packageItemsUrl = 'http://localhost:4200/assets/data/package.items.json';
-
+    washPackagesUrl = 'http://localhost:4200/assets/data/wash-packages.json';
+    detailPackagesUrl = 'http://localhost:4200/assets/data/detail-packages.json';
+    washPackageItemsUrl = 'http://localhost:4200/assets/data/wash-package.items.json';
+    detailPackageItemsUrl = 'http://localhost:4200/assets/data/detail-package.items.json';
 
     httpOptions = {
         headers: new HttpHeaders({
@@ -21,15 +22,31 @@ export class PackageService {
 
     constructor(private http: HttpClient) {}
 
-    getAllPackages(): Observable<Package[]> {
-        return this.http.get<Package[]>(this.packagesUrl);
+
+    // Wash Packages
+    fetchAllWashPackages(): Observable<Package[]> {
+        return this.http.get<Package[]>(this.washPackagesUrl);
     }
 
-    getAllPackageItems(): Observable<PackageItem[]> {
-        return this.http.get<PackageItem[]>(this.packageItemsUrl);
+    fetchAllWashPackageItems(): Observable<PackageItem[]> {
+        return this.http.get<PackageItem[]>(this.washPackageItemsUrl);
     }
 
-    updatePackages(_packages: Package[]): Observable<Package[]> {
-        return this.http.put<Package[]>(this.packagesUrl, _packages);
+    updateWashPackages(_packages: Package[]): Observable<Package[]> {
+        return this.http.put<Package[]>(this.washPackagesUrl, _packages);
+    }
+
+
+    // Detail Packages
+    fetchAllDetailPackages(): Observable<Package[]> {
+        return this.http.get<Package[]>(this.detailPackagesUrl);
+    }
+
+    fetchAllDetailPackageItems(): Observable<PackageItem[]> {
+        return this.http.get<PackageItem[]>(this.detailPackageItemsUrl);
+    }
+
+    updateDetailPackages(_packages: Package[]): Observable<Package[]> {
+        return this.http.put<Package[]>(this.detailPackagesUrl, _packages);
     }
 }

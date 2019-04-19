@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Package} from './shared/package.model';
 import {PackageService} from '../shared/services/package.service';
+import {PACKAGE_TYPE} from '../shared/models/PACKAGE_TYPE';
 
 @Component({
     selector: 'app-package-manager',
@@ -12,30 +13,56 @@ export class PackageManagerComponent implements OnInit {
     packages: Package[];
     error: string;
     focusPackage: Package;
+    packageType = PACKAGE_TYPE;
+    focusPackageType = PACKAGE_TYPE;
 
     constructor(private packageService: PackageService) {
     }
 
     ngOnInit() {
-        this.getAllPackages();
+        this.getAllWashPackages();
     }
 
     setFocusPackage(_package: Package) {
         this.focusPackage = _package;
+        this.focusPackageType = this.focusPackage.type;
     }
 
-    getAllPackages() {
-        this.packageService.getAllPackages()
+    getAllWashPackages() {
+        this.packageService.fetchAllWashPackages()
             .subscribe(packages => this.packages = packages,
                     error => this.error = error,
                 () => this.setFocusPackage(this.packages[1])
             );
     }
 
-    updatePackages(updatedPackages: Package[]) {
-        this.packageService.updatePackages(updatedPackages)
+    getAllDetailPackages() {
+        this.packageService.fetchAllDetailPackages()
+            .subscribe(packages => this.packages = packages,
+                error => this.error = error,
+                () => this.setFocusPackage(this.packages[1])
+            );
+    }
+
+    updateWashPackages(updatedPackages: Package[]) {
+        this.packageService.updateWashPackages(updatedPackages)
             .subscribe(packages => this.packages = packages,
                 error => this.error = <any>error,
                 () => console.log('PACKAGE LIST: ', this.packages));
+    }
+
+    updateDetailPackages(updatedPackages: Package[]) {
+        this.packageService.updateDetailPackages(updatedPackages)
+            .subscribe(packages => this.packages = packages,
+                error => this.error = <any>error,
+                () => console.log('PACKAGE LIST: ', this.packages));
+    }
+
+    changePackageType(packageType: string) {
+        if (packageType === PACKAGE_TYPE.WASH) {
+            this.getAllWashPackages();
+        } else if (packageType === PACKAGE_TYPE.DETAIL) {
+            this.getAllDetailPackages();
+        }
     }
 }
