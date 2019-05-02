@@ -8,16 +8,16 @@
         </mat-panel-title>
         <mat-panel-description><div></div></mat-panel-description>
       </mat-expansion-panel-header>
-      <form [formGroup]="parentFormGroup">
+      <form [formGroup]="exceptionFormGroup">
         <div class="row">
           <div class="col-md-6">
             <mat-form-field>
-              <input matInput placeholder="Exception Name" type="text" formControlName="nameCtrl">
+              <input matInput placeholder="Exception Name" type="text" formControlName="name">
             </mat-form-field>
           </div>
 
           <div class="col-md-6">
-            <mat-radio-group class="exception-radio-group" formControlName="exceptionTypeCtrl">
+            <mat-radio-group class="exception-radio-group" formControlName="exceptionType">
               <mat-radio-button value="CLOSED" class="exception-radio-button">Closed</mat-radio-button>
               <mat-radio-button value="LIMITED" class="promo-radio-button">Limited Hours</mat-radio-button>
             </mat-radio-group>

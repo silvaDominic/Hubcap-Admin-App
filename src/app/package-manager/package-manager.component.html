@@ -18,6 +18,7 @@
                         <app-package [name]="_package.name"
                                      [price] = "_package.price"
                                      [packageItems]="_package.packageItems"
+                                     [duration]="_package.duration"
                                      [thisPackageType]="_package.type"
                                      (click)="setFocusPackage(_package)"
                                      [class.selected]="_package == focusPackage"></app-package>

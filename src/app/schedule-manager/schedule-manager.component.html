@@ -1,0 +1,33 @@
+<div class="schedule-manager-block main-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="calendar-wrapper">
+                    <mat-calendar id="calendar" #calendar [(selected)]="selectedDate"></mat-calendar>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div id="appointment-form-container">
+                    <app-appointment-form></app-appointment-form>
+                  </div>
+
+                  <hr>
+
+                  <div *ngIf="appointments">
+                    <div id="appointments-container" *ngFor="let appointment of appointments">
+                      <app-appointment [thisAppointment]="appointment"></app-appointment>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

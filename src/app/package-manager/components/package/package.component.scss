@@ -11,12 +11,15 @@
   margin-top: 12px;
 }
 
+.duration {
+  background-color: var(--promo-yellow);
+}
+
 .menu-list {
-  margin-top: 10px;
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  box-shadow: inset 0px 11px 8px -10px #ccc,  inset 0px -11px 8px -8px #ccc;
+  box-shadow: inset 0px 11px 8px -10px #ccc,  inset 0px -11px 8px -5px #ccc;
 
   mat-list-item {
     height: 32px !important;

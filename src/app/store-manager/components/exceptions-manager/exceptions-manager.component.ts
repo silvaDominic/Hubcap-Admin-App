@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Exception} from '../../../../shared/models/exception.model';
+import {Exception} from '../../shared/models/exception.model';
 import {FormGroup} from '@angular/forms';
 
 @Component({
@@ -9,7 +9,7 @@ import {FormGroup} from '@angular/forms';
 })
 export class ExceptionsManagerComponent implements OnInit {
 
-  @Input() parentFormGroup: FormGroup;
+  @Input() exceptionsFormGroup: FormGroup;
   @Input() exceptions: Exception[];
 
   constructor() {

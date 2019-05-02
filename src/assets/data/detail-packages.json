@@ -9,7 +9,7 @@
         "name": "Wash",
         "isSelected": true,
         "isRequired" : true,
-        "selectedSubOption": "Hand Wash",
+        "selectedSubOption": "",
         "selectedSubOptions": [],
         "itemType": "EXTERIOR",
         "subOptions" : [
@@ -106,7 +106,8 @@
         "itemType": "INTERIOR",
         "subOptions": []
       }
-    ]
+    ],
+    "duration": 2
   },
   {
     "id": "complete",
@@ -118,7 +119,7 @@
         "name": "Wash",
         "isSelected": true,
         "isRequired" : true,
-        "selectedSubOption": "Hand Wash",
+        "selectedSubOption": "",
         "selectedSubOptions": [],
         "itemType": "EXTERIOR",
         "subOptions" : [
@@ -315,7 +316,8 @@
         "itemType": "INTERIOR",
         "subOptions": []
       }
-    ]
+    ],
+    "duration": 4
   },
   {
     "id": "exterior",
@@ -448,6 +450,7 @@
         "itemType": "EXTERIOR",
         "subOptions": []
       }
-    ]
+    ],
+    "duration": 2
   }
 ]

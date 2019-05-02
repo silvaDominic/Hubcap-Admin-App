@@ -41,9 +41,12 @@ import {UserFormComponent} from '../../user-manager/components/user-form/user-fo
 import {StoreManagerComponent} from '../../store-manager/store-manager.component';
 import {StoreComponent} from '../../store-manager/components/store/store.component';
 import {StoreFormComponent} from '../../store-manager/components/store-form/store-form.component';
-import {ExceptionsManagerComponent} from '../../store-manager/components/store-form/components/exceptions-manager/exceptions-manager.component';
-import { ExceptionFormComponent } from '../../store-manager/components/store-form/components/exceptions-manager/exception-form/exception-form.component';
-import { ExceptionComponent } from '../../store-manager/components/store-form/components/exceptions-manager/exception/exception.component';
+import {ExceptionsManagerComponent} from '../../store-manager/components/exceptions-manager/exceptions-manager.component';
+import { ExceptionFormComponent } from '../../store-manager/components/exceptions-manager/exception-form/exception-form.component';
+import { ExceptionComponent } from '../../store-manager/components/exceptions-manager/exception/exception.component';
+import { ScheduleManagerComponent } from '../../schedule-manager/schedule-manager.component';
+import {AppointmentFormComponent} from '../../schedule-manager/components/appointment-form/appointment-form.component';
+import {AppointmentComponent} from '../../schedule-manager/components/appointment/appointment.component';
 
 @NgModule({
   imports: [
@@ -89,7 +92,10 @@ import { ExceptionComponent } from '../../store-manager/components/store-form/co
     StoreFormComponent,
     ExceptionsManagerComponent,
     ExceptionComponent,
-    ExceptionFormComponent
+    ExceptionFormComponent,
+    ScheduleManagerComponent,
+    AppointmentFormComponent,
+    AppointmentComponent
   ]
 })
 

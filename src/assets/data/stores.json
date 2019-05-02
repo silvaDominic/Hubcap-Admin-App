@@ -9,7 +9,7 @@
     "city": "NYC",
     "state": "NY",
     "zip": "10027",
-    "vehicleTypes": [
+    "vehicleType": [
       "SMALL",
       "MIDSIZED",
       "LARGE"
@@ -88,7 +88,7 @@
     "city": "NYC",
     "state": "NY",
     "zip": "11237",
-    "vehicleTypes": [
+    "vehicleType": [
       "SMALL",
       "MIDSIZED",
       "LARGE"

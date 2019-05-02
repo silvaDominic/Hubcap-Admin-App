@@ -8,6 +8,7 @@
         <div class="menu-price">
           <h1><strong>${{price}}</strong></h1>
         </div>
+        <div class="duration"><strong *ngIf="thisPackageType === packageType.DETAIL">Duration:&nbsp;~{{duration}}&nbsp; hours</strong></div>
         <div class="menu-list">
           <mat-list>
             <mat-list-item *ngFor="let item of packageItems" [hidden]="!item.isSelected">

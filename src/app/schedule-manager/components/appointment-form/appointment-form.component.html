@@ -1,0 +1,66 @@
+<div class="appointment-form-block">
+  <mat-accordion id="appointment-create-accordion">
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <span><strong>Create New Appointment</strong></span>
+        </mat-panel-title>
+        <mat-panel-description><div></div><mat-icon>add_circle</mat-icon></mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <form [formGroup]="appointmentFormGroup" class="appointment-fields">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field>
+              <input matInput placeholder="Name" type="text" formControlName="nameCtrl">
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-12">
+            <mat-form-field>
+              <input matInput placeholder="Phone Number (optional)" type="text" formControlName="phoneNumberCtrl">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label>Vehicle Type</mat-label>
+              <mat-select formControlName="vehicleTypeCtrl">
+                <mat-option *ngFor="let vehicle of vehiclesKeys" [value]="vehicle">{{vehicle}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label>Package</mat-label>
+              <mat-select formControlName="packageCtrl">
+                <mat-option *ngFor="let _package of packagesKeys" [value]="_package">{{_package}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label for="startTime">Drop Off Time</mat-label>
+              <input matInput id="dropOffTime" type="time" atp-time-picker formControlName="dropOffTime">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label for="startTime">Pick Up Time</mat-label>
+              <input matInput id="pickUpTime" type="time" atp-time-picker formControlName="pickUpTime">
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+      <mat-action-row>
+        <button mat-raised-button color="primary" (click)="createAppointment()">Create Appointment</button>
+      </mat-action-row>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

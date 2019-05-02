@@ -1,14 +1,24 @@
 <div class="menu-options-block">
   <form #packageOptionsForm="ngForm" name="packageOptionsForm" autocomplete="off">
     <div class="row">
-      <div class="col-md-6 offset-md-3">
-        <div class="price-container">
-          <div class="form-group">
-            <label for="name">Price</label>
-            <input type="text" class="form-control" id="name" required [(ngModel)]="focusPackage.price" name="focusPackage.price">
-          </div>
+        <!-- Used to center price div -->
+        <div class="col-md-3" *ngIf="focusPackage.type === packageType.WASH"></div>
+        <div class="col-md-6">
+            <div class="price-container">
+                <div class="form-group">
+                    <label for="name">Price</label>
+                    <input type="text" class="form-control" id="name" required [(ngModel)]="focusPackage.price" name="focusPackage.price">
+                </div>
+            </div>
         </div>
-      </div>
+        <div class="col-md-6" *ngIf="focusPackage.type === packageType.DETAIL">
+            <div class="price-container">
+                <div class="form-group">
+                    <label for="time">Duration (In hours)</label>
+                    <input type="text" class="form-control" id="time" required [(ngModel)]="focusPackage.duration" name="focusPackage.estimatedTime">
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="row">

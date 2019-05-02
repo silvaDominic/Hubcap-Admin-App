@@ -5,7 +5,7 @@ mat-expansion-panel {
   margin-bottom: 15px;
 }
 
-.user-fields, .store-fields {
+.user-fields, .store-fields, .appointment-fields {
   margin-top: 10px;
 }
 
@@ -31,8 +31,11 @@ mat-expansion-panel-header {
   background-color: var(--cloud);
 }
 
-.user-actions, .store-actions button {
-  margin-right: 8px;
+.user-actions, .store-actions, .appointment-actions {
+
+  button {
+    margin-right: 8px;
+  }
 }
 
 .active-status {

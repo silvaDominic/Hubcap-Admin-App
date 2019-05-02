@@ -3,7 +3,6 @@ import {Injectable} from '@angular/core';
 import {User} from '../../user-manager/shared/models/user.model';
 import {PERMISSION_LEVEL} from '../models/PERMISSION_LEVEL.model';
 import {Observable} from 'rxjs';
-import {Promotion} from '../../promo-manager/shared/promotion.model';
 
 @Injectable({
     providedIn: 'root'

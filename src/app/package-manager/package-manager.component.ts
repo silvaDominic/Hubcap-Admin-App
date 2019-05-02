@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Package} from './shared/package.model';
 import {PackageService} from '../shared/services/package.service';
-import {PACKAGE_TYPE} from '../shared/models/PACKAGE_TYPE';
+import {PACKAGE_TYPE} from '../shared/models/PACKAGE_TYPE.model';
 
 @Component({
     selector: 'app-package-manager',
@@ -14,7 +14,6 @@ export class PackageManagerComponent implements OnInit {
     error: string;
     focusPackage: Package;
     packageType = PACKAGE_TYPE;
-    focusPackageType = PACKAGE_TYPE;
 
     constructor(private packageService: PackageService) {
     }
@@ -25,7 +24,6 @@ export class PackageManagerComponent implements OnInit {
 
     setFocusPackage(_package: Package) {
         this.focusPackage = _package;
-        this.focusPackageType = this.focusPackage.type;
     }
 
     getAllWashPackages() {

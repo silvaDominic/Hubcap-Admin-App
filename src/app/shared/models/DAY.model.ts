@@ -1,4 +1,4 @@
-export enum DAYS {
+export enum DAY {
     MONDAY = 'MONDAY',
     TUESDAY = 'TUESDAY',
     WEDNESDAY = 'WEDNESDAY',
