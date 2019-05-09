@@ -1,0 +1,80 @@
+<div class="qr-scanner-block">
+    <div class="scanner-wrapper">
+        <div class="row">
+            <div class="col-12">
+                <div class="overlay"></div>
+                <canvas #scanCanvas [hidden]="!isReady"></canvas>
+                <div [hidden]="scanSuccess" id="output-message"><h4><strong>No QR code detected.</strong></h4></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scan-detail-wrapper" *ngIf="scanVerified">
+        <div #clientDetailModal class="modal fade" tabindex="-1" role="dialog" id="clientDetailModal">
+            <div class="modal-dialog-centered modal-dialog modal-lg">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Client Details</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <mat-form-field>
+                                    <input placeholder="First Name" matInput [(ngModel)]="detectedClient.firstName" disabled type="text">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-6">
+                                <mat-form-field>
+                                    <input matInput placeholder="Last Name" [ngModel]="detectedClient.lastName" disabled type="text">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <mat-form-field>
+                                    <input matInput placeholder="Vehicle" [ngModel]="detectedClient.selectedVehicle" disabled type="text">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-6">
+                                <mat-form-field>
+                                    <input matInput placeholder="Plate Number" [ngModel]="detectedClient.plateNumber" disabled type="text">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <mat-form-field>
+                                    <input matInput placeholder="Package Type" [ngModel]="detectedClient.packageType" disabled type="text">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-6">
+                                <mat-form-field>
+                                    <input matInput placeholder="Package" [ngModel]="detectedClient.selectedPackage" disabled type="text">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-12">
+                                <button class="btn btn-success">Confirm</button>
+                                <button class="btn btn-danger">Deny</button>
+                                <button class="btn btn-info" (click)="scan()">Rescan</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

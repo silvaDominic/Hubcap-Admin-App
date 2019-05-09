@@ -9,39 +9,49 @@
           </mat-panel-title>
           <mat-panel-description><div></div></mat-panel-description>
         </mat-expansion-panel-header>
-    <div class="row">
-      <div class="col-md-6">
-        <mat-form-field>
-          <input matInput placeholder="Exception Name" type="text" [(ngModel)]="thisException.name">
-        </mat-form-field>
-      </div>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field>
+              <input matInput placeholder="Exception Name" type="text" [(ngModel)]="thisException.name">
+            </mat-form-field>
+          </div>
 
-      <div class="col-md-6">
-        <mat-radio-group class="exception-radio-group" [(ngModel)]="thisException.exceptionType">
-          <mat-radio-button value="CLOSED" class="exception-radio-button">Closed</mat-radio-button>
-          <mat-radio-button value="MODIFIED" class="promo-radio-button">Limited Hours</mat-radio-button>
-        </mat-radio-group>
-      </div>
-    </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <input matInput [matDatepicker]="exceptionDate" placeholder="Choose a date" [(ngModel)]="thisException.date">
+              <mat-datepicker-toggle matSuffix [for]="exceptionDate"></mat-datepicker-toggle>
+              <mat-datepicker #exceptionDate startView="year" [startAt]="exceptionDate" ></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
 
-    <div class="row" *ngIf="thisException.exceptionType === exceptionType.MODIFIED">
-      <div class="col-md-6">
-        <mat-form-field>
-          <mat-label for="openTime">Open</mat-label>
-          <input matInput id="openTime" type="time" atp-time-picker [(ngModel)]="thisException.openTime">
-        </mat-form-field>
-      </div>
-      <div class="col-md-6">
-        <mat-form-field>
-          <mat-label for="closeTime">Close</mat-label>
-          <input matInput id="closeTime" type="time" atp-time-picker [(ngModel)]="thisException.closeTime">
-        </mat-form-field>
-      </div>
-    </div>
+        <div class="row">
+          <div class="col-md-12">
+            <mat-radio-group class="exception-radio-group" [(ngModel)]="thisException.exceptionType">
+              <mat-radio-button value="MODIFIED" class="exception-radio-button">Limited Hours</mat-radio-button>
+              <mat-radio-button value="CLOSED" class="exception-radio-button">Closed</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
 
-  <mat-action-row class="store-actions">
-    <button mat-raised-button color="warn" (click)="deleteException(thisException)">Delete Exception</button>
-  </mat-action-row>
-      </mat-expansion-panel>
-    </mat-accordion>
+        <div class="row" *ngIf="thisException.exceptionType === exceptionType.MODIFIED">
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label for="openTime">Open</mat-label>
+              <input matInput id="openTime" type="time" atp-time-picker [(ngModel)]="thisException.openTime">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label for="closeTime">Close</mat-label>
+              <input matInput id="closeTime" type="time" atp-time-picker [(ngModel)]="thisException.closeTime">
+            </mat-form-field>
+          </div>
+        </div>
+
+      <mat-action-row class="store-actions">
+        <button mat-raised-button color="warn" (click)="deleteException(exceptions.indexOf(thisException))">Delete Exception</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>

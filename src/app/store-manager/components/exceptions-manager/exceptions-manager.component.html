@@ -2,14 +2,14 @@
     <div class="row">
         <div class="col-md-12">
             <div class="exception-form-container">
-                <app-exception-form [exceptionFormGroup]="exceptionsFormGroup"></app-exception-form>
+                <app-exception-form [exceptions]="exceptions"></app-exception-form>
             </div>
 
             <hr>
 
             <div class="exception-list-container" *ngIf="exceptions">
                 <div *ngFor="let exception of exceptions">
-                    <app-exception [thisException]="exception"></app-exception>
+                    <app-exception [thisException]="exception" [exceptions]="exceptions"></app-exception>
                 </div>
             </div>
         </div>

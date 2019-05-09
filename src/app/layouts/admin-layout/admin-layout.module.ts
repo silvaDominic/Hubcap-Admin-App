@@ -47,6 +47,8 @@ import { ExceptionComponent } from '../../store-manager/components/exceptions-ma
 import { ScheduleManagerComponent } from '../../schedule-manager/schedule-manager.component';
 import {AppointmentFormComponent} from '../../schedule-manager/components/appointment-form/appointment-form.component';
 import {AppointmentComponent} from '../../schedule-manager/components/appointment/appointment.component';
+import { QrScannerManagerComponent } from '../../qr-scanner-manager/qr-scanner-manager.component';
+import { SignInComponent } from '../../sign-in/sign-in.component';
 
 @NgModule({
   imports: [
@@ -95,7 +97,9 @@ import {AppointmentComponent} from '../../schedule-manager/components/appointmen
     ExceptionFormComponent,
     ScheduleManagerComponent,
     AppointmentFormComponent,
-    AppointmentComponent
+    AppointmentComponent,
+    QrScannerManagerComponent,
+    SignInComponent
   ]
 })
 

@@ -62,6 +62,7 @@
       {
         "id": "#12345678890",
         "name": "Christmas Eve",
+        "date": "2019-12-24T00:00:00",
         "exceptionType": "MODIFIED",
         "openTime": "10:00",
         "closeTime": "14:00"
@@ -69,11 +70,13 @@
       {
         "id": "#080976757588",
         "name": "Christmas Day",
+        "date": "2019-12-25T00:00:00",
         "exceptionType": "CLOSED"
       },
       {
         "id": "#8023890324093",
         "name": "Easter",
+        "date": "2019-04-27T00:00:00",
         "exceptionType": "CLOSED"
       }
     ]
@@ -141,6 +144,7 @@
       {
         "id": "#1045858209834",
         "name": "Christmas Eve",
+        "date": "2019-12-24T00:00:00",
         "exceptionType": "MODIFIED",
         "openTime": "10:00",
         "closeTime": "14:00"
@@ -148,6 +152,7 @@
       {
         "id": "#10589498598323",
         "name": "Christmas Day",
+        "date": "2019-12-25T00:00:00",
         "exceptionType": "CLOSED"
       }
     ]

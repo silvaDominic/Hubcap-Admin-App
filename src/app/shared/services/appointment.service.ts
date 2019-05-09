@@ -4,18 +4,23 @@ import {Observable} from 'rxjs';
 import {Appointment} from '../../schedule-manager/shared/appointment.model';
 import {VEHICLE_TYPE} from '../models/VEHICLE_TYPE.model';
 import {PACKAGE} from '../models/PACKAGE.model';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AppointmentService {
 
-    static vehiclesKeys = Object.keys(VEHICLE_TYPE);
-    static packageKeys = Object.keys(PACKAGE);
+    public static vehiclesKeys = Object.keys(VEHICLE_TYPE);
+    public static packageKeys = Object.keys(PACKAGE);
 
     private appointmentsUrl = 'http://localhost:4200/assets/data/appointments.json';
 
-    constructor(private http: HttpClient) {}
+    public static generateId() {
+        return '#' + Math.random().toString(); // Will be made more comprehensive in the future
+    }
+
+    constructor(private readonly fb: FormBuilder, private readonly http: HttpClient) {}
 
     fetchAllAppointments(): Observable<Appointment[]> {
         return this.http.get<Appointment[]>(this.appointmentsUrl)
@@ -27,5 +32,18 @@ export class AppointmentService {
 
     newAppointment(appointment: Appointment): Observable<Appointment> {
         return this.http.post<Appointment>(this.appointmentsUrl, appointment);
+    }
+
+    public generateAppointmentForm(apiRequest: any): FormGroup {
+        return this.fb.group({
+            clientName: [apiRequest.clientName, Validators.required],
+            date: [apiRequest.date, Validators.required],
+            vehicleType: [apiRequest.vehicleType, Validators.required],
+            packageName: [apiRequest.packageName, Validators.required],
+            dropOffTime: [apiRequest.dropOffTime, Validators.required],
+            pickUpTime: [apiRequest.pickUpTime, Validators.required],
+            phoneNumber: [apiRequest.phoneNumber],
+            email: [apiRequest.email]
+        });
     }
 }

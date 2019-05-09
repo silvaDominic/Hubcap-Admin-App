@@ -8,7 +8,7 @@
         </mat-panel-title>
         <mat-panel-description><div></div></mat-panel-description>
       </mat-expansion-panel-header>
-      <form [formGroup]="exceptionFormGroup">
+      <form [formGroup]="exceptionForm">
         <div class="row">
           <div class="col-md-6">
             <mat-form-field>
@@ -17,14 +17,24 @@
           </div>
 
           <div class="col-md-6">
-            <mat-radio-group class="exception-radio-group" formControlName="exceptionType">
-              <mat-radio-button value="CLOSED" class="exception-radio-button">Closed</mat-radio-button>
-              <mat-radio-button value="LIMITED" class="promo-radio-button">Limited Hours</mat-radio-button>
-            </mat-radio-group>
+            <mat-form-field>
+              <input matInput [matDatepicker]="startDate" placeholder="Choose a date" formControlName="date" required>
+              <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+              <mat-datepicker #startDate startView="year" [startAt]="startDate" ></mat-datepicker>
+            </mat-form-field>
           </div>
         </div>
 
         <div class="row">
+          <div class="col-md-6">
+            <mat-radio-group class="exception-radio-group" formControlName="exceptionType">
+              <mat-radio-button value="MODIFIED" class="exception-radio-button">Limited Hours</mat-radio-button>
+              <mat-radio-button value="CLOSED" class="exception-radio-button">Closed</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="exceptionForm.controls['exceptionType'].value === exceptionType.MODIFIED">
           <div class="col-md-6">
             <mat-form-field>
               <mat-label for="openTime">Open</mat-label>

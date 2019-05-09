@@ -10,15 +10,30 @@
 
       <form [formGroup]="appointmentFormGroup" class="appointment-fields">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-6">
             <mat-form-field>
-              <input matInput placeholder="Name" type="text" formControlName="nameCtrl">
+              <input matInput placeholder="Name" type="text" formControlName="clientName">
             </mat-form-field>
           </div>
 
-          <div class="col-md-12">
+          <div class="col-md-6">
             <mat-form-field>
-              <input matInput placeholder="Phone Number (optional)" type="text" formControlName="phoneNumberCtrl">
+              <input matInput [matDatepicker]="startDate" placeholder="Choose a date" formControlName="date" required>
+              <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+              <mat-datepicker #startDate startView="year" [startAt]="startDate" ></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field>
+              <input matInput placeholder="Phone Number (optional)" type="text" formControlName="phoneNumber">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <input matInput placeholder="Email (optional)" type="text" formControlName="email">
             </mat-form-field>
           </div>
         </div>
@@ -27,7 +42,7 @@
           <div class="col-md-6">
             <mat-form-field>
               <mat-label>Vehicle Type</mat-label>
-              <mat-select formControlName="vehicleTypeCtrl">
+              <mat-select formControlName="vehicleType">
                 <mat-option *ngFor="let vehicle of vehiclesKeys" [value]="vehicle">{{vehicle}}</mat-option>
               </mat-select>
             </mat-form-field>
@@ -35,7 +50,7 @@
           <div class="col-md-6">
             <mat-form-field>
               <mat-label>Package</mat-label>
-              <mat-select formControlName="packageCtrl">
+              <mat-select formControlName="packageName">
                 <mat-option *ngFor="let _package of packagesKeys" [value]="_package">{{_package}}</mat-option>
               </mat-select>
             </mat-form-field>

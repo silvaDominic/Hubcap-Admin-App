@@ -7,6 +7,7 @@ import { PromoManagerComponent } from '../../promo-manager/promo-manager.compone
 import {StoreManagerComponent} from '../../store-manager/store-manager.component';
 import {UserManagerComponent} from '../../user-manager/user-manager.component';
 import {ScheduleManagerComponent} from '../../schedule-manager/schedule-manager.component';
+import {QrScannerManagerComponent} from '../../qr-scanner-manager/qr-scanner-manager.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -16,5 +17,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'store', component: StoreManagerComponent },
     { path: 'user-manager', component: UserManagerComponent },
     { path: 'package-manager',   component: PackageManagerComponent },
-    { path: 'promo-manager', component: PromoManagerComponent}
+    { path: 'promo-manager', component: PromoManagerComponent},
+    { path: 'qr-scanner-manager', component: QrScannerManagerComponent }
 ];

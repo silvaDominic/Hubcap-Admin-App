@@ -1,0 +1,15 @@
+{
+  "id": "12qw34as56zx",
+  "firstName": "Dom",
+  "lastName": "Silva",
+  "email": "dom123@gmail.com",
+  "phoneNumber": "1234567895",
+  "storeIds": ["1140", "1141"],
+  "password": "bestpassword",
+  "role": {
+    "name": "Full Admin",
+    "permissionLevel": "FULL_ADMIN_CONTROL"
+  },
+  "isActive": true,
+  "isRegistered": true
+}

@@ -5,8 +5,8 @@
     "description": "Get a 10% discount when coming in between 8:00AM and 10:00AM",
     "frequencyType": "ONE_TIME",
     "frequency": null,
-    "startDate": "2019-03-15",
-    "endDate": "2019-04-15",
+    "startDate": "2019-03-15T00:00:00",
+    "endDate": "2019-04-15T00:00:00",
     "discountPackages": [
       true,
       true,
@@ -29,8 +29,8 @@
     "description": "Get a 5% discount when coming in between 6:00PM and 8:00PM",
     "frequencyType": "REOCCURRING",
     "frequency": "WEEKLY",
-    "startDate": "2019-07-15",
-    "endDate": "2019-08-31",
+    "startDate": "2019-07-15T00:00:00",
+    "endDate": "2019-08-31T00:00:00",
     "discountPackages": [
       false,
       true,
@@ -53,8 +53,8 @@
     "description": "Ladies get a dollar off",
     "frequencyType": "REOCCURRING",
     "frequency": "DAILY",
-    "startDate": "2018-01-01",
-    "endDate": "2018-12-31",
+    "startDate": "2018-01-01T00:00:00",
+    "endDate": "2018-12-31T00:00:00",
     "discountPackages": [
       false,
       true,

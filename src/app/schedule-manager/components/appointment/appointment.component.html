@@ -15,13 +15,21 @@
           </mat-expansion-panel-header>
 
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <mat-form-field>
                   <input matInput placeholder="Name" type="text" [(ngModel)]="thisAppointment.clientName">
                 </mat-form-field>
               </div>
 
-              <div class="col-md-6">
+              <div class="col-md-12">
+                <mat-form-field>
+                  <input matInput [matDatepicker]="appointmentDate" placeholder="Choose a date" [(ngModel)]="thisAppointment.date">
+                  <mat-datepicker-toggle matSuffix [for]="appointmentDate"></mat-datepicker-toggle>
+                  <mat-datepicker #appointmentDate startView="year"></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-12">
                 <mat-form-field>
                   <input matInput placeholder="Phone Number (optional)" type="text" [(ngModel)]="thisAppointment.phoneNumber">
                 </mat-form-field>
@@ -40,7 +48,7 @@
               <div class="col-md-6">
                 <mat-form-field>
                   <mat-label>Package</mat-label>
-                  <mat-select [(ngModel)]="thisAppointment._package">
+                  <mat-select [(ngModel)]="thisAppointment.packageName">
                     <mat-option *ngFor="let _package of packagesKeys" [value]="_package">{{_package}}</mat-option>
                   </mat-select>
                 </mat-form-field>

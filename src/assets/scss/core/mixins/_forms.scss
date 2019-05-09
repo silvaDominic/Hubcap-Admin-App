@@ -20,12 +20,12 @@
   .checkbox label,
   .checkbox-inline,
   .switch label {
-    // override bootstrap focus and keep all the standard color (could be multiple radios in the form group)
+    // override bootstrap focus and keep all the standard color (could be multiple radios in the exceptionForm group)
     //color: $bmd-label-color;
 
     &,
     .is-focused & {
-      // form-group focus could change multiple checkboxes/radios, disable that change by using the same color as non-form-group is-focused
+      // exceptionForm-group focus could change multiple checkboxes/radios, disable that change by using the same color as non-exceptionForm-group is-focused
       color: $bmd-label-color;
 
       // correct the above focus color for disabled packageItems
@@ -151,7 +151,7 @@
     }
   }
 
-  // may or may not be a form-group or bmd-form-group
+  // may or may not be a exceptionForm-group or bmd-exceptionForm-group
   .is-focused {
     // on focus set borders and labels to the validation color
 
@@ -204,7 +204,7 @@
   $label-placeholder-top: $label-top-margin + $static-font-size +
     $variant-padding-y;
 
-  //@debug "font-size: #{$font-size} static-font-size: #{$static-font-size} help-font-size: #{$help-font-size} form-group-context: #{$form-group-context} ";
+  //@debug "font-size: #{$font-size} static-font-size: #{$static-font-size} help-font-size: #{$help-font-size} exceptionForm-group-context: #{$exceptionForm-group-context} ";
 
   //Label height: 72dp
   //Padding above label text: 16dp
@@ -212,8 +212,8 @@
   //Padding below input text (including divider): 16dp
   //Padding below text divider: 8dp
 
-  // @if $form-group-context {
-  //   // Create a space at the top of the bmd-form-group for the label.
+  // @if $exceptionForm-group-context {
+  //   // Create a space at the top of the bmd-exceptionForm-group for the label.
   //   //  The label is absolutely positioned, so we use top padding to make space.  This padding extends over the label down to the top of the input (padding).
   //   padding-top: ($label-top-margin + $static-font-size);
   //   // note: bottom-margin of this is determined by $spacer.  @see _spacer.scss
@@ -223,8 +223,8 @@
   // TODO: remove this when known stable.  https://github.com/FezVrasta/bootstrap-material-design/issues/849
   //@else {
   //
-  //  // for radios and checkboxes without a form-group, add some extra vertical spacing to pad down so that
-  //  //  any help text above is not encroached upon, or so that it appears more evenly spaced vs form-groups
+  //  // for radios and checkboxes without a exceptionForm-group, add some extra vertical spacing to pad down so that
+  //  //  any help text above is not encroached upon, or so that it appears more evenly spaced vs exceptionForm-groups
   //  .radio,
   //  label.radio-inline,
   //  .checkbox,
@@ -254,12 +254,12 @@
     line-height: $line-height-base; // keep the same line height for radios and checkboxes
   }
 
-  // Note: this may be inside or outside a form-group, may be .bmd-form-group.bmd-form-group-sm or .bmd-form-group.bmd-form-group-lg
+  // Note: this may be inside or outside a exceptionForm-group, may be .bmd-exceptionForm-group.bmd-exceptionForm-group-sm or .bmd-exceptionForm-group.bmd-exceptionForm-group-lg
   // input::placeholder {
   //   font-size: $font-size;
   // }
 
-  // generic labels used anywhere in the form
+  // generic labels used anywhere in the exceptionForm
   .checkbox label,
   .radio label,
   label {
@@ -321,7 +321,7 @@
 }
 
 @mixin mdb-label-color-toggle-focus(){
-  // override bootstrap focus and keep all the standard color (could be multiple radios in the form group)
+  // override bootstrap focus and keep all the standard color (could be multiple radios in the exceptionForm group)
   .form-group.is-focused & {
     color: $mdb-label-color;
 

@@ -1,9 +1,10 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {Store} from '../../shared/models/store.model';
 import {StoresService} from '../../../shared/services/stores.service';
 import {StoreHours} from '../../shared/models/store-hours.model';
 import {DAY} from '../../../shared/models/DAY.model';
+import {Exception} from '../../shared/models/exception.model';
 
 @Component({
   selector: 'app-store-form',
@@ -12,18 +13,29 @@ import {DAY} from '../../../shared/models/DAY.model';
 })
 export class StoreFormComponent {
 
+    @Input() stores: Store[];
+    @Input() storeForm: FormGroup;
     storeFormGroup: FormGroup;
-    @Input() stores;
-    @Input() storeForm;
+    formExceptions: Exception[];
 
     vehicleKeys = StoresService.vehicleKeys;
     dayKeys = StoresService.dayKeys;
 
-    constructor(private storeService: StoresService) {
-        this.storeFormGroup = this.storeService.generateStoreForm(this.initStore());
+    private static initStoreHours(dayEnum: DAY): StoreHours {
+        return new StoreHours(
+            dayEnum,
+            false,
+            '',
+            ''
+        )
     }
 
-    private initStore() {
+    constructor(private storeService: StoresService) {
+        this.storeFormGroup = this.storeService.generateStoreForm(this.initStore());
+        this.formExceptions = [];
+    }
+
+    private initStore(): Store {
         return new Store(
             '',
             '',
@@ -36,35 +48,20 @@ export class StoreFormComponent {
             this.addStoreHours(),
             [],
             '',
-            [],
+            []
         );
     }
 
-    private initStoreHours(dayEnum: DAY): StoreHours {
-        return new StoreHours(
-            dayEnum,
-            false,
-            '',
-            ''
-        )
-    }
-
     private addStoreHours() {
-        const _this = this;
         const hours = [];
         this.dayKeys.forEach(function(day) {
             const dayEnum: DAY = DAY[day];
-            hours.push(_this.initStoreHours(dayEnum));
+            hours.push(StoreFormComponent.initStoreHours(dayEnum));
         });
         return hours;
     }
 
-    private initStoreExceptions() {
-
-    }
-
     createStore() {
-        console.log('STORE HOURS: ', this.storeFormGroup.get('storeHours').value);
         const newStore = new Store(
             StoresService.generateStoreId(),
             this.storeFormGroup.get('name').value,
@@ -77,9 +74,10 @@ export class StoreFormComponent {
             this.storeFormGroup.get('storeHours').value,
             this.storeFormGroup.get('vehicleType').value,
             this.storeFormGroup.get('website').value,
-            []
+            this.formExceptions
         );
         this.stores.push(newStore);
+        this.storeFormGroup.reset();
         console.log('New Store Created: ', newStore);
     }
 }

@@ -1,18 +1,29 @@
 <div class="promo-manager-block main-content">
-  <div class="container" *ngIf="promotions">
-    <div id="top-row" class="row">
-      <div class="col-md-7">
-        <app-promo-preview #promoPreview [focusPromotion]="promotionService.focusPromotion"></app-promo-preview>
-      </div>
-      <div class="col-md-5">
-        <app-promo-history [historyPromotions]="promotions" [promoForm]="promoForm" [promoPreview]="promoPreview"></app-promo-history>
-      </div>
-    </div>
+    <div class="flex-wrapper" *ngIf="promotions">
+        <div id="promo-preview-section">
+            <div class="container">
+                <div id="top-row" class="row">
+                    <div class="col-md-7">
+                        <app-promo-preview #promoPreview [focusPromotion]="promotionService.focusPromotion"></app-promo-preview>
+                    </div>
+                    <div class="col-md-5">
+                        <app-promo-history [historyPromotions]="promotions" [promoForm]="promoForm" [promoPreview]="promoPreview"></app-promo-history>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <div id="bottom-row" class="row">
-      <div class="col-md-12">
-        <app-promo-form #promoForm [promotions]="promotions" [focusPromotion]="promotionService.focusPromotion" ></app-promo-form>
-      </div>
+        <hr>
+
+        <div id="promo-form-section">
+            <div class="container">
+                <div id="bottom-row" class="row">
+                    <div class="col-md-12">
+                        <app-promo-form #promoForm [promotions]="promotions" [focusPromotion]="promotionService.focusPromotion"></app-promo-form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-  </div>
 </div>

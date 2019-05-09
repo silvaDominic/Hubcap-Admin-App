@@ -3,6 +3,9 @@ import {Injectable} from '@angular/core';
 import {User} from '../../user-manager/shared/models/user.model';
 import {PERMISSION_LEVEL} from '../models/PERMISSION_LEVEL.model';
 import {Observable} from 'rxjs';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Role} from '../../user-manager/shared/models/role.model';
+import {map} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -18,6 +21,7 @@ export class UsersService {
                                                           ]);
 
     private usersUrl = 'http://localhost:4200/assets/data/users.json';
+    private currentUserUrl = 'http://localhost:4200/assets/data/current-user.json';
 
     static generatePassword() {
         return Math.random().toString(); // Will be made more comprehensive in the future
@@ -27,13 +31,37 @@ export class UsersService {
         return '#' + Math.random().toString(); // Will be made more comprehensive in the future
     }
 
-    constructor(private http: HttpClient) {}
+    constructor(private readonly http: HttpClient, private readonly fb: FormBuilder) {}
 
     fetchAllUsers(): Observable<User[]> {
         return this.http.get<User[]>(this.usersUrl)
     }
 
+    fetchUser(): Observable<User> {
+        return this.http.get<User>(this.currentUserUrl);
+    }
+
     newUser(user: User): Observable<User> {
         return this.http.post<User>(this.usersUrl, user);
     }
+
+    updateUser(user: User): Observable<User> {
+        return this.http.put<User>(this.currentUserUrl, user);
+    }
+
+    public generateUserForm(apiResponse: any): FormGroup {
+        return this.fb.group({
+            id: [apiResponse.id],
+            firstName: [apiResponse.firstName, Validators.required],
+            lastName: [apiResponse.lastName, Validators.required],
+            email: [apiResponse.email, Validators.required, Validators.email],
+            phoneNumber: [apiResponse.phoneNumber, Validators.required],
+            storeIds: [apiResponse.storeIds],
+            password: [apiResponse.password],
+            role: [apiResponse.role],
+            isActive: [apiResponse.isActive],
+            isRegistered: [apiResponse.isRegistered]
+        });
+    }
+
 }

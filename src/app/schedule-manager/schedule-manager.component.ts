@@ -25,7 +25,6 @@ export class ScheduleManagerComponent implements OnInit {
   }
 
   getAllAppointments() {
-      console.log('getting appointments');
       return this.appointmentService.fetchAllAppointments();
   }
 }

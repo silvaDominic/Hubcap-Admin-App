@@ -115,7 +115,7 @@ namespace Chartist {
      *
      * @method on
      * @param event {string} Name of the event. Check the examples for supported events.
-     * @param handler {Function} The handler function that will be called when an event with the given name was emitted. This function will receive a data argument which contains event data. See the example for more details.
+     * @param handler {Function} The handler function that will be called when an event with the given firstName was emitted. This function will receive a data argument which contains event data. See the example for more details.
      */
     on(event: string, handler: Function): IChartistBase<T>;
 
@@ -246,7 +246,7 @@ namespace Chartist {
     seriesBarDistance?: number;
 
     /**
-     * If set to true this property will cause the series bars to be stacked and form a total for each series point. This will also influence the y-axis and the overall bounds of the chart. In stacked mode the seriesBarDistance property will have no effect.
+     * If set to true this property will cause the series bars to be stacked and exceptionForm a total for each series point. This will also influence the y-axis and the overall bounds of the chart. In stacked mode the seriesBarDistance property will have no effect.
      */
     stackBars?: boolean;
 

@@ -1,5 +1,6 @@
 import {VEHICLE_TYPE} from '../../shared/models/VEHICLE_TYPE.model';
 import {PACKAGE} from '../../shared/models/PACKAGE.model';
+import {PACKAGE_TYPE} from '../../shared/models/PACKAGE_TYPE.model';
 
 export class Appointment {
     constructor(public id: string,
@@ -8,7 +9,8 @@ export class Appointment {
                 public dropOffTime: string,
                 public pickUpTime: string,
                 public vehicleType: VEHICLE_TYPE,
-                public _package: PACKAGE,
+                public packageName: PACKAGE,
                 public isHCclient: boolean,
-                public phoneNumber?: string) {}
+                public phoneNumber?: string,
+                public email?: string) {}
 }

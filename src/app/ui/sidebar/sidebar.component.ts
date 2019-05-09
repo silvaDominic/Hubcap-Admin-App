@@ -14,7 +14,8 @@ export const ROUTES: RouteInfo[] = [
     { path: '/store', title: 'My Stores', icon: 'store', class: '' },
     { path: '/user-manager', title: 'Users', icon: 'people', class: ''},
     { path: '/package-manager', title: 'Package Manager',  icon: 'view_carousel', class: '' },
-    { path: '/promo-manager', title: 'Promotional Manager',  icon: 'stars', class: '' }
+    { path: '/promo-manager', title: 'Promotional Manager',  icon: 'stars', class: '' },
+    { path: '/qr-scanner-manager', title: 'QR Scanner', icon: 'control_camera', class: '' }
 ];
 
 @Component({

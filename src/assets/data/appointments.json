@@ -2,30 +2,33 @@
   {
     "id": "qpofiehvmkds",
     "clientName": "Chatrik",
+    "date": "2019-06-15T00:00:00",
     "dropOffTime": "12:00",
     "pickUpTime": "14:00",
     "vehicleType": "MIDSIZED",
-    "_package": "INTERIOR",
+    "packageName": "INTERIOR",
     "isHCclient": true,
     "phoneNumber": "1234567895"
   },
   {
     "id": "ritudjfkorej",
     "clientName": "Shahroz",
+    "date": "2019-07-19T00:00:00",
     "dropOffTime": "09:00",
     "pickUpTime": "13:00",
     "vehicleType": "MIDSIZED",
-    "_package": "COMPLETE",
+    "packageName": "COMPLETE",
     "isHCclient": true,
     "phoneNumber": "5678957746"
   },
   {
     "id": "jdjasnbskfks",
     "clientName": "Chiru",
+    "date": "2019-09-02T00:00:00",
     "dropOffTime": "15:00",
     "pickUpTime": "17:00",
     "vehicleType": "SMALL",
-    "_package": "EXTERIOR",
+    "packageName": "EXTERIOR",
     "isHCclient": false,
     "phoneNumber": "1597534466"
   }

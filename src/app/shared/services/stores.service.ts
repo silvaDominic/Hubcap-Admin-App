@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 import {VEHICLE_TYPE} from '../models/VEHICLE_TYPE.model';
 import {DAY} from '../models/DAY.model';
 import {map} from 'rxjs/operators';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {StoreHours} from '../../store-manager/shared/models/store-hours.model';
 import {Exception} from '../../store-manager/shared/models/exception.model';
 
@@ -44,7 +44,7 @@ export class StoresService {
         ));
     }
 
-    public generateStoreForm(apiResponse: any) {
+    public generateStoreForm(apiResponse: any): FormGroup {
         return this.fb.group({
             id: [apiResponse.id],
             name: [apiResponse.name, Validators.required],
@@ -57,13 +57,11 @@ export class StoresService {
             storeHours: this.fb.array(apiResponse.storeHours.map
             (storeHours => this.generateHoursForm(storeHours))),
             vehicleType: [apiResponse.vehicleType, Validators.required],
-            website: [apiResponse.website],
-            exceptions: this.fb.array(apiResponse.exceptions.map
-            (exception => this.generateExceptionsForm(exception)))
+            website: [apiResponse.website]
         });
     }
 
-    private generateHoursForm(storeHours: StoreHours) {
+    private generateHoursForm(storeHours: StoreHours): FormGroup {
         return this.fb.group({
             day: [storeHours.day, Validators.required],
             isOpen: [storeHours.isOpen, Validators.required],
@@ -72,10 +70,10 @@ export class StoresService {
         });
     }
 
-    private generateExceptionsForm(exception: Exception) {
+    public generateExceptionsForm(exception: Exception): FormGroup {
         return this.fb.group({
-            id: [exception.id],
             name: [exception.name, Validators.required],
+            date: [exception.date, Validators.required],
             exceptionType: [exception.exceptionType, Validators.required],
             openTime: [exception.openTime],
             closeTime: [exception.closeTime]

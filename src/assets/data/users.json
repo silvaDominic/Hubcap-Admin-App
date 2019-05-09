@@ -1,9 +1,11 @@
 [
   {
     "id": "12qw34as56zx",
+    "firstName": "Dom",
+    "lastName": "Silva",
     "email": "dom123@gmail.com",
+    "phoneNumber": "1234567895",
     "storeIds": ["1140", "1141"],
-    "name": "Dom",
     "password": "bestpassword",
     "role": {
       "name": "Full Admin",
@@ -14,9 +16,11 @@
   },
   {
     "id": "09po87;l65/.",
+    "firstName": "Ruzin",
+    "lastName": "Wadwah",
     "email": "ruzin23@gmail.com",
+    "phoneNumber": "4561239516",
     "storeIds": ["1140"],
-    "name": "Ruzin",
     "password": "okaypassword",
     "role": {
       "name": "Local Admin",
@@ -27,9 +31,11 @@
   },
   {
     "id": "*89-+562pp3",
+    "firstName": "Shahroz",
+    "lastName": "Ahmed",
     "email": "shah.ahmed@gmail.com",
+    "phoneNumber": "4679138254",
     "storeIds": ["1140"],
-    "name": "Shahroz",
     "password": "nopassword",
     "role": {
       "name": "Field Worker",
@@ -40,9 +46,11 @@
   },
   {
     "id": "10293948576",
+    "firstName": "Chatrik",
+    "lastName": "Sodhi",
     "email": "chachybeta@gmail.com",
+    "phoneNumber": "7416482593",
     "storeIds": ["1140", "1141"],
-    "name": "Chatrik",
     "password": "1password",
     "role": {
       "name": "Field Worker",

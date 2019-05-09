@@ -8,43 +8,54 @@ import {Store} from '../../../store-manager/shared/models/store.model';
 import {MatSnackBar} from '@angular/material';
 
 @Component({
-  selector: 'app-user-form',
-  templateUrl: './user-form.component.html',
-  styleUrls: ['./user-form.component.scss']
+    selector: 'app-user-form',
+    templateUrl: './user-form.component.html',
+    styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent implements OnInit {
-  @Input() stores: Store[];
-  @Input() users: User[];
+    @Input() stores: Store[];
+    @Input() users: User[];
 
-  userFormGroup: FormGroup;
+    userFormGroup: FormGroup;
 
-  permissionLevel = PERMISSION_LEVEL;
-  permissionKeys = UsersService.permissionKeys;
-  roleMap = UsersService.roleMap;
+    permissionLevel = PERMISSION_LEVEL;
+    permissionKeys = UsersService.permissionKeys;
+    roleMap = UsersService.roleMap;
 
-  constructor(private fb: FormBuilder, private snackBar: MatSnackBar) {
-      this.userFormGroup = this.fb.group({
-              nameCtrl: ['', Validators.required],
-              emailCtrl: ['', Validators.email],
-              permissionCtrl: ['', Validators.required],
-              storeCtrl: [[], Validators.required]
-          }
-      );
+    static initUserForm(): User {
+        return new User(
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            [],
+            new Role('', null),
+            false,
+            false
+        );
+    }
+
+  constructor(userService: UsersService, private snackBar: MatSnackBar) {
+      this.userFormGroup = userService.generateUserForm(UserFormComponent.initUserForm());
   }
 
   ngOnInit() {
   }
 
     createUser() {
-        const roleName = this.roleMap.get(this.userFormGroup.get('permissionCtrl').value);
-        const rolePermLevel = this.userFormGroup.get('permissionCtrl').value;
+        const roleName = this.roleMap.get(this.userFormGroup.get('permissionLevel').value);
+        const rolePermLevel = this.userFormGroup.get('permissionLevel').value;
 
         const newUser = new User(
             UsersService.generateUserId(),
-            this.userFormGroup.get('nameCtrl').value,
+            this.userFormGroup.get('firstName').value,
+            this.userFormGroup.get('lastName').value,
             UsersService.generatePassword(),
-            this.userFormGroup.get('emailCtrl').value,
-            this.userFormGroup.get('storeCtrl').value,
+            this.userFormGroup.get('email').value,
+            this.userFormGroup.get('phoneNumber').value,
+            this.userFormGroup.get('storeIds').value,
             new Role(roleName, rolePermLevel),
             false,
             false
@@ -52,9 +63,9 @@ export class UserFormComponent implements OnInit {
         this.users.push(newUser);
         console.log('NEW USER: ', newUser);
 
-        this.openSnackBar('User ' + newUser.name, 'Created');
+        this.openSnackBar('User ' + newUser.firstName, 'Created');
 
-/*        this.usersService.newUser(newUser)
+    /*        this.usersService.newUser(newUser)
             .subscribe(_user => this.users.push(_user));*/
     }
 

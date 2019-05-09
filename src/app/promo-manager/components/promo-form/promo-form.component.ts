@@ -85,10 +85,10 @@ export class PromoFormComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.showAllPackageItems();
+        this.getAllPackageItems();
     }
 
-    showAllPackageItems() {
+    getAllPackageItems() {
         this.packageService.fetchAllWashPackageItems()
             .subscribe(packageItems => this.packageItems = packageItems,
                 error => this.error = error

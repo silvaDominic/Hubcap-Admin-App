@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormGroup} from '@angular/forms';
 import {AmazingTimePickerService} from 'amazing-time-picker';
 import {Exception} from '../../../shared/models/exception.model';
 import {StoresService} from '../../../../shared/services/stores.service';
@@ -12,23 +12,40 @@ import {HOURS_EXCEPTION_TYPE} from '../../../../shared/models/HOURS_EXCEPTION_TY
 })
 export class ExceptionFormComponent implements OnInit {
 
-    @Input() exceptionFormGroup: FormGroup;
+    @Input() exceptions: Exception[];
+    exceptionForm: FormGroup;
     exceptionType = HOURS_EXCEPTION_TYPE;
 
-    constructor(private fb: FormBuilder, private atp: AmazingTimePickerService) {
+    currentDate: Date;
+    startDate: Date;
+
+    static initException(): Exception {
+        return new Exception('',
+            '',
+            '',
+            HOURS_EXCEPTION_TYPE.MODIFIED,
+            '',
+            '')
+    }
+
+    constructor(private storeService: StoresService, private atp: AmazingTimePickerService) {
+        this.exceptionForm = this.storeService.generateExceptionsForm(ExceptionFormComponent.initException())
+
+        this.currentDate = new Date();
+        this.startDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDay());
     }
 
     ngOnInit() {
     }
 
     createException() {
-        const newException = new Exception(
+        this.exceptions.push(new Exception(
             StoresService.generateExceptionId(),
-            this.exceptionFormGroup.get('name').value,
-            this.exceptionFormGroup.get('exceptionType').value,
-            this.exceptionFormGroup.get('openTime').value,
-            this.exceptionFormGroup.get('closeTime').value,
-        );
-        console.log('NEW EXCEPTION: ', newException);
+            this.exceptionForm.get('name').value,
+            this.exceptionForm.get('date').value,
+            this.exceptionForm.get('exceptionType').value,
+            this.exceptionForm.get('openTime').value,
+            this.exceptionForm.get('closeTime').value,
+        ));
     }
 }
