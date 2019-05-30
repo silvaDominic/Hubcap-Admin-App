@@ -4,7 +4,8 @@ import {PACKAGE_TYPE} from '../../shared/models/PACKAGE_TYPE.model';
 
 export class Appointment {
     constructor(public id: string,
-                public clientName: string,
+                public firstName: string,
+                public lastName: string = '',
                 public date: string,
                 public dropOffTime: string,
                 public pickUpTime: string,

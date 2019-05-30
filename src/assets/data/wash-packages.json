@@ -1,656 +1,659 @@
 [
-        {
-            "id": "silver",
-            "type": "WASH",
-            "name": "Silver",
-            "price": 8,
-            "packageItems": [
-                {
-                    "name": "Wash",
-                    "isSelected": true,
-                    "isRequired" : true,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions" : [
-                        "Soft Touch",
-                        "Touch Free",
-                        "Hand Wash"
-                    ]
-                },
-                {
-                    "name": "Dry",
-                    "isSelected": true,
-                    "isRequired" : true,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions" : [
-                        "Machine Dry",
-                        "Hand Dry"
-                    ]
-                },
-                {
-                    "name": "Tire & Wheel Clean",
-                    "isSelected": true,
-                    "isRequired": true,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Undercarriage Wash",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Tire & Wheel Shine",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Exterior Gloss/Car Shine",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": [
-                        "Hot Wax",
-                        "Clear Coat Protectant",
-                        "Blue Coral Pink Spray Wax",
-                        "Body Gloss",
-                        "Shine Wax",
-                        "Buff 'N Shine",
-                        "Hand Applied Liquid Wax",
-                        "Liquid Diamond Body Gloss",
-                        "Carnauba Hot Wax",
-                        "Triple Foam Wax",
-                        "Lava Shine",
-                        "Hot Wax and Shine",
-                        "Exterior Body Shine",
-                        "Hot Bubble Wax"
-                    ]
-                },
-                {
-                    "name": "Windshield Applicant",
-                    "isSelected":false,
-                    "isRequired":false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Exterior Protectant",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": [
-                        "Clearcoat Conditioner",
-                        "Lava Paint Sealant",
-                        "Carnauba Wax",
-                        "Hand Wax",
-                        "Triple Bond Sealer Wax",
-                        "Polygaze",
-                        "Simoniz Double Bond",
-                        "Hot Sealer Wax",
-                        "Blue Coral Coat Protection",
-                        "Poly Sealant Wax",
-                        "Teflon Sealant",
-                        "Velocity Clear Coat Sealant"
-                    ]
-                },
-                {
-                    "name": "Bug Repellant",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Rust Inhibitor",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Free Self-Serve Vacuum",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Windows Wiped",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "INTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Full Interior Vacuum",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "INTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Full Interior Wipe",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "INTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Interior Conditioning/Dressing",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "INTERIOR",
-                    "subOptions": [
-                        "All Interior",
-                        "Door Jambs",
-                        "Dashboard",
-                        "Console",
-                        "Upholstery Seats",
-                        "Leather Seats",
-                        "Vinyl"
-                    ]
-                },
-                {
-                    "name": "Trunk Vacuum",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "INTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Mats Washed/Shampooed",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "INTERIOR",
-                    "subOptions": [
-                        "Rubber Mats",
-                        "Upholstery Mats",
-                        "Trunk Mats",
-                        "Mixed"
-                    ]
-                },
-                {
-                    "name": "Air Freshener",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "INTERIOR",
-                    "subOptions": []
-                }
-            ]
-        },
-        {
-            "id": "gold",
-            "type": "WASH",
-            "name": "Gold",
-            "price": 10,
-            "packageItems": [
-                {
-                    "name": "Wash",
-                    "isSelected": true,
-                    "isRequired" : true,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions" : [
-                        "Soft Touch",
-                        "Touch Free",
-                        "Hand Wash"
-                    ]
-                },
-                {
-                    "name": "Dry",
-                    "isSelected": true,
-                    "isRequired" : true,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions" : [
-                        "Machine Dry",
-                        "Hand Dry"
-                    ]
-                },
-                {
-                    "name": "Tire & Wheel Clean",
-                    "isSelected": true,
-                    "isRequired": true,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Windows Wiped",
-                    "isSelected": true,
-                    "isRequired": true,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "INTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Full Interior Vacuum",
-                    "isSelected": true,
-                    "isRequired": true,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "INTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Full Interior Wipe",
-                    "isSelected": true,
-                    "isRequired": true,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "INTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Undercarriage Wash",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Tire & Wheel Shine",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Exterior Gloss/Car Shine",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": [
-                        "Hot Wax",
-                        "Clear Coat Protectant",
-                        "Blue Coral Pink Spray Wax",
-                        "Body Gloss",
-                        "Shine Wax",
-                        "Buff 'N Shine",
-                        "Hand Applied Liquid Wax",
-                        "Liquid Diamond Body Gloss",
-                        "Carnauba Hot Wax",
-                        "Triple Foam Wax",
-                        "Lava Shine",
-                        "Hot Wax and Shine",
-                        "Exterior Body Shine",
-                        "Hot Bubble Wax"
-                    ]
-                },
-                {
-                    "name": "Windshield Applicant",
-                    "isSelected":false,
-                    "isRequired":false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Exterior Protectant",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": [
-                        "Clearcoat Conditioner",
-                        "Lava Paint Sealant",
-                        "Carnauba Wax",
-                        "Hand Wax",
-                        "Triple Bond Sealer Wax",
-                        "Polygaze",
-                        "Simoniz Double Bond",
-                        "Hot Sealer Wax",
-                        "Blue Coral Coat Protection",
-                        "Poly Sealant Wax",
-                        "Teflon Sealant",
-                        "Velocity Clear Coat Sealant"
-                    ]
-                },
-                {
-                    "name": "Bug Repellent",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Rust Inhibitor",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Free Self-Serve Vacuum",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Interior Conditioning/Dressing",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "INTERIOR",
-                    "subOptions": [
-                        "All Interior",
-                        "Door Jambs",
-                        "Dashboard",
-                        "Console",
-                        "Upholstery Seats",
-                        "Leather Seats",
-                        "Vinyl"
-                    ]
-                },
-                {
-                    "name": "Trunk Vacuum",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "INTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Mats Washed/Shampooed",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "INTERIOR",
-                    "subOptions": [
-                        "Rubber Mats",
-                        "Upholstery Mats",
-                        "Trunk Mats",
-                        "Mixed"
-                    ]
-                },
-                {
-                    "name": "Air Freshener",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "INTERIOR",
-                    "subOptions": []
-                }
-            ]
-        },
-        {
-            "id": "platinum",
-            "type": "WASH",
-            "name": "Platinum",
-            "price": 12,
-            "packageItems": [
-                {
-                    "name": "Wash",
-                    "isSelected": true,
-                    "isRequired" : true,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions" : [
-                        "Soft Touch",
-                        "Touch Free",
-                        "Hand Wash"
-                    ]
-                },
-                {
-                    "name": "Dry",
-                    "isSelected": true,
-                    "isRequired" : true,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions" : [
-                        "Machine Dry",
-                        "Hand Dry"
-                    ]
-                },
-                {
-                    "name": "Tire & Wheel Clean",
-                    "isSelected": true,
-                    "isRequired": true,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Undercarriage Wash",
-                    "isSelected": true,
-                    "isRequired": true,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Tire & Wheel Shine",
-                    "isSelected": true,
-                    "isRequired": true,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Exterior Gloss/Car Shine",
-                    "isSelected": true,
-                    "isRequired": true,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": [
-                        "Hot Wax",
-                        "Clear Coat Protectant",
-                        "Blue Coral Pink Spray Wax",
-                        "Body Gloss",
-                        "Shine Wax",
-                        "Buff 'N Shine",
-                        "Hand Applied Liquid Wax",
-                        "Liquid Diamond Body Gloss",
-                        "Carnauba Hot Wax",
-                        "Triple Foam Wax",
-                        "Lava Shine",
-                        "Hot Wax and Shine",
-                        "Exterior Body Shine",
-                        "Hot Bubble Wax"
-                    ]
-                },
-                {
-                    "name": "Windshield Applicant",
-                    "isSelected":false,
-                    "isRequired":false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Exterior Protectant",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": [
-                        "Clearcoat Conditioner",
-                        "Lava Paint Sealant",
-                        "Carnauba Wax",
-                        "Hand Wax",
-                        "Triple Bond Sealer Wax",
-                        "Polygaze",
-                        "Simoniz Double Bond",
-                        "Hot Sealer Wax",
-                        "Blue Coral Coat Protection",
-                        "Poly Sealant Wax",
-                        "Teflon Sealant",
-                        "Velocity Clear Coat Sealant"
-                    ]
-                },
-                {
-                    "name": "Bug Repellant",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Rust Inhibitor",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Free Self-Serve Vacuum",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "EXTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Windows Wiped",
-                    "isSelected": true,
-                    "isRequired": true,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "INTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Full Interior Vacuum",
-                    "isSelected": true,
-                    "isRequired": true,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "INTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Full Interior Wipe",
-                    "isSelected": true,
-                    "isRequired": true,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "INTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Interior Conditioning/Dressing",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "INTERIOR",
-                    "subOptions": [
-                        "All Interior",
-                        "Door Jambs",
-                        "Dashboard",
-                        "Console",
-                        "Upholstery Seats",
-                        "Leather Seats",
-                        "Vinyl"
-                    ]
-                },
-                {
-                    "name": "Trunk Vacuum",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "INTERIOR",
-                    "subOptions": []
-                },
-                {
-                    "name": "Mats Washed/Shampooed",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "INTERIOR",
-                    "subOptions": [
-                        "Rubber Mats",
-                        "Upholstery Mats",
-                        "Trunk Mats",
-                        "Mixed"
-                    ]
-                },
-                {
-                    "name": "Air Freshener",
-                    "isSelected": false,
-                    "isRequired": false,
-                    "selectedSubOption": "",
-                    "selectedSubOptions": [],
-                    "itemType": "INTERIOR",
-                    "subOptions": []
-                }
-            ]
-        }
+  {
+    "id": "silver",
+    "type": "WASH",
+    "name": "Silver",
+    "price": 8,
+    "packageItems": [
+      {
+        "name": "Wash",
+        "isSelected": true,
+        "isRequired" : true,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions" : [
+          "Soft Touch",
+          "Touch Free",
+          "Hand Wash"
+        ]
+      },
+      {
+        "name": "Dry",
+        "isSelected": true,
+        "isRequired" : true,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions" : [
+          "Machine Dry",
+          "Hand Dry"
+        ]
+      },
+      {
+        "name": "Tire & Wheel Clean",
+        "isSelected": true,
+        "isRequired": true,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Undercarriage Wash",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Tire & Wheel Shine",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Exterior Gloss/Car Shine",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": [
+          "Hot Wax",
+          "Clear Coat Protectant",
+          "Blue Coral Pink Spray Wax",
+          "Body Gloss",
+          "Shine Wax",
+          "Buff 'N Shine",
+          "Hand Applied Liquid Wax",
+          "Liquid Diamond Body Gloss",
+          "Carnauba Hot Wax",
+          "Triple Foam Wax",
+          "Lava Shine",
+          "Hot Wax and Shine",
+          "Exterior Body Shine",
+          "Hot Bubble Wax"
+        ]
+      },
+      {
+        "name": "Windshield Applicant",
+        "isSelected":false,
+        "isRequired":false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Exterior Protectant",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": [
+          "Clearcoat Conditioner",
+          "Lava Paint Sealant",
+          "Carnauba Wax",
+          "Hand Wax",
+          "Triple Bond Sealer Wax",
+          "Polygaze",
+          "Simoniz Double Bond",
+          "Hot Sealer Wax",
+          "Blue Coral Coat Protection",
+          "Poly Sealant Wax",
+          "Teflon Sealant",
+          "Velocity Clear Coat Sealant"
+        ]
+      },
+      {
+        "name": "Bug Repellant",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Rust Inhibitor",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Free Self-Serve Vacuum",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Windows Wiped",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "INTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Full Interior Vacuum",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "INTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Full Interior Wipe",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "INTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Interior Conditioning/Dressing",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "INTERIOR",
+        "subOptions": [
+          "All Interior",
+          "Door Jambs",
+          "Dashboard",
+          "Console",
+          "Upholstery Seats",
+          "Leather Seats",
+          "Vinyl"
+        ]
+      },
+      {
+        "name": "Trunk Vacuum",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "INTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Mats Washed/Shampooed",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "INTERIOR",
+        "subOptions": [
+          "Rubber Mats",
+          "Upholstery Mats",
+          "Trunk Mats",
+          "Mixed"
+        ]
+      },
+      {
+        "name": "Air Freshener",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "INTERIOR",
+        "subOptions": []
+      }
     ]
+  },
+  {
+    "id": "gold",
+    "type": "WASH",
+    "name": "Gold",
+    "price": 10,
+    "packageItems": [
+      {
+        "name": "Wash",
+        "isSelected": true,
+        "isRequired" : true,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions" : [
+          "Soft Touch",
+          "Touch Free",
+          "Hand Wash"
+        ]
+      },
+      {
+        "name": "Dry",
+        "isSelected": true,
+        "isRequired" : true,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions" : [
+          "Machine Dry",
+          "Hand Dry"
+        ]
+      },
+      {
+        "name": "Tire & Wheel Clean",
+        "isSelected": true,
+        "isRequired": true,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Windows Wiped",
+        "isSelected": true,
+        "isRequired": true,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "INTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Full Interior Vacuum",
+        "isSelected": true,
+        "isRequired": true,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "INTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Full Interior Wipe",
+        "isSelected": true,
+        "isRequired": true,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "INTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Undercarriage Wash",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Tire & Wheel Shine",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Exterior Gloss/Car Shine",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": [
+          "Hot Wax",
+          "Clear Coat Protectant",
+          "Blue Coral Pink Spray Wax",
+          "Body Gloss",
+          "Shine Wax",
+          "Buff 'N Shine",
+          "Hand Applied Liquid Wax",
+          "Liquid Diamond Body Gloss",
+          "Carnauba Hot Wax",
+          "Triple Foam Wax",
+          "Lava Shine",
+          "Hot Wax and Shine",
+          "Exterior Body Shine",
+          "Hot Bubble Wax"
+        ]
+      },
+      {
+        "name": "Windshield Applicant",
+        "isSelected":false,
+        "isRequired":false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Exterior Protectant",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": [
+          "Clearcoat Conditioner",
+          "Lava Paint Sealant",
+          "Carnauba Wax",
+          "Hand Wax",
+          "Triple Bond Sealer Wax",
+          "Polygaze",
+          "Simoniz Double Bond",
+          "Hot Sealer Wax",
+          "Blue Coral Coat Protection",
+          "Poly Sealant Wax",
+          "Teflon Sealant",
+          "Velocity Clear Coat Sealant"
+        ]
+      },
+      {
+        "name": "Bug Repellent",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Rust Inhibitor",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Free Self-Serve Vacuum",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Interior Conditioning/Dressing",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "INTERIOR",
+        "subOptions": [
+          "All Interior",
+          "Door Jambs",
+          "Dashboard",
+          "Console",
+          "Upholstery Seats",
+          "Leather Seats",
+          "Vinyl"
+        ]
+      },
+      {
+        "name": "Trunk Vacuum",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "INTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Mats Washed/Shampooed",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "INTERIOR",
+        "subOptions": [
+          "Rubber Mats",
+          "Upholstery Mats",
+          "Trunk Mats",
+          "Mixed"
+        ]
+      },
+      {
+        "name": "Air Freshener",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "INTERIOR",
+        "subOptions": []
+      }
+    ]
+  },
+  {
+    "id": "platinum",
+    "type": "WASH",
+    "name": "Platinum",
+    "price": 12,
+    "packageItems": [
+
+      {
+        "name": "Tire & Wheel Clean",
+        "isSelected": true,
+        "isRequired": true,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Undercarriage Wash",
+        "isSelected": true,
+        "isRequired": true,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Tire & Wheel Shine",
+        "isSelected": true,
+        "isRequired": true,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Windshield Applicant",
+        "isSelected":false,
+        "isRequired":false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Bug Repellant",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Rust Inhibitor",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Free Self-Serve Vacuum",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Windows Wiped",
+        "isSelected": true,
+        "isRequired": true,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "INTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Full Interior Vacuum",
+        "isSelected": true,
+        "isRequired": true,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "INTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Full Interior Wipe",
+        "isSelected": true,
+        "isRequired": true,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "INTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Trunk Vacuum",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "INTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Air Freshener",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "INTERIOR",
+        "subOptions": []
+      },
+      {
+        "name": "Wash",
+        "isSelected": true,
+        "isRequired" : true,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions" : [
+          "Soft Touch",
+          "Touch Free",
+          "Hand Wash"
+        ]
+      },
+      {
+        "name": "Dry",
+        "isSelected": true,
+        "isRequired" : true,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions" : [
+          "Machine Dry",
+          "Hand Dry"
+        ]
+      },
+      {
+        "name": "Exterior Gloss/Car Shine",
+        "isSelected": true,
+        "isRequired": true,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": [
+          "Hot Wax",
+          "Clear Coat Protectant",
+          "Blue Coral Pink Spray Wax",
+          "Body Gloss",
+          "Shine Wax",
+          "Buff 'N Shine",
+          "Hand Applied Liquid Wax",
+          "Liquid Diamond Body Gloss",
+          "Carnauba Hot Wax",
+          "Triple Foam Wax",
+          "Lava Shine",
+          "Hot Wax and Shine",
+          "Exterior Body Shine",
+          "Hot Bubble Wax"
+        ]
+      },
+      {
+        "name": "Exterior Protectant",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "EXTERIOR",
+        "subOptions": [
+          "Clearcoat Conditioner",
+          "Lava Paint Sealant",
+          "Carnauba Wax",
+          "Hand Wax",
+          "Triple Bond Sealer Wax",
+          "Polygaze",
+          "Simoniz Double Bond",
+          "Hot Sealer Wax",
+          "Blue Coral Coat Protection",
+          "Poly Sealant Wax",
+          "Teflon Sealant",
+          "Velocity Clear Coat Sealant"
+        ]
+      },
+
+      {
+        "name": "Interior Conditioning/Dressing",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "INTERIOR",
+        "subOptions": [
+          "All Interior",
+          "Door Jambs",
+          "Dashboard",
+          "Console",
+          "Upholstery Seats",
+          "Leather Seats",
+          "Vinyl"
+        ]
+      },
+
+      {
+        "name": "Mats Washed/Shampooed",
+        "isSelected": false,
+        "isRequired": false,
+        "selectedSubOption": "",
+        "selectedSubOptions": [],
+        "itemType": "INTERIOR",
+        "subOptions": [
+          "Rubber Mats",
+          "Upholstery Mats",
+          "Trunk Mats",
+          "Mixed"
+        ]
+      }
+    ]
+  }
+]

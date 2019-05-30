@@ -61,9 +61,8 @@ export class UserFormComponent implements OnInit {
             false
         );
         this.users.push(newUser);
-        console.log('NEW USER: ', newUser);
 
-        this.openSnackBar('User ' + newUser.firstName, 'Created');
+        this.openSnackBar('User ' + newUser.firstName + ' ' + newUser.lastName, 'Created');
 
     /*        this.usersService.newUser(newUser)
             .subscribe(_user => this.users.push(_user));*/

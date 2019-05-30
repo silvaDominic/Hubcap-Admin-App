@@ -58,7 +58,7 @@ export class UsersService {
             phoneNumber: [apiResponse.phoneNumber, Validators.required],
             storeIds: [apiResponse.storeIds],
             password: [apiResponse.password],
-            role: [apiResponse.role],
+            permissionLevel: [apiResponse.permissionLevel],
             isActive: [apiResponse.isActive],
             isRegistered: [apiResponse.isRegistered]
         });

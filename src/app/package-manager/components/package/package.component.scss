@@ -4,7 +4,8 @@
 }
 
 .menu-block .card {
-  height: 400px;
+  height: 350px;
+  box-shadow: 5px 0 30px 10px #7b7979;
 }
 
 .menu-price {
@@ -22,11 +23,11 @@
   box-shadow: inset 0px 11px 8px -10px #ccc,  inset 0px -11px 8px -5px #ccc;
 
   mat-list-item {
-    height: 32px !important;
+    height: 28px !important;
   }
 
   span {
-    font-size: 14px;
+    font-size: 12px;
   }
 }
 

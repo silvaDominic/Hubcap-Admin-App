@@ -1,81 +1,89 @@
 <div class="appointment-block">
-  <div class="row">
-    <div class="col-md-12">
-      <mat-accordion>
-        <mat-expansion-panel hideToggle>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <span><strong>{{thisAppointment.clientName}}</strong></span>
-            </mat-panel-title>
-            <mat-panel-description>
-              <div></div>
-              <div *ngIf="thisAppointment.isHCclient"><img src="./assets/logo/logo-alpha-color.svg" alt=""></div>
-              <div *ngIf="!thisAppointment.isHCclient"><img src="./assets/icons/icon-car-small.svg" alt=""></div>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
+    <div class="row">
+        <div class="col-md-12">
+            <mat-accordion>
+                <mat-expansion-panel hideToggle>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <span><strong>{{thisAppointment.firstName}}&nbsp;{{thisAppointment.lastName}}</strong></span>
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            <div></div>
+                            <div *ngIf="thisAppointment.isHCclient"><img src="./assets/logo/logo-alpha-color.svg" alt=""></div>
+                            <div *ngIf="!thisAppointment.isHCclient"><img src="./assets/icons/icon-car-small.svg" alt=""></div>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
 
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field>
-                  <input matInput placeholder="Name" type="text" [(ngModel)]="thisAppointment.clientName">
-                </mat-form-field>
-              </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <input matInput placeholder="First name" type="text" [(ngModel)]="thisAppointment.firstName">
+                            </mat-form-field>
+                        </div>
 
-              <div class="col-md-12">
-                <mat-form-field>
-                  <input matInput [matDatepicker]="appointmentDate" placeholder="Choose a date" [(ngModel)]="thisAppointment.date">
-                  <mat-datepicker-toggle matSuffix [for]="appointmentDate"></mat-datepicker-toggle>
-                  <mat-datepicker #appointmentDate startView="year"></mat-datepicker>
-                </mat-form-field>
-              </div>
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <input matInput placeholder="Last name" type="text" [(ngModel)]="thisAppointment.lastName">
+                            </mat-form-field>
+                        </div>
+                    </div>
 
-              <div class="col-md-12">
-                <mat-form-field>
-                  <input matInput placeholder="Phone Number (optional)" type="text" [(ngModel)]="thisAppointment.phoneNumber">
-                </mat-form-field>
-              </div>
-            </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field>
+                                <input matInput [matDatepicker]="appointmentDate" placeholder="Choose a date" [(ngModel)]="thisAppointment.date">
+                                <mat-datepicker-toggle matSuffix [for]="appointmentDate"></mat-datepicker-toggle>
+                                <mat-datepicker #appointmentDate startView="year"></mat-datepicker>
+                            </mat-form-field>
+                        </div>
 
-            <div class="row">
-              <div class="col-md-6">
-                <mat-form-field>
-                  <mat-label>Vehicle Type</mat-label>
-                  <mat-select [(ngModel)]="thisAppointment.vehicleType">
-                    <mat-option *ngFor="let vehicle of vehiclesKeys" [value]="vehicle">{{vehicle}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-              <div class="col-md-6">
-                <mat-form-field>
-                  <mat-label>Package</mat-label>
-                  <mat-select [(ngModel)]="thisAppointment.packageName">
-                    <mat-option *ngFor="let _package of packagesKeys" [value]="_package">{{_package}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </div>
+                        <div class="col-md-12">
+                            <mat-form-field>
+                                <input matInput placeholder="Phone Number (optional)" type="text" [(ngModel)]="thisAppointment.phoneNumber">
+                            </mat-form-field>
+                        </div>
+                    </div>
 
-            <div class="row">
-              <div class="col-md-6">
-                <mat-form-field>
-                  <mat-label for="dropOffTime">Drop Off Time</mat-label>
-                  <input matInput id="dropOffTime" type="time" atp-time-picker [(ngModel)]="thisAppointment.dropOffTime">
-                </mat-form-field>
-              </div>
-              <div class="col-md-6">
-                <mat-form-field>
-                  <mat-label for="pickUpTime">Pick Up Time</mat-label>
-                  <input matInput id="pickUpTime" type="time" atp-time-picker [(ngModel)]="thisAppointment.pickUpTime">
-                </mat-form-field>
-              </div>
-            </div>
-          <mat-action-row class="appointment-actions">
-            <button mat-raised-button color="primary" (click)="updateAppointment(thisAppointment)">Update</button>
-            <button mat-raised-button color="warn" (click)="deleteAppointment(thisAppointment)">Delete</button>
-          </mat-action-row>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <mat-label>Vehicle Type</mat-label>
+                                <mat-select [(ngModel)]="thisAppointment.vehicleType">
+                                    <mat-option *ngFor="let vehicle of vehiclesKeys" [value]="vehicle">{{vehicle}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <mat-label>Package</mat-label>
+                                <mat-select [(ngModel)]="thisAppointment.packageName">
+                                    <mat-option *ngFor="let _package of packagesKeys" [value]="_package">{{_package}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
 
-        </mat-expansion-panel>
-      </mat-accordion>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <mat-label for="dropOffTime">Drop Off Time</mat-label>
+                                <input matInput id="dropOffTime" type="time" atp-time-picker [(ngModel)]="thisAppointment.dropOffTime">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <mat-label for="pickUpTime">Pick Up Time</mat-label>
+                                <input matInput id="pickUpTime" type="time" atp-time-picker [(ngModel)]="thisAppointment.pickUpTime">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <mat-action-row class="appointment-actions">
+                        <button mat-raised-button color="primary" (click)="updateAppointment(thisAppointment)">Update</button>
+                        <button mat-raised-button color="warn" (click)="deleteAppointment(thisAppointment)">Delete</button>
+                    </mat-action-row>
+
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
     </div>
-  </div>
 </div>

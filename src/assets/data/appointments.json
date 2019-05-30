@@ -1,35 +1,41 @@
 [
   {
     "id": "qpofiehvmkds",
-    "clientName": "Chatrik",
+    "firstName": "Chatrik",
+    "lastName": "Sodhi",
     "date": "2019-06-15T00:00:00",
     "dropOffTime": "12:00",
     "pickUpTime": "14:00",
     "vehicleType": "MIDSIZED",
     "packageName": "INTERIOR",
     "isHCclient": true,
-    "phoneNumber": "1234567895"
+    "phoneNumber": "1234567895",
+    "email": "beta@email.com"
   },
   {
     "id": "ritudjfkorej",
-    "clientName": "Shahroz",
+    "firstName": "Shahroz",
+    "lastName": "Ahmed",
     "date": "2019-07-19T00:00:00",
     "dropOffTime": "09:00",
     "pickUpTime": "13:00",
     "vehicleType": "MIDSIZED",
     "packageName": "COMPLETE",
     "isHCclient": true,
-    "phoneNumber": "5678957746"
+    "phoneNumber": "5678957746",
+    "email": "important@email.com"
   },
   {
     "id": "jdjasnbskfks",
-    "clientName": "Chiru",
+    "firstName": "Chiru",
+    "lastName": "Bhatia",
     "date": "2019-09-02T00:00:00",
     "dropOffTime": "15:00",
     "pickUpTime": "17:00",
     "vehicleType": "SMALL",
     "packageName": "EXTERIOR",
     "isHCclient": false,
-    "phoneNumber": "1597534466"
+    "phoneNumber": "1597534466",
+    "email": "solar@email.com"
   }
 ]

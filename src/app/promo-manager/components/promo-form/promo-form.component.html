@@ -1,184 +1,184 @@
 <div class="promo-form-block">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="form-button-block">
-          <button id="new-promo-button" class="form-button" mat-icon-button type="button" data-toggle="collapse" data-target="#promo-form-stepper" *ngIf="!isNew && !isEdit" (click)="newPromo()"><mat-icon>add_circle</mat-icon><strong>New Promo</strong></button>
-          <button id="discard-promo-button" class="form-button" mat-icon-button type="button" data-toggle="collapse" data-target="#promo-form-stepper" *ngIf="isNew || isEdit" (click)="discardForm()"><mat-icon>remove_circle_outline</mat-icon><strong>Discard</strong></button>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-button-block">
+                    <button id="new-promo-button" class="form-button" mat-icon-button type="button" data-toggle="collapse" data-target="#promo-form-stepper" *ngIf="!isNew && !isEdit" (click)="newPromo()"><mat-icon>add_circle</mat-icon><strong>New Promo</strong></button>
+                    <button id="discard-promo-button" class="form-button" mat-icon-button type="button" data-toggle="collapse" data-target="#promo-form-stepper" *ngIf="isNew || isEdit" (click)="discardForm()"><mat-icon>remove_circle_outline</mat-icon><strong>Discard</strong></button>
+                </div>
+
+                <div class="form-button-block">
+                    <button id="edit-promo-button" class="form-button" mat-raised-button color="primary" type="button" data-toggle="collapse" data-target="#promo-form-stepper" *ngIf="isEdit" (click)="updatePromo(focusPromotion); openSnackBar(focusPromotion.name + ' Promo', 'Updated')">Update Promo</button>
+                </div>
+            </div>
         </div>
+        <div id="form-row" class="row" *ngIf="isNew || isEdit">
+            <div class="col-md-12">
+                <mat-vertical-stepper id="promo-form-stepper" class="custom-class collapse" linear="false" [ngClass]="{'collapse': !isEdit}">
 
-        <div class="form-button-block">
-          <button id="edit-promo-button" mat-raised-button color="primary" type="button" data-toggle="collapse" data-target="#promo-form-stepper" *ngIf="isEdit" (click)="updatePromo(focusPromotion); openSnackBar(focusPromotion.name + ' Promo', 'Updated')">Update Promo</button>
+                    <mat-step [stepControl]="nameFormGroup" id="name" label="Name">
+                        <form [formGroup]="nameFormGroup">
+                            <p>What is the name/title of this promo?</p>
+
+                            <mat-form-field>
+                                <input matInput placeholder="Ex: Early Bird Special" type="text" formControlName="nameCtrl" [(ngModel)]="focusPromotion.name" required>
+                            </mat-form-field>
+                            <button mat-button matStepperNext href="#description">Next</button>
+                        </form>
+                    </mat-step>
+
+                    <mat-step [stepControl]="descriptionFormGroup" id="description" label="Description" optional="true">
+                        <form [formGroup]="descriptionFormGroup">
+                            <p>Briefly describe the promotion</p>
+
+                            <mat-form-field>
+                                <input matInput placeholder="Ex: Get a 10% discount when coming in between 8:00AM and 10:00AM" formControlName="descriptionCtrl" [(ngModel)]="focusPromotion.description">
+                            </mat-form-field>
+                            <button mat-button matStepperNext href="#frequency">Next</button>
+                        </form>
+                    </mat-step>
+
+                    <mat-step [stepControl]="frequencyFormGroup" id="frequency" label="Frequency">
+                        <form [formGroup]="frequencyFormGroup">
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <p>How often will this promotion be available?</p>
+                                    <mat-radio-group class="promo-radio-group" formControlName="freqTypeCtrl" [(ngModel)]="focusPromotion.frequencyType">
+                                        <mat-radio-button value="ONE_TIME" class="promo-radio-button">One-Time</mat-radio-button>
+                                        <mat-radio-button value="REOCCURRING" class="promo-radio-button">Reoccurring</mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div *ngIf="focusPromotion.frequencyType === frequencyType.REOCCURRING">
+                                        <p>On what basis will it be reoccurring?</p>
+                                        <div class="input-group" >
+                                            <select id="reoccurringSelect" class="custom-select" name="reoccurringSelect" formControlName="freqCtrl" [(ngModel)]="focusPromotion.frequency">
+                                                <option value="DAILY">Daily</option>
+                                                <option value="WEEKLY">Weekly</option>
+                                                <option value="MONTHLY">Monthly</option>
+                                                <option value="ANNUAL">Annual</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <p *ngIf="focusPromotion.frequencyType === frequencyType.ONE_TIME">Choose when the promotion will be available to use</p>
+                                    <p *ngIf="focusPromotion.frequencyType === frequencyType.REOCCURRING">Choose when the promotion will begin.<br>It will reoccur on a {{focusPromotion.frequency}} basis.</p>
+                                    <mat-form-field>
+                                        <input matInput [matDatepicker]="startDate" placeholder="Choose a START date" formControlName="startDate" [(ngModel)]="focusPromotion.startDate" required>
+                                        <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                                        <mat-datepicker #startDate startView="year" [startAt]="startDate" ></mat-datepicker>
+                                    </mat-form-field>
+
+                                    <mat-form-field *ngIf="focusPromotion.frequencyType === frequencyType.ONE_TIME">
+                                        <input matInput [matDatepicker]="endDate" placeholder="Choose an END date" formControlName="endDate" [(ngModel)]="focusPromotion.endDate" required>
+                                        <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                                        <mat-datepicker #endDate startView="year" [startAt]="startDate" ></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button matStepperNext>Next</button>
+                        </form>
+                    </mat-step>
+
+                    <mat-step [stepControl]="discountFormGroup" label="Discount">
+                        <form [formGroup]="discountFormGroup">
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <p>What kind of discount will the consumer receive?</p>
+                                    <div class="input-group">
+                                        <select id="discountSelect" class="custom-select" name="discountSelect" formControlName="discountTypeCtrl" [(ngModel)]="focusPromotion.discount.discountType">
+                                            <option value="DOLLAR">Dollar Amount</option>
+                                            <option value="PERCENT">Percent Amount</option>
+                                            <option value="FREE">Free Feature</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div *ngIf="focusPromotion.discount.discountType !== discountType.FREE">
+                                        <p>How much off will they receive?</p>
+                                        <div class="input-group">
+                                            <mat-form-field class="full-width">
+                                                <input matInput type="text" placeholder="Enter discount amount" formControlName="discountAmtCtrl" [(ngModel)]="focusPromotion.discount.discountAmount">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="focusPromotion.discount.discountType === discountType.FREE">
+                                        <p>What free feature will they receive</p>
+                                        <div class="input-group">
+                                            <select id="discountFeatureSelect" class="custom-select" name="discountFeatureSelect" formControlName="discountFeatureCtrl" [(ngModel)]="focusPromotion.discount.freeFeature">
+                                                <option *ngFor="let packageItem of packageItems" [value]="packageItem.name">{{packageItem.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button matStepperNext>Next</button>
+                        </form>
+                    </mat-step>
+
+                    <mat-step [stepControl]="packageFormGroup" label="Package">
+                        <form [formGroup]="packageFormGroup">
+                            <p>What packages will the discount be for?</p>
+
+                            <div>
+                                <mat-checkbox class="promo-checkbox" formControlName="silverPackageCtrl" [(ngModel)]="focusPromotion.discountPackages[0]">Silver</mat-checkbox>
+                                <mat-checkbox class="promo-checkbox" formControlName="goldPackageCtrl" [(ngModel)]="focusPromotion.discountPackages[1]">Gold</mat-checkbox>
+                                <mat-checkbox class="promo-checkbox" formControlName="platinumPackageCtrl" [(ngModel)]="focusPromotion.discountPackages[2]">Platinum</mat-checkbox>
+                            </div>
+
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button matStepperNext>Next</button>
+                        </form>
+                    </mat-step>
+
+                    <mat-step [stepControl]="activeTimeFormGroup" label="Promotion Time">
+                        <form [formGroup]="activeTimeFormGroup">
+                            <p>What hours will this promotion be active</p>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <mat-form-field>
+                                        <mat-label for="startTime">Choose a start time</mat-label>
+                                        <input matInput id="startTime" type="time" atp-time-picker formControlName="startTime" [(ngModel)]="focusPromotion.startTime">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-6">
+                                    <mat-form-field>
+                                        <mat-label for="endTime">Choose an end time</mat-label>
+                                        <input matInput id="endTime" type="time" atp-time-picker formControlName="endTime" [(ngModel)]="focusPromotion.endTime">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div>
+                                <mat-checkbox class="promo-checkbox">All day</mat-checkbox>
+                            </div>
+
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button matStepperNext>Next</button>
+                        </form>
+                    </mat-step>
+
+                    <mat-step label="Complete Promo">
+                        <p>All done! Click <strong *ngIf="isNew">"Create Promo"</strong><strong *ngIf="isEdit">Update Promo</strong> to make package live!</p>
+
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button type="button" (click)="clearForm()">Reset</button>
+                        <button mat-raised-button color="primary" type="button" *ngIf="isEdit" (click)="updatePromo(focusPromotion); openSnackBar(focusPromotion.name + ' Promo', 'Updated')">Update Promo</button>
+                        <button mat-raised-button color="primary" type="button" *ngIf="isNew" (click)="createPromo(focusPromotion); openSnackBar(focusPromotion.name + ' Promo', 'Created')"><strong>Create Promo</strong></button>
+                    </mat-step>
+                </mat-vertical-stepper>
+            </div>
         </div>
-      </div>
     </div>
-    <div class="row" *ngIf="isNew || isEdit">
-      <div class="col-md-12">
-        <mat-vertical-stepper id="promo-form-stepper" class="custom-class collapse" linear="false" [ngClass]="{'collapse': !isEdit}">
-
-          <mat-step [stepControl]="nameFormGroup" label="Name">
-            <form [formGroup]="nameFormGroup">
-              <p>What is the name/title of this promo?</p>
-
-              <mat-form-field>
-                <input matInput placeholder="Ex: Early Bird Special" type="text" formControlName="nameCtrl" [(ngModel)]="focusPromotion.name" required>
-              </mat-form-field>
-              <button mat-button matStepperNext>Next</button>
-            </form>
-          </mat-step>
-
-          <mat-step [stepControl]="descriptionFormGroup" label="Description" optional="true">
-            <form [formGroup]="descriptionFormGroup">
-              <p>Briefly describe the promotion</p>
-
-              <mat-form-field>
-                <input matInput placeholder="Ex: Get a 10% discount when coming in between 8:00AM and 10:00AM" formControlName="descriptionCtrl" [(ngModel)]="focusPromotion.description">
-              </mat-form-field>
-              <button mat-button matStepperNext>Next</button>
-            </form>
-          </mat-step>
-
-          <mat-step [stepControl]="frequencyFormGroup" label="Frequency">
-            <form [formGroup]="frequencyFormGroup">
-
-              <div class="row">
-                <div class="col-md-3">
-                  <p>How often will this promotion be available?</p>
-                  <mat-radio-group class="promo-radio-group" formControlName="freqTypeCtrl" [(ngModel)]="focusPromotion.frequencyType">
-                    <mat-radio-button value="ONE_TIME" class="promo-radio-button">One-Time</mat-radio-button>
-                    <mat-radio-button value="REOCCURRING" class="promo-radio-button">Reoccurring</mat-radio-button>
-                  </mat-radio-group>
-                </div>
-
-                <div class="col-md-4">
-                  <div *ngIf="focusPromotion.frequencyType === frequencyType.REOCCURRING">
-                    <p>On what basis will it be reoccurring?</p>
-                    <div class="input-group" >
-                      <select id="reoccurringSelect" class="custom-select" name="reoccurringSelect" formControlName="freqCtrl" [(ngModel)]="focusPromotion.frequency">
-                        <option value="DAILY">Daily</option>
-                        <option value="WEEKLY">Weekly</option>
-                        <option value="MONTHLY">Monthly</option>
-                        <option value="ANNUAL">Annual</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-md-5">
-                  <p *ngIf="focusPromotion.frequencyType === frequencyType.ONE_TIME">Choose when the promotion will be available to use</p>
-                  <p *ngIf="focusPromotion.frequencyType === frequencyType.REOCCURRING">Choose when the promotion will begin.<br>It will reoccur on a {{focusPromotion.frequency}} basis.</p>
-                  <mat-form-field>
-                    <input matInput [matDatepicker]="startDate" placeholder="Choose a START date" formControlName="startDate" [(ngModel)]="focusPromotion.startDate" required>
-                    <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
-                    <mat-datepicker #startDate startView="year" [startAt]="startDate" ></mat-datepicker>
-                  </mat-form-field>
-
-                  <mat-form-field *ngIf="focusPromotion.frequencyType === frequencyType.ONE_TIME">
-                    <input matInput [matDatepicker]="endDate" placeholder="Choose an END date" formControlName="endDate" [(ngModel)]="focusPromotion.endDate" required>
-                    <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-                    <mat-datepicker #endDate startView="year" [startAt]="startDate" ></mat-datepicker>
-                  </mat-form-field>
-                </div>
-              </div>
-
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
-            </form>
-          </mat-step>
-
-          <mat-step [stepControl]="discountFormGroup" label="Discount">
-            <form [formGroup]="discountFormGroup">
-
-              <div class="row">
-                <div class="col-sm-6">
-                  <p>What kind of discount will the consumer receive?</p>
-                  <div class="input-group">
-                    <select id="discountSelect" class="custom-select" name="discountSelect" formControlName="discountTypeCtrl" [(ngModel)]="focusPromotion.discount.discountType">
-                      <option value="DOLLAR">Dollar Amount</option>
-                      <option value="PERCENT">Percent Amount</option>
-                      <option value="FREE">Free Feature</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div *ngIf="focusPromotion.discount.discountType !== discountType.FREE">
-                    <p>How much off will they receive?</p>
-                    <div class="input-group">
-                      <mat-form-field class="full-width">
-                        <input matInput type="text" placeholder="Enter discount amount" formControlName="discountAmtCtrl" [(ngModel)]="focusPromotion.discount.discountAmount">
-                      </mat-form-field>
-                    </div>
-                  </div>
-
-                  <div *ngIf="focusPromotion.discount.discountType === discountType.FREE">
-                    <p>What free feature will they receive</p>
-                    <div class="input-group">
-                      <select id="discountFeatureSelect" class="custom-select" name="discountFeatureSelect" formControlName="discountFeatureCtrl" [(ngModel)]="focusPromotion.discount.freeFeature">
-                        <option *ngFor="let packageItem of packageItems" [value]="packageItem.name">{{packageItem.name}}</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
-            </form>
-          </mat-step>
-
-          <mat-step [stepControl]="packageFormGroup" label="Package">
-            <form [formGroup]="packageFormGroup">
-              <p>What packages will the discount be for?</p>
-
-              <div>
-                <mat-checkbox class="promo-checkbox" formControlName="silverPackageCtrl" [(ngModel)]="focusPromotion.discountPackages[0]">Silver</mat-checkbox>
-                <mat-checkbox class="promo-checkbox" formControlName="goldPackageCtrl" [(ngModel)]="focusPromotion.discountPackages[1]">Gold</mat-checkbox>
-                <mat-checkbox class="promo-checkbox" formControlName="platinumPackageCtrl" [(ngModel)]="focusPromotion.discountPackages[2]">Platinum</mat-checkbox>
-              </div>
-
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
-            </form>
-          </mat-step>
-
-          <mat-step [stepControl]="activeTimeFormGroup" label="Promotion Time">
-            <form [formGroup]="activeTimeFormGroup">
-              <p>What hours will this promotion be active</p>
-
-              <div class="row">
-                <div class="col-sm-6">
-                  <mat-form-field>
-                    <mat-label for="startTime">Choose a start time</mat-label>
-                    <input matInput id="startTime" type="time" atp-time-picker formControlName="startTime" [(ngModel)]="focusPromotion.startTime">
-                  </mat-form-field>
-                </div>
-                <div class="col-sm-6">
-                  <mat-form-field>
-                    <mat-label for="endTime">Choose an end time</mat-label>
-                    <input matInput id="endTime" type="time" atp-time-picker formControlName="endTime" [(ngModel)]="focusPromotion.endTime">
-                  </mat-form-field>
-                </div>
-              </div>
-
-              <div>
-                <mat-checkbox class="promo-checkbox">All day</mat-checkbox>
-              </div>
-
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
-            </form>
-          </mat-step>
-
-          <mat-step label="Complete Promo">
-            <p>All done! Click <strong *ngIf="isNew">"Create Promo"</strong><strong *ngIf="isEdit">Update Promo</strong> to make package live!</p>
-
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button type="button" (click)="clearForm()">Reset</button>
-            <button mat-raised-button color="primary" type="button" *ngIf="isEdit" (click)="updatePromo(focusPromotion); openSnackBar(focusPromotion.name + ' Promo', 'Updated')">Update Promo</button>
-            <button mat-raised-button color="primary" type="button" *ngIf="isNew" (click)="createPromo(focusPromotion); openSnackBar(focusPromotion.name + ' Promo', 'Created')"><strong>Create Promo</strong></button>
-          </mat-step>
-        </mat-vertical-stepper>
-      </div>
-    </div>
-  </div>
 </div>

@@ -8,10 +8,24 @@
 .option-container, .option-container > div, select {
   display: inline-block;
   width: auto !important;
+  height: 60px;
+}
+
+.option-container .custom-select {
+  width: 192px !important;
 }
 
 .option-container {
-  margin: 8px;
+  margin: 5px;
+}
+
+.options-header {
+  text-align: center;
+  padding: 0.5em 0;
+}
+
+.options-header > * {
+  display: inline-block;
 }
 
 .price-container {
@@ -21,6 +35,8 @@
 .option-button {
   background-color: white;
   color: black;
+  height: 60px;
+  width: 180px;
 }
 
 .option-button.selected {
@@ -34,6 +50,16 @@
 }
 
 .btn {
-  margin-top: 0px !important;
-  margin-bottom: 0px !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
+/*
+
+.btn, .custom-select{
+  padding: 7px 15px !important;
+}
+
+select {
+  height: 32px;
+  font-size: 14px;
+}*/

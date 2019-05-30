@@ -16,7 +16,7 @@
       {
         "discountType": "PERCENT",
         "discountAmount": "10",
-        "freeFeature": ""
+        "freeFeature": [""]
       },
     "startTime": "08:00",
     "endTime": "10:00",
@@ -40,7 +40,7 @@
       {
         "discountType": "FREE",
         "discountAmount": "",
-        "freeFeature": "Window Clean"
+        "freeFeatures": ["Window Clean"]
       },
     "startTime": "18:00",
     "endTime": "20:00",
@@ -64,7 +64,7 @@
       {
         "discountType": "DOLLAR",
         "discountAmount": "1",
-        "freeFeature": ""
+        "freeFeature": [""]
       },
     "startTime": "8:00",
     "endTime": "17:00",

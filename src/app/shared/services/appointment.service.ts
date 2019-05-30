@@ -36,7 +36,8 @@ export class AppointmentService {
 
     public generateAppointmentForm(apiRequest: any): FormGroup {
         return this.fb.group({
-            clientName: [apiRequest.clientName, Validators.required],
+            firstName: [apiRequest.firstName, Validators.required],
+            lastName: [apiRequest.lastName, Validators.required],
             date: [apiRequest.date, Validators.required],
             vehicleType: [apiRequest.vehicleType, Validators.required],
             packageName: [apiRequest.packageName, Validators.required],

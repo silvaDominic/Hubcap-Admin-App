@@ -4,13 +4,17 @@
             <div class="container">
                 <div class="row package-nav">
                     <div class="col-sm-4">
-                        <button class="btn btn-outline-primary" (click)="changePackageType(packageType.WASH)">Wash</button>
+                        <button id="wash-button" class="btn btn-outline-primary"
+                                (click)="changePackageType(packageType.WASH)"
+                                [ngClass]="{'wash-selected': selectedPackageType === packageType.WASH, '': selectedPackageType !== packageType.WASH}">Wash</button>
                     </div>
                     <div class="col-sm-4">
                         <button type="submit" class="btn btn-success" (click)="updateWashPackages(packages)">Update Menus</button>
                     </div>
-                    <div class="col-sm-4">
-                        <button class="btn btn-outline-info" (click)="changePackageType(packageType.DETAIL)">Detail</button>
+                    <div  class="col-sm-4">
+                        <button id="detail-button" class="btn btn-outline-info"
+                                (click)="changePackageType(packageType.DETAIL)"
+                                [ngClass]="{'detail-selected': selectedPackageType === packageType.DETAIL, '': selectedPackageType !== packageType.DETAIL}">Detail</button>
                     </div>
                 </div>
                 <div class="row">
@@ -28,7 +32,7 @@
         </div>
 
         <div id="menu-options-section">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
                         <app-package-options [focusPackage]="focusPackage"></app-package-options>

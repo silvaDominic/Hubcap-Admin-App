@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Package} from './shared/package.model';
 import {PackageService} from '../shared/services/package.service';
 import {PACKAGE_TYPE} from '../shared/models/PACKAGE_TYPE.model';
@@ -14,6 +14,7 @@ export class PackageManagerComponent implements OnInit {
     error: string;
     focusPackage: Package;
     packageType = PACKAGE_TYPE;
+    selectedPackageType = PACKAGE_TYPE.WASH;
 
     constructor(private packageService: PackageService) {
     }
@@ -58,8 +59,10 @@ export class PackageManagerComponent implements OnInit {
 
     changePackageType(packageType: string) {
         if (packageType === PACKAGE_TYPE.WASH) {
+            this.selectedPackageType = PACKAGE_TYPE.WASH;
             this.getAllWashPackages();
         } else if (packageType === PACKAGE_TYPE.DETAIL) {
+            this.selectedPackageType = PACKAGE_TYPE.DETAIL;
             this.getAllDetailPackages();
         }
     }

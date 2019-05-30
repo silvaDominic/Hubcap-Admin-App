@@ -5,8 +5,8 @@
     "lastName": "Silva",
     "selectedVehicle": "BMW M6",
     "plateNumber": "abc4568",
-    "packageType": "WASH",
-    "selectedPackage": "GOLD"
+    "packageType": "DETAIL",
+    "selectedPackage": "COMPLETE"
   },
   {
     "id": "#321654987",

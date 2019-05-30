@@ -26,6 +26,7 @@ export class AppointmentFormComponent implements OnInit {
             '',
             '',
             '',
+            '',
             null,
             null,
             false,
@@ -46,7 +47,8 @@ export class AppointmentFormComponent implements OnInit {
     createAppointment() {
         this.appointments.push(new Appointment(
             AppointmentService.generateId(),
-            this.appointmentFormGroup.get('clientName').value,
+            this.appointmentFormGroup.get('firstName').value,
+            this.appointmentFormGroup.get('lastName').value,
             this.appointmentFormGroup.get('date').value,
             this.appointmentFormGroup.get('dropOffTime').value,
             this.appointmentFormGroup.get('pickUpTime').value,
