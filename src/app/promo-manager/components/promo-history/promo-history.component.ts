@@ -1,88 +1,55 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Promotion} from '../../shared/promotion.model';
 import {PromotionService} from '../../../shared/services/promotion.service';
+import {Promotion} from '../../shared/promotion.model';
 import {PromoFormComponent} from '../promo-form/promo-form.component';
-import {PromoPreviewComponent} from '../promo-preview/promo-preview.component';
 
 @Component({
-  selector: 'app-promo-history',
-  templateUrl: './promo-history.component.html',
-  styleUrls: ['./promo-history.component.scss']
+    selector: 'app-promo-history',
+    templateUrl: './promo-history.component.html',
+    styleUrls: ['./promo-history.component.scss']
 })
 export class PromoHistoryComponent implements OnInit {
 
-  @Input() historyPromotions: Promotion[];
-  @Input() promoForm: PromoFormComponent;
-  @Input() promoPreview: PromoPreviewComponent;
+    @Input() historyPromotions: Promotion[];
+    @Input() promoForm: PromoFormComponent;
 
-  activePromos: Promotion[];
-  inActivePromos: Promotion[];
+    history = this;
 
-  constructor(private promotionService: PromotionService) {
-    this.activePromos = [];
-    this.inActivePromos = [];
-  }
+    activePromos: Promotion[];
+    inActivePromos: Promotion[];
 
-  ngOnInit() {
-    this.refreshHistory();
-  }
-
-  getActivePromos() {
-    const freshArray = [];
-    for (const activePromo of this.historyPromotions) {
-      if (activePromo.isActive) {
-          freshArray.push(activePromo);
-      }
+    constructor(private promotionService: PromotionService) {
+        this.activePromos = [];
+        this.inActivePromos = [];
     }
-    this.activePromos = freshArray;
-    return this.activePromos;
-  }
+    ngOnInit() {
+        this.refreshHistory();
+    }
 
-  getInActivePromos() {
-      const freshArray = [];
-      for (const inActivePromo of this.historyPromotions) {
-          if (!inActivePromo.isActive) {
-              freshArray.push(inActivePromo);
-          }
-      }
-      this.inActivePromos = freshArray;
-      return this.inActivePromos;
-  }
-
-  refreshHistory() {
-      this.activePromos = this.getActivePromos();
-      this.inActivePromos = this.getInActivePromos();
-  }
-
-  markInactive(promo: Promotion) {
-    for (const a_promo of this.activePromos) {
-        if (a_promo === promo) {
-            a_promo.isActive = false;
+    getActivePromos() {
+        const freshArray = [];
+        for (const activePromo of this.historyPromotions) {
+            if (activePromo.isActive) {
+                freshArray.push(activePromo);
+            }
         }
+        this.activePromos = freshArray;
+        return this.activePromos;
     }
-    // this.promotionService.updatePromotion(promo);
-    this.refreshHistory();
-  }
 
-  markActive(promo: Promotion) {
-    for (const ia_promo of this.inActivePromos) {
-      if (ia_promo === promo) {
-        ia_promo.isActive = true;
-      }
+    getInActivePromos() {
+        const freshArray = [];
+        for (const inActivePromo of this.historyPromotions) {
+            if (!inActivePromo.isActive) {
+                freshArray.push(inActivePromo);
+            }
+        }
+        this.inActivePromos = freshArray;
+        return this.inActivePromos;
     }
-    // this.promotionService.updatePromotion(promo);
-    this.refreshHistory();
-  }
 
-  callChangePreview(promo: Promotion) {
-    this.promoPreview.changePreview(promo);
-  }
-
-  callEditPromo(promo: Promotion) {
-    this.promoForm.editPromo(promo);
-  }
-
-  trackByFn(index, item) {
-      return;
-  }
+    refreshHistory() {
+        this.activePromos = this.getActivePromos();
+        this.inActivePromos = this.getInActivePromos();
+    }
 }

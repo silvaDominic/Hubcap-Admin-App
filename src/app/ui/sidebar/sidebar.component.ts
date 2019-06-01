@@ -13,8 +13,8 @@ export const ROUTES: RouteInfo[] = [
     { path: '/user-profile', title: 'User Profile',  icon: 'person', class: '' },
     { path: '/store', title: 'My Stores', icon: 'store', class: '' },
     { path: '/user-manager', title: 'Users', icon: 'people', class: ''},
-    { path: '/package-manager', title: 'Package Manager',  icon: 'view_carousel', class: '' },
-    { path: '/promo-manager', title: 'Promotional Manager',  icon: 'stars', class: '' },
+    { path: '/discountPackage-manager', title: 'Package Manager',  icon: 'view_carousel', class: '' },
+    { path: '/focusPromotion-manager', title: 'Promotional Manager',  icon: 'stars', class: '' },
     { path: '/qr-scanner-manager', title: 'QR Scanner', icon: 'control_camera', class: '' }
 ];
 

@@ -1,5 +1,5 @@
 import {VEHICLE_TYPE} from '../../shared/models/VEHICLE_TYPE.model';
-import {PACKAGE} from '../../shared/models/PACKAGE.model';
+import {WASH_PACKAGE} from '../../shared/models/WASH_PACKAGE.model';
 import {PACKAGE_TYPE} from '../../shared/models/PACKAGE_TYPE.model';
 
 export class Appointment {
@@ -10,7 +10,7 @@ export class Appointment {
                 public dropOffTime: string,
                 public pickUpTime: string,
                 public vehicleType: VEHICLE_TYPE,
-                public packageName: PACKAGE,
+                public packageName: WASH_PACKAGE,
                 public isHCclient: boolean,
                 public phoneNumber?: string,
                 public email?: string) {}

@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Appointment} from '../../schedule-manager/shared/appointment.model';
 import {VEHICLE_TYPE} from '../models/VEHICLE_TYPE.model';
-import {PACKAGE} from '../models/PACKAGE.model';
+import {WASH_PACKAGE} from '../models/WASH_PACKAGE.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Injectable({
@@ -12,7 +12,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class AppointmentService {
 
     public static vehiclesKeys = Object.keys(VEHICLE_TYPE);
-    public static packageKeys = Object.keys(PACKAGE);
+    public static packageKeys = Object.keys(WASH_PACKAGE);
 
     private appointmentsUrl = 'http://localhost:4200/assets/data/appointments.json';
 

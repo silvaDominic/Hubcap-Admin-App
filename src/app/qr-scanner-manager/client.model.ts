@@ -1,4 +1,4 @@
-import {PACKAGE} from '../shared/models/PACKAGE.model';
+import {WASH_PACKAGE} from '../shared/models/WASH_PACKAGE.model';
 import {PACKAGE_TYPE} from '../shared/models/PACKAGE_TYPE.model';
 
 export class Client {
@@ -9,6 +9,6 @@ export class Client {
                 public selectedVehicle: string,
                 public plateNumber: string,
                 public packageType: PACKAGE_TYPE,
-                public selectedPackage: PACKAGE
+                public selectedPackage: WASH_PACKAGE
                 ) {}
 }

@@ -5,6 +5,6 @@ export class Discount {
 
     constructor(public discountType: DISCOUNT_TYPE = DISCOUNT_TYPE.PERCENT,
                 public discountAmount: number = null,
-                public freeFeature: PackageItem[] = []) {
+                public freeFeatures: PackageItem[] = []) {
     }
 }

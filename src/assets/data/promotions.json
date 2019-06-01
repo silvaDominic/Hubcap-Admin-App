@@ -1,74 +1,74 @@
 [
-  {
-    "id": "001",
-    "name": "Early Bird Special",
-    "description": "Get a 10% discount when coming in between 8:00AM and 10:00AM",
-    "frequencyType": "ONE_TIME",
-    "frequency": null,
-    "startDate": "2019-03-15T00:00:00",
-    "endDate": "2019-04-15T00:00:00",
-    "discountPackages": [
-      true,
-      true,
-      true
-    ],
-    "discount":
-      {
-        "discountType": "PERCENT",
-        "discountAmount": "10",
-        "freeFeature": [""]
-      },
-    "startTime": "08:00",
-    "endTime": "10:00",
-    "isAllDay": false,
-    "isActive": true
-  },
-  {
-    "id": "002",
-    "name": "Late Night Special",
-    "description": "Get a 5% discount when coming in between 6:00PM and 8:00PM",
-    "frequencyType": "REOCCURRING",
-    "frequency": "WEEKLY",
-    "startDate": "2019-07-15T00:00:00",
-    "endDate": "2019-08-31T00:00:00",
-    "discountPackages": [
-      false,
-      true,
-      false
-    ],
-    "discount":
-      {
-        "discountType": "FREE",
-        "discountAmount": "",
-        "freeFeatures": ["Window Clean"]
-      },
-    "startTime": "18:00",
-    "endTime": "20:00",
-    "isAllDay": false,
-    "isActive": true
-  },
-  {
-    "id": "003",
-    "name": "Ladies Day",
-    "description": "Ladies get a dollar off",
-    "frequencyType": "REOCCURRING",
-    "frequency": "DAILY",
-    "startDate": "2018-01-01T00:00:00",
-    "endDate": "2018-12-31T00:00:00",
-    "discountPackages": [
-      false,
-      true,
-      true
-    ],
-    "discount":
-      {
-        "discountType": "DOLLAR",
-        "discountAmount": "1",
-        "freeFeature": [""]
-      },
-    "startTime": "8:00",
-    "endTime": "17:00",
-    "isAllDay": true,
-    "isActive": false
-  }
+    {
+        "id": "001",
+        "name": "Early Bird Special",
+        "description": "Get a 10% discount when coming in between 8:00AM and 10:00AM",
+        "frequencyType": "ONE_TIME",
+        "frequency": null,
+        "startDate": "2019-03-15T00:00:00",
+        "endDate": "2019-04-15T00:00:00",
+        "packageType": "WASH",
+        "discountPackages": [
+            "GOLD",
+            "SILVER",
+            "PLATINUM"
+        ],
+        "discount":
+        {
+            "discountType": "PERCENT",
+            "discountAmount": "10",
+            "freeFeatures": [""]
+        },
+        "startTime": "08:00",
+        "endTime": "10:00",
+        "isAllDay": false,
+        "isActive": true
+    },
+    {
+        "id": "002",
+        "name": "Late Night Special",
+        "description": "Get a 5% discount when coming in between 6:00PM and 8:00PM",
+        "frequencyType": "REOCCURRING",
+        "frequency": "WEEKLY",
+        "startDate": "2019-07-15T00:00:00",
+        "endDate": "2019-08-31T00:00:00",
+        "packageType": "WASH",
+        "discountPackages": [
+            "GOLD"
+        ],
+        "discount":
+        {
+            "discountType": "FREE",
+            "discountAmount": "",
+            "freeFeatures": ["Window Clean"]
+        },
+        "startTime": "18:00",
+        "endTime": "20:00",
+        "isAllDay": false,
+        "isActive": true
+    },
+    {
+        "id": "003",
+        "name": "Ladies Day",
+        "description": "Ladies get a dollar off",
+        "frequencyType": "REOCCURRING",
+        "frequency": "DAILY",
+        "startDate": "2018-01-01T00:00:00",
+        "endDate": "2018-12-31T00:00:00",
+        "packageType": "WASH",
+        "discountPackages": [
+            "GOLD",
+            "PLATINUM"
+        ],
+        "discount":
+        {
+            "discountType": "DOLLAR",
+            "discountAmount": "1",
+            "freeFeatures": [""]
+        },
+        "startTime": "8:00",
+        "endTime": "17:00",
+        "isAllDay": true,
+        "isActive": false
+    }
 ]

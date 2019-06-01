@@ -16,7 +16,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'store', component: StoreManagerComponent },
     { path: 'user-manager', component: UserManagerComponent },
-    { path: 'package-manager',   component: PackageManagerComponent },
-    { path: 'promo-manager', component: PromoManagerComponent},
+    { path: 'discountPackage-manager',   component: PackageManagerComponent },
+    { path: 'focusPromotion-manager', component: PromoManagerComponent},
     { path: 'qr-scanner-manager', component: QrScannerManagerComponent }
 ];

@@ -1,4 +1,4 @@
-export enum PACKAGE {
+export enum ALL_PACKAGES {
     SILVER = 'SILVER',
     GOLD = 'GOLD',
     PLATINUM = 'PLATINUM',

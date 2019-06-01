@@ -33,8 +33,9 @@ import {PackageComponent} from '../../package-manager/components/package/package
 import {PackageOptionsComponent} from '../../package-manager/components/package-options/package-options.component';
 import {PromoManagerComponent} from '../../promo-manager/promo-manager.component';
 import {PromoFormComponent} from '../../promo-manager/components/promo-form/promo-form.component';
-import {PromoPreviewComponent} from '../../promo-manager/components/promo-preview/promo-preview.component';
-import {PromoHistoryComponent} from '../../promo-manager/components/promo-history/promo-history.component';
+import { PromoHistoryComponent } from '../../promo-manager/components/promo-history/promo-history.component';
+import {PromoComponent} from '../../promo-manager/components/promo/promo.component';
+import { PromoNewComponent } from '../../promo-manager/components/promo-new/promo-new.component';
 import {UserManagerComponent} from '../../user-manager/user-manager.component';
 import {UserComponent} from '../../user-manager/components/user/user.component';
 import {UserFormComponent} from '../../user-manager/components/user-form/user-form.component';
@@ -83,8 +84,9 @@ import { SignInComponent } from '../../sign-in/sign-in.component';
     PackageOptionsComponent,
     PromoManagerComponent,
     PromoFormComponent,
-    PromoPreviewComponent,
     PromoHistoryComponent,
+    PromoComponent,
+    PromoNewComponent,
     UserProfileComponent,
     UserManagerComponent,
     UserComponent,

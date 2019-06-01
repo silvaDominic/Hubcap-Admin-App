@@ -18,7 +18,6 @@ export class StoresService {
     static dayKeys = Object.keys(DAY);
 
     private storesUrl = 'http://localhost:4200/assets/data/stores.json';
-    private exceptionsUrl = 'http://localhost:4200/assets/data/exceptions.json';
 
     static generateStoreId() {
         return '#' + Math.random().toString(); // Will be made more comprehensive in the future
@@ -31,8 +30,7 @@ export class StoresService {
     constructor(
         private readonly fb: FormBuilder,
         private readonly http: HttpClient
-    ) {
-    }
+    ) {}
 
     fetchAllStores(): Observable<Store[]> {
         return this.http.get<Store[]>(this.storesUrl)
@@ -52,7 +50,7 @@ export class StoresService {
             city: [apiResponse.city, Validators.required],
             state: [apiResponse.state, Validators.required],
             zip: [apiResponse.zip, Validators.required],
-            email: [apiResponse.email, Validators.required, Validators.email],
+            email: [apiResponse.email, [Validators.required, Validators.email]],
             phoneNumber: [apiResponse.phoneNumber, Validators.required],
             storeHours: this.fb.array(apiResponse.storeHours.map
             (storeHours => this.generateHoursForm(storeHours))),

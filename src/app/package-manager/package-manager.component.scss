@@ -25,6 +25,7 @@
 .menu-container {
   transition: all 0.3s;
   opacity: 0.6;
+  transform: scale(0.5);
 }
 
 .menu-container:hover {

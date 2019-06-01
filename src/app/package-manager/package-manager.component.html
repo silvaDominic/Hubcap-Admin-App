@@ -1,41 +1,45 @@
 <div id="package-manager-block main-content">
-    <div class="flex-wrapper">
-        <div id="menu-section">
-            <div class="container">
-                <div class="row package-nav">
-                    <div class="col-sm-4">
-                        <button id="wash-button" class="btn btn-outline-primary"
-                                (click)="changePackageType(packageType.WASH)"
-                                [ngClass]="{'wash-selected': selectedPackageType === packageType.WASH, '': selectedPackageType !== packageType.WASH}">Wash</button>
-                    </div>
-                    <div class="col-sm-4">
-                        <button type="submit" class="btn btn-success" (click)="updateWashPackages(packages)">Update Menus</button>
-                    </div>
-                    <div  class="col-sm-4">
-                        <button id="detail-button" class="btn btn-outline-info"
-                                (click)="changePackageType(packageType.DETAIL)"
-                                [ngClass]="{'detail-selected': selectedPackageType === packageType.DETAIL, '': selectedPackageType !== packageType.DETAIL}">Detail</button>
-                    </div>
+    <div id="menu-section">
+        <div class="container">
+            <div class="row package-nav">
+                <div class="col-sm-4">
+                    <button id="wash-button" class="btn btn-outline-primary"
+                            (click)="changePackageType(packageType.WASH)"
+                            [ngClass]="{'wash-selected': selectedPackageType === packageType.WASH, '': selectedPackageType !== packageType.WASH}">Wash</button>
                 </div>
-                <div class="row">
-                    <div class="col-md-4 menu-container" [ngClass]="{'selected': _package === focusPackage}" *ngFor="let _package of packages">
-                        <app-package [name]="_package.name"
-                                     [price] = "_package.price"
-                                     [packageItems]="_package.packageItems"
-                                     [duration]="_package.duration"
-                                     [thisPackageType]="_package.type"
-                                     (click)="setFocusPackage(_package)"
-                                     [class.selected]="_package == focusPackage"></app-package>
-                    </div>
+                <div class="col-sm-4">
+                    <button type="submit" class="btn btn-success" (click)="updateWashPackages(packages)">Update Menus</button>
+                </div>
+                <div  class="col-sm-4">
+                    <button id="detail-button" class="btn btn-outline-info"
+                            (click)="changePackageType(packageType.DETAIL)"
+                            [ngClass]="{'detail-selected': selectedPackageType === packageType.DETAIL, '': selectedPackageType !== packageType.DETAIL}">Detail</button>
                 </div>
             </div>
-        </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="row" *ngFor="let _package of packages">
+                        <div class="col-md-12 menu-container" [ngClass]="{'selected': _package === focusPackage}" >
+                            <app-package [name]="_package.name"
+                                         [price] = "_package.price"
+                                         [packageItems]="_package.packageItems"
+                                         [duration]="_package.duration"
+                                         [thisPackageType]="_package.type"
+                                         (click)="setFocusPackage(_package)"
+                                         [class.selected]="_package == focusPackage"></app-package>
+                        </div>
+                    </div>
+                </div>
 
-        <div id="menu-options-section">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <app-package-options [focusPackage]="focusPackage"></app-package-options>
+                <div class="col-md-8">
+                    <div id="menu-options-section">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <app-package-options [focusPackage]="focusPackage"></app-package-options>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

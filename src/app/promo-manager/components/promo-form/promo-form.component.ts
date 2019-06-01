@@ -8,6 +8,10 @@ import {PackageItem} from '../../../package-manager/shared/package.item.model';
 import {PromotionService} from '../../../shared/services/promotion.service';
 import {FREQUENCY_TYPE} from '../../../shared/models/FREQUENCY_TYPE.model';
 import {MatSnackBar} from '@angular/material';
+import {WASH_PACKAGE} from '../../../shared/models/WASH_PACKAGE.model';
+import {PACKAGE_TYPE} from '../../../shared/models/PACKAGE_TYPE.model';
+import {ALL_PACKAGES} from '../../../shared/models/ALL_PACKAGES.model';
+import {Discount} from '../../shared/discount.model';
 
 @Component({
   selector: 'app-promo-form',
@@ -20,6 +24,7 @@ export class PromoFormComponent implements OnInit {
     @Input() promotions: Promotion[];
 
     // Form Builder Groups
+    packageTypeFormGroup: FormGroup;
     nameFormGroup: FormGroup;
     descriptionFormGroup: FormGroup;
     frequencyFormGroup: FormGroup;
@@ -30,6 +35,9 @@ export class PromoFormComponent implements OnInit {
     // Enums
     discountType = DISCOUNT_TYPE;
     frequencyType = FREQUENCY_TYPE;
+    packageType = PACKAGE_TYPE;
+    washPackages = PromotionService.washPackageKeys;
+    detailPackages = PromotionService.detailPackageKeys;
 
     // Package list for "Free Feature" input
     packageItems: PackageItem[];
@@ -38,55 +46,51 @@ export class PromoFormComponent implements OnInit {
     currentDate: Date;
     startDate: Date;
 
-    isNew: boolean;
-    isEdit: boolean;
     error: string;
 
-    constructor(private fb: FormBuilder, private atpService: AmazingTimePickerService, private snackBar: MatSnackBar,
+    private static initPromotion(): Promotion {
+        return new Promotion(
+            '',
+            '',
+            '',
+            FREQUENCY_TYPE.ONE_TIME,
+            null,
+            '',
+            '',
+            PACKAGE_TYPE.WASH,
+            [],
+            new Discount(),
+            '',
+            '',
+            false,
+            true
+        )
+    }
+
+    constructor(private atpService: AmazingTimePickerService, private snackBar: MatSnackBar,
                 private packageService: PackageService, private promotionService: PromotionService) {
 
+        // Initialize barebones Promotion
+        this.focusPromotion = PromoFormComponent.initPromotion();
+
+        // Initialize forms using barebones Promotion object
+        this.packageTypeFormGroup = this.promotionService.generatePackageTypeForm(this.focusPromotion);
+        this.nameFormGroup = this.promotionService.generateNameForm(this.focusPromotion);
+        this.descriptionFormGroup = this.promotionService.generateDescriptionForm(this.focusPromotion);
+        this.frequencyFormGroup = this.promotionService.generateFrequencyForm(this.focusPromotion);
+        this.discountFormGroup = this.promotionService.generateDiscountForm(this.focusPromotion);
+        this.packageFormGroup = this.promotionService.generateDiscountPackagesForm(this.focusPromotion);
+        this.activeTimeFormGroup = this.promotionService.generateActiveTimeForm(this.focusPromotion);
+
+        // For Amazing Time Picker
         this.currentDate = new Date();
         this.startDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDay());
-
-        this.isEdit = false;
-        this.isNew = false;
-        this.nameFormGroup = this.fb.group({
-            nameCtrl: ['', Validators.required]
-        });
-
-        this.descriptionFormGroup = this.fb.group({
-            descriptionCtrl: ['', Validators.required]
-        });
-
-        this.frequencyFormGroup = this.fb.group({
-            freqTypeCtrl: ['', Validators.required],
-            freqCtrl: ['', Validators.required],
-            startDate: ['', Validators.required],
-            endDate: ['', Validators.required]
-        });
-
-        this.discountFormGroup = this.fb.group({
-            discountTypeCtrl: ['', Validators.required],
-            discountAmtCtrl: [''],
-            discountFeatureCtrl: ['']
-        });
-
-        this.packageFormGroup = this.fb.group({
-            silverPackageCtrl: [false],
-            goldPackageCtrl: [false],
-            platinumPackageCtrl: [false]
-        });
-
-        this.activeTimeFormGroup = this.fb.group({
-            startTime: ['', Validators.required],
-            endTime: ['', Validators.required],
-            allDayCtrl: [false]
-        });
     }
 
     ngOnInit() {
         this.getAllPackageItems();
     }
+
 
     getAllPackageItems() {
         this.packageService.fetchAllWashPackageItems()
@@ -98,71 +102,68 @@ export class PromoFormComponent implements OnInit {
     fillForm(promo: Promotion) {
         this.focusPromotion = promo;
 
+        this.packageTypeFormGroup.patchValue({
+            packageType: this.focusPromotion.packageType
+        });
+
         this.nameFormGroup.setValue({
-            nameCtrl: this.focusPromotion.name
+            name: this.focusPromotion.name
         });
 
         this.descriptionFormGroup.setValue({
-            descriptionCtrl: this.focusPromotion.description
+            description: this.focusPromotion.description
         });
 
         this.frequencyFormGroup.setValue({
-            freqTypeCtrl: this.focusPromotion.frequencyType,
-            freqCtrl: this.focusPromotion.frequency,
+            freqType: this.focusPromotion.frequencyType,
+            freq: this.focusPromotion.frequency,
             startDate: this.focusPromotion.startDate,
             endDate: this.focusPromotion.endDate
         });
 
         this.discountFormGroup.setValue({
-            discountTypeCtrl: this.focusPromotion.discount.discountType,
-            discountAmtCtrl: this.focusPromotion.discount.discountAmount,
-            discountFeatureCtrl: this.focusPromotion.discount.freeFeature
+            discountType: this.focusPromotion.discount.discountType,
+            discountAmt: this.focusPromotion.discount.discountAmount,
+            discountFeature: this.focusPromotion.discount.freeFeatures
         });
 
         this.packageFormGroup.patchValue([{
-            silverPackageCtrl: this.focusPromotion.discountPackages[0],
-            goldPackageCtrl: this.focusPromotion.discountPackages[1],
-            platinumPackageCtrl: this.focusPromotion.discountPackages[2]
+            discountPackages: this.focusPromotion.discountPackages
         }]);
 
         this.activeTimeFormGroup.setValue({
             startTime: this.focusPromotion.startTime,
             endTime: this.focusPromotion.endTime,
-            allDayCtrl: this.focusPromotion.isAllDay
+            allDay: this.focusPromotion.isAllDay
         });
     }
 
     discardForm() {
-        this.promotionService.focusPromotion = this.promotions[0];
-        this.isNew = false;
-        this.isEdit = false;
+        this.focusPromotion = this.promotions[0];
     }
 
     createPromo(promo: Promotion) {
         this.promotions.push(promo);
         this.discardForm();
         this.openSnackBar(promo.name + ' Promo', 'Created');
-        /*        this.promotionService.newPromotion(promo)
+        /*        this.promotionService.newPromotion(focusPromotion)
                     .subscribe(_promo => this.promotions.push(_promo));*/
     }
 
     editPromo(promo: Promotion) {
-        this.isEdit = true;
         this.fillForm(promo);
     }
 
     newPromo() {
-        this.isNew = true;
         this.clearForm();
     }
 
     updatePromo(promo: Promotion) {
         const promoIndex = this.promotions.indexOf(promo);
         this.promotions.push(promo);
-        this.promotionService.focusPromotion = this.promotions[promoIndex];
-        this.isEdit = false;
+        this.focusPromotion = this.promotions[promoIndex];
         this.openSnackBar(promo.name + ' Promo', 'Updated');
-/*        this.promotionService.updatePromotion(promo)
+/*        this.promotionService.updatePromotion(focusPromotion)
             .subscribe(_promo => this.promotions.push(_promo));*/
     }
 
@@ -173,8 +174,8 @@ export class PromoFormComponent implements OnInit {
     }
 
     clearForm() {
-        this.promotionService.createNewPromotion();
-        this.fillForm(new Promotion());
+        this.focusPromotion = PromoFormComponent.initPromotion();
+        this.fillForm(PromoFormComponent.initPromotion());
     }
 }
 

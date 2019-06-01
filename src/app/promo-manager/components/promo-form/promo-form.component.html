@@ -12,16 +12,28 @@
                 </div>
             </div>
         </div>
-        <div id="form-row" class="row" *ngIf="isNew || isEdit">
+        <div id="form-row" class="row">
             <div class="col-md-12">
-                <mat-vertical-stepper id="promo-form-stepper" class="custom-class collapse" linear="false" [ngClass]="{'collapse': !isEdit}">
+                <mat-vertical-stepper id="promo-form-stepper" class="custom-class collapse" linear="false">
+                    <mat-step [stepControl]="packageTypeFormGroup" id="packageType" label="PackageType">
+                        <form [formGroup]="packageTypeFormGroup">
+                            <p>What type of promotion is this?</p>
+
+                            <div class="input-group">
+                                <select id="packageTypeSelect" class="custom-select" name="packageTypeSelect" formControlName="packageType" [(ngModel)]="focusPromotion.packageType">
+                                    <option value="WASH">WASH</option>
+                                    <option value="DETAIL">DETAIL</option>
+                                </select>
+                            </div>
+                        </form>
+                    </mat-step>
 
                     <mat-step [stepControl]="nameFormGroup" id="name" label="Name">
                         <form [formGroup]="nameFormGroup">
                             <p>What is the name/title of this promo?</p>
 
                             <mat-form-field>
-                                <input matInput placeholder="Ex: Early Bird Special" type="text" formControlName="nameCtrl" [(ngModel)]="focusPromotion.name" required>
+                                <input matInput placeholder="Ex: Early Bird Special" type="text" formControlName="name" [(ngModel)]="focusPromotion.name" required>
                             </mat-form-field>
                             <button mat-button matStepperNext href="#description">Next</button>
                         </form>
@@ -32,7 +44,7 @@
                             <p>Briefly describe the promotion</p>
 
                             <mat-form-field>
-                                <input matInput placeholder="Ex: Get a 10% discount when coming in between 8:00AM and 10:00AM" formControlName="descriptionCtrl" [(ngModel)]="focusPromotion.description">
+                                <input matInput placeholder="Ex: Get a 10% discount when coming in between 8:00AM and 10:00AM" formControlName="description" [(ngModel)]="focusPromotion.description">
                             </mat-form-field>
                             <button mat-button matStepperNext href="#frequency">Next</button>
                         </form>
@@ -44,7 +56,7 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <p>How often will this promotion be available?</p>
-                                    <mat-radio-group class="promo-radio-group" formControlName="freqTypeCtrl" [(ngModel)]="focusPromotion.frequencyType">
+                                    <mat-radio-group class="promo-radio-group" formControlName="frequencyType" [(ngModel)]="focusPromotion.frequencyType">
                                         <mat-radio-button value="ONE_TIME" class="promo-radio-button">One-Time</mat-radio-button>
                                         <mat-radio-button value="REOCCURRING" class="promo-radio-button">Reoccurring</mat-radio-button>
                                     </mat-radio-group>
@@ -53,8 +65,8 @@
                                 <div class="col-md-4">
                                     <div *ngIf="focusPromotion.frequencyType === frequencyType.REOCCURRING">
                                         <p>On what basis will it be reoccurring?</p>
-                                        <div class="input-group" >
-                                            <select id="reoccurringSelect" class="custom-select" name="reoccurringSelect" formControlName="freqCtrl" [(ngModel)]="focusPromotion.frequency">
+                                        <div class="input-group">
+                                            <select id="reoccurringSelect" class="custom-select" name="reoccurringSelect" formControlName="freq" [(ngModel)]="focusPromotion.frequency">
                                                 <option value="DAILY">Daily</option>
                                                 <option value="WEEKLY">Weekly</option>
                                                 <option value="MONTHLY">Monthly</option>
@@ -93,7 +105,7 @@
                                 <div class="col-sm-6">
                                     <p>What kind of discount will the consumer receive?</p>
                                     <div class="input-group">
-                                        <select id="discountSelect" class="custom-select" name="discountSelect" formControlName="discountTypeCtrl" [(ngModel)]="focusPromotion.discount.discountType">
+                                        <select id="discountSelect" class="custom-select" name="discountSelect" formControlName="discountType" [(ngModel)]="focusPromotion.discount.discountType">
                                             <option value="DOLLAR">Dollar Amount</option>
                                             <option value="PERCENT">Percent Amount</option>
                                             <option value="FREE">Free Feature</option>
@@ -105,7 +117,7 @@
                                         <p>How much off will they receive?</p>
                                         <div class="input-group">
                                             <mat-form-field class="full-width">
-                                                <input matInput type="text" placeholder="Enter discount amount" formControlName="discountAmtCtrl" [(ngModel)]="focusPromotion.discount.discountAmount">
+                                                <input matInput type="text" placeholder="Enter discount amount" formControlName="discountAmount" [(ngModel)]="focusPromotion.discount.discountAmount">
                                             </mat-form-field>
                                         </div>
                                     </div>
@@ -113,7 +125,7 @@
                                     <div *ngIf="focusPromotion.discount.discountType === discountType.FREE">
                                         <p>What free feature will they receive</p>
                                         <div class="input-group">
-                                            <select id="discountFeatureSelect" class="custom-select" name="discountFeatureSelect" formControlName="discountFeatureCtrl" [(ngModel)]="focusPromotion.discount.freeFeature">
+                                            <select id="discountFeatureSelect" class="custom-select" name="discountFeatureSelect" formControlName="discountFeature" [(ngModel)]="focusPromotion.discount.freeFeatures">
                                                 <option *ngFor="let packageItem of packageItems" [value]="packageItem.name">{{packageItem.name}}</option>
                                             </select>
                                         </div>
@@ -130,11 +142,19 @@
                         <form [formGroup]="packageFormGroup">
                             <p>What packages will the discount be for?</p>
 
-                            <div>
-                                <mat-checkbox class="promo-checkbox" formControlName="silverPackageCtrl" [(ngModel)]="focusPromotion.discountPackages[0]">Silver</mat-checkbox>
-                                <mat-checkbox class="promo-checkbox" formControlName="goldPackageCtrl" [(ngModel)]="focusPromotion.discountPackages[1]">Gold</mat-checkbox>
-                                <mat-checkbox class="promo-checkbox" formControlName="platinumPackageCtrl" [(ngModel)]="focusPromotion.discountPackages[2]">Platinum</mat-checkbox>
-                            </div>
+                            <mat-form-field *ngIf="focusPromotion.packageType === packageType.WASH">
+                                <mat-label for="packageSelect">Packages</mat-label>
+                                <mat-select id="packageSelect" multiple [(ngModel)]="focusPromotion.discountPackages" formControlName="discountPackages">
+                                    <mat-option  *ngFor="let _package of washPackages" [value]="focusPromotion.discountPackages">{{_package}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field *ngIf="focusPromotion.packageType === packageType.DETAIL">
+                                <mat-label for="packageSelect">Packages</mat-label>
+                                <mat-select id="packageSelect" multiple [(ngModel)]="focusPromotion.discountPackages" formControlName="discountPackages">
+                                    <mat-option *ngFor="let _package of detailPackages" [value]="focusPromotion.discountPackages">{{_package}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
 
                             <button mat-button matStepperPrevious>Back</button>
                             <button mat-button matStepperNext>Next</button>
@@ -161,7 +181,7 @@
                             </div>
 
                             <div>
-                                <mat-checkbox class="promo-checkbox">All day</mat-checkbox>
+                                <mat-checkbox class="promo-checkbox" formControlName="isAllDay" [(ngModel)]="focusPromotion.isAllDay">All day</mat-checkbox>
                             </div>
 
                             <button mat-button matStepperPrevious>Back</button>

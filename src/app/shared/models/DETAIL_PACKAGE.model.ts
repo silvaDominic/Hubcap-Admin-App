@@ -1,0 +1,5 @@
+export enum DETAIL_PACKAGE {
+    INTERIOR = 'INTERIOR',
+    EXTERIOR = 'EXTERIOR',
+    COMPLETE = 'COMPLETE'
+}

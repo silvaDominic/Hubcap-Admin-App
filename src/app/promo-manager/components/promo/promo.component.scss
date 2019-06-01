@@ -1,0 +1,10 @@
+@import '../../../shared/scss/expansion-panels';
+
+mat-panel-title {
+  color: var(--tire);
+  font-size: 1em;
+}
+
+mat-panel-title {
+  flex-basis: initial !important;
+}

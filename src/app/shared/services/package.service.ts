@@ -10,8 +10,8 @@ import {PackageItem} from '../../package-manager/shared/package.item.model';
 export class PackageService {
     washPackagesUrl = 'http://localhost:4200/assets/data/wash-packages.json';
     detailPackagesUrl = 'http://localhost:4200/assets/data/detail-packages.json';
-    washPackageItemsUrl = 'http://localhost:4200/assets/data/wash-package-items.json';
-    detailPackageItemsUrl = 'http://localhost:4200/assets/data/detail-package.items.json';
+    washPackageItemsUrl = 'http://localhost:4200/assets/data/wash-discountPackage-items.json';
+    detailPackageItemsUrl = 'http://localhost:4200/assets/data/detail-discountPackage.items.json';
 
     httpOptions = {
         headers: new HttpHeaders({
