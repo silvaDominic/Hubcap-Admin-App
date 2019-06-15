@@ -83,54 +83,29 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4 {
   scroll-behavior: smooth;
 }
 
-.promo {
-  position: relative;
-  background-color: white;
-  border-radius: 20px;
-  padding-bottom: 2em;
+// Fixes horizontal scroll bars for material tabs
+.mat-tab-body-content {
+  overflow: hidden !important;
 }
 
-.promo-header, .promo-body {
-  width: 100%;
-  padding: 10px;
+//  Makes Mat Tab labels fill the width of their container
+.mat-tab-label {
+  opacity: 1 !important;
+  width: 100% !important;
 }
 
-.promo-header {
-  background-image: url("assets/icons/iconA-promo.svg");
-  border-top-left-radius: inherit;
-  border-top-right-radius: inherit;
-  background-color: var(--promo-yellow);
-
-  .header-content {
-    margin-left: 15px;
-  }
+.mat-tab-label-active {
+  color: white !important;
 }
 
-.header-content {
-  margin: 10px 0;
+.mat-ink-bar {
+  height: 100% !important;
+  z-index: -1 !important;
 }
 
-.promo-title {
-  margin-bottom: 5px;
-  font-family: 'Rubik-Bold';
-  font-size: 22px;
-}
-
-.promo-body {
-  padding: 0 25px;
-  margin-top: 10px;
-}
-
-.promo-price, .promo-store-name {
-  font-family: 'Rubik-Bold';
-}
-
-.promo-price {
-  color: var(--go);
-  margin: 10px 0;
-  margin-right: 15px;
-  text-align: right;
-  font-size: 22px;
+.mat-tab-labels {
+  border-top: 1px solid #3f51b5 !important;
+  border-bottom: 1px solid #3f51b5 !important;
 }
 
 .full-width {

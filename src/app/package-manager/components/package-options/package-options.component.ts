@@ -12,6 +12,7 @@ import {PackageItem} from '../../shared/package.item.model';
 export class PackageOptionsComponent implements OnInit, AfterViewInit, OnChanges {
     @Input() focusPackage: Package;
     packageType = PACKAGE_TYPE;
+    itemType = ITEM_TYPE;
     selectedOption: string;
 
     exteriorPackageItems: PackageItem[];
@@ -33,7 +34,7 @@ export class PackageOptionsComponent implements OnInit, AfterViewInit, OnChanges
 
     ngOnChanges() {
         console.log('Changed');
-        this.updatePackageItemLists();
+        // this.updatePackageItemLists();
     }
 
     public updatePackageItemLists(): void {
@@ -48,8 +49,8 @@ export class PackageOptionsComponent implements OnInit, AfterViewInit, OnChanges
         }
     }
 
-    buttonToggle(event, index) {
+    buttonToggle(event, index, focusArray) {
         event.target.classList.toggle('selected');
-        this.focusPackage.packageItems[index].isSelected = this.focusPackage.packageItems[index].isSelected === false;
+        focusArray[index].isSelected = this.focusPackage.packageItems[index].isSelected === false;
     }
 }

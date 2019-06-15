@@ -1,57 +1,77 @@
-.menu-block {
-  position: relative;
-  text-align: center;
+.package-block {
+    position: relative;
+    text-align: center;
+    color: white;
 }
 
-.menu-block .card {
-  height: 350px;
-  width: 200px;
-  box-shadow: 5px 0 30px 10px #7b7979;
+.package-price {
+    margin-top: 12px;
+    text-align: center;
 }
 
-.menu-price {
-  margin-top: 12px;
+.package-header {
+    text-align: center;
+
+    h4, img {
+        display: inline-block;
+    }
+
+    h4 {
+        margin-right: 1em;
+    }
 }
 
 .duration {
-  background-color: var(--promo-yellow);
+    background-color: var(--promo-yellow);
+    margin: 0 -15px;
+    padding: 0.5em 0;
+    color: black;
+    text-align: center;
 }
 
-.menu-list {
-  height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-  box-shadow: inset 0px 11px 8px -10px #ccc,  inset 0px -11px 8px -5px #ccc;
+.package-list {
+    height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
 
-  mat-list-item {
-    height: 28px !important;
-  }
-
-  span {
-    font-size: 12px;
-  }
+    mat-list-item {
+        height: 34px !important;
+        color: white;
+        font-weight: 400;
+    }
 }
 
-.menu-list::-webkit-scrollbar-track
+.package-list::-webkit-scrollbar-track
 {
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-  background-color: white;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: white;
 }
 
-.menu-list::-webkit-scrollbar
+.package-list::-webkit-scrollbar
 {
-  width: 5px;
-  background-color: #ccc;
+    width: 5px;
+    background-color: #ccc;
 }
 
-.menu-list::-webkit-scrollbar-thumb
+.package-list::-webkit-scrollbar-thumb
 {
-  background-color: #ccc;
-  border: 1px solid #ccc;
+    background-color: #ccc;
+    border: 1px solid #ccc;
 }
 
 .item-icon {
-  padding-right: 4px;
-  width: 28px;
-  height: 28px;
+    padding-right: 4px;
+    width: 28px;
+    height: 28px;
+}
+
+.action-row {
+    bottom: 0;
+    position: absolute;
+    margin: 1em auto;
+
+    button {
+        border: 1px solid white;
+        margin: 0 0.5em;
+    }
 }

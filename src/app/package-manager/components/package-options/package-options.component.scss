@@ -1,65 +1,151 @@
 #menu-options-block {
 }
 
+#color-key-row {
+    margin-bottom: 1em;
+
+    div {
+        text-align: center;
+    }
+}
+
+.color-key {
+    position: relative;
+    height: 20px;
+    display: inline-block;
+
+    div {
+        position: absolute;
+    }
+
+    span {
+        margin-left: 1.25em;
+    }
+}
+
+.color-line {
+    height: 100%;
+    width: 0.4em;
+    bottom: 0;
+    border-radius: 0.2em;
+}
+
+.color-box {
+    height: 50%;
+    width: 0.6em;
+    bottom: 25%;
+    border-radius: 0.1em;
+}
+
+form {
+    margin-top: 1.125rem;
+}
+
 .item {
-  margin: 6px;
+    margin: 6px;
 }
 
 .option-container, .option-container > div, select {
-  display: inline-block;
-  width: auto !important;
-  height: 60px;
-}
-
-.option-container .custom-select {
-  width: 192px !important;
+    display: inline-block;
+    width: auto !important;
+    height: 60px;
 }
 
 .option-container {
-  margin: 5px;
+    box-shadow: 0 2px 2px 0 rgba(153, 153, 153, 0.14), 0 3px 1px -2px rgba(153, 153, 153, 0.2), 0 1px 5px 0 rgba(153, 153, 153, 0.12);
+}
+
+.option-container:hover, .option-container:focus {
+    box-shadow: 0 14px 26px -12px rgba(153, 153, 153, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(153, 153, 153, 0.2);
+}
+
+.custom-select {
+    width: 200px !important;
+    border: none;
+    background-color: white;
+}
+
+.custom-select:hover, .custom-select:focus {
+    box-shadow: 0 14px 26px -12px rgba(153, 153, 153, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(153, 153, 153, 0.2) !important;
+}
+
+.option-container {
+    margin: 0.5em;
 }
 
 .options-header {
-  text-align: center;
-  padding: 0.5em 0;
+    text-align: center;
+    padding: 0.5em 0;
 }
 
 .options-header > * {
-  display: inline-block;
+    display: inline-block;
 }
 
-.price-container {
-  margin: 15px 0;
+.price-container input {
+    font-size: 2em;
+    height: 100%;
+}
+
+.tab-label {
+    font-size: 1.5em;
 }
 
 .option-button {
-  background-color: white;
-  color: black;
-  height: 60px;
-  width: 180px;
+    position: relative;
+    background-color: white;
+    color: black;
+    height: 60px;
+    width: 180px;
 }
 
-.option-button.selected {
-  background-color: var(--go);
-  color: white;
+.button-indicator {
+    position: absolute;
+    height: 100%;
+    width: 0.4em;
+    left: 0;
+    bottom: 0;
+    z-index: 9;
+    border-bottom-left-radius: 0.25em;
+    border-top-left-radius: 0.25em;
+}
+
+.exterior {
+    background-color: var(--hc-blue);
+}
+
+.interior {
+    background-color: var(--tire);
+}
+
+.selected {
+    background-color: var(--go);
+}
+
+.required {
+    background-color: var(--smoke);
+}
+
+button[disabled="disabled"] {
+    background-color: var(--smoke) !important;
+}
+
+select[required="required"] {
+    border: 2px solid #B4BCC0 !important;
+    background-color: white;
+}
+
+.custom-select.selected {
+    background-color: white;
+    border: 2px solid var(--go);
 }
 
 .packageItem-icon {
-  margin: -8px;
-  padding-right: 20px;
+    margin: -8px;
+    padding-right: 20px;
 }
 
 .btn {
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
 }
-/*
-
-.btn, .custom-select{
-  padding: 7px 15px !important;
-}
-
-select {
-  height: 32px;
-  font-size: 14px;
-}*/

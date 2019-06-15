@@ -1,29 +1,38 @@
-<div class="menu-block">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card m-auto">
-        <div class="card-header card-header-primary" [ngClass]="{'card-header-info': thisPackageType === packageType.DETAIL}">
-          <h4>{{name}}</h4>
-        </div>
-        <div class="menu-price">
-          <h1><strong>${{price}}</strong></h1>
-        </div>
-        <div class="duration"><strong *ngIf="thisPackageType === packageType.DETAIL">Duration:&nbsp;~{{duration}}&nbsp; hours</strong></div>
-        <div class="menu-list">
-          <mat-list>
-            <mat-list-item *ngFor="let item of packageItems" [hidden]="!item.isSelected">
-              <div [ngSwitch]="item.isRequired">
-                <img *ngSwitchCase="true"  class="item-icon" src="./assets/icons/icon-oval-check-hollow.svg" alt="">
-                <img *ngSwitchCase="false"  class="item-icon" src="./assets/icons/icon-oval-plus-hollow.svg" alt="">
-              </div>
-              <div>
-                <span>{{item.name}}</span>
-                <strong>&nbsp;{{item.selectedSubOption}}</strong>
-              </div>
-            </mat-list-item>
-          </mat-list>
-        </div>
-      </div>
+<div id="package-block">
+    <div class="row action-row">
+        <button mat-button>Update</button>
+        <button mat-button>Switch to Monthly</button>
+        <hr>
     </div>
-  </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="package-header">
+                <h4>One Time</h4>
+                <img src="./assets/icons/icon-repeat-one.svg" alt="">
+                <img src="./assets/icons/icon-calendar-hollow.svg" alt="">
+            </div>
+            <div>
+                <div class="package-price">
+                    <h1><strong>${{focusPackage.price}}</strong></h1>
+                </div>
+                <div class="duration" *ngIf="focusPackage.type === packageType.DETAIL">
+                    <strong>Duration:&nbsp;~{{focusPackage.duration}}&nbsp; hours</strong>
+                </div>
+
+                <div class="package-list">
+                    <mat-list>
+                        <mat-list-item *ngFor="let item of focusPackage.packageItems" [hidden]="!item.isSelected">
+                            <div [ngSwitch]="item.isRequired">
+                                <img *ngSwitchCase="true"  class="item-icon" src="./assets/icons/icon-oval-check-hollow.svg" alt="">
+                                <img *ngSwitchCase="false"  class="item-icon" src="./assets/icons/icon-oval-plus-hollow.svg" alt="">
+                                <span >{{item.name}}</span>
+                                <strong *ngIf="item.selectedSubOption">&nbsp;({{item.selectedSubOption}})</strong>
+                            </div>
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

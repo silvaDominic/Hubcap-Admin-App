@@ -45,5 +45,23 @@
   padding-left: 30px;
 }
 
-mat-expansion-panel {
+mat-vertical-stepper {
+  border-radius: 4px;
+  background-color: var(--cloud) !important;
+}
+
+.preview-chain {
+  img {
+    display: inline-block;
+    height: 45px;
+    width: 45px;
+    border: 2px solid black;
+    border-radius: 50%;
+  }
+
+  div {
+    font-size: 1.2em;
+    font-weight: 400;
+    height: 75px;
+  }
 }

@@ -10,8 +10,9 @@ import {PackageItem} from '../../package-manager/shared/package.item.model';
 export class PackageService {
     washPackagesUrl = 'http://localhost:4200/assets/data/wash-packages.json';
     detailPackagesUrl = 'http://localhost:4200/assets/data/detail-packages.json';
-    washPackageItemsUrl = 'http://localhost:4200/assets/data/wash-discountPackage-items.json';
-    detailPackageItemsUrl = 'http://localhost:4200/assets/data/detail-discountPackage.items.json';
+    washPackageItemsUrl = 'http://localhost:4200/assets/data/wash-package-items.json';
+    detailPackageItemsUrl = 'http://localhost:4200/assets/data/detail-package-items.json';
+    allPackageItemsUrl = 'http://localhost:4200/assets/data/all-package-items.json';
 
     httpOptions = {
         headers: new HttpHeaders({
@@ -48,5 +49,10 @@ export class PackageService {
 
     updateDetailPackages(_packages: Package[]): Observable<Package[]> {
         return this.http.put<Package[]>(this.detailPackagesUrl, _packages);
+    }
+
+    // All Packages
+    fetchAllPackageItems(): Observable<PackageItem[]> {
+        return this.http.get<PackageItem[]>(this.allPackageItemsUrl);
     }
 }

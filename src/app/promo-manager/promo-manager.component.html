@@ -1,29 +1,19 @@
-<div class="promo-manager-block main-content">
+<div id="promo-manager-block" class="main-content">
     <div *ngIf="promotions">
-        <div id="promo-preview-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-7">
-                        <div id="promo-form-section">
-                            <div class="container">
-                                <div id="bottom-row" class="row">
-                                    <div class="col-md-12">
-                                        <app-promo-form #promoForm [promotions]="promotions" [focusPromotion]="focusPromotion"></app-promo-form>
-                                    </div>
-                                </div>
-                            </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-7">
+                    <app-promo-form #promoForm [promotions]="promotions" [packageItems]="packageItems" [focusPromotion]="focusPromotion"></app-promo-form>
+                </div>
+                <div class="col-md-5">
+                    <div class="row">
+                        <div class="col-12">
+                            <app-promo-new #promoNew [focusPromotion]="focusPromotion"></app-promo-new>
                         </div>
                     </div>
-                    <div class="col-md-5">
-                        <div class="row">
-                            <div class="col-12">
-                                <app-promo-new #promoNew [focusPromotion]="focusPromotion"></app-promo-new>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <app-promo-history [historyPromotions]="promotions" [promoForm]="promoForm"></app-promo-history>
-                            </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <app-promo-history [historyPromotions]="promotions" [promoForm]="promoForm"></app-promo-history>
                         </div>
                     </div>
                 </div>

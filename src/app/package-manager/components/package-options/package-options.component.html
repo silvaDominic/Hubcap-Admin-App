@@ -1,8 +1,35 @@
-<div class="menu-options-block">
+<div class="menu-options-block" *ngIf="focusPackage">
     <form #packageOptionsForm="ngForm" name="packageOptionsForm" autocomplete="off">
+    <div id="color-key-row" class="row">
+            <div class="col-md-3">
+                <div class="color-key">
+                    <div class="color-line exterior"></div>
+                    <span>Exterior</span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="color-key">
+                    <div class="color-line interior"></div>
+                    <span>Interior</span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="color-key">
+                    <div class="color-box selected"></div>
+                    <span>Selected</span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="color-key">
+                    <div class="color-box required"></div>
+                    <span>Required</span>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
         <div class="row">
-            <!-- Used to center price div -->
-            <div class="col-md-3" *ngIf="focusPackage.type === packageType.WASH"></div>
             <div class="col-md-6">
                 <div class="price-container">
                     <div class="form-group">
@@ -22,40 +49,21 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6">
-                <div class="options-header">
-                    <img class="packageItem-icon" src="../../../../assets/icons/icon-detail-exterior.svg"><h3>Exterior</h3>
-                </div>
-                <div class="input-group option-container" *ngFor="let item of exteriorPackageItems; let outerIndex = index">
+            <div class="col-md-12">
+                <div class="input-group option-container" *ngFor="let item of focusPackage.packageItems; let outerIndex = index">
                     <div [ngClass]="{'input-group-prepend': item.subOptions.length > 0}">
                         <button type="button" class="btn option-button"
-                                [ngClass]="{'selected': item.isSelected, 'btn-outline-secondary': item.isRequired}"
-                                (click)="buttonToggle($event, outerIndex)"
-                                [attr.required]="item.isRequired ? 'required' : null"
+                                [ngClass]="{'selected': item.isSelected}"
+                                (click)="buttonToggle($event, outerIndex, focusPackage.packageItems)"
                                 [attr.disabled]="item.isRequired ? 'disabled' : null">
                             {{item.name}}
                         </button>
+                        <div class="button-indicator" [ngClass]="{'exterior': item.itemType === itemType.EXTERIOR, 'interior': item.itemType === itemType.INTERIOR}"></div>
                     </div>
-                    <select *ngIf="item.subOptions.length !== 0" class="custom-select" [(ngModel)]="item.selectedSubOption" [attr.required]="item.isRequired ? 'required' : null" name="item.selectedSubOption">
-                        <option *ngFor="let option of item.subOptions;" [value]="item.selectedSubOption" name="item.selectedSubOption">{{option}}</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="options-header">
-                    <img class="packageItem-icon" src="../../../../assets/icons/icon-detail-interior.svg"><h3>Interior</h3>
-                </div>
-                <div class="input-group option-container" *ngFor="let item of interiorPackageItems; let outerIndex = index">
-                    <div [ngClass]="{'input-group-prepend': item.subOptions.length > 0}">
-                        <button type="button" class="btn option-button"
-                                [ngClass]="{'selected': item.isSelected, 'btn-outline-secondary': item.isRequired}"
-                                (click)="buttonToggle($event, outerIndex)"
-                                [attr.required]="item.isRequired ? 'required' : null"
-                                [attr.disabled]="item.isRequired ? 'disabled' : null">
-                            {{item.name}}
-                        </button>
-                    </div>
-                    <select *ngIf="item.subOptions.length !== 0" class="custom-select" [(ngModel)]="item.selectedSubOption" [attr.required]="item.isRequired ? 'required' : null" name="item.selectedSubOption">
+                    <select *ngIf="item.subOptions.length !== 0" class="custom-select"
+                            [ngClass]="{'selected': item.isSelected}"
+                            [attr.required]="item.isRequired ? 'required' : null"
+                            [(ngModel)]="item.selectedSubOption" name="item.selectedSubOption">
                         <option *ngFor="let option of item.subOptions;" [value]="item.selectedSubOption" name="item.selectedSubOption">{{option}}</option>
                     </select>
                 </div>

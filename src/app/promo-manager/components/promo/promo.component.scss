@@ -1,10 +1,22 @@
 @import '../../../shared/scss/expansion-panels';
+@import '../../shared/scss/promos';
 
 mat-panel-title {
   color: var(--tire);
-  font-size: 1em;
 }
 
 mat-panel-title {
   flex-basis: initial !important;
+}
+
+mat-panel-description span {
+  margin-right: 1em;
+}
+
+mat-expansion-panel-header, mat-expansion-panel-header:focus {
+  background-color: var(--promo-yellow) !important
+}
+
+.mat-expansion-panel-content {
+  background-color: red !important;
 }

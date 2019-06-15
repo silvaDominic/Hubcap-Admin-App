@@ -32,6 +32,21 @@
         </div>
 
         <div class="row">
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label for="startTime">Drop Off Time</mat-label>
+              <input matInput id="dropOffTime" type="time" atp-time-picker formControlName="dropOffTime">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-label for="startTime">Pick Up Time</mat-label>
+              <input matInput id="pickUpTime" type="time" atp-time-picker formControlName="pickUpTime">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
           <div class="col-md-12">
             <mat-form-field>
               <input matInput placeholder="Phone Number (optional)" type="text" formControlName="phoneNumber">
@@ -59,21 +74,6 @@
               <mat-select formControlName="packageName">
                 <mat-option *ngFor="let _package of packagesKeys" [value]="_package">{{_package}}</mat-option>
               </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <mat-form-field>
-              <mat-label for="startTime">Drop Off Time</mat-label>
-              <input matInput id="dropOffTime" type="time" atp-time-picker formControlName="dropOffTime">
-            </mat-form-field>
-          </div>
-          <div class="col-md-6">
-            <mat-form-field>
-              <mat-label for="startTime">Pick Up Time</mat-label>
-              <input matInput id="pickUpTime" type="time" atp-time-picker formControlName="pickUpTime">
             </mat-form-field>
           </div>
         </div>

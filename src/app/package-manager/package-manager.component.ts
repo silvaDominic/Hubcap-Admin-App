@@ -11,12 +11,22 @@ import {PACKAGE_TYPE} from '../shared/models/PACKAGE_TYPE.model';
 })
 export class PackageManagerComponent implements OnInit {
     packages: Package[];
+    packageIconRefs = [];
     error: string;
     focusPackage: Package;
     packageType = PACKAGE_TYPE;
     selectedPackageType = PACKAGE_TYPE.WASH;
+    washIconRefs = [];
+    detailIconRefs = [];
 
     constructor(private packageService: PackageService) {
+        this.washIconRefs.push("iconA-wash-bronze.svg");
+        this.washIconRefs.push("iconA-wash-silver.svg");
+        this.washIconRefs.push("iconA-wash-gold.svg");
+
+        this.detailIconRefs.push("iconA-detail-interior.svg");
+        this.detailIconRefs.push("iconA-detail-exterior.svg");
+        this.detailIconRefs.push("iconA-detail-both.svg");
     }
 
     ngOnInit() {
@@ -33,6 +43,7 @@ export class PackageManagerComponent implements OnInit {
                     error => this.error = error,
                 () => this.setFocusPackage(this.packages[1])
             );
+        this.packageIconRefs = this.washIconRefs;
     }
 
     getAllDetailPackages() {
@@ -41,6 +52,7 @@ export class PackageManagerComponent implements OnInit {
                 error => this.error = error,
                 () => this.setFocusPackage(this.packages[1])
             );
+        this.packageIconRefs = this.detailIconRefs;
     }
 
     updateWashPackages(updatedPackages: Package[]) {

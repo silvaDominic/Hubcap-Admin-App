@@ -1,8 +1,8 @@
-import {FREQUENCY_TYPE} from '../../shared/models/FREQUENCY_TYPE.model';
-import {FREQUENCY} from '../../shared/models/FREQUENCY.model';
+import {FREQUENCY_TYPE} from '../../../shared/models/FREQUENCY_TYPE.model';
+import {FREQUENCY} from '../../../shared/models/FREQUENCY.model';
 import {Discount} from './discount.model';
-import {PACKAGE_TYPE} from '../../shared/models/PACKAGE_TYPE.model';
-import {ALL_PACKAGES} from '../../shared/models/ALL_PACKAGES.model';
+import {PACKAGE_TYPE} from '../../../shared/models/PACKAGE_TYPE.model';
+import {ALL_PACKAGES} from '../../../shared/models/ALL_PACKAGES.model';
 
 export class Promotion {
 

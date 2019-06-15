@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PromotionService} from '../../../shared/services/promotion.service';
-import {Promotion} from '../../shared/promotion.model';
+import {Promotion} from '../../shared/models/promotion.model';
 import {PromoFormComponent} from '../promo-form/promo-form.component';
 
 @Component({

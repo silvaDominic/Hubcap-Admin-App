@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Promotion} from '../../promo-manager/shared/promotion.model';
+import {Promotion} from '../../promo-manager/shared/models/promotion.model';
 import {WASH_PACKAGE} from '../models/WASH_PACKAGE.model';
 import {DETAIL_PACKAGE} from '../models/DETAIL_PACKAGE.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -69,7 +69,7 @@ export class PromotionService {
         return this.fb.group({
                     discountType: [apiResponse.discountType, Validators.required],
                     discountAmount: [apiResponse.discountAmount],
-                    freeFeature: [apiResponse.freeFeatures]
+                    discountFeatures: [apiResponse.discountFeatures]
         })
     }
 

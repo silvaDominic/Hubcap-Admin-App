@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
-import {Promotion} from '../../shared/promotion.model';
+import {Promotion} from '../../shared/models/promotion.model';
 import {DISCOUNT_TYPE} from '../../../shared/models/DISCOUNT_TYPE.model';
 import {FREQUENCY_TYPE} from '../../../shared/models/FREQUENCY_TYPE.model';
 import {PACKAGE_TYPE} from '../../../shared/models/PACKAGE_TYPE.model';

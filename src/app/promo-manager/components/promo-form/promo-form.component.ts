@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AmazingTimePickerService} from 'amazing-time-picker';
 import {PackageService} from '../../../shared/services/package.service';
-import {Promotion} from '../../shared/promotion.model';
+import {Promotion} from '../../shared/models/promotion.model';
 import {DISCOUNT_TYPE} from '../../../shared/models/DISCOUNT_TYPE.model';
 import {PackageItem} from '../../../package-manager/shared/package.item.model';
 import {PromotionService} from '../../../shared/services/promotion.service';
@@ -11,7 +11,7 @@ import {MatSnackBar} from '@angular/material';
 import {WASH_PACKAGE} from '../../../shared/models/WASH_PACKAGE.model';
 import {PACKAGE_TYPE} from '../../../shared/models/PACKAGE_TYPE.model';
 import {ALL_PACKAGES} from '../../../shared/models/ALL_PACKAGES.model';
-import {Discount} from '../../shared/discount.model';
+import {Discount} from '../../shared/models/discount.model';
 
 @Component({
   selector: 'app-promo-form',
@@ -22,6 +22,8 @@ export class PromoFormComponent implements OnInit {
     // Dynamic promotion
     @Input() focusPromotion: Promotion;
     @Input() promotions: Promotion[];
+    // Package list for "Free Feature" input
+    @Input() packageItems: PackageItem[];
 
     // Form Builder Groups
     packageTypeFormGroup: FormGroup;
@@ -39,8 +41,7 @@ export class PromoFormComponent implements OnInit {
     washPackages = PromotionService.washPackageKeys;
     detailPackages = PromotionService.detailPackageKeys;
 
-    // Package list for "Free Feature" input
-    packageItems: PackageItem[];
+
 
     // For initialization
     currentDate: Date;
@@ -116,7 +117,7 @@ export class PromoFormComponent implements OnInit {
 
         this.frequencyFormGroup.setValue({
             freqType: this.focusPromotion.frequencyType,
-            freq: this.focusPromotion.frequency,
+            frequency: this.focusPromotion.frequency,
             startDate: this.focusPromotion.startDate,
             endDate: this.focusPromotion.endDate
         });
@@ -124,7 +125,7 @@ export class PromoFormComponent implements OnInit {
         this.discountFormGroup.setValue({
             discountType: this.focusPromotion.discount.discountType,
             discountAmt: this.focusPromotion.discount.discountAmount,
-            discountFeature: this.focusPromotion.discount.freeFeatures
+            discountFeatures: this.focusPromotion.discount.discountFeatures
         });
 
         this.packageFormGroup.patchValue([{

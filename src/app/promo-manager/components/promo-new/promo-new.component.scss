@@ -1,1 +1,29 @@
 @import '../../../shared/scss/expansion-panels';
+@import '../../shared/scss/promos';
+
+mat-expansion-panel-header, mat-expansion-panel-header:focus {
+  min-height: 65px !important;
+  background-color: var(--go) !important;
+}
+
+mat-panel-description mat-icon {
+  color: white;
+  font-size: 40px;
+  width: 37.5px;
+  height: auto;
+}
+
+mat-panel-title {
+  white-space: nowrap;
+  color: white;
+  margin-top: 10px;
+}
+
+#promo-create-accordion > * {
+
+  display: inline-block;
+
+  .row {
+    height: 75px;
+  }
+}
