@@ -14,7 +14,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/store', title: 'My Stores', icon: 'store', class: '' },
     { path: '/user-manager', title: 'Users', icon: 'people', class: ''},
     { path: '/package-manager', title: 'Package Manager',  icon: 'view_carousel', class: '' },
-    { path: '/promotion-manager', title: 'Promotional Manager',  icon: 'stars', class: '' },
+    { path: '/promotions-manager', title: 'Promotional Manager',  icon: 'stars', class: '' },
     { path: '/qr-scanner-manager', title: 'QR Scanner', icon: 'control_camera', class: '' }
 ];
 
@@ -31,6 +31,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
   }
+
   isMobileMenu() {
       if ($(window).width() > 991) {
           return false;

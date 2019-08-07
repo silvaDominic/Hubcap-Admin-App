@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from './shared/models/user.model';
 import {Store} from '../store-manager/shared/models/store.model';
-import {UsersService} from '../shared/services/users.service';
-import {StoresService} from '../shared/services/stores.service';
+import {UsersService} from '../_shared/services/users.service';
+import {StoresService} from '../_shared/services/stores.service';
 
 @Component({
   selector: 'app-user-manager',
@@ -21,17 +21,17 @@ export class UserManagerComponent implements OnInit {
         this.getAllUsers()
             .subscribe(users => this.users = users,
                 error => this.error = error);
-        this.getAllStores()
+/*        this.getAllStores()
             .subscribe(stores => this.stores = stores,
-                error => this.error = error);
+                error => this.error = error);*/
     }
 
     getAllUsers() {
         return this.usersService.fetchAllUsers();
     }
 
-    getAllStores() {
+/*    getAllStores() {
         return this.storesService.fetchAllStores();
-    }
+    }*/
 
 }

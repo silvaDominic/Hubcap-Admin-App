@@ -1,6 +1,6 @@
-import {VEHICLE_TYPE} from '../../../shared/models/VEHICLE_TYPE.model';
+import {VEHICLE_TYPE} from '../../../_shared/models/VEHICLE_TYPE.model';
 import {StoreHours} from './store-hours.model';
-import {Exception} from './exception.model';
+import {HoursException} from './hours-exception.model';
 
 export class Store {
 
@@ -15,5 +15,5 @@ export class Store {
                 public storeHours: StoreHours[],
                 public vehicleTypes: VEHICLE_TYPE[],
                 public website?: string,
-                public exceptions ?: Exception[]) {}
+                public exceptions ?: HoursException[]) {}
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {LoginService} from '../shared/services/login.service';
+import {LoginService} from '../_shared/services/login.service';
 
 @Component({
     selector: 'app-sign-in',

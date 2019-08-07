@@ -1,8 +1,0 @@
-export enum ALL_PACKAGES {
-    SILVER = 'SILVER',
-    GOLD = 'GOLD',
-    PLATINUM = 'PLATINUM',
-    INTERIOR = 'INTERIOR',
-    EXTERIOR = 'EXTERIOR',
-    COMPLETE = 'COMPLETE'
-}

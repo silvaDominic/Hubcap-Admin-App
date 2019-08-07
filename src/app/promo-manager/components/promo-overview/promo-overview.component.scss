@@ -1,0 +1,47 @@
+#overview-block {
+  width: 100%;
+  height: 100%;
+
+  > div {
+    margin: 0 1em;
+  }
+}
+
+#overview-header {
+  text-align: center;
+  padding: 1em 0;
+  margin: 0 -15px !important;
+  border-top-left-radius: 1em;
+  background-color: var(--tire);
+  color: white;
+}
+
+#overview-description {
+  padding: 1.0em 0;
+}
+
+#overview-time-container, #overview-date-container {
+  padding: 0.5em 0;
+}
+
+#overview-discount-container {
+  padding: 0.5em 0;
+  text-align: center;
+  color: var(--go);
+  overflow-y: scroll;
+  max-height: 500px;
+}
+
+.overview-package-container {
+  padding: 0.5em 0;
+}
+
+.package-badge {
+  text-align: center;
+
+  img {
+    width: 100%;
+    padding: 0.5em;
+  }
+
+}

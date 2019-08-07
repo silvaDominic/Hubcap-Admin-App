@@ -77,7 +77,7 @@
     "protractor": "5.3.1",
     "ts-node": "5.0.1",
     "tslint": "5.9.1",
-    "typescript": "3.1.6",
+    "typescript": "3.5.3",
     "webpack": "^4.29.6"
   }
 }

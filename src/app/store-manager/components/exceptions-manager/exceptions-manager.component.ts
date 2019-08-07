@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Exception} from '../../shared/models/exception.model';
+import {HoursException} from '../../shared/models/hours-exception.model';
 import {FormArray, FormGroup, Validators} from '@angular/forms';
 
 @Component({
@@ -9,7 +9,7 @@ import {FormArray, FormGroup, Validators} from '@angular/forms';
 })
 export class ExceptionsManagerComponent implements OnInit {
 
-  @Input() exceptions: Exception[];
+  @Input() exceptions: HoursException[];
 
   constructor() {
   }

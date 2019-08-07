@@ -1,81 +1,57 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {SERVICE_TYPE} from '../_shared/models/PACKAGE_TYPE.model';
+import {PackageComponent} from './components/package/package.component';
+import {CONSTANTS} from '../_shared/models/CONSTANTS';
 import {Package} from './shared/package.model';
-import {PackageService} from '../shared/services/package.service';
-import {PACKAGE_TYPE} from '../shared/models/PACKAGE_TYPE.model';
+import {PackageService} from '../_shared/services/package.service';
+import {PackageOptionsComponent} from './components/package-options/package-options.component';
 
 @Component({
     selector: 'app-package-manager',
     templateUrl: './package-manager.component.html',
-    styleUrls: ['./package-manager.component.scss'],
-    providers: [PackageService]
+    styleUrls: ['./package-manager.component.scss']
 })
 export class PackageManagerComponent implements OnInit {
-    packages: Package[];
-    packageIconRefs = [];
-    error: string;
-    focusPackage: Package;
-    packageType = PACKAGE_TYPE;
-    selectedPackageType = PACKAGE_TYPE.WASH;
-    washIconRefs = [];
-    detailIconRefs = [];
+    @ViewChild(PackageOptionsComponent) packageOptionsComp;
+    public selectedPackageType: SERVICE_TYPE;
+    public washIconRefs = [];
+    public detailIconRefs = [];
+
+    // Used for comparison
+    E_PACKAGE_TYPE = SERVICE_TYPE;
 
     constructor(private packageService: PackageService) {
-        this.washIconRefs.push("iconA-wash-bronze.svg");
-        this.washIconRefs.push("iconA-wash-silver.svg");
-        this.washIconRefs.push("iconA-wash-gold.svg");
+        this.selectedPackageType = SERVICE_TYPE.WASH;
 
-        this.detailIconRefs.push("iconA-detail-interior.svg");
-        this.detailIconRefs.push("iconA-detail-exterior.svg");
-        this.detailIconRefs.push("iconA-detail-both.svg");
+        this.washIconRefs.push('iconA-wash-bronze.svg');
+        this.washIconRefs.push('iconA-wash-silver.svg');
+        this.washIconRefs.push('iconA-wash-gold.svg');
+
+        this.detailIconRefs.push('iconA-detail-interior.svg');
+        this.detailIconRefs.push('iconA-detail-exterior.svg');
+        this.detailIconRefs.push('iconA-detail-both.svg');
     }
 
-    ngOnInit() {
-        this.getAllWashPackages();
+    public ngOnInit() {
+        // Initialized package and set relevant fields
+        this.packageService.stagePackage(CONSTANTS.DEFAULT_WASH_PACKAGE);
+        this.packageOptionsComp.refreshPackageOptions();
     }
 
-    setFocusPackage(_package: Package) {
-        this.focusPackage = _package;
-    }
-
-    getAllWashPackages() {
-        this.packageService.fetchAllWashPackages()
-            .subscribe(packages => this.packages = packages,
-                    error => this.error = error,
-                () => this.setFocusPackage(this.packages[1])
-            );
-        this.packageIconRefs = this.washIconRefs;
-    }
-
-    getAllDetailPackages() {
-        this.packageService.fetchAllDetailPackages()
-            .subscribe(packages => this.packages = packages,
-                error => this.error = error,
-                () => this.setFocusPackage(this.packages[1])
-            );
-        this.packageIconRefs = this.detailIconRefs;
-    }
-
-    updateWashPackages(updatedPackages: Package[]) {
-        this.packageService.updateWashPackages(updatedPackages)
-            .subscribe(packages => this.packages = packages,
-                error => this.error = <any>error,
-                () => console.log('PACKAGE LIST: ', this.packages));
-    }
-
-    updateDetailPackages(updatedPackages: Package[]) {
-        this.packageService.updateDetailPackages(updatedPackages)
-            .subscribe(packages => this.packages = packages,
-                error => this.error = <any>error,
-                () => console.log('PACKAGE LIST: ', this.packages));
-    }
-
-    changePackageType(packageType: string) {
-        if (packageType === PACKAGE_TYPE.WASH) {
-            this.selectedPackageType = PACKAGE_TYPE.WASH;
-            this.getAllWashPackages();
-        } else if (packageType === PACKAGE_TYPE.DETAIL) {
-            this.selectedPackageType = PACKAGE_TYPE.DETAIL;
-            this.getAllDetailPackages();
+    // Handles changing between Wash and Detail packages
+    public changePackageType(packageType: string) {
+        if (packageType === SERVICE_TYPE.WASH) {
+            this.selectedPackageType = SERVICE_TYPE.WASH;
+            this.setFocusPackage(CONSTANTS.DEFAULT_WASH_PACKAGE);
+        } else if (packageType === SERVICE_TYPE.DETAIL) {
+            this.selectedPackageType = SERVICE_TYPE.DETAIL;
+            this.setFocusPackage(CONSTANTS.DEFAULT_DETAIL_PACKAGE);
         }
+    }
+
+    public setFocusPackage(packageId: string) {
+        // Stage package to be used in sub-components
+        this.packageService.stagePackage(packageId);
+        this.packageOptionsComp.refreshPackageOptions();
     }
 }

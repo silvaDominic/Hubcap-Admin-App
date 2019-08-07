@@ -46,24 +46,7 @@
   -moz-border-radius-bottomright: 2em;
 }
 
-#preview-col {
-  //background-image: linear-gradient(var(--info), var(--blue));
-  height: 725px;
-  border-bottom-left-radius: 1em;
-  border-top-left-radius: 1em;
-  color: white;
 
-
-  .nav {
-    margin-top: 1rem;
-  }
-
-  .nav button.active {
-    border-top: 1px solid white;
-    border-bottom: 1px solid white;
-    border-radius: 0;
-  }
-}
 
 #package-options-col {
   background-color: white;

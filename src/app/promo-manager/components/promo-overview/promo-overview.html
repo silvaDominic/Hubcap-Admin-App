@@ -1,0 +1,118 @@
+<div id="overview-block" *ngIf="promotion">
+    <div id="overview-header">
+        <h3>{{promotion.name}}</h3>
+    </div>
+    <div id="overview-description">
+        <p>{{promotion.description}}</p>
+        <p>{{promotion.serviceType}}</p>
+    </div>
+
+    <div id="overview-date-container">
+        <div class="row">
+            <div class="col-md-2 m-auto">
+                <div id="date-icon" class="header-icon">
+                    <img src="./assets/icons/icon-calendar-hollow.svg">
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="focusPromotion-date">
+                    <span>{{promotion.startDate}}</span>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="focusPromotion-date">
+                    <span>{{promotion.endDate}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="overview-time-container">
+        <div class="row">
+            <div class="col-sm-2 m-auto">
+                <div id="time-icon" class="header-icon">
+                    <img src="./assets/icons/icon-clock-hollow.svg">
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="focusPromotion-time">
+                    <span>{{promotion.startTime}}</span>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="focusPromotion-time">
+                    <span>{{promotion.endTime}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="overview-discount-container">
+        <div class="promo-price" *ngIf="promotion.discount.discountType === E_DISCOUNT_TYPE.PERCENT">
+            <h3>{{promotion.discount.discountAmount}}% off</h3>
+        </div>
+        <div class="promo-price" *ngIf="promotion.discount.discountType === E_DISCOUNT_TYPE.DOLLAR">
+            <h3>${{promotion.discount.discountAmount}} off</h3>
+        </div>
+        <div class="promo-price" *ngIf="promotion.discount.discountType === E_DISCOUNT_TYPE.FREE">
+            <h3>Free</h3>
+            <ul>
+                <li *ngFor="let feature of promotion.discount.discountFeatures">
+                    <h4>{{feature}}</h4>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="overview-package-container">
+        <div *ngIf="promotion.serviceType === E_SERVICE_TYPE.DETAIL" class="row">
+            <div class="col-4">
+                <div class="package-badge"
+                     [ngClass]="{'selected': promotion.discountPackages.get(E_ALL_PACKAGES.EXTERIOR)}">
+                    <img src="./assets/icons/icon-detail-exterior.svg">
+                    <div><strong>Exterior</strong></div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="package-badge"
+                     [ngClass]="{'selected': promotion.discountPackages.get(E_ALL_PACKAGES.INTERIOR)}">
+                    <img src="./assets/icons/icon-detail-interior.svg">
+                    <div><strong>Interior</strong></div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="package-badge"
+                     [ngClass]="{'selected': promotion.discountPackages.get(E_ALL_PACKAGES.COMPLETE)}">
+                    <img src="./assets/icons/icon-detail-both.svg">
+                    <div><strong>Complete</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="overview-package-container">
+        <div *ngIf="promotion.serviceType === E_SERVICE_TYPE.WASH" class="row">
+            <div class="col-4">
+                <div class="package-badge"
+                     [ngClass]="{'selected': promotion.discountPackages.get(E_ALL_PACKAGES.SILVER)}">
+                    <img src="./assets/icons/iconA-wash-bronze.svg">
+                    <div><h4>Silver</h4></div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="package-badge"
+                     [ngClass]="{'selected': promotion.discountPackages.get(E_ALL_PACKAGES.GOLD)}">
+                    <img src="./assets/icons/iconA-wash-silver.svg">
+                    <div><h4>Gold</h4></div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="package-badge"
+                     [ngClass]="{'selected': promotion.discountPackages.get(E_ALL_PACKAGES.PLATINUM)}">
+                    <img src="./assets/icons/iconA-wash-gold.svg">
+                    <div><h4>Platinum</h4></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

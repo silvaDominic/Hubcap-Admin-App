@@ -1,6 +1,6 @@
-import {VEHICLE_TYPE} from '../../shared/models/VEHICLE_TYPE.model';
-import {WASH_PACKAGE} from '../../shared/models/WASH_PACKAGE.model';
-import {PACKAGE_TYPE} from '../../shared/models/PACKAGE_TYPE.model';
+import {VEHICLE_TYPE} from '../../_shared/models/VEHICLE_TYPE.model';
+import {WASH_PACKAGE} from '../../_shared/models/WASH_PACKAGE.model';
+import {SERVICE_TYPE} from '../../_shared/models/PACKAGE_TYPE.model';
 
 export class Appointment {
     constructor(public id: string,

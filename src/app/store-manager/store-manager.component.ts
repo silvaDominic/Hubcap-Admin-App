@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StoresService } from '../shared/services/stores.service';
+import { StoresService } from '../_shared/services/stores.service';
 import {Store} from './shared/models/store.model';
 
 @Component({
@@ -15,12 +15,12 @@ export class StoreManagerComponent implements OnInit {
     constructor(private readonly storesService: StoresService) { }
 
     ngOnInit() {
-        this.getAllStores();
+        // this.getAllStores();
     }
 
-    getAllStores() {
+/*    getAllStores() {
         this.storesService.fetchAllStores()
             .subscribe(stores => this.stores = stores,
                 error => this.error = error);
-    }
+    }*/
 }

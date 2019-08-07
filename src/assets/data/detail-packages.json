@@ -1,9 +1,9 @@
 [
   {
-    "id": "interior",
     "type": "DETAIL",
     "name": "Interior",
-    "price": 99,
+    "onetimePrices": {"SEDAN": 80, "COMPACT_SUV": 100, "LARGE_SUV": 120, "OVERSIZED":  140},
+    "monthlyPrices": {"SEDAN": 40, "COMPACT_SUV": 50, "LARGE_SUV": 60, "OVERSIZED":  70},
     "packageItems": [
       {
         "name": "Wash",
@@ -107,13 +107,15 @@
         "subOptions": []
       }
     ],
-    "duration": 2
+    "duration": 2,
+    "isUnlimitedMonthly": null,
+    "monthlyUses": null
   },
   {
-    "id": "exterior",
     "type": "DETAIL",
     "name": "Exterior",
-    "price": 120,
+    "onetimePrices": {"SEDAN": 8, "COMPACT_SUV": 10, "LARGE_SUV": 12, "OVERSIZED":  14},
+    "monthlyPrices": {"SEDAN": 40, "COMPACT_SUV": 50, "LARGE_SUV": 60, "OVERSIZED":  70},
     "packageItems": [
       {
         "name": "Wash",
@@ -241,13 +243,15 @@
         "subOptions": []
       }
     ],
-    "duration": 2
+    "duration": 3,
+    "isUnlimitedMonthly": null,
+    "monthlyUses": null
   },
   {
-    "id": "complete",
     "type": "DETAIL",
     "name": "Complete",
-    "price": 299,
+    "onetimePrices": {"SEDAN": 8, "COMPACT_SUV": 10, "LARGE_SUV": 12, "OVERSIZED":  14},
+    "monthlyPrices": {"SEDAN": 40, "COMPACT_SUV": 50, "LARGE_SUV": 60, "OVERSIZED":  70},
     "packageItems": [
       {
         "name": "Wash",
@@ -451,6 +455,8 @@
         "subOptions": []
       }
     ],
-    "duration": 4
+    "duration": 4,
+    "isUnlimitedMonthly": null,
+    "monthlyUses": null
   }
 ]

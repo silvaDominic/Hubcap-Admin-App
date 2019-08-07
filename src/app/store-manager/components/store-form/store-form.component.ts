@@ -1,10 +1,10 @@
 import {Component, Input} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {Store} from '../../shared/models/store.model';
-import {StoresService} from '../../../shared/services/stores.service';
+import {StoresService} from '../../../_shared/services/stores.service';
 import {StoreHours} from '../../shared/models/store-hours.model';
-import {DAY} from '../../../shared/models/DAY.model';
-import {Exception} from '../../shared/models/exception.model';
+import {DAY} from '../../../_shared/models/DAY.model';
+import {HoursException} from '../../shared/models/hours-exception.model';
 
 @Component({
   selector: 'app-store-form',
@@ -16,7 +16,7 @@ export class StoreFormComponent {
     @Input() stores: Store[];
     @Input() storeForm: FormGroup;
     storeFormGroup: FormGroup;
-    formExceptions: Exception[];
+    formExceptions: HoursException[];
 
     vehicleKeys = StoresService.vehicleKeys;
     dayKeys = StoresService.dayKeys;
@@ -24,7 +24,6 @@ export class StoreFormComponent {
     private static initStoreHours(dayEnum: DAY): StoreHours {
         return new StoreHours(
             dayEnum,
-            false,
             '',
             ''
         )
@@ -63,7 +62,7 @@ export class StoreFormComponent {
 
     createStore() {
         const newStore = new Store(
-            StoresService.generateStoreId(),
+            '1124',
             this.storeFormGroup.get('name').value,
             this.storeFormGroup.get('address').value,
             this.storeFormGroup.get('city').value,
@@ -71,7 +70,7 @@ export class StoreFormComponent {
             this.storeFormGroup.get('zip').value,
             this.storeFormGroup.get('email').value,
             this.storeFormGroup.get('phoneNumber').value,
-            this.storeFormGroup.get('storeHours').value,
+            this.storeFormGroup.get('hoursOfOperation').value,
             this.storeFormGroup.get('vehicleType').value,
             this.storeFormGroup.get('website').value,
             this.formExceptions

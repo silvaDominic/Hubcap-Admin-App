@@ -1,6 +1,6 @@
-<div class="menu-options-block" *ngIf="focusPackage">
+<div class="menu-options-block">
     <form #packageOptionsForm="ngForm" name="packageOptionsForm" autocomplete="off">
-    <div id="color-key-row" class="row">
+        <div id="color-key-row" class="row">
             <div class="col-md-3">
                 <div class="color-key">
                     <div class="color-line exterior"></div>
@@ -30,19 +30,43 @@
         <hr>
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="price-container">
                     <div class="form-group">
                         <label for="name">Price</label>
-                        <input type="text" class="form-control" id="name" required [(ngModel)]="focusPackage.price" name="focusPackage.price">
+                        <input type="text" class="form-control" id="name" required name="price">
                     </div>
                 </div>
             </div>
-            <div class="col-md-6" *ngIf="focusPackage.type === packageType.DETAIL">
+            <div class="col-md-3">
+                <div class="price-container">
+                    <div class="form-group">
+                        <label for="name">Price</label>
+                        <input type="text" class="form-control" id="name" required name="price">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="price-container">
+                    <div class="form-group">
+                        <label for="name">Price</label>
+                        <input type="text" class="form-control" id="name" required name="price">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="price-container">
+                    <div class="form-group">
+                        <label for="name">Price</label>
+                        <input type="text" class="form-control" id="name" required name="price">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
                 <div class="price-container">
                     <div class="form-group">
                         <label for="time">Duration (In hours)</label>
-                        <input type="text" class="form-control" id="time" required [(ngModel)]="focusPackage.duration" name="focusPackage.estimatedTime">
+                        <input type="text" class="form-control" id="time" required name="estimatedTime">
                     </div>
                 </div>
             </div>
@@ -50,21 +74,21 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="input-group option-container" *ngFor="let item of focusPackage.packageItems; let outerIndex = index">
+                <div class="input-group option-container" *ngFor="let item of allPackageItems; let outerIndex = index">
                     <div [ngClass]="{'input-group-prepend': item.subOptions.length > 0}">
                         <button type="button" class="btn option-button"
                                 [ngClass]="{'selected': item.isSelected}"
-                                (click)="buttonToggle($event, outerIndex, focusPackage.packageItems)"
+                                (click)="buttonToggle($event, outerIndex, allPackageItems)"
                                 [attr.disabled]="item.isRequired ? 'disabled' : null">
                             {{item.name}}
                         </button>
-                        <div class="button-indicator" [ngClass]="{'exterior': item.itemType === itemType.EXTERIOR, 'interior': item.itemType === itemType.INTERIOR}"></div>
+                        <div class="button-indicator" [ngClass]="{'exterior': item.itemType === E_ITEM_TYPE.EXTERIOR, 'interior': item.itemType === E_ITEM_TYPE.INTERIOR}"></div>
                     </div>
                     <select *ngIf="item.subOptions.length !== 0" class="custom-select"
                             [ngClass]="{'selected': item.isSelected}"
                             [attr.required]="item.isRequired ? 'required' : null"
-                            [(ngModel)]="item.selectedSubOption" name="item.selectedSubOption">
-                        <option *ngFor="let option of item.subOptions;" [value]="item.selectedSubOption" name="item.selectedSubOption">{{option}}</option>
+                            name="item.selectedSubOption">
+                        <option *ngFor="let option of item.subOptions;" [value]="item.selectedSubOptions" name="item.selectedSubOption">{{option}}</option>
                     </select>
                 </div>
             </div>

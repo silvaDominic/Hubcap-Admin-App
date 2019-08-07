@@ -1,8 +1,37 @@
-<div id="package-block">
-    <div class="row action-row">
-        <button mat-button>Update</button>
-        <button mat-button>Switch to Monthly</button>
-        <hr>
+<div id="overview-block">
+    <div class="row">
+        <div class="col-md-12">
+            <div *ngIf="selectedPackageType === E_PACKAGE_TYPE.WASH">
+                <ul class="nav nav-fill">
+                    <li class="nav-item" (click)="callSetFocusPackage(E_ALL_PACKAGES.SILVER)">
+                        <button mat-button [ngClass]="{'active': package.name === E_ALL_PACKAGES.SILVER}">Silver</button>
+                    </li>
+                    <li class="nav-item" (click)="callSetFocusPackage(E_ALL_PACKAGES.GOLD)">
+                        <button mat-button [ngClass]="{'active': package.name === E_ALL_PACKAGES.GOLD}">Gold</button>
+                    </li>
+                    <li class="nav-item" (click)="callSetFocusPackage(E_ALL_PACKAGES.PLATINUM)">
+                        <button mat-button [ngClass]="{'active': package.name === E_ALL_PACKAGES.PLATINUM}">Platinum</button>
+                    </li>
+                </ul>
+            </div>
+
+            <div *ngIf="selectedPackageType === E_PACKAGE_TYPE.DETAIL">
+                <ul class="nav nav-fill">
+                    <li class="nav-item" (click)="callSetFocusPackage(E_ALL_PACKAGES.EXTERIOR)">
+                        <button mat-button [ngClass]="{'active': package.name === E_ALL_PACKAGES.EXTERIOR}">Exterior</button>
+                    </li>
+                    <li class="nav-item" (click)="callSetFocusPackage(E_ALL_PACKAGES.INTERIOR)">
+                        <button mat-button [ngClass]="{'active': package.name === E_ALL_PACKAGES.INTERIOR}">Interior</button>
+                    </li>
+                    <li class="nav-item" (click)="callSetFocusPackage(E_ALL_PACKAGES.COMPLETE)">
+                        <button mat-button [ngClass]="{'active': package.name === E_ALL_PACKAGES.COMPLETE}">Complete</button>
+                    </li>
+                </ul>
+            </div>
+
+            <hr>
+
+        </div>
     </div>
 
     <div class="row">
@@ -13,26 +42,29 @@
                 <img src="./assets/icons/icon-calendar-hollow.svg" alt="">
             </div>
             <div>
-                <div class="package-price">
-                    <h1><strong>${{focusPackage.price}}</strong></h1>
-                </div>
-                <div class="duration" *ngIf="focusPackage.type === packageType.DETAIL">
-                    <strong>Duration:&nbsp;~{{focusPackage.duration}}&nbsp; hours</strong>
+                <div class="duration">
+                    <strong>Duration:&nbsp;~{{package.duration}}&nbsp; hours</strong>
                 </div>
 
                 <div class="package-list">
                     <mat-list>
-                        <mat-list-item *ngFor="let item of focusPackage.packageItems" [hidden]="!item.isSelected">
+                        <mat-list-item *ngFor="let item of package.packageItems">
                             <div [ngSwitch]="item.isRequired">
                                 <img *ngSwitchCase="true"  class="item-icon" src="./assets/icons/icon-oval-check-hollow.svg" alt="">
                                 <img *ngSwitchCase="false"  class="item-icon" src="./assets/icons/icon-oval-plus-hollow.svg" alt="">
                                 <span >{{item.name}}</span>
-                                <strong *ngIf="item.selectedSubOption">&nbsp;({{item.selectedSubOption}})</strong>
+                                <strong *ngIf="item.selectedSubOptions.length > 0">&nbsp;({{item.selectedSubOptions}})</strong>
                             </div>
                         </mat-list-item>
                     </mat-list>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="row action-row">
+        <button mat-button>Update</button>
+        <button mat-button>Switch to Monthly</button>
+        <hr>
     </div>
 </div>

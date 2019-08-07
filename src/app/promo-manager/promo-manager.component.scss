@@ -1,0 +1,53 @@
+#promo-drawer-container {
+
+}
+
+#promo-overview-col {
+    background: var(--promo-yellow);
+    border-top-left-radius: 1em;
+    border-bottom-left-radius: 1em;
+}
+
+#promo-form-col {
+    background-color: white;
+}
+
+#history-drawer-container {
+    .row {
+        height: 100%;
+    }
+}
+
+::ng-deep .mat-drawer-content {
+    display: initial !important;
+    flex: 1 1 auto !important;
+}
+
+#outer-history-button-container {
+    display: flex;
+    flex-direction: row-reverse;
+
+    button {
+        border-radius: 0.5em 0.5em 0 0;
+    }
+}
+
+
+#inner-history-button-container {
+    display: flex;
+    flex-direction: row-reverse;
+
+    button {
+        width: 100%;
+    }
+}
+
+.drawer-button {
+    color: var(--hc-blue);
+    background: white;
+    padding: 0 1em;
+}
+
+mat-drawer-container {
+    background-color: transparent !important;
+}

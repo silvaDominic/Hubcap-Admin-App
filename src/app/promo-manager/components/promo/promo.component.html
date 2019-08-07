@@ -1,129 +1,138 @@
 <div id="promo-block">
-    <div class="row">
-        <div class="col-12">
-            <mat-accordion id="promo-accordion">
-                <mat-expansion-panel hideToggle>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <span><strong>{{focusPromotion.name}}</strong></span>
-                        </mat-panel-title>
-                        <mat-panel-description>
-                            <div></div>
-                            <div *ngIf="focusPromotion.frequencyType === frequencyType.ONE_TIME">
-                                <span>One Time</span>
-                                <img class="one-time"  src="./assets/icons/icon-calendar-hollow.svg">
-                            </div>
-                            <div *ngIf="focusPromotion.frequencyType === frequencyType.REOCCURRING">
-                                <span>Reoccurring</span>
-                                <img class="reoccurring" src="./assets/icons/icon-repeat.svg">
-                            </div>
-                        </mat-panel-description>
-                    </mat-expansion-panel-header>
+    <mat-accordion id="promo-accordion">
+        <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <span><strong>{{focusPromotion.name}}</strong></span>
+                </mat-panel-title>
+                <mat-panel-description>
+                    <div></div>
+                    <div *ngIf="focusPromotion.frequencyType === frequencyType.ONE_TIME">
+                        <span>One Time</span>
+                        <img class="one-time" src="./assets/icons/icon-calendar-hollow.svg">
+                    </div>
+                    <div *ngIf="focusPromotion.frequencyType === frequencyType.REOCCURRING">
+                        <span>Reoccurring</span>
+                        <img class="reoccurring" src="./assets/icons/icon-repeat.svg">
+                    </div>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
 
-                    <div class="row description-row">
-                        <div class="col-12">
-                            <p>{{focusPromotion.description}}</p>
+            <div class="row description-row">
+                <div class="col-12">
+                    <p>{{focusPromotion.description}}</p>
+                </div>
+            </div>
+
+            <div class="row date-row">
+                <div class="col-2">
+                    <div id="date-icon" class="header-icon">
+                        <img src="./assets/icons/icon-calendar-hollow.svg">
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="promo-date">
+                        <span>{{focusPromotion.startDate}}</span>
+                    </div>
+                </div>
+
+                <div class="col-5">
+                    <div class="promo-date">
+                        <span>{{focusPromotion.endDate}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row time-row">
+                <div class="col-2">
+                    <div id="time-icon" class="header-icon">
+                        <img src="./assets/icons/icon-clock-hollow.svg">
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="promo-time">
+                        <span>{{focusPromotion.startTime}}</span>
+                    </div>
+                </div>
+
+                <div class="col-5">
+                    <div class="promo-time">
+                        <span>{{focusPromotion.endTime}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row price-row">
+                <div class="col-12">
+                    <div class="header-content">
+                        <div class="promo-price" *ngIf="focusPromotion.discount.discountType === discountType.PERCENT">
+                            <span>{{focusPromotion.discount.discountAmount}}% off</span></div>
+                        <div class="promo-price" *ngIf="focusPromotion.discount.discountType === discountType.DOLLAR">
+                            <span>${{focusPromotion.discount.discountAmount}} off</span></div>
+                        <div class="promo-price"
+                             *ngIf="focusPromotion.discount.discountType === discountType.FREE"><span>
+                                    Free</span>
+                            <div *ngFor="let feature of focusPromotion.discount.discountFeatures">{{feature}}</div>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <div class="row date-row">
-                        <div class="col-2">
-                            <div id="date-icon" class="header-icon">
-                                <img src="./assets/icons/icon-calendar-hollow.svg">
-                            </div>
-                        </div>
-                        <div class="col-5">
-                            <div class="promo-date">
-                                <span>{{focusPromotion.startDate}}</span>
-                            </div>
-                        </div>
-
-                        <div class="col-5">
-                            <div class="promo-date">
-                                <span>{{focusPromotion.endDate}}</span>
-                            </div>
-                        </div>
+            <div *ngIf="focusPromotion.serviceType === packageType.DETAIL" class="row">
+                <div class="col-4">
+                    <div class="package-badge"
+                         [ngClass]="{'selected': focusPromotion.discountPackages.includes(package.INTERIOR)}">
+                        <img src="./assets/icons/icon-detail-interior.svg">
+                        <div class="text-center"><strong>Interior</strong></div>
                     </div>
-
-                    <div class="row time-row">
-                        <div class="col-2">
-                            <div id="time-icon" class="header-icon">
-                                <img src="./assets/icons/icon-clock-hollow.svg">
-                            </div>
-                        </div>
-                        <div class="col-5">
-                            <div class="promo-time">
-                                <span>{{focusPromotion.startTime}}</span>
-                            </div>
-                        </div>
-
-                        <div class="col-5">
-                            <div class="promo-time">
-                                <span>{{focusPromotion.endTime}}</span>
-                            </div>
-                        </div>
+                </div>
+                <div class="col-4">
+                    <div class="package-badge"
+                         [ngClass]="{'selected': focusPromotion.discountPackages.includes(package.EXTERIOR)}">
+                        <img src="./assets/icons/icon-detail-exterior.svg">
+                        <div class="text-center"><strong>Exterior</strong></div>
                     </div>
-
-                    <div class="row price-row">
-                        <div class="col-12">
-                            <div class="header-content">
-                                <div class="promo-price" *ngIf="focusPromotion.discount.discountType === discountType.PERCENT"><span>{{focusPromotion.discount.discountAmount}}% off</span></div>
-                                <div class="promo-price" *ngIf="focusPromotion.discount.discountType === discountType.DOLLAR"><span>${{focusPromotion.discount.discountAmount}} off</span></div>
-                                <div class="promo-price" *ngIf="focusPromotion.discount.discountType === discountType.FREE"><span>
-                                    Free</span> <div *ngFor="let feature of focusPromotion.discount.discountFeatures">{{feature}}</div>
-                                </div>
-                            </div>
-                        </div>
+                </div>
+                <div class="col-4">
+                    <div class="package-badge"
+                         [ngClass]="{'selected': focusPromotion.discountPackages.includes(package.COMPLETE)}">
+                        <img src="./assets/icons/icon-detail-both.svg">
+                        <div class="text-center"><strong>Complete</strong></div>
                     </div>
+                </div>
+            </div>
 
-                    <div *ngIf="focusPromotion.packageType === packageType.DETAIL" class="row">
-                        <div class="col-4">
-                            <div class="package-badge" [ngClass]="{'selected': focusPromotion.discountPackages.includes(package.INTERIOR)}">
-                                <img src="./assets/icons/icon-detail-interior.svg">
-                                <div class="text-center"><strong>Interior</strong></div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="package-badge" [ngClass]="{'selected': focusPromotion.discountPackages.includes(package.EXTERIOR)}">
-                                <img src="./assets/icons/icon-detail-exterior.svg">
-                                <div class="text-center"><strong>Exterior</strong></div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="package-badge" [ngClass]="{'selected': focusPromotion.discountPackages.includes(package.COMPLETE)}">
-                                <img src="./assets/icons/icon-detail-both.svg">
-                                <div class="text-center"><strong>Complete</strong></div>
-                            </div>
-                        </div>
+            <div *ngIf="focusPromotion.serviceType === packageType.WASH" class="row">
+                <div class="col-4">
+                    <div class="package-badge"
+                         [ngClass]="{'selected': focusPromotion.discountPackages.includes(package.SILVER)}">
+                        <img src="./assets/icons/iconA-wash-bronze.svg">
+                        <div class="text-center"><strong>Silver</strong></div>
                     </div>
-
-                    <div *ngIf="focusPromotion.packageType === packageType.WASH" class="row">
-                        <div class="col-4">
-                            <div class="package-badge" [ngClass]="{'selected': focusPromotion.discountPackages.includes(package.SILVER)}">
-                                <img src="./assets/icons/iconA-wash-bronze.svg">
-                                <div class="text-center"><strong>Silver</strong></div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="package-badge" [ngClass]="{'selected': focusPromotion.discountPackages.includes(package.GOLD)}">
-                                <img src="./assets/icons/iconA-wash-silver.svg">
-                                <div class="text-center"><strong>Gold</strong></div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="package-badge" [ngClass]="{'selected': focusPromotion.discountPackages.includes(package.PLATINUM)}">
-                                <img src="./assets/icons/iconA-wash-gold.svg">
-                                <div class="text-center"><strong>Platinum</strong></div>
-                            </div>
-                        </div>
+                </div>
+                <div class="col-4">
+                    <div class="package-badge"
+                         [ngClass]="{'selected': focusPromotion.discountPackages.includes(package.GOLD)}">
+                        <img src="./assets/icons/iconA-wash-silver.svg">
+                        <div class="text-center"><strong>Gold</strong></div>
                     </div>
+                </div>
+                <div class="col-4">
+                    <div class="package-badge"
+                         [ngClass]="{'selected': focusPromotion.discountPackages.includes(package.PLATINUM)}">
+                        <img src="./assets/icons/iconA-wash-gold.svg">
+                        <div class="text-center"><strong>Platinum</strong></div>
+                    </div>
+                </div>
+            </div>
 
-                    <mat-action-row>
-                        <button type="button" class="btn note-btn btn-edit" (click)="callEditPromo(focusPromotion)">Edit</button>
-                        <button type="button" class="btn note-btn btn-success" (click)="markInactive(focusPromotion)">Deactivate</button>
-                    </mat-action-row>
-                </mat-expansion-panel>
-            </mat-accordion>
-        </div>
-    </div>
+            <mat-action-row>
+                <button type="button" class="btn note-btn btn-edit" (click)="callEditPromo(focusPromotion)">Edit
+                </button>
+                <button type="button" class="btn note-btn btn-success" (click)="markInactive(focusPromotion)">
+                    Deactivate
+                </button>
+            </mat-action-row>
+        </mat-expansion-panel>
+    </mat-accordion>
 </div>

@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {PERMISSION_LEVEL} from '../../../shared/models/PERMISSION_LEVEL.model';
-import {UsersService} from '../../../shared/services/users.service';
+import {PERMISSION_LEVEL} from '../../../_shared/models/PERMISSION_LEVEL.model';
+import {UsersService} from '../../../_shared/services/users.service';
 import {User} from '../../shared/models/user.model';
 import {Role} from '../../shared/models/role.model';
 import {Store} from '../../../store-manager/shared/models/store.model';

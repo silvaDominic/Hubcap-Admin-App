@@ -1,12 +1,16 @@
 import {PackageItem} from './package.item.model';
-import {PACKAGE_TYPE} from '../../shared/models/PACKAGE_TYPE.model';
+import {SERVICE_TYPE} from '../../_shared/models/PACKAGE_TYPE.model';
+import {VEHICLE_TYPE} from '../../_shared/models/VEHICLE_TYPE.model';
 
 export class Package {
-  constructor(public id: string,
-              public type: PACKAGE_TYPE,
-              public name: string,
-              public price: number,
-              public packageItems: PackageItem[],
-              public duration?: number) {
-  }
+
+    constructor(    public name: string,
+    public type: SERVICE_TYPE,
+    public onetimePrices: Map<VEHICLE_TYPE, number>,
+    public packageItems: PackageItem[],
+    public duration?: number,
+    public monthlyPrices?: Map<VEHICLE_TYPE, number>,
+    public isUnlimitedMonthly?: boolean,
+    public monthlyUses?: number) {
+    }
 }

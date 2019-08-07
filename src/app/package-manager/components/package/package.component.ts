@@ -1,7 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {PackageItem} from '../../shared/package.item.model';
-import {PACKAGE_TYPE} from '../../../shared/models/PACKAGE_TYPE.model';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {SERVICE_TYPE} from '../../../_shared/models/PACKAGE_TYPE.model';
 import {Package} from '../../shared/package.model';
+import {VEHICLE_TYPE} from '../../../_shared/models/VEHICLE_TYPE.model';
+import {PackageItem} from '../../shared/package.item.model';
+import {PackageService} from '../../../_shared/services/package.service';
+import {CONSTANTS} from '../../../_shared/models/CONSTANTS';
+import {ALL_PACKAGES} from '../../../_shared/models/ALL_PACKAGES.model';
 
 @Component({
     selector: 'app-package',
@@ -10,21 +14,25 @@ import {Package} from '../../shared/package.model';
 })
 
 export class PackageComponent implements OnInit {
-/*    @Input() name: string;
-    @Input() price: number;
-    @Input() packageItems: PackageItem[];
-    @Input() duration: number;
-    @Input() thisPackageType: PACKAGE_TYPE;*/
 
-    @Input() focusPackage: Package;
+    public package: Package;
+    @Output() packageSelect = new EventEmitter<string>();
+    @Input() selectedPackageType: SERVICE_TYPE;
 
-    packageType = PACKAGE_TYPE;
+    // Initialize Enums
+    E_PACKAGE_TYPE = SERVICE_TYPE;
+    E_ALL_PACKAGES = ALL_PACKAGES;
 
-    constructor() {
-        //this.focusPackage.type = PACKAGE_TYPE.WASH;
+    constructor(private packageService: PackageService) {
     }
 
     ngOnInit() {
+        // Initialize package
+        this.package = this.packageService.getPackage();
     }
 
+    callSetFocusPackage(packageId: string) {
+        this.packageSelect.emit(packageId);
+        this.package = this.packageService.getPackage();
+    }
 }

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {PromotionService} from '../../../shared/services/promotion.service';
+import {PromotionService} from '../../../_shared/services/promotion.service';
 import {Promotion} from '../../shared/models/promotion.model';
 import {PromoFormComponent} from '../promo-form/promo-form.component';
 
@@ -22,6 +22,7 @@ export class PromoHistoryComponent implements OnInit {
         this.activePromos = [];
         this.inActivePromos = [];
     }
+
     ngOnInit() {
         this.refreshHistory();
     }

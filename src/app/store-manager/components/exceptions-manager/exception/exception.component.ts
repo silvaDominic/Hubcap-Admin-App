@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AmazingTimePickerService} from 'amazing-time-picker';
-import {Exception} from '../../../shared/models/exception.model';
-import {HOURS_EXCEPTION_TYPE} from '../../../../shared/models/HOURS_EXCEPTION_TYPE.model';
+import {HoursException} from '../../../shared/models/hours-exception.model';
+import {HOURS_EXCEPTION_TYPE} from '../../../../_shared/models/HOURS_EXCEPTION_TYPE.model';
 import {FormGroup} from '@angular/forms';
 
 @Component({
@@ -11,8 +11,8 @@ import {FormGroup} from '@angular/forms';
 })
 export class ExceptionComponent implements OnInit {
 
-    @Input() thisException: Exception;
-    @Input() exceptions: Exception[];
+    @Input() thisException: HoursException;
+    @Input() exceptions: HoursException[];
 
     currentDate: Date;
     exceptionDate: Date;

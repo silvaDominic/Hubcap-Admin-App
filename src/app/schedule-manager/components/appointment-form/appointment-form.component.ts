@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AmazingTimePickerService} from 'amazing-time-picker';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AppointmentService} from '../../../shared/services/appointment.service';
+import {AppointmentService} from '../../../_shared/services/appointment.service';
 import {Appointment} from '../../shared/appointment.model';
 
 @Component({

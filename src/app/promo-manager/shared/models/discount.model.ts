@@ -1,4 +1,4 @@
-import {DISCOUNT_TYPE} from '../../../shared/models/DISCOUNT_TYPE.model';
+import {DISCOUNT_TYPE} from '../../../_shared/models/DISCOUNT_TYPE.model';
 import {PackageItem} from '../../../package-manager/shared/package.item.model';
 
 export class Discount {

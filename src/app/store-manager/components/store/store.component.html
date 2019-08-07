@@ -67,7 +67,7 @@
               <mat-form-field>
                 <mat-label ></mat-label>
                 <mat-select multiple [(ngModel)]="thisStore.vehicleTypes">
-                  <mat-option *ngFor="let type of vehicleKeys" [value]="type">{{type}}</mat-option>
+                  <mat-option *ngFor="let vehicle of vehicleKeys" [value]="vehicle">{{vehicle}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>

@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Promotion} from '../../shared/models/promotion.model';
 import {PromoFormComponent} from '../promo-form/promo-form.component';
-import {FREQUENCY_TYPE} from '../../../shared/models/FREQUENCY_TYPE.model';
-import {DISCOUNT_TYPE} from '../../../shared/models/DISCOUNT_TYPE.model';
+import {FREQUENCY_TYPE} from '../../../_shared/models/FREQUENCY_TYPE.model';
+import {DISCOUNT_TYPE} from '../../../_shared/models/DISCOUNT_TYPE.model';
 import {PromoHistoryComponent} from '../promo-history/promo-history.component';
-import {PACKAGE_TYPE} from '../../../shared/models/PACKAGE_TYPE.model';
-import {ALL_PACKAGES} from '../../../shared/models/ALL_PACKAGES.model';
+import {SERVICE_TYPE} from '../../../_shared/models/PACKAGE_TYPE.model';
+import {ALL_PACKAGES} from '../../../_shared/models/ALL_PACKAGES.model';
 
 @Component({
     selector: 'app-promo',
@@ -20,7 +20,7 @@ export class PromoComponent implements OnInit {
 
     frequencyType = FREQUENCY_TYPE;
     discountType = DISCOUNT_TYPE;
-    packageType = PACKAGE_TYPE;
+    packageType = SERVICE_TYPE;
     package = ALL_PACKAGES;
 
     constructor() {}
@@ -35,7 +35,7 @@ export class PromoComponent implements OnInit {
                 a_promo.isActive = false;
             }
         }
-        // this.promotionService.updatePromotion(focusPromotion);
+        // this.promotionService.updatePromotion(promotion);
         this.historyComp.refreshHistory();
     }
 
@@ -45,12 +45,8 @@ export class PromoComponent implements OnInit {
                 ia_promo.isActive = true;
             }
         }
-        // this.promotionService.updatePromotion(focusPromotion);
+        // this.promotionService.updatePromotion(promotion);
         this.historyComp.refreshHistory();
-    }
-
-    callEditPromo(promo: Promotion) {
-        this.promoForm.editPromo(promo);
     }
 
     trackByFn(index, item) {

@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AppointmentService} from '../shared/services/appointment.service';
+import {AppointmentService} from '../_shared/services/appointment.service';
 import {Appointment} from './shared/appointment.model';
 import {MatCalendar} from '@angular/material';
 

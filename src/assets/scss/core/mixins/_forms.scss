@@ -28,7 +28,7 @@
       // exceptionForm-group focus could change multiple checkboxes/radios, disable that change by using the same color as non-exceptionForm-group is-focused
       color: $bmd-label-color;
 
-      // correct the above focus color for disabled packageItems
+      // correct the above focus color for disabled selectedPackageItems
       label:has(input[type=radio][disabled]),
       // css 4 which is unlikely to work for a while, but no other pure css way.
       label:has(input[type=checkbox][disabled]),
@@ -331,7 +331,7 @@
       color: $mdb-label-color-toggle-focus;
     }
 
-    // correct the above focus color for disabled packageItems
+    // correct the above focus color for disabled selectedPackageItems
     fieldset[disabled] & {
       color: $mdb-label-color;
     }

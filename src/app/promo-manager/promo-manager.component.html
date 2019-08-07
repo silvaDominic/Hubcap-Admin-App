@@ -1,23 +1,32 @@
 <div id="promo-manager-block" class="main-content">
-    <div *ngIf="promotions">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-7">
-                    <app-promo-form #promoForm [promotions]="promotions" [packageItems]="packageItems" [focusPromotion]="focusPromotion"></app-promo-form>
-                </div>
-                <div class="col-md-5">
-                    <div class="row">
-                        <div class="col-12">
-                            <app-promo-new #promoNew [focusPromotion]="focusPromotion"></app-promo-new>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <app-promo-history [historyPromotions]="promotions" [promoForm]="promoForm"></app-promo-history>
-                        </div>
-                    </div>
+    <div>
+        <mat-drawer-container id="promo-drawer-container" class="container">
+            <div id="outer-history-button-container">
+                <div class="row">
+                    <button class="drawer-button" type="button" mat-button (click)="drawer.toggle()">
+                        View History
+                        <mat-icon>history</mat-icon>
+                    </button>
                 </div>
             </div>
-        </div>
+            <div class="row">
+                <div id="promo-overview-col" class="col-md-4">
+                    <app-promo-overview #promoOverview></app-promo-overview>
+                </div>
+                <div id="promo-form-col" class="col-md-8">
+                    <app-promo-form #promoForm></app-promo-form>
+                </div>
+            </div>
+
+            <mat-drawer #drawer id="history-drawer-container" mode="over" position="end">
+                <div id="inner-history-button-container">
+                    <button class="drawer-button" type="button" mat-button (click)="drawer.toggle()">
+                        Close History
+                        <mat-icon>history</mat-icon>
+                    </button>
+                </div>
+                <!--<app-promo-history [promoForm]="promoForm"></app-promo-history>-->
+            </mat-drawer>
+        </mat-drawer-container>
     </div>
 </div>

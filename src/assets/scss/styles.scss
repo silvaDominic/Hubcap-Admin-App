@@ -83,6 +83,8 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4 {
   scroll-behavior: smooth;
 }
 
+
+// Consider using ::ng-deep in respective component
 // Fixes horizontal scroll bars for material tabs
 .mat-tab-body-content {
   overflow: hidden !important;

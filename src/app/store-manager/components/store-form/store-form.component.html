@@ -79,7 +79,7 @@
                   <h4>Store Hours</h4>
                 </div>
                 <div class="hours-block" formArrayName="storeHours">
-                  <div class="list-group-item" *ngFor="let day of dayKeys; let hour of storeFormGroup.controls['storeHours'].controls;
+                  <div class="list-group-item" *ngFor="let day of dayKeys; let hour of storeFormGroup.controls['hoursOfOperation'].controls;
                   let i = index;"
                   formGroupName="{{i}}">
                     <div class="row">

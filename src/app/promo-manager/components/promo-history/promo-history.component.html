@@ -1,20 +1,16 @@
 <div id="promo-history-block">
-    <div class="row">
-        <div class="col-md-12">
-            <mat-tab-group>
-                <mat-tab label="Active">
-                    <div class="note"><h6>These promotions are currently <span class="text-success">ACTIVE</span></h6></div>
-                    <div *ngFor="let promo of activePromos;">
-                        <app-promo [focusPromotion]="promo" [promoForm]="promoForm"></app-promo>
-                    </div>
-                </mat-tab>
-                <mat-tab label="Inactive">
-                    <div class="note"><h6>These promotions are currently <span class="text-danger">NOT ACTIVE</span></h6></div>
-                    <div *ngFor="let promo of inActivePromos;">
-                        <app-promo [focusPromotion]="promo" [promoForm]="promoForm"></app-promo>
-                    </div>
-                </mat-tab>
-            </mat-tab-group>
-        </div>
-    </div>
+    <mat-tab-group>
+        <mat-tab label="Active">
+            <div class="note"><h6>These promotions are currently <span class="text-success">ACTIVE</span></h6></div>
+            <div *ngFor="let promo of activePromos;">
+                <app-promo [focusPromotion]="promo" [promoForm]="promoForm"></app-promo>
+            </div>
+        </mat-tab>
+        <mat-tab label="Inactive">
+            <div class="note"><h6>These promotions are currently <span class="text-danger">NOT ACTIVE</span></h6></div>
+            <div *ngFor="let promo of inActivePromos;">
+                <app-promo [focusPromotion]="promo" [promoForm]="promoForm"></app-promo>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
 </div>

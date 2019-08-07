@@ -1,13 +1,13 @@
 [
     {
-        "id": "001",
+        "id": "0",
         "name": "Early Bird Special",
         "description": "Get a 10% discount when coming in between 8:00AM and 10:00AM",
+        "packageType": "WASH",
         "frequencyType": "ONE_TIME",
         "frequency": null,
-        "startDate": "2019-03-15T00:00:00",
-        "endDate": "2019-04-15T00:00:00",
-        "packageType": "WASH",
+        "startDate": "2019-03-15",
+        "endDate": "2019-04-15",
         "discountPackages": [
             "GOLD",
             "SILVER",
@@ -16,7 +16,7 @@
         "discount":
         {
             "discountType": "PERCENT",
-            "discountAmount": "10",
+            "discountAmount": 10,
             "discountFeatures": [""]
         },
         "startTime": "08:00",
@@ -25,14 +25,14 @@
         "isActive": true
     },
     {
-        "id": "002",
+        "id": "1",
         "name": "Late Night Special",
         "description": "Get a 5% discount when coming in between 6:00PM and 8:00PM",
+        "packageType": "WASH",
         "frequencyType": "REOCCURRING",
         "frequency": "WEEKLY",
-        "startDate": "2019-07-15T00:00:00",
-        "endDate": "2019-08-31T00:00:00",
-        "packageType": "WASH",
+        "startDate": "2019-07-15",
+        "endDate": "2019-08-31",
         "discountPackages": [
             "GOLD"
         ],
@@ -48,14 +48,14 @@
         "isActive": true
     },
     {
-        "id": "003",
+        "id": "2",
         "name": "Ladies Day",
         "description": "Ladies get a dollar off",
+        "packageType": "WASH",
         "frequencyType": "REOCCURRING",
         "frequency": "DAILY",
-        "startDate": "2018-01-01T00:00:00",
-        "endDate": "2018-12-31T00:00:00",
-        "packageType": "WASH",
+        "startDate": "2018-01-01",
+        "endDate": "2018-12-31",
         "discountPackages": [
             "GOLD",
             "PLATINUM"
@@ -63,10 +63,10 @@
         "discount":
         {
             "discountType": "DOLLAR",
-            "discountAmount": "1",
+            "discountAmount": 1,
             "discountFeatures": [""]
         },
-        "startTime": "8:00",
+        "startTime": "08:00",
         "endTime": "17:00",
         "isAllDay": true,
         "isActive": false

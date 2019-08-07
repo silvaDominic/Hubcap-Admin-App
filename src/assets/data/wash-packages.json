@@ -1,17 +1,16 @@
+
 [
   {
-    "id": "silver",
     "type": "WASH",
     "name": "Silver",
-    "price": 8,
+    "onetimePrices": {"SEDAN": 8, "COMPACT_SUV": 10, "LARGE_SUV": 12, "OVERSIZED":  14},
+    "monthlyPrices": {"SEDAN": 40, "COMPACT_SUV": 50, "LARGE_SUV": 60, "OVERSIZED":  70},
     "packageItems": [
       {
         "name": "Wash",
-        "isSelected": true,
-        "isRequired" : true,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "EXTERIOR",
+        "isRequired": true,
+        "selectedSubOptions": [],
         "subOptions" : [
           "Soft Touch",
           "Touch Free",
@@ -20,11 +19,9 @@
       },
       {
         "name": "Dry",
-        "isSelected": true,
-        "isRequired" : true,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "EXTERIOR",
+        "isRequired": true,
+        "selectedSubOptions": [],
         "subOptions" : [
           "Machine Dry",
           "Hand Dry"
@@ -32,38 +29,30 @@
       },
       {
         "name": "Tire & Wheel Clean",
-        "isSelected": true,
-        "isRequired": true,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "EXTERIOR",
+        "isRequired": true,
+        "selectedSubOptions": [],
         "subOptions": []
       },
       {
         "name": "Undercarriage Wash",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "EXTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": []
       },
       {
         "name": "Tire & Wheel Shine",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "EXTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": []
       },
       {
         "name": "Exterior Gloss/Car Shine",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "EXTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": [
           "Hot Wax",
           "Clear Coat Protectant",
@@ -83,20 +72,16 @@
       },
       {
         "name": "Windshield Applicant",
-        "isSelected":false,
-        "isRequired":false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "EXTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": []
       },
       {
         "name": "Exterior Protectant",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "EXTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": [
           "Clearcoat Conditioner",
           "Lava Paint Sealant",
@@ -114,65 +99,51 @@
       },
       {
         "name": "Bug Repellant",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "EXTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": []
       },
       {
         "name": "Rust Inhibitor",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "EXTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": []
       },
       {
         "name": "Free Self-Serve Vacuum",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "EXTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": []
       },
       {
         "name": "Windows Wiped",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "INTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": []
       },
       {
         "name": "Full Interior Vacuum",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "INTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": []
       },
       {
         "name": "Full Interior Wipe",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "INTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": []
       },
       {
         "name": "Interior Conditioning/Dressing",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "INTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": [
           "All Interior",
           "Door Jambs",
@@ -185,20 +156,16 @@
       },
       {
         "name": "Trunk Vacuum",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "INTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": []
       },
       {
         "name": "Mats Washed/Shampooed",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "INTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": [
           "Rubber Mats",
           "Upholstery Mats",
@@ -208,28 +175,27 @@
       },
       {
         "name": "Air Freshener",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "INTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": []
       }
-    ]
+    ],
+    "duration": null,
+    "isUnlimitedMonthly": false,
+    "monthlyUses": 5
   },
   {
-    "id": "gold",
     "type": "WASH",
     "name": "Gold",
-    "price": 10,
+    "onetimePrices": {"SEDAN": 12, "COMPACT_SUV": 14, "LARGE_SUV": 17, "OVERSIZED":  20},
+    "monthlyPrices": {"SEDAN": 50, "COMPACT_SUV": 60, "LARGE_SUV": 70, "OVERSIZED":  80},
     "packageItems": [
       {
         "name": "Wash",
-        "isSelected": true,
-        "isRequired" : true,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "EXTERIOR",
+        "isRequired": true,
+        "selectedSubOptions": [],
         "subOptions" : [
           "Soft Touch",
           "Touch Free",
@@ -238,11 +204,9 @@
       },
       {
         "name": "Dry",
-        "isSelected": true,
-        "isRequired" : true,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "EXTERIOR",
+        "isRequired": true,
+        "selectedSubOptions": [],
         "subOptions" : [
           "Machine Dry",
           "Hand Dry"
@@ -250,65 +214,30 @@
       },
       {
         "name": "Tire & Wheel Clean",
-        "isSelected": true,
-        "isRequired": true,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "EXTERIOR",
-        "subOptions": []
-      },
-      {
-        "name": "Windows Wiped",
-        "isSelected": true,
         "isRequired": true,
-        "selectedSubOption": "",
         "selectedSubOptions": [],
-        "itemType": "INTERIOR",
-        "subOptions": []
-      },
-      {
-        "name": "Full Interior Vacuum",
-        "isSelected": true,
-        "isRequired": true,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
-        "itemType": "INTERIOR",
-        "subOptions": []
-      },
-      {
-        "name": "Full Interior Wipe",
-        "isSelected": true,
-        "isRequired": true,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
-        "itemType": "INTERIOR",
         "subOptions": []
       },
       {
         "name": "Undercarriage Wash",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "EXTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": []
       },
       {
         "name": "Tire & Wheel Shine",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "EXTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": []
       },
       {
         "name": "Exterior Gloss/Car Shine",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "EXTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": [
           "Hot Wax",
           "Clear Coat Protectant",
@@ -328,20 +257,16 @@
       },
       {
         "name": "Windshield Applicant",
-        "isSelected":false,
-        "isRequired":false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "EXTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": []
       },
       {
         "name": "Exterior Protectant",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "EXTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": [
           "Clearcoat Conditioner",
           "Lava Paint Sealant",
@@ -356,207 +281,106 @@
           "Teflon Sealant",
           "Velocity Clear Coat Sealant"
         ]
-      },
-      {
-        "name": "Bug Repellent",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
-        "itemType": "EXTERIOR",
-        "subOptions": []
-      },
-      {
-        "name": "Rust Inhibitor",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
-        "itemType": "EXTERIOR",
-        "subOptions": []
-      },
-      {
-        "name": "Free Self-Serve Vacuum",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
-        "itemType": "EXTERIOR",
-        "subOptions": []
-      },
-      {
-        "name": "Interior Conditioning/Dressing",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
-        "itemType": "INTERIOR",
-        "subOptions": [
-          "All Interior",
-          "Door Jambs",
-          "Dashboard",
-          "Console",
-          "Upholstery Seats",
-          "Leather Seats",
-          "Vinyl"
-        ]
-      },
-      {
-        "name": "Trunk Vacuum",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
-        "itemType": "INTERIOR",
-        "subOptions": []
-      },
-      {
-        "name": "Mats Washed/Shampooed",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
-        "itemType": "INTERIOR",
-        "subOptions": [
-          "Rubber Mats",
-          "Upholstery Mats",
-          "Trunk Mats",
-          "Mixed"
-        ]
-      },
-      {
-        "name": "Air Freshener",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
-        "itemType": "INTERIOR",
-        "subOptions": []
-      }
-    ]
-  },
-  {
-    "id": "platinum",
-    "type": "WASH",
-    "name": "Platinum",
-    "price": 12,
-    "packageItems": [
-
-      {
-        "name": "Tire & Wheel Clean",
-        "isSelected": true,
-        "isRequired": true,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
-        "itemType": "EXTERIOR",
-        "subOptions": []
-      },
-      {
-        "name": "Undercarriage Wash",
-        "isSelected": true,
-        "isRequired": true,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
-        "itemType": "EXTERIOR",
-        "subOptions": []
-      },
-      {
-        "name": "Tire & Wheel Shine",
-        "isSelected": true,
-        "isRequired": true,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
-        "itemType": "EXTERIOR",
-        "subOptions": []
-      },
-      {
-        "name": "Windshield Applicant",
-        "isSelected":false,
-        "isRequired":false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
-        "itemType": "EXTERIOR",
-        "subOptions": []
       },
       {
         "name": "Bug Repellant",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "EXTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": []
       },
       {
         "name": "Rust Inhibitor",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "EXTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": []
       },
       {
         "name": "Free Self-Serve Vacuum",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "EXTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": []
       },
       {
         "name": "Windows Wiped",
-        "isSelected": true,
-        "isRequired": true,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "INTERIOR",
+        "isRequired": true,
+        "selectedSubOptions": [],
         "subOptions": []
       },
       {
         "name": "Full Interior Vacuum",
-        "isSelected": true,
-        "isRequired": true,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "INTERIOR",
+        "isRequired": true,
+        "selectedSubOptions": [],
         "subOptions": []
       },
       {
         "name": "Full Interior Wipe",
-        "isSelected": true,
-        "isRequired": true,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "INTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": []
+      },
+      {
+        "name": "Interior Conditioning/Dressing",
+        "itemType": "INTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
+        "subOptions": [
+          "All Interior",
+          "Door Jambs",
+          "Dashboard",
+          "Console",
+          "Upholstery Seats",
+          "Leather Seats",
+          "Vinyl"
+        ]
       },
       {
         "name": "Trunk Vacuum",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "INTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": []
+      },
+      {
+        "name": "Mats Washed/Shampooed",
+        "itemType": "INTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
+        "subOptions": [
+          "Rubber Mats",
+          "Upholstery Mats",
+          "Trunk Mats",
+          "Mixed"
+        ]
       },
       {
         "name": "Air Freshener",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "INTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": []
-      },
+      }
+    ],
+    "duration": null,
+    "isUnlimitedMonthly": false,
+    "monthlyUses": 8
+  },
+  {
+    "type": "WASH",
+    "name": "Platinum",
+    "onetimePrices": {"SEDAN": 8, "COMPACT_SUV": 10, "LARGE_SUV": 12, "OVERSIZED":  14},
+    "monthlyPrices": {"SEDAN": 60, "COMPACT_SUV": 70, "LARGE_SUV": 75, "OVERSIZED":  90},
+    "packageItems": [
       {
         "name": "Wash",
-        "isSelected": true,
-        "isRequired" : true,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "EXTERIOR",
+        "isRequired": true,
+        "selectedSubOptions": [],
         "subOptions" : [
           "Soft Touch",
           "Touch Free",
@@ -565,23 +389,40 @@
       },
       {
         "name": "Dry",
-        "isSelected": true,
-        "isRequired" : true,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "EXTERIOR",
+        "isRequired": true,
+        "selectedSubOptions": [],
         "subOptions" : [
           "Machine Dry",
           "Hand Dry"
         ]
       },
       {
-        "name": "Exterior Gloss/Car Shine",
-        "isSelected": true,
-        "isRequired": true,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
+        "name": "Tire & Wheel Clean",
         "itemType": "EXTERIOR",
+        "isRequired": true,
+        "selectedSubOptions": [],
+        "subOptions": []
+      },
+      {
+        "name": "Undercarriage Wash",
+        "itemType": "EXTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
+        "subOptions": []
+      },
+      {
+        "name": "Tire & Wheel Shine",
+        "itemType": "EXTERIOR",
+        "isRequired": true,
+        "selectedSubOptions": [],
+        "subOptions": []
+      },
+      {
+        "name": "Exterior Gloss/Car Shine",
+        "itemType": "EXTERIOR",
+        "isRequired": true,
+        "selectedSubOptions": [],
         "subOptions": [
           "Hot Wax",
           "Clear Coat Protectant",
@@ -600,12 +441,17 @@
         ]
       },
       {
-        "name": "Exterior Protectant",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
+        "name": "Windshield Applicant",
         "itemType": "EXTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
+        "subOptions": []
+      },
+      {
+        "name": "Exterior Protectant",
+        "itemType": "EXTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": [
           "Clearcoat Conditioner",
           "Lava Paint Sealant",
@@ -621,14 +467,53 @@
           "Velocity Clear Coat Sealant"
         ]
       },
-
+      {
+        "name": "Bug Repellant",
+        "itemType": "EXTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
+        "subOptions": []
+      },
+      {
+        "name": "Rust Inhibitor",
+        "itemType": "EXTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
+        "subOptions": []
+      },
+      {
+        "name": "Free Self-Serve Vacuum",
+        "itemType": "EXTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
+        "subOptions": []
+      },
+      {
+        "name": "Windows Wiped",
+        "itemType": "INTERIOR",
+        "isRequired": true,
+        "selectedSubOptions": [],
+        "subOptions": []
+      },
+      {
+        "name": "Full Interior Vacuum",
+        "itemType": "INTERIOR",
+        "isRequired": true,
+        "selectedSubOptions": [],
+        "subOptions": []
+      },
+      {
+        "name": "Full Interior Wipe",
+        "itemType": "INTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
+        "subOptions": []
+      },
       {
         "name": "Interior Conditioning/Dressing",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "INTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": [
           "All Interior",
           "Door Jambs",
@@ -639,21 +524,35 @@
           "Vinyl"
         ]
       },
-
+      {
+        "name": "Trunk Vacuum",
+        "itemType": "INTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
+        "subOptions": []
+      },
       {
         "name": "Mats Washed/Shampooed",
-        "isSelected": false,
-        "isRequired": false,
-        "selectedSubOption": "",
-        "selectedSubOptions": [],
         "itemType": "INTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
         "subOptions": [
           "Rubber Mats",
           "Upholstery Mats",
           "Trunk Mats",
           "Mixed"
         ]
+      },
+      {
+        "name": "Air Freshener",
+        "itemType": "INTERIOR",
+        "isRequired": false,
+        "selectedSubOptions": [],
+        "subOptions": []
       }
-    ]
+    ],
+    "duration": null,
+    "isUnlimitedMonthly": true,
+    "monthlyUses": null
   }
 ]

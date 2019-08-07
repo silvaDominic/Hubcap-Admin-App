@@ -1,4 +1,4 @@
-import {PERMISSION_LEVEL} from '../../../shared/models/PERMISSION_LEVEL.model';
+import {PERMISSION_LEVEL} from '../../../_shared/models/PERMISSION_LEVEL.model';
 
 export class Role {
 

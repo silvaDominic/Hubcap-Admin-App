@@ -128,7 +128,7 @@ export class QrScannerManagerComponent implements OnInit, AfterViewInit {
             convertedJsonData.lastName,
             convertedJsonData.selectedVehicle,
             convertedJsonData.plateNumber,
-            convertedJsonData.packageType,
+            convertedJsonData.E_SERVICE_TYPE,
             convertedJsonData.selectedPackage);
         console.log('AFTER: ', this.detectedClient);
     }

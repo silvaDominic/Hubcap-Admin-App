@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormGroup} from '@angular/forms';
 import {AmazingTimePickerService} from 'amazing-time-picker';
-import {Exception} from '../../../shared/models/exception.model';
-import {StoresService} from '../../../../shared/services/stores.service';
-import {HOURS_EXCEPTION_TYPE} from '../../../../shared/models/HOURS_EXCEPTION_TYPE.model';
+import {HoursException} from '../../../shared/models/hours-exception.model';
+import {StoresService} from '../../../../_shared/services/stores.service';
+import {HOURS_EXCEPTION_TYPE} from '../../../../_shared/models/HOURS_EXCEPTION_TYPE.model';
 
 @Component({
   selector: 'app-exception-form',
@@ -12,15 +12,15 @@ import {HOURS_EXCEPTION_TYPE} from '../../../../shared/models/HOURS_EXCEPTION_TY
 })
 export class ExceptionFormComponent implements OnInit {
 
-    @Input() exceptions: Exception[];
+    @Input() exceptions: HoursException[];
     exceptionForm: FormGroup;
     exceptionType = HOURS_EXCEPTION_TYPE;
 
     currentDate: Date;
     startDate: Date;
 
-    static initException(): Exception {
-        return new Exception('',
+    static initHoursException(): HoursException {
+        return new HoursException(
             '',
             '',
             HOURS_EXCEPTION_TYPE.MODIFIED,
@@ -29,7 +29,7 @@ export class ExceptionFormComponent implements OnInit {
     }
 
     constructor(private storeService: StoresService, private atp: AmazingTimePickerService) {
-        this.exceptionForm = this.storeService.generateExceptionsForm(ExceptionFormComponent.initException())
+        this.exceptionForm = this.storeService.generateExceptionsForm(ExceptionFormComponent.initHoursException())
 
         this.currentDate = new Date();
         this.startDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDay());
@@ -39,8 +39,7 @@ export class ExceptionFormComponent implements OnInit {
     }
 
     createException() {
-        this.exceptions.push(new Exception(
-            StoresService.generateExceptionId(),
+        this.exceptions.push(new HoursException(
             this.exceptionForm.get('name').value,
             this.exceptionForm.get('date').value,
             this.exceptionForm.get('exceptionType').value,

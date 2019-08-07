@@ -1,0 +1,763 @@
+{
+    "id": "1123",
+    "name": "George's Carwash",
+    "type": "WASHER_DETAILER",
+    "ratings": [
+        {
+            "customerName": "Shahroz Ahmed",
+            "score": "excellent",
+            "review": "Mexicans do it best.",
+            "date": "2019-07-15"
+        },
+        {
+            "customerName": "Ruzin",
+            "score": "poor",
+            "review": "I wish I had a car to wash.",
+            "date": "2019-07-24"
+        }
+    ],
+    "address": {
+        "city": "New York City",
+        "state": "NY",
+        "street": "123 Fake Street",
+        "zipcode": "11237"
+    },
+    "coordinates": {
+        "latitude": 40.7128,
+        "longitude": 74.0060
+    },
+    "promotions": [
+        {
+            "name": "Early Bird Special",
+            "description": "Get a 10% discount when coming in between 8:00AM and 10:00AM",
+            "frequencyType": "ONE_TIME",
+            "frequency": null,
+            "startDate": "2019-03-15",
+            "endDate": "2019-04-15",
+            "packageType": "WASH",
+            "discountPackages": [
+                "GOLD",
+                "SILVER",
+                "PLATINUM"
+            ],
+            "discount":
+            {
+                "discountType": "PERCENT",
+                "discountAmount": "10",
+                "discountFeatures": [""]
+            },
+            "startTime": "08:00",
+            "endTime": "10:00",
+            "isAllDay": false,
+            "isActive": true
+        },
+        {
+            "name": "Late Night Special",
+            "description": "Get a 5% discount when coming in between 6:00PM and 8:00PM",
+            "frequencyType": "REOCCURRING",
+            "frequency": "WEEKLY",
+            "startDate": "2019-07-15",
+            "endDate": "2019-08-31",
+            "packageType": "WASH",
+            "discountPackages": [
+                "GOLD"
+            ],
+            "discount":
+            {
+                "discountType": "FREE",
+                "discountAmount": "",
+                "discountFeatures": ["Window Clean"]
+            },
+            "startTime": "18:00",
+            "endTime": "20:00",
+            "isAllDay": false,
+            "isActive": true
+        },
+        {
+            "name": "Ladies Day",
+            "description": "Ladies get a dollar off",
+            "frequencyType": "REOCCURRING",
+            "frequency": "DAILY",
+            "startDate": "2018-01-01",
+            "endDate": "2018-12-31",
+            "packageType": "WASH",
+            "discountPackages": [
+                "GOLD",
+                "PLATINUM"
+            ],
+            "discount":
+            {
+                "discountType": "DOLLAR",
+                "discountAmount": "1",
+                "discountFeatures": [""]
+            },
+            "startTime": "8:00",
+            "endTime": "17:00",
+            "isAllDay": true,
+            "isActive": false
+        }
+    ],
+    "silverPackage": {
+        "type": "WASH",
+        "name": "Silver",
+        "onetimePrices": {"SEDAN": 8, "COMPACT_SUV": 10, "LARGE_SUV": 12, "OVERSIZED":  14},
+        "monthlyPrices": {"SEDAN": 40, "COMPACT_SUV": 50, "LARGE_SUV": 60, "OVERSIZED":  70},
+        "packageItems": [
+            {
+                "name": "Wash",
+                "itemType": "EXTERIOR",
+                "isRequired": true,
+                "selectedSubOptions": [],
+                "subOptions" : [
+                    "Soft Touch",
+                    "Touch Free",
+                    "Hand Wash"
+                ]
+            },
+            {
+                "name": "Dry",
+                "itemType": "EXTERIOR",
+                "isRequired": true,
+                "selectedSubOptions": [],
+                "subOptions" : [
+                    "Machine Dry",
+                    "Hand Dry"
+                ]
+            },
+            {
+                "name": "Tire & Wheel Clean",
+                "itemType": "EXTERIOR",
+                "isRequired": true,
+                "selectedSubOptions": [],
+                "subOptions": []
+            }
+        ],
+        "duration": null,
+        "isUnlimitedMonthly": false,
+        "monthlyUses": 5
+    },
+    "goldPackage": {
+        "type": "WASH",
+        "name": "Gold",
+        "onetimePrices": {"SEDAN": 12, "COMPACT_SUV": 14, "LARGE_SUV": 17, "OVERSIZED":  20},
+        "monthlyPrices": {"SEDAN": 50, "COMPACT_SUV": 60, "LARGE_SUV": 70, "OVERSIZED":  80},
+        "packageItems": [
+            {
+                "name": "Wash",
+                "itemType": "EXTERIOR",
+                "isRequired": true,
+                "selectedSubOptions": [],
+                "subOptions" : [
+                    "Soft Touch",
+                    "Touch Free",
+                    "Hand Wash"
+                ]
+            },
+            {
+                "name": "Dry",
+                "itemType": "EXTERIOR",
+                "isRequired": true,
+                "selectedSubOptions": [],
+                "subOptions" : [
+                    "Machine Dry",
+                    "Hand Dry"
+                ]
+            },
+            {
+                "name": "Tire & Wheel Clean",
+                "itemType": "EXTERIOR",
+                "isRequired": true,
+                "selectedSubOptions": [],
+                "subOptions": []
+            },
+            {
+                "name": "Windows Wiped",
+                "itemType": "INTERIOR",
+                "isRequired": true,
+                "selectedSubOptions": [],
+                "subOptions": []
+            },
+            {
+                "name": "Full Interior Vacuum",
+                "itemType": "INTERIOR",
+                "isRequired": true,
+                "selectedSubOptions": [],
+                "subOptions": []
+            }
+        ],
+        "duration": null,
+        "isUnlimitedMonthly": false,
+        "monthlyUses": 8
+    },
+    "platinumPackage": {
+        "type": "WASH",
+        "name": "Platinum",
+        "onetimePrices": {"SEDAN": 8, "COMPACT_SUV": 10, "LARGE_SUV": 12, "OVERSIZED":  14},
+        "monthlyPrices": {"SEDAN": 60, "COMPACT_SUV": 70, "LARGE_SUV": 75, "OVERSIZED":  90},
+        "packageItems": [
+            {
+                "name": "Wash",
+                "itemType": "EXTERIOR",
+                "isRequired": true,
+                "selectedSubOptions": [],
+                "subOptions" : [
+                    "Soft Touch",
+                    "Touch Free",
+                    "Hand Wash"
+                ]
+            },
+            {
+                "name": "Dry",
+                "itemType": "EXTERIOR",
+                "isRequired": true,
+                "selectedSubOptions": [],
+                "subOptions" : [
+                    "Machine Dry",
+                    "Hand Dry"
+                ]
+            },
+            {
+                "name": "Tire & Wheel Clean",
+                "itemType": "EXTERIOR",
+                "isRequired": true,
+                "selectedSubOptions": [],
+                "subOptions": []
+            },
+            {
+                "name": "Tire & Wheel Shine",
+                "itemType": "EXTERIOR",
+                "isRequired": true,
+                "selectedSubOptions": [],
+                "subOptions": []
+            },
+            {
+                "name": "Exterior Gloss/Car Shine",
+                "itemType": "EXTERIOR",
+                "isRequired": true,
+                "selectedSubOptions": [],
+                "subOptions": [
+                    "Hot Wax",
+                    "Clear Coat Protectant",
+                    "Blue Coral Pink Spray Wax",
+                    "Body Gloss",
+                    "Shine Wax",
+                    "Buff 'N Shine",
+                    "Hand Applied Liquid Wax",
+                    "Liquid Diamond Body Gloss",
+                    "Carnauba Hot Wax",
+                    "Triple Foam Wax",
+                    "Lava Shine",
+                    "Hot Wax and Shine",
+                    "Exterior Body Shine",
+                    "Hot Bubble Wax"
+                ]
+            },
+            {
+                "name": "Windows Wiped",
+                "itemType": "INTERIOR",
+                "isRequired": true,
+                "selectedSubOptions": [],
+                "subOptions": []
+            },
+            {
+                "name": "Full Interior Vacuum",
+                "itemType": "INTERIOR",
+                "isRequired": true,
+                "selectedSubOptions": [],
+                "subOptions": []
+            }
+        ],
+        "duration": null,
+        "isUnlimitedMonthly": true,
+        "monthlyUses": null
+    },
+    "interiorPackage": {
+        "type": "DETAIL",
+        "name": "Interior",
+        "onetimePrices": {"SEDAN": 80, "COMPACT_SUV": 100, "LARGE_SUV": 120, "OVERSIZED":  140},
+        "monthlyPrices": {"SEDAN": 40, "COMPACT_SUV": 50, "LARGE_SUV": 60, "OVERSIZED":  70},
+        "packageItems": [
+            {
+                "name": "Wash",
+                "isRequired" : true,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "EXTERIOR",
+                "subOptions" : [
+                    "Soft Touch",
+                    "Touch Free",
+                    "Hand Wash"
+                ]
+            },
+            {
+                "name": "Dry",
+                "isRequired" : true,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "EXTERIOR",
+                "subOptions" : [
+                    "Machine Dry",
+                    "Hand Dry"
+                ]
+            },
+            {
+                "name": "Windows Wiped",
+                "isRequired": true,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "INTERIOR",
+                "subOptions": []
+            },
+            {
+                "name": "Full Interior Vacuum",
+                "isRequired": true,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "INTERIOR",
+                "subOptions": []
+            },
+            {
+                "name": "Full Interior Wipe",
+                "isRequired": true,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "INTERIOR",
+                "subOptions": []
+            },
+            {
+                "name": "Interior Conditioning/Dressing",
+                "isRequired": false,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "INTERIOR",
+                "subOptions": [
+                    "All Interior",
+                    "Door Jambs",
+                    "Dashboard",
+                    "Console",
+                    "Upholstery Seats",
+                    "Leather Seats",
+                    "Vinyl"
+                ]
+            },
+            {
+                "name": "Trunk Vacuum",
+                "isRequired": false,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "INTERIOR",
+                "subOptions": []
+            },
+            {
+                "name": "Mats Washed/Shampooed",
+                "isRequired": true,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "INTERIOR",
+                "subOptions": [
+                    "Rubber Mats",
+                    "Upholstery Mats",
+                    "Trunk Mats",
+                    "Mixed"
+                ]
+            },
+            {
+                "name": "Air Freshener",
+                "isRequired": false,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "INTERIOR",
+                "subOptions": []
+            }
+        ],
+        "duration": 2,
+        "isUnlimitedMonthly": null,
+        "monthlyUses": null
+    },
+    "exteriorPackage": {
+        "type": "DETAIL",
+        "name": "Exterior",
+        "onetimePrices": {"SEDAN": 8, "COMPACT_SUV": 10, "LARGE_SUV": 12, "OVERSIZED":  14},
+        "monthlyPrices": {"SEDAN": 40, "COMPACT_SUV": 50, "LARGE_SUV": 60, "OVERSIZED":  70},
+        "packageItems": [
+            {
+                "name": "Wash",
+                "isRequired" : true,
+                "selectedSubOption": "Hand Wash",
+                "selectedSubOptions": [],
+                "itemType": "EXTERIOR",
+                "subOptions" : [
+                    "Soft Touch",
+                    "Touch Free",
+                    "Hand Wash"
+                ]
+            },
+            {
+                "name": "Dry",
+                "isRequired" : true,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "EXTERIOR",
+                "subOptions" : [
+                    "Machine Dry",
+                    "Hand Dry"
+                ]
+            },
+            {
+                "name": "Tire & Wheel Clean",
+                "isRequired": true,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "EXTERIOR",
+                "subOptions": []
+            },
+            {
+                "name": "Undercarriage Wash",
+                "isRequired": true,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "EXTERIOR",
+                "subOptions": []
+            },
+            {
+                "name": "Tire & Wheel Shine",
+                "isRequired": true,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "EXTERIOR",
+                "subOptions": []
+            },
+            {
+                "name": "Exterior Gloss/Car Shine",
+                "isRequired": true,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "EXTERIOR",
+                "subOptions": [
+                    "Hot Wax",
+                    "Clear Coat Protectant",
+                    "Blue Coral Pink Spray Wax",
+                    "Body Gloss",
+                    "Shine Wax",
+                    "Buff 'N Shine",
+                    "Hand Applied Liquid Wax",
+                    "Liquid Diamond Body Gloss",
+                    "Carnauba Hot Wax",
+                    "Triple Foam Wax",
+                    "Lava Shine",
+                    "Hot Wax and Shine",
+                    "Exterior Body Shine",
+                    "Hot Bubble Wax"
+                ]
+            },
+            {
+                "name": "Windshield Applicant",
+                "isRequired":false,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "EXTERIOR",
+                "subOptions": []
+            },
+            {
+                "name": "Exterior Protectant",
+                "isRequired": false,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "EXTERIOR",
+                "subOptions": [
+                    "Clearcoat Conditioner",
+                    "Lava Paint Sealant",
+                    "Carnauba Wax",
+                    "Hand Wax",
+                    "Triple Bond Sealer Wax",
+                    "Polygaze",
+                    "Simoniz Double Bond",
+                    "Hot Sealer Wax",
+                    "Blue Coral Coat Protection",
+                    "Poly Sealant Wax",
+                    "Teflon Sealant",
+                    "Velocity Clear Coat Sealant"
+                ]
+            },
+            {
+                "name": "Bug Repellant",
+                "isRequired": false,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "EXTERIOR",
+                "subOptions": []
+            },
+            {
+                "name": "Rust Inhibitor",
+                "isRequired": false,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "EXTERIOR",
+                "subOptions": []
+            }
+        ],
+        "duration": 3,
+        "isUnlimitedMonthly": null,
+        "monthlyUses": null
+    },
+    "completePackage": {
+        "type": "DETAIL",
+        "name": "Complete",
+        "onetimePrices": {"SEDAN": 8, "COMPACT_SUV": 10, "LARGE_SUV": 12, "OVERSIZED":  14},
+        "monthlyPrices": {"SEDAN": 40, "COMPACT_SUV": 50, "LARGE_SUV": 60, "OVERSIZED":  70},
+        "packageItems": [
+            {
+                "name": "Wash",
+                "isRequired" : true,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "EXTERIOR",
+                "subOptions" : [
+                    "Soft Touch",
+                    "Touch Free",
+                    "Hand Wash"
+                ]
+            },
+            {
+                "name": "Dry",
+                "isRequired" : true,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "EXTERIOR",
+                "subOptions" : [
+                    "Machine Dry",
+                    "Hand Dry"
+                ]
+            },
+            {
+                "name": "Tire & Wheel Clean",
+                "isRequired": true,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "EXTERIOR",
+                "subOptions": []
+            },
+            {
+                "name": "Undercarriage Wash",
+                "isRequired": true,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "EXTERIOR",
+                "subOptions": []
+            },
+            {
+                "name": "Tire & Wheel Shine",
+                "isRequired": true,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "EXTERIOR",
+                "subOptions": []
+            },
+            {
+                "name": "Exterior Gloss/Car Shine",
+                "isRequired": true,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "EXTERIOR",
+                "subOptions": [
+                    "Hot Wax",
+                    "Clear Coat Protectant",
+                    "Blue Coral Pink Spray Wax",
+                    "Body Gloss",
+                    "Shine Wax",
+                    "Buff 'N Shine",
+                    "Hand Applied Liquid Wax",
+                    "Liquid Diamond Body Gloss",
+                    "Carnauba Hot Wax",
+                    "Triple Foam Wax",
+                    "Lava Shine",
+                    "Hot Wax and Shine",
+                    "Exterior Body Shine",
+                    "Hot Bubble Wax"
+                ]
+            },
+            {
+                "name": "Windshield Applicant",
+                "isRequired": true,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "EXTERIOR",
+                "subOptions": []
+            },
+            {
+                "name": "Exterior Protectant",
+                "isRequired": true,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "EXTERIOR",
+                "subOptions": [
+                    "Clearcoat Conditioner",
+                    "Lava Paint Sealant",
+                    "Carnauba Wax",
+                    "Hand Wax",
+                    "Triple Bond Sealer Wax",
+                    "Polygaze",
+                    "Simoniz Double Bond",
+                    "Hot Sealer Wax",
+                    "Blue Coral Coat Protection",
+                    "Poly Sealant Wax",
+                    "Teflon Sealant",
+                    "Velocity Clear Coat Sealant"
+                ]
+            },
+            {
+                "name": "Bug Repellant",
+                "isRequired": false,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "EXTERIOR",
+                "subOptions": []
+            },
+            {
+                "name": "Rust Inhibitor",
+                "isRequired": false,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "EXTERIOR",
+                "subOptions": []
+            },
+            {
+                "name": "Windows Wiped",
+                "isRequired": true,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "INTERIOR",
+                "subOptions": []
+            },
+            {
+                "name": "Full Interior Vacuum",
+                "isRequired": true,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "INTERIOR",
+                "subOptions": []
+            },
+            {
+                "name": "Full Interior Wipe",
+                "isRequired": true,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "INTERIOR",
+                "subOptions": []
+            },
+            {
+                "name": "Interior Conditioning/Dressing",
+                "isRequired": false,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "INTERIOR",
+                "subOptions": [
+                    "All Interior",
+                    "Door Jambs",
+                    "Dashboard",
+                    "Console",
+                    "Upholstery Seats",
+                    "Leather Seats",
+                    "Vinyl"
+                ]
+            },
+            {
+                "name": "Trunk Vacuum",
+                "isRequired": false,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "INTERIOR",
+                "subOptions": []
+            },
+            {
+                "name": "Mats Washed/Shampooed",
+                "isRequired": false,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "INTERIOR",
+                "subOptions": [
+                    "Rubber Mats",
+                    "Upholstery Mats",
+                    "Trunk Mats",
+                    "Mixed"
+                ]
+            },
+            {
+                "name": "Air Freshener",
+                "isRequired": false,
+                "selectedSubOption": "",
+                "selectedSubOptions": [],
+                "itemType": "INTERIOR",
+                "subOptions": []
+            }
+        ],
+        "duration": 4,
+        "isUnlimitedMonthly": null,
+        "monthlyUses": null
+    },
+    "hoursOfOperation": {
+        "storeHours": [
+            {
+                "day": "MONDAY",
+                "isOpen": true,
+                "openTime": "08:00",
+                "closeTime": "18:00"
+            },
+            {
+                "day": "TUESDAY",
+                "isOpen": true,
+                "openTime": "08:00",
+                "closeTime": "18:00"
+            },
+            {
+                "day": "WEDNESDAY",
+                "isOpen": true,
+                "openTime": "08:00",
+                "closeTime": "18:00"
+            },
+            {
+                "day": "THURSDAY",
+                "isOpen": true,
+                "openTime": "08:00",
+                "closeTime": "18:00"
+            },
+            {
+                "day": "FRIDAY",
+                "isOpen": true,
+                "openTime": "08:00",
+                "closeTime": "17:00"
+            },
+            {
+                "day": "SATURDAY",
+                "isOpen": false,
+                "openTime": "",
+                "closeTime": ""
+            },
+            {
+                "day": "SUNDAY",
+                "isOpen": false,
+                "openTime": "",
+                "closeTime": ""
+            }
+        ],
+        "hoursExceptions": [
+            {
+                "name": "Christmas Eve",
+                "date": "2019-12-24",
+                "exceptionType": "MODIFIED",
+                "openTime": "10:00",
+                "closeTime": "14:00"
+            },
+            {
+                "name": "Christmas Day",
+                "date": "2019-12-25",
+                "exceptionType": "CLOSED"
+            },
+            {
+                "name": "Easter",
+                "date": "2019-04-27",
+                "exceptionType": "CLOSED"
+            }
+        ]
+    }
+}

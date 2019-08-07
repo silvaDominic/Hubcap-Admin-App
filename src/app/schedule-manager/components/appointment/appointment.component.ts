@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Appointment} from '../../shared/appointment.model';
-import {AppointmentService} from '../../../shared/services/appointment.service';
+import {AppointmentService} from '../../../_shared/services/appointment.service';
 
 @Component({
     selector: 'app-appointment',
