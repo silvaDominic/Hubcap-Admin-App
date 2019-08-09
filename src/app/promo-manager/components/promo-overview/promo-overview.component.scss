@@ -38,10 +38,14 @@
 
 .package-badge {
   text-align: center;
+  opacity: 0.4;
 
   img {
     width: 100%;
     padding: 0.5em;
   }
+}
 
+.selected {
+  opacity: 1;
 }

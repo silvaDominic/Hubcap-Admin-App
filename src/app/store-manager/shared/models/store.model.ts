@@ -6,14 +6,12 @@ export class Store {
 
     constructor(public id: string,
                 public name: string,
-                public address: string,
                 public city: string,
                 public state: string,
-                public zip: string,
-                public email: string,
+                public street: string,
+                public zipcode: string,
                 public phoneNumber: string,
                 public storeHours: StoreHours[],
-                public vehicleTypes: VEHICLE_TYPE[],
-                public website?: string,
-                public exceptions ?: HoursException[]) {}
+                public exceptions ?: HoursException[],
+                public website?: string) {}
 }

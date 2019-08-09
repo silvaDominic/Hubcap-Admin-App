@@ -200,37 +200,11 @@ export class CarwashService {
             data.frequency,
             data.startDate,
             data.endDate,
-            this.generateDiscountPackages(data.discountPackages, data.pac),
+            data.discountPackages,
             this.generateDiscount(data.discount),
             data.startTime,
-            data.endTime,
-            data.isAllDay,
-            data.isActive
+            data.endTime
         );
-    }
-
-    private generateDiscountPackages(data: any, typeData: any): Map<ALL_PACKAGES, boolean> {
-        const discountPackageMap = new Map<ALL_PACKAGES, boolean>();
-        if (!(data instanceof Array)) {
-            console.log('Incorrect DISCOUNT PACKAGE format.');
-            console.log('Must be of type: ARRAY');
-            return;
-        } else {
-            switch (typeData) {
-                case SERVICE_TYPE.WASH:
-                const washKeys = Object.keys(WASH_PACKAGE);
-                for (const item in washKeys) {
-                    for (let j = 0; j > data.length; j++) {
-                        if (item === data[j]) {
-                            discountPackageMap.set(<ALL_PACKAGES>item, true);
-                        } else {
-                            discountPackageMap.set(<ALL_PACKAGES>item, false);
-                        }
-                    }
-                }
-            }
-        }
-        return discountPackageMap;
     }
 
     private generateDiscount(data: any): Discount {

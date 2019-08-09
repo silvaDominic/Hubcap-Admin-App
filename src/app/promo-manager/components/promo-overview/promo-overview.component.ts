@@ -6,6 +6,9 @@ import {SERVICE_TYPE} from '../../../_shared/models/PACKAGE_TYPE.model';
 import {ALL_PACKAGES} from '../../../_shared/models/ALL_PACKAGES.model';
 import {PromotionService} from '../../../_shared/services/promotion.service';
 import {FormControl, FormGroup} from '@angular/forms';
+import {WASH_PACKAGE} from '../../../_shared/models/WASH_PACKAGE.model';
+import {DETAIL_PACKAGE} from '../../../_shared/models/DETAIL_PACKAGE.model';
+import {CONSTANTS} from '../../../_shared/models/CONSTANTS';
 
 @Component({
     selector: 'app-promo-overview',
@@ -15,11 +18,13 @@ import {FormControl, FormGroup} from '@angular/forms';
 export class PromoOverviewComponent implements OnInit {
 
     promotion: Promotion;
-    // Enums
-    E_FREQUENCY_TYPE = FREQUENCY_TYPE;
+    // Enums and Constants
     E_DISCOUNT_TYPE = DISCOUNT_TYPE;
     E_SERVICE_TYPE = SERVICE_TYPE;
-    E_ALL_PACKAGES = ALL_PACKAGES;
+    E_WASH_PACKAGE = WASH_PACKAGE;
+    E_DETAIL_PACKAGE = DETAIL_PACKAGE;
+
+    _CONSTANTS = CONSTANTS;
 
     constructor(private readonly promotionService: PromotionService) {
 
@@ -27,6 +32,6 @@ export class PromoOverviewComponent implements OnInit {
 
     ngOnInit() {
         // Initialize promotion with Live Promotion
-        this.promotionService.livePromotion.subscribe(promotion => this.promotion = promotion);
+        this.promotionService.promotion.subscribe(promotion => this.promotion = promotion);
     }
 }

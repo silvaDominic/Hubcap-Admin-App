@@ -9,7 +9,7 @@
                         <div class="input-group">
                             <select id="packageTypeSelect" class="custom-select" name="packageTypeSelect"
                                     formControlName="packageType"
-                                    [(ngModel)]="promotion.serviceType">
+                                    (change)="promotion.serviceType = ( $event.target.value || null );">
                                 <option value="Wash">Wash</option>
                                 <option value="Detail">Detail</option>
                             </select>
@@ -25,7 +25,7 @@
 
                         <mat-form-field>
                             <input matInput placeholder="Ex: Early Bird Special" type="text" formControlName="name"
-                                   required [(ngModel)]="promotion.name">
+                                   required [value]="promotion.name" (input)="promotion.name = $event.target.value">
                         </mat-form-field>
                         <button mat-button matStepperNext type="button">Back</button>
                         <button mat-button matStepperNext type="button">Next</button>
@@ -38,7 +38,7 @@
 
                         <mat-form-field>
                             <input matInput placeholder="Ex: Get a 10% discount when coming in between 8:00AM and 10:00AM"
-                                   formControlName="description" [(ngModel)]="promotion.description">
+                                   formControlName="description" (input)="promotion.description = $event.target.value">
                         </mat-form-field>
                         <button mat-button matStepperNext type="button">Back</button>
                         <button mat-button matStepperNext type="button">Next</button>
@@ -62,7 +62,7 @@
                                 <p>On what basis will it be reoccurring?</p>
                                 <div class="input-group">
                                     <select id="reoccurringSelect" class="custom-select" name="reoccurringSelect"
-                                            formControlName="frequency" [(ngModel)]="promotion.frequency">
+                                            formControlName="frequency" (change)="promotion.frequency = ( $event.target.value || null );">
                                         <option value="DAILY">Daily</option>
                                         <option value="WEEKLY">Weekly</option>
                                         <option value="MONTHLY">Monthly</option>
@@ -113,7 +113,7 @@
                                 <p>What kind of discount will the consumer receive?</p>
                                 <div class="input-group">
                                     <select id="discountSelect" class="custom-select" name="discountSelect"
-                                            formControlName="discountType" [(ngModel)]="promotion.discount.discountType">
+                                            formControlName="discountType" (change)="promotion.discount.discountType = ( $event.target.value || null );">
                                         <option value="DOLLAR">Dollar Amount</option>
                                         <option value="PERCENT">Percent Amount</option>
                                         <option value="FREE">Free Feature</option>
@@ -126,17 +126,17 @@
                                     <div class="input-group">
                                         <mat-form-field class="full-width">
                                             <input matInput type="text" placeholder="Enter discount amount"
-                                                   formControlName="discountAmount" [(ngModel)]="promotion.discount.discountAmount">
+                                                   formControlName="discountAmount" (input)="promotion.discount.discountAmount = $event.target.value">
                                         </mat-form-field>
                                     </div>
                                 </div>
 
                                 <div *ngIf="promotion.discount.discountType === E_DISCOUNT_TYPE.FREE">
                                     <p>What free feature will they receive</p>
-                                    <mat-form-field>
+                                    <mat-form-field formControlName="discountFeatures">
                                         <mat-label for="discountFeatureSelect">Feature(s)</mat-label>
                                         <mat-select multiple id="discountFeaturesSelect" name="discountFeaturesSelect"
-                                                    formControlName="discountFeatures" [(ngModel)]="promotion.discount.discountFeatures">
+                                                     [(ngModel)]="promotion.discount.discountFeatures">
                                             <mat-option *ngFor="let packageItem of allPackageItems"
                                                         [value]="packageItem.name">{{packageItem.name}}</mat-option>
                                         </mat-select>
@@ -154,19 +154,21 @@
                     <div formGroupName="discountPackagesFormGroup">
                         <p>What packages will the discount be for?</p>
 
-                        <mat-form-field *ngIf="promotion.serviceType === E_SERVICE_TYPE.WASH">
+                        <mat-form-field  *ngIf="promotion.serviceType === E_SERVICE_TYPE.WASH">
                             <mat-label for="packageSelect">Packages</mat-label>
-                            <mat-select id="packageSelect" multiple formControlName="discountPackages">
-                                <mat-option *ngFor="let _package of washPackages; let i = index"
-                                            [value]="ARRAY.from(promotion.discountPackages.values())">{{_package}}</mat-option>
+                            <mat-select formControlName="discountPackages" id="packageSelect" multiple [(ngModel)]="promotion.discountPackages">
+                                <mat-option *ngFor="let _package of OBJECT.values(E_WASH_PACKAGE); let i = index"
+                                            [value]="_package"
+
+                                >{{_package}}</mat-option>
                             </mat-select>
                         </mat-form-field>
 
-                        <mat-form-field *ngIf="promotion.serviceType === E_SERVICE_TYPE.DETAIL">
+                        <mat-form-field  *ngIf="promotion.serviceType === E_SERVICE_TYPE.DETAIL">
                             <mat-label for="packageSelect">Packages</mat-label>
-                            <mat-select id="packageSelect" multiple formControlName="discountPackages">
-                                <mat-option *ngFor="let _package of detailPackages"
-                                            [value]="ARRAY.from(promotion.discountPackages.values())">{{_package}}</mat-option>
+                            <mat-select formControlName="discountPackages" id="packageSelect" multiple [(ngModel)]="promotion.discountPackages">
+                                <mat-option *ngFor="let _package of OBJECT.values(E_DETAIL_PACKAGE)"
+                                            [value]="_package">{{_package}}</mat-option>
                             </mat-select>
                         </mat-form-field>
 
@@ -183,19 +185,17 @@
                             <div class="col-sm-6">
                                 <mat-form-field>
                                     <mat-label for="startTime">Choose a start time</mat-label>
-                                    <input matInput id="startTime" type="time" atp-time-picker formControlName="startTime">
+                                    <input matInput id="startTime" type="time" atp-time-picker formControlName="startTime"
+                                    [(ngModel)]="promotion.startTime">
                                 </mat-form-field>
                             </div>
                             <div class="col-sm-6">
                                 <mat-form-field>
                                     <mat-label for="endTime">Choose an end time</mat-label>
-                                    <input matInput id="endTime" type="time" atp-time-picker formControlName="endTime">
+                                    <input matInput id="endTime" type="time" atp-time-picker formControlName="endTime"
+                                    [(ngModel)]="promotion.endTime">
                                 </mat-form-field>
                             </div>
-                        </div>
-
-                        <div>
-                            <mat-checkbox class="promo-checkbox" formControlName="isAllDay">All day</mat-checkbox>
                         </div>
 
                         <button mat-button matStepperNext type="button">Back</button>
@@ -219,6 +219,7 @@
                     </button>
                 </mat-step>
             </mat-vertical-stepper>
+            <pre>{{promotionForm.value | json}}</pre>
         </form>
     </div>
 </div>

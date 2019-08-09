@@ -13,7 +13,7 @@ import {BehaviorSubject} from 'rxjs';
 export class PromotionService {
 
     // public promotion: Promotion;
-    public livePromotion: BehaviorSubject<Promotion>;
+    public promotion: BehaviorSubject<Promotion>;
     public promotionForm: FormGroup;
     public promotions: Promotion[];
 
@@ -24,30 +24,30 @@ export class PromotionService {
     ) {}
 
     public stagePromotion(id: string): void {
-        this.livePromotion = new BehaviorSubject(this.carwashService.getPromotion(id));
+        this.promotion = new BehaviorSubject(this.carwashService.getPromotion(id));
         // this.initLivePromotion();
-        console.log('SELECTED PROMOTION: ', this.livePromotion.getValue());
+        console.log('SELECTED PROMOTION: ', this.promotion.getValue());
     }
 
     public stageTemplatePromotion(): void {
-        this.livePromotion = new BehaviorSubject(CONSTANTS.PROMOTION_TEMPLATE);
+        this.promotion = new BehaviorSubject(CONSTANTS.PROMOTION_TEMPLATE);
         // this.initLivePromotion();
-        console.log('SELECTED PROMOTION: ', this.livePromotion.getValue());
+        console.log('SELECTED PROMOTION: ', this.promotion.getValue());
     }
 
     // Returns the raw Promotion value
     public getPromotion(): Promotion {
-        if (!this.livePromotion) {
+        if (!this.promotion) {
             console.log('No promotion staged!');
             console.log('Setting template');
             this.stageTemplatePromotion();
         }
-        return this.livePromotion.getValue();
+        return this.promotion.getValue();
     }
 
     public initLivePromotion() {
-        this.livePromotion = new BehaviorSubject(<Promotion>{});
-        this.livePromotion.asObservable();
+        this.promotion = new BehaviorSubject(<Promotion>{});
+        this.promotion.asObservable();
     }
 
     public getForm(): FormGroup {
@@ -144,7 +144,6 @@ export class PromotionService {
         return this.fb.group({
             startTime: [promotion.startTime, Validators.required],
             endTime: [promotion.endTime, Validators.required],
-            isAllDay: [promotion.isAllDay]
         });
     }
 
@@ -170,9 +169,7 @@ export class PromotionService {
                 controls.discount.discountFeatures
             ),
             controls.startTime,
-            controls.endTime,
-            controls.isAllDay,
-            controls.isActive
+            controls.endTime
         );
     }
 }

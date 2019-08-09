@@ -16,12 +16,16 @@
             </div>
             <div class="col-md-5">
                 <div class="focusPromotion-date">
-                    <span>{{promotion.startDate}}</span>
-                </div>
+                    <span>{{promotion.startDate.toLocaleDateString('en-us', _CONSTANTS.SHORT_WEEKDAY)}}</span>,&nbsp;
+                    <span>{{promotion.startDate.toLocaleDateString('en-us', _CONSTANTS.SHORT_MONTH)}}</span>&nbsp;
+                    <span>{{promotion.startDate.toLocaleDateString('en-us', _CONSTANTS.NUM_YEAR)}}</span>
+            </div>
             </div>
             <div class="col-md-5">
                 <div class="focusPromotion-date">
-                    <span>{{promotion.endDate}}</span>
+                    <span>{{promotion.endDate.toLocaleDateString('en-us', _CONSTANTS.SHORT_WEEKDAY)}}</span>,&nbsp;
+                    <span>{{promotion.endDate.toLocaleDateString('en-us', _CONSTANTS.SHORT_MONTH)}}</span>&nbsp;
+                    <span>{{promotion.endDate.toLocaleDateString('en-us', _CONSTANTS.NUM_YEAR)}}</span>
                 </div>
             </div>
         </div>
@@ -68,21 +72,21 @@
         <div *ngIf="promotion.serviceType === E_SERVICE_TYPE.DETAIL" class="row">
             <div class="col-4">
                 <div class="package-badge"
-                     [ngClass]="{'selected': promotion.discountPackages.get(E_ALL_PACKAGES.EXTERIOR)}">
+                     [ngClass]="{'selected': promotion.discountPackages.includes(E_DETAIL_PACKAGE.EXTERIOR)}">
                     <img src="./assets/icons/icon-detail-exterior.svg">
                     <div><strong>Exterior</strong></div>
                 </div>
             </div>
             <div class="col-4">
                 <div class="package-badge"
-                     [ngClass]="{'selected': promotion.discountPackages.get(E_ALL_PACKAGES.INTERIOR)}">
+                     [ngClass]="{'selected': promotion.discountPackages.includes(E_DETAIL_PACKAGE.INTERIOR)}">
                     <img src="./assets/icons/icon-detail-interior.svg">
                     <div><strong>Interior</strong></div>
                 </div>
             </div>
             <div class="col-4">
                 <div class="package-badge"
-                     [ngClass]="{'selected': promotion.discountPackages.get(E_ALL_PACKAGES.COMPLETE)}">
+                     [ngClass]="{'selected': promotion.discountPackages.includes(E_DETAIL_PACKAGE.COMPLETE)}">
                     <img src="./assets/icons/icon-detail-both.svg">
                     <div><strong>Complete</strong></div>
                 </div>
@@ -94,21 +98,21 @@
         <div *ngIf="promotion.serviceType === E_SERVICE_TYPE.WASH" class="row">
             <div class="col-4">
                 <div class="package-badge"
-                     [ngClass]="{'selected': promotion.discountPackages.get(E_ALL_PACKAGES.SILVER)}">
+                     [ngClass]="{'selected': promotion.discountPackages.includes(E_WASH_PACKAGE.SILVER)}">
                     <img src="./assets/icons/iconA-wash-bronze.svg">
                     <div><h4>Silver</h4></div>
                 </div>
             </div>
             <div class="col-4">
                 <div class="package-badge"
-                     [ngClass]="{'selected': promotion.discountPackages.get(E_ALL_PACKAGES.GOLD)}">
+                     [ngClass]="{'selected': promotion.discountPackages.includes(E_WASH_PACKAGE.GOLD)}">
                     <img src="./assets/icons/iconA-wash-silver.svg">
                     <div><h4>Gold</h4></div>
                 </div>
             </div>
             <div class="col-4">
                 <div class="package-badge"
-                     [ngClass]="{'selected': promotion.discountPackages.get(E_ALL_PACKAGES.PLATINUM)}">
+                     [ngClass]="{'selected': promotion.discountPackages.includes(E_WASH_PACKAGE.PLATINUM)}">
                     <img src="./assets/icons/iconA-wash-gold.svg">
                     <div><h4>Platinum</h4></div>
                 </div>

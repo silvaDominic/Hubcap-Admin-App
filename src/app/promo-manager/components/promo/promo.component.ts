@@ -29,7 +29,7 @@ export class PromoComponent implements OnInit {
 
     }
 
-    markInactive(promo: Promotion) {
+/*    markInactive(promo: Promotion) {
         for (const a_promo of this.historyComp.activePromos) {
             if (a_promo === promo) {
                 a_promo.isActive = false;
@@ -47,7 +47,7 @@ export class PromoComponent implements OnInit {
         }
         // this.promotionService.updatePromotion(promotion);
         this.historyComp.refreshHistory();
-    }
+    }*/
 
     trackByFn(index, item) {
         return;

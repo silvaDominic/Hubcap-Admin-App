@@ -31,10 +31,10 @@
             "name": "Early Bird Special",
             "description": "Get a 10% discount when coming in between 8:00AM and 10:00AM",
             "frequencyType": "ONE_TIME",
+            "packageType": "WASH",
             "frequency": null,
             "startDate": "2019-03-15",
             "endDate": "2019-04-15",
-            "packageType": "WASH",
             "discountPackages": [
                 "GOLD",
                 "SILVER",
@@ -47,18 +47,16 @@
                 "discountFeatures": [""]
             },
             "startTime": "08:00",
-            "endTime": "10:00",
-            "isAllDay": false,
-            "isActive": true
+            "endTime": "10:00"
         },
         {
             "name": "Late Night Special",
             "description": "Get a 5% discount when coming in between 6:00PM and 8:00PM",
             "frequencyType": "REOCCURRING",
+            "packageType": "WASH",
             "frequency": "WEEKLY",
             "startDate": "2019-07-15",
             "endDate": "2019-08-31",
-            "packageType": "WASH",
             "discountPackages": [
                 "GOLD"
             ],
@@ -69,18 +67,16 @@
                 "discountFeatures": ["Window Clean"]
             },
             "startTime": "18:00",
-            "endTime": "20:00",
-            "isAllDay": false,
-            "isActive": true
+            "endTime": "20:00"
         },
         {
             "name": "Ladies Day",
             "description": "Ladies get a dollar off",
             "frequencyType": "REOCCURRING",
+            "packageType": "WASH",
             "frequency": "DAILY",
             "startDate": "2018-01-01",
             "endDate": "2018-12-31",
-            "packageType": "WASH",
             "discountPackages": [
                 "GOLD",
                 "PLATINUM"
@@ -92,9 +88,7 @@
                 "discountFeatures": [""]
             },
             "startTime": "8:00",
-            "endTime": "17:00",
-            "isAllDay": true,
-            "isActive": false
+            "endTime": "17:00"
         }
     ],
     "silverPackage": {

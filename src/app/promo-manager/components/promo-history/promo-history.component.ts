@@ -27,30 +27,30 @@ export class PromoHistoryComponent implements OnInit {
         this.refreshHistory();
     }
 
-    getActivePromos() {
-        const freshArray = [];
-        for (const activePromo of this.historyPromotions) {
-            if (activePromo.isActive) {
-                freshArray.push(activePromo);
-            }
-        }
-        this.activePromos = freshArray;
-        return this.activePromos;
-    }
-
-    getInActivePromos() {
-        const freshArray = [];
-        for (const inActivePromo of this.historyPromotions) {
-            if (!inActivePromo.isActive) {
-                freshArray.push(inActivePromo);
-            }
-        }
-        this.inActivePromos = freshArray;
-        return this.inActivePromos;
-    }
+    // getActivePromos() {
+    //     const freshArray = [];
+    //     for (const activePromo of this.historyPromotions) {
+    //         if (activePromo.isActive) {
+    //             freshArray.push(activePromo);
+    //         }
+    //     }
+    //     this.activePromos = freshArray;
+    //     return this.activePromos;
+    // }
+    //
+    // getInActivePromos() {
+    //     const freshArray = [];
+    //     for (const inActivePromo of this.historyPromotions) {
+    //         if (!inActivePromo.isActive) {
+    //             freshArray.push(inActivePromo);
+    //         }
+    //     }
+    //     this.inActivePromos = freshArray;
+    //     return this.inActivePromos;
+    // }
 
     refreshHistory() {
-        this.activePromos = this.getActivePromos();
-        this.inActivePromos = this.getInActivePromos();
+/*        this.activePromos = this.getActivePromos();
+        this.inActivePromos = this.getInActivePromos();*/
     }
 }

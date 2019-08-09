@@ -32,9 +32,11 @@ export class PromoFormComponent implements OnInit {
     E_DISCOUNT_TYPE = DISCOUNT_TYPE;
     E_FREQUENCY_TYPE = FREQUENCY_TYPE;
     E_SERVICE_TYPE = SERVICE_TYPE;
+    E_WASH_PACKAGE = WASH_PACKAGE;
+    E_DETAIL_PACKAGE = DETAIL_PACKAGE;
     E_ALL_PACKAGES = ALL_PACKAGES;
 
-    ARRAY = Array;
+    OBJECT = Object;
 
     detailPackages = Object.keys(DETAIL_PACKAGE);
     washPackages = Object.keys(WASH_PACKAGE);
@@ -48,6 +50,8 @@ export class PromoFormComponent implements OnInit {
     constructor(private atpService: AmazingTimePickerService, private snackBar: MatSnackBar,
                 private packageService: PackageService, private promotionService: PromotionService) {
 
+
+
         // For Amazing Time Picker
         this.currentDate = new Date();
         this.startDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDay());
@@ -55,10 +59,13 @@ export class PromoFormComponent implements OnInit {
 
     public ngOnInit(): void {
         // Initialize variables
-        this.promotionService.livePromotion.subscribe(promotion => this.promotion = promotion);
+        this.promotionService.promotion.subscribe(promotion => this.promotion = promotion);
         this.allPackageItems = this.packageService.getAllPackageItems();
         this.initForm();
-        console.log(this.ARRAY.from(this.promotion.discountPackages.values()));
+        console.log(this.promotion.discountPackages);
+        for (const p of Object.values(this.E_WASH_PACKAGE)) {
+            console.log(p);
+        }
         // this.promotions = this.promotionService.getAllPromotions();
 
     }

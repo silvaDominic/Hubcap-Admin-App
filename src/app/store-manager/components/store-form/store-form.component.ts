@@ -43,11 +43,9 @@ export class StoreFormComponent {
             '',
             '',
             '',
-            '',
             this.addStoreHours(),
             [],
             '',
-            []
         );
     }
 
@@ -68,12 +66,10 @@ export class StoreFormComponent {
             this.storeFormGroup.get('city').value,
             this.storeFormGroup.get('state').value,
             this.storeFormGroup.get('zip').value,
-            this.storeFormGroup.get('email').value,
             this.storeFormGroup.get('phoneNumber').value,
             this.storeFormGroup.get('hoursOfOperation').value,
-            this.storeFormGroup.get('vehicleType').value,
-            this.storeFormGroup.get('website').value,
-            this.formExceptions
+            this.formExceptions,
+            this.storeFormGroup.get('website').value
         );
         this.stores.push(newStore);
         this.storeFormGroup.reset();
