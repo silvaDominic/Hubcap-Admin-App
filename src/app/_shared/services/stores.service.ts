@@ -1,14 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Store} from '../../store-manager/shared/models/store.model';
-import {Observable} from 'rxjs';
-import {VEHICLE_TYPE} from '../models/VEHICLE_TYPE.model';
-import {DAY} from '../models/DAY.model';
-import {map} from 'rxjs/operators';
+import {VEHICLE_TYPE} from '../enums/VEHICLE_TYPE.model';
+import {DAY} from '../enums/DAY.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {StoreHours} from '../../store-manager/shared/models/store-hours.model';
-import {HoursException} from '../../store-manager/shared/models/hours-exception.model';
 import {CarwashService} from './carwash.service';
+import {StoreHours} from '../../components/store-manager/shared/models/store-hours.model';
+import {HoursException} from '../../components/store-manager/shared/models/hours-exception.model';
+import {Store} from '../../components/store-manager/shared/models/store.model';
 
 @Injectable({
     providedIn: 'root'

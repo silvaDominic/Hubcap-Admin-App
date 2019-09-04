@@ -1,4 +1,4 @@
-import {STATES} from './STATES.model';
+import {STATES} from '../enums/STATES.model';
 
 export class Address {
     constructor(private _city: string,

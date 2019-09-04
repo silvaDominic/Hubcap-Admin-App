@@ -1,0 +1,18 @@
+@import '../../../../_shared/scss/expansion-panels';
+
+mat-panel-description img {
+  width: 30px;
+  height: 30px;
+}
+
+.mat-expansion-panel-header {
+  padding: 0 14px;
+}
+
+mat-expansion-panel-header {
+  background-color: var(--cloud);
+}
+
+.appointment-actions button {
+  margin-right: 8px;
+}

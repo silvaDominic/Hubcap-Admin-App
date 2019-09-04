@@ -1,11 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {User} from '../../user-manager/shared/models/user.model';
-import {PERMISSION_LEVEL} from '../models/PERMISSION_LEVEL.model';
+import {PERMISSION_LEVEL} from '../enums/PERMISSION_LEVEL.model';
 import {Observable} from 'rxjs';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Role} from '../../user-manager/shared/models/role.model';
-import {map} from 'rxjs/operators';
+import {User} from '../models/user.model';
 
 @Injectable({
     providedIn: 'root'

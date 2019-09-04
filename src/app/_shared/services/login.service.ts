@@ -1,8 +1,6 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
-import {UserCredentials} from '../../sign-in/models/user-credentials.model';
-import {User} from '../../user-manager/shared/models/user.model';
 
 @Injectable({
     providedIn: 'root'
@@ -30,10 +28,4 @@ export class LoginService {
             passwordConfirm: ['', Validators.required],
         })
     }
-
-/*    fetchUser(userCredentials: UserCredentials): boolean {
-        // Dummy validation logic
-        // Will change with backend
-        this.http.get<User>(this.usersURL, userCredentials);
-    }*/
 }

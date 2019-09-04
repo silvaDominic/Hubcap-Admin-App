@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Appointment} from '../../schedule-manager/shared/appointment.model';
-import {VEHICLE_TYPE} from '../models/VEHICLE_TYPE.model';
-import {WASH_PACKAGE} from '../models/WASH_PACKAGE.model';
+import {VEHICLE_TYPE} from '../enums/VEHICLE_TYPE.model';
+import {WASH_PACKAGE} from '../enums/WASH_PACKAGE.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Appointment} from '../models/appointment.model';
 
 @Injectable({
     providedIn: 'root'

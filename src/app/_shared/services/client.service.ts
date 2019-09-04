@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {Client} from '../../qr-scanner-manager/client.model';
 import {HttpClient} from '@angular/common/http';
+import {Client} from '../models/client.model';
 
 @Injectable({
     providedIn: 'root'

@@ -1,0 +1,26 @@
+@import "../../../../_shared/scss/expansion-panels";
+
+#appointment-create-accordion mat-expansion-panel-header {
+  min-height: 65px !important;
+}
+
+#appointment-create-accordion mat-expansion-panel-header {
+  background-color: var(--hc-blue);
+}
+
+#appointment-create-accordion mat-panel-title {
+  white-space: nowrap;
+  color: white;
+  margin-top: 12px;
+}
+
+#appointment-create-accordion mat-panel-description mat-icon {
+  color: white;
+  font-size: 40px;
+  width: 37.5px;
+  height: auto;
+}
+
+.mat-expansion-panel-header {
+  padding: 0 14px;
+}

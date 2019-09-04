@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CarwashService} from './_shared/services/carwash.service';
+import {UserService} from './_core/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +9,9 @@ import {CarwashService} from './_shared/services/carwash.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private carwashService: CarwashService) {}
+  constructor(private userService: UserService) {}
 
   public ngOnInit(): void {
-    this.carwashService.registerCarwash();
-    this.carwashService.registerAllPackageItems();
+    this.userService.populate();
   }
 }

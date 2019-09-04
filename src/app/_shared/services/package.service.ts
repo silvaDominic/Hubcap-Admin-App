@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {Package} from '../../package-manager/shared/package.model';
 import 'rxjs/add/operator/map';
 import {CarwashService} from './carwash.service';
-import {PackageItem} from '../../package-manager/shared/package.item.model';
-import {CONSTANTS} from '../models/CONSTANTS';
+import {CONSTANTS} from '../CONSTANTS';
 import {HttpClient} from '@angular/common/http';
-import {SERVICE_TYPE} from '../models/PACKAGE_TYPE.model';
+import {SERVICE_TYPE} from '../enums/PACKAGE_TYPE.model';
+import {Package} from '../models/package.model';
+import {PackageItem} from '../models/package.item.model';
 
 
 @Injectable({

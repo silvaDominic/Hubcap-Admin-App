@@ -1,0 +1,49 @@
+@import "../../../../_shared/scss/expansion-panels";
+@import "../../shared/scss/stores-styles.scss";
+
+// User Create Panel
+#store-create-accordion mat-expansion-panel-header {
+  min-height: 100px !important;
+  background-color: var(--hc-secondary);
+}
+
+#store-create-accordion mat-panel-title {
+  color: #0d47a1;
+  margin-top: 14px;
+}
+
+#store-create-accordion mat-panel-description mat-icon {
+  color: white;
+  font-size: 50px;
+  width: 37.5px;
+  height: auto;
+}
+
+.vehicle-type-select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.4;
+  transition: 0.5s all;
+  margin: 15px 0;
+
+  img {
+    width: 40%;
+  }
+}
+
+.vehicle-type-select:hover {
+  opacity: 1.0;
+}
+
+.hours-block {
+  margin: 20px 0;
+
+  .day-checkbox-container {
+    margin: auto;
+  }
+}
+
+.hour-fields {
+  margin: 20px 0;
+}

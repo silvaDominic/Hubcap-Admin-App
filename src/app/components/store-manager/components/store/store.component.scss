@@ -1,0 +1,6 @@
+@import "../../../../_shared/scss/expansion-panels";
+@import "../../shared/scss/stores-styles.scss";
+
+mat-expansion-panel-header {
+  min-height: 75px !important;
+}

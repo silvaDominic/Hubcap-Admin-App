@@ -1,0 +1,59 @@
+<mat-accordion id="user-create-accordion">
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <span><strong>Create New User</strong></span>
+      </mat-panel-title>
+      <mat-panel-description><div></div><mat-icon>add_circle</mat-icon></mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <form [formGroup]="userFormGroup" class="user-fields">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field>
+            <input matInput placeholder="First name" formControlName="firstName">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <input matInput placeholder="Last name" formControlName="lastName">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field>
+            <input matInput placeholder="Email" formControlName="email">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <input matInput placeholder="Phone number" formControlName="phoneNumber">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field>
+            <mat-label for="permissionSelect">Permission Level</mat-label>
+            <mat-select id="permissionSelect" formControlName="permissionLevel">
+              <mat-option *ngFor="let permission of permissionKeys" [value]="permission" >{{permission}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <mat-label for="storeSelect">Stores</mat-label>
+            <mat-select id="storeSelect" multiple formControlName="storeIds">
+              <mat-option *ngFor="let store of stores" [value]="store.id">{{store.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+    <mat-action-row>
+      <button mat-raised-button color="primary" (click)="createUser()">Create User</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>

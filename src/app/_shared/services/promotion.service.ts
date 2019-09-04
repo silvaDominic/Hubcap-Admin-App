@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Promotion} from '../../promo-manager/shared/models/promotion.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CarwashService} from './carwash.service';
-import {CONSTANTS} from '../models/CONSTANTS';
-import {Discount} from '../../promo-manager/shared/models/discount.model';
+import {CONSTANTS} from '../CONSTANTS';
 import {BehaviorSubject} from 'rxjs';
+import {Discount} from '../models/discount.model';
+import {Promotion} from '../models/promotion.model';
 
 @Injectable({
     providedIn: 'root'

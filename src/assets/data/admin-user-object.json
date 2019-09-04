@@ -1,0 +1,15 @@
+{
+    "firstName": "Dom",
+    "lastName": "Silva",
+    "id": "123",
+    "email": "dom.92@live.com",
+    "password": "goodpassword",
+    "dateCreated": "08-29-2019",
+    "role": "LOCAL-ADMIN",
+    "storeIds": [
+        "1345"
+    ],
+    "businessId": "1357924680",
+    "verified": false,
+    "active": false
+}

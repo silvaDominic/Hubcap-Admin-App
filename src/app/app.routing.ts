@@ -1,32 +1,38 @@
-import { NgModule } from '@angular/core';
-import { CommonModule, } from '@angular/common';
-import { BrowserModule  } from '@angular/platform-browser';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {BrowserModule} from '@angular/platform-browser';
+import {Routes, RouterModule} from '@angular/router';
+import {AdminLayoutComponent} from './_layouts/admin-layout/admin-layout.component';
+import {AuthGuard} from './_core/services/auth-guard.service';
 
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+const routes: Routes = [
 
-const routes: Routes =[
-  {
-    path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full',
-  }, {
-    path: '',
-    component: AdminLayoutComponent,
-    children: [
-        {
-      path: '',
-      loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
-  }]}
+    {
+        path: '',
+        redirectTo: 'login',
+        pathMatch: 'full'
+    },
+    {
+        path: '',
+        component: AdminLayoutComponent,
+        // canActivate: [AuthGuard],
+        children: [
+            {
+                path: '',
+                loadChildren: () => import('./_layouts/admin-layout/admin-layout.module').then(mod => mod.AdminLayoutModule)
+            }]
+    },
+/*    {
+        path: '**', component: PageNotFoundComponent
+    }*/
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    BrowserModule,
-    RouterModule.forRoot(routes)
-  ],
-  exports: [
-  ],
+    imports: [
+        CommonModule,
+        BrowserModule,
+        RouterModule.forRoot(routes),
+    ],
+    exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

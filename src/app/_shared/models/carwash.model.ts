@@ -1,11 +1,10 @@
-import {CARWASH_TYPE} from './CARWASH_TYPE.model';
+import {CARWASH_TYPE} from '../enums/CARWASH_TYPE.model';
 import {Rating} from './rating.model';
 import {Address} from './address.model';
-import {Promotion} from '../../promo-manager/shared/models/promotion.model';
-import {Package} from '../../package-manager/shared/package.model';
-import {StoreHours} from '../../store-manager/shared/models/store-hours.model';
 import {CarwashCoordinates} from './carwash-coordinates.model';
-import {HoursOfOperation} from '../../store-manager/shared/models/hours-of-operation.model';
+import {Package} from './package.model';
+import {Promotion} from './promotion.model';
+import {HoursOfOperation} from '../../components/store-manager/shared/models/hours-of-operation.model';
 
 export class Carwash {
 

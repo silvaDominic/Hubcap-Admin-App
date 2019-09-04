@@ -2,23 +2,21 @@ import {Injectable} from '@angular/core';
 import {Carwash} from '../models/carwash.model';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {WASH_PACKAGE} from '../models/WASH_PACKAGE.model';
-import {Package} from '../../package-manager/shared/package.model';
-import {CARWASH_TYPE} from '../models/CARWASH_TYPE.model';
+import {WASH_PACKAGE} from '../enums/WASH_PACKAGE.model';
+import {CARWASH_TYPE} from '../enums/CARWASH_TYPE.model';
 import {Rating} from '../models/rating.model';
 import {Address} from '../models/address.model';
 import {CarwashCoordinates} from '../models/carwash-coordinates.model';
-import {Promotion} from '../../promo-manager/shared/models/promotion.model';
-import {StoreHours} from '../../store-manager/shared/models/store-hours.model';
 import {map} from 'rxjs/operators';
-import {PackageItem} from '../../package-manager/shared/package.item.model';
-import {Discount} from '../../promo-manager/shared/models/discount.model';
-import {CONSTANTS} from '../models/CONSTANTS';
-import {DETAIL_PACKAGE} from '../models/DETAIL_PACKAGE.model';
-import {HoursOfOperation} from '../../store-manager/shared/models/hours-of-operation.model';
-import {HoursException} from '../../store-manager/shared/models/hours-exception.model';
-import {ALL_PACKAGES} from '../models/ALL_PACKAGES.model';
-import {SERVICE_TYPE} from '../models/PACKAGE_TYPE.model';
+import {DETAIL_PACKAGE} from '../enums/DETAIL_PACKAGE.model';
+import {StoreHours} from '../../components/store-manager/shared/models/store-hours.model';
+import {Discount} from '../models/discount.model';
+import {HoursException} from '../../components/store-manager/shared/models/hours-exception.model';
+import {PackageItem} from '../models/package.item.model';
+import {Package} from '../models/package.model';
+import {Promotion} from '../models/promotion.model';
+import {HoursOfOperation} from '../../components/store-manager/shared/models/hours-of-operation.model';
+import {CONSTANTS} from '../CONSTANTS';
 
 @Injectable({
     providedIn: 'root'
