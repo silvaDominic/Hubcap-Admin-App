@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/map';
 import {CarwashService} from './carwash.service';
-import {CONSTANTS} from '../CONSTANTS';
 import {HttpClient} from '@angular/common/http';
-import {SERVICE_TYPE} from '../enums/PACKAGE_TYPE.model';
+import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
 import {Package} from '../models/package.model';
 import {PackageItem} from '../models/package.item.model';
 
@@ -13,6 +12,7 @@ import {PackageItem} from '../models/package.item.model';
 })
 export class PackageService {
     private package: Package;
+    private packages: Package[];
     private allPackageItems: PackageItem[];
 
     constructor(private carwashService: CarwashService, private http: HttpClient) {
@@ -20,18 +20,22 @@ export class PackageService {
     }
 
     // Initializes package
-    public stagePackage(packageName: string) {
-        this.package = this.carwashService.getPackage(packageName);
+    public stagePackages(type: SERVICE_TYPE) {
+        this.packages = this.carwashService.getAllPackages(type);
         this.allPackageItems = this.carwashService.getAllPackageItems();
         console.log('SELECTED PACKAGE: ', this.package);
     }
 
-    public getPackage(): Package {
-        if (!this.package) {
-            console.log('No package staged!');
-            console.log('Setting default WASH PACKAGE');
-            this.stagePackage(CONSTANTS.DEFAULT_WASH_PACKAGE);
+    public getAllPackages(): Package[] {
+        if (!this.packages) {
+            console.log('No packages staged!');
+            console.log('Setting default type to WASH PACKAGES');
         }
+        return this.packages;
+    }
+
+    public getPackage(index: number): Package {
+        this.package = this.packages[index];
         return this.package;
     }
 

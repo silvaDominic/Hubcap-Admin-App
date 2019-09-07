@@ -7,6 +7,7 @@ import {RoleGuard} from './services/role-guared.service';
 import {AuthGuard} from './services/auth-guard.service';
 import {HttpTokenInterceptor} from './http.token.intercepter';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {CarwashService} from '../_shared/services/carwash.service';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
         AuthGuard,
         RoleGuard,
         JwtService,
-        UserService
+        UserService,
+        CarwashService
     ],
     declarations: []
 })

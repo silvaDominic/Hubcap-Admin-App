@@ -17,12 +17,8 @@ export class Carwash {
     public address: Address,
     private _coordinates: CarwashCoordinates,
     public promotions: Promotion[],
-    public silverPackage: Package,
-    public goldPackage: Package,
-    public platinumPackage: Package,
-    public exteriorPackage: Package,
-    public interiorPackage: Package,
-    public completePackage: Package,
+    public washPackages: Package[],
+    public detailPackages: Package[],
     public hoursOfOperation: HoursOfOperation) {
     }
 

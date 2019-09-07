@@ -12,6 +12,7 @@ import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
 import {AdminUser} from '../models/admin-user.model';
 import {PERMISSION_LEVEL} from '../../_shared/enums/PERMISSION_LEVEL.model';
+import {CarwashService} from '../../_shared/services/carwash.service';
 
 
 @Injectable()
@@ -25,7 +26,8 @@ export class UserService {
     constructor (
         private apiService: ApiService,
         private http: HttpClient,
-        private jwtService: JwtService
+        private jwtService: JwtService,
+        private carWashService: CarwashService
     ) {}
 
     // Verify JWT in localstorage with server & load user's info.
@@ -39,6 +41,7 @@ export class UserService {
                     data => this.setAuth(data.adminUser),
                     err => this.purgeAuth()
                 );
+            // this.carWashService.registerCarwash();
         } else {
             // Remove any potential remnants of previous auth states
             this.purgeAuth();

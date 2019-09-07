@@ -1,5 +1,5 @@
 import {WASH_PACKAGE} from '../enums/WASH_PACKAGE.model';
-import {SERVICE_TYPE} from '../enums/PACKAGE_TYPE.model';
+import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
 
 export class Client {
 

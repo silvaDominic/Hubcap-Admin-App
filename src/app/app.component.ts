@@ -9,9 +9,10 @@ import {UserService} from './_core/services/user.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private carWashService: CarwashService) {}
 
   public ngOnInit(): void {
     this.userService.populate();
+      this.carWashService.registerCarwash();
   }
 }

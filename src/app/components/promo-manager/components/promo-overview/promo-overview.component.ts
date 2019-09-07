@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Promotion} from '../../../../_shared/models/promotion.model';
 import {DETAIL_PACKAGE} from '../../../../_shared/enums/DETAIL_PACKAGE.model';
 import {WASH_PACKAGE} from '../../../../_shared/enums/WASH_PACKAGE.model';
-import {SERVICE_TYPE} from '../../../../_shared/enums/PACKAGE_TYPE.model';
+import {SERVICE_TYPE} from '../../../../_shared/enums/SERVICE_TYPE';
 import {DISCOUNT_TYPE} from '../../../../_shared/enums/DISCOUNT_TYPE.model';
 import {PromotionService} from '../../../../_shared/services/promotion.service';
 import {CONSTANTS} from '../../../../_shared/CONSTANTS';

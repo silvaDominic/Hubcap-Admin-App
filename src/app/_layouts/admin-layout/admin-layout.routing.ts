@@ -7,6 +7,7 @@ import {UserManagerComponent} from '../../components/user-manager/user-manager.c
 import {PackageManagerComponent} from '../../components/package-manager/package-manager.component';
 import {PromoManagerComponent} from '../../components/promo-manager/promo-manager.component';
 import {DashboardComponent} from '../../components/dashboard/dashboard.component';
+import {PageNotFoundComponent} from '../../components/page-not-found/page-not-found.component';
 
 export const layoutRoutes: Routes = [
     {

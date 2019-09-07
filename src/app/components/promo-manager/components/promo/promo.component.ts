@@ -4,7 +4,7 @@ import {PromoFormComponent} from '../promo-form/promo-form.component';
 import {PromoHistoryComponent} from '../promo-history/promo-history.component';
 import {ALL_PACKAGES} from '../../../../_shared/enums/ALL_PACKAGES.model';
 import {FREQUENCY_TYPE} from '../../../../_shared/enums/FREQUENCY_TYPE.model';
-import {SERVICE_TYPE} from '../../../../_shared/enums/PACKAGE_TYPE.model';
+import {SERVICE_TYPE} from '../../../../_shared/enums/SERVICE_TYPE';
 import {DISCOUNT_TYPE} from '../../../../_shared/enums/DISCOUNT_TYPE.model';
 
 @Component({

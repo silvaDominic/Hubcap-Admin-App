@@ -3,7 +3,7 @@ import {FREQUENCY_TYPE} from '../enums/FREQUENCY_TYPE.model';
 import {Discount} from './discount.model';
 import {FREQUENCY} from '../enums/FREQUENCY.model';
 import {WASH_PACKAGE} from '../enums/WASH_PACKAGE.model';
-import {SERVICE_TYPE} from '../enums/PACKAGE_TYPE.model';
+import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
 
 
 export class Promotion {

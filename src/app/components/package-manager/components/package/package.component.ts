@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ALL_PACKAGES} from '../../../../_shared/enums/ALL_PACKAGES.model';
 import {PackageService} from '../../../../_shared/services/package.service';
 import {Package} from '../../../../_shared/models/package.model';
-import {SERVICE_TYPE} from '../../../../_shared/enums/PACKAGE_TYPE.model';
+import {SERVICE_TYPE} from '../../../../_shared/enums/SERVICE_TYPE';
 
 @Component({
     selector: 'app-package',
@@ -13,11 +13,11 @@ import {SERVICE_TYPE} from '../../../../_shared/enums/PACKAGE_TYPE.model';
 export class PackageComponent implements OnInit {
 
     public package: Package;
-    @Output() packageSelect = new EventEmitter<string>();
+    public packages: Package[];
+    @Output() packageSelect = new EventEmitter<number>();
     @Input() selectedPackageType: SERVICE_TYPE;
 
     // Initialize Enums
-    E_PACKAGE_TYPE = SERVICE_TYPE;
     E_ALL_PACKAGES = ALL_PACKAGES;
 
     constructor(private packageService: PackageService) {
@@ -25,11 +25,13 @@ export class PackageComponent implements OnInit {
 
     ngOnInit() {
         // Initialize package
-        this.package = this.packageService.getPackage();
+        this.packages = this.packageService.getAllPackages();
+        this.package = this.packageService.getPackage(0);
     }
 
-    callSetFocusPackage(packageId: string) {
-        this.packageSelect.emit(packageId);
-        this.package = this.packageService.getPackage();
+    callSetFocusPackage(index: number) {
+        // const packageInfo = {index, type};
+        this.packageSelect.emit(index);
+        this.package = this.packageService.getPackage(index);
     }
 }

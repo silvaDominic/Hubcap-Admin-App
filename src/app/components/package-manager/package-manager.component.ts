@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {PackageOptionsComponent} from './components/package-options/package-options.component';
 import {PackageService} from '../../_shared/services/package.service';
-import {SERVICE_TYPE} from '../../_shared/enums/PACKAGE_TYPE.model';
+import {SERVICE_TYPE} from '../../_shared/enums/SERVICE_TYPE';
 import {CONSTANTS} from '../../_shared/CONSTANTS';
 
 @Component({
@@ -12,28 +12,18 @@ import {CONSTANTS} from '../../_shared/CONSTANTS';
 export class PackageManagerComponent implements OnInit, AfterViewInit {
     @ViewChild(PackageOptionsComponent, {static : false}) packageOptionsComp;
     public selectedPackageType: SERVICE_TYPE;
-    public washIconRefs = [];
-    public detailIconRefs = [];
 
     // Used for comparison
     E_PACKAGE_TYPE = SERVICE_TYPE;
 
     constructor(private packageService: PackageService) {
         this.selectedPackageType = SERVICE_TYPE.WASH;
-
-        this.washIconRefs.push('iconA-wash-bronze.svg');
-        this.washIconRefs.push('iconA-wash-silver.svg');
-        this.washIconRefs.push('iconA-wash-gold.svg');
-
-        this.detailIconRefs.push('iconA-detail-interior.svg');
-        this.detailIconRefs.push('iconA-detail-exterior.svg');
-        this.detailIconRefs.push('iconA-detail-both.svg');
     }
 
     public ngOnInit() {
         // Initialized package and set relevant fields
-        this.packageService.stagePackage(CONSTANTS.DEFAULT_WASH_PACKAGE);
-        }
+        this.packageService.stagePackages(SERVICE_TYPE.WASH);
+    }
 
     public ngAfterViewInit(): void {
         this.packageOptionsComp.refreshPackageOptions();
@@ -42,18 +32,14 @@ export class PackageManagerComponent implements OnInit, AfterViewInit {
 
     // Handles changing between Wash and Detail packages
     public changePackageType(packageType: string) {
-        if (packageType === SERVICE_TYPE.WASH) {
-            this.selectedPackageType = SERVICE_TYPE.WASH;
-            this.setFocusPackage(CONSTANTS.DEFAULT_WASH_PACKAGE);
-        } else if (packageType === SERVICE_TYPE.DETAIL) {
-            this.selectedPackageType = SERVICE_TYPE.DETAIL;
-            this.setFocusPackage(CONSTANTS.DEFAULT_DETAIL_PACKAGE);
-        }
+        this.selectedPackageType = SERVICE_TYPE[packageType];
+        this.packageService.stagePackages(this.selectedPackageType);
+        this.setFocusPackage(0);
     }
 
-    public setFocusPackage(packageId: string) {
+    public setFocusPackage(index: number) {
         // Stage package to be used in sub-components
-        this.packageService.stagePackage(packageId);
+        this.packageService.getPackage(index);
         this.packageOptionsComp.refreshPackageOptions();
     }
 }

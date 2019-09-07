@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnChanges, OnInit} from '@angular/core';
 import {PackageItem} from '../../../../_shared/models/package.item.model';
 import {PackageService} from '../../../../_shared/services/package.service';
-import {SERVICE_TYPE} from '../../../../_shared/enums/PACKAGE_TYPE.model';
+import {SERVICE_TYPE} from '../../../../_shared/enums/SERVICE_TYPE';
 import {ITEM_TYPE} from '../../../../_shared/enums/ITEM_TYPE.model';
 
 @Component({

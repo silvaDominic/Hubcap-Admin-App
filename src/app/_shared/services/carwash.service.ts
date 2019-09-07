@@ -17,6 +17,7 @@ import {Package} from '../models/package.model';
 import {Promotion} from '../models/promotion.model';
 import {HoursOfOperation} from '../../components/store-manager/shared/models/hours-of-operation.model';
 import {CONSTANTS} from '../CONSTANTS';
+import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
 
 @Injectable({
     providedIn: 'root'
@@ -41,13 +42,14 @@ export class CarwashService {
             this.fetchCarwash().subscribe(
                 (carwash => CarwashService.carwashObject = carwash)
             );
+            this.registerAllPackageItems()
         } else {
             console.log('Carwash already fetched.');
         }
     }
 
     // Register all package items
-    public registerAllPackageItems() {
+    private registerAllPackageItems() {
         this.fetchAllPackageItems().subscribe(
             (allPackageItems => CarwashService.allPackageItems = allPackageItems)
         );
@@ -69,23 +71,29 @@ export class CarwashService {
     /* ---------------- MAIN GET METHODS -----------------*/
 
     // Return the specified package from the Carwash Object
-    public getPackage(name: string): Package {
-        switch (name) {
-            case WASH_PACKAGE.SILVER:
-                return CarwashService.carwashObject.silverPackage;
-            case WASH_PACKAGE.GOLD:
-                return CarwashService.carwashObject.goldPackage;
-            case WASH_PACKAGE.PLATINUM:
-                return CarwashService.carwashObject.platinumPackage;
-            case DETAIL_PACKAGE.EXTERIOR:
-                return CarwashService.carwashObject.exteriorPackage;
-            case DETAIL_PACKAGE.INTERIOR:
-                return CarwashService.carwashObject.interiorPackage;
-            case DETAIL_PACKAGE.COMPLETE:
-                return CarwashService.carwashObject.completePackage;
+    public getPackage(index: number, type: SERVICE_TYPE): Package {
+        switch (type) {
+            case SERVICE_TYPE.WASH:
+                return CarwashService.carwashObject.washPackages[index];
+            case SERVICE_TYPE.DETAIL:
+                return CarwashService.carwashObject.detailPackages[index];
             default:
-                console.log('Invalid Package name');
-                console.log('Package name ' + name + ' not found');
+                console.log('Invalid Package type or index or both');
+                console.log('Package index: ' + index);
+                console.log('Package type: ' + type);
+                break;
+        }
+    }
+
+    public getAllPackages(type: SERVICE_TYPE): Package[] {
+        switch (type) {
+            case SERVICE_TYPE.WASH:
+                return CarwashService.carwashObject.washPackages;
+            case SERVICE_TYPE.DETAIL:
+                return CarwashService.carwashObject.detailPackages;
+            default:
+                console.log('Invalid Package type');
+                console.log('Package type: ' + type + ' not found');
                 break;
         }
     }
@@ -145,6 +153,12 @@ export class CarwashService {
         const promotions = Array<Promotion>();
         data.promotions.map(promotion => promotions.push(this.generatePromotion(promotion)));
 
+        const washPackages = Array<Package>();
+        data.washPackages.map(washPackage => washPackages.push(this.generatePackage(washPackage)));
+
+        const detailPackages = Array<Package>();
+        data.detailPackages.map(detailPackage => detailPackages.push(this.generatePackage(detailPackage)));
+
         return new Carwash(
             data.id,
             data.name,
@@ -153,12 +167,8 @@ export class CarwashService {
             this.generateAddress(data.address),
             this.generateCoordinates(data.coordinates),
             promotions,
-            this.generatePackage(data.silverPackage),
-            this.generatePackage(data.goldPackage),
-            this.generatePackage(data.platinumPackage),
-            this.generatePackage(data.exteriorPackage),
-            this.generatePackage(data.interiorPackage),
-            this.generatePackage(data.completePackage),
+            washPackages,
+            detailPackages,
             this.generateHoursOfOperation(data.hoursOfOperation)
         );
     }

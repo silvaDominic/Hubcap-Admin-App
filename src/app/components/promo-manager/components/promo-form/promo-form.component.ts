@@ -8,7 +8,7 @@ import {FREQUENCY_TYPE} from '../../../../_shared/enums/FREQUENCY_TYPE.model';
 import {WASH_PACKAGE} from '../../../../_shared/enums/WASH_PACKAGE.model';
 import {PackageItem} from '../../../../_shared/models/package.item.model';
 import {Promotion} from '../../../../_shared/models/promotion.model';
-import {SERVICE_TYPE} from '../../../../_shared/enums/PACKAGE_TYPE.model';
+import {SERVICE_TYPE} from '../../../../_shared/enums/SERVICE_TYPE';
 import {MatSnackBar} from '@angular/material';
 import {DISCOUNT_TYPE} from '../../../../_shared/enums/DISCOUNT_TYPE.model';
 import {PromotionService} from '../../../../_shared/services/promotion.service';
