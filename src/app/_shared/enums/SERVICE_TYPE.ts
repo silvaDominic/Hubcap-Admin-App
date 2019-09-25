@@ -1,4 +1,4 @@
 export enum SERVICE_TYPE {
-    WASH = 'Wash',
-    DETAIL = 'Detail'
+    WASH = 'WASH',
+    DETAIL = 'DETAIL'
 }

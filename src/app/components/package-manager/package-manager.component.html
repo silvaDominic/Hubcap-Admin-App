@@ -5,12 +5,12 @@
                 <div class="col-md-3"></div>
                 <div class="col-sm-3">
                     <button mat-raised-button id="wash-button"
-                            (click)="changePackageType(E_PACKAGE_TYPE.WASH)"
+                            (click)="changeServiceType(E_PACKAGE_TYPE.WASH)"
                             [ngClass]="{'wash-selected': selectedPackageType === E_PACKAGE_TYPE.WASH, '': selectedPackageType !== E_PACKAGE_TYPE.WASH}">Wash</button>
                 </div>
                 <div  class="col-sm-3">
                     <button mat-raised-button id="detail-button"
-                            (click)="changePackageType(E_PACKAGE_TYPE.DETAIL)"
+                            (click)="changeServiceType(E_PACKAGE_TYPE.DETAIL)"
                             [ngClass]="{'detail-selected': selectedPackageType === E_PACKAGE_TYPE.DETAIL, '': selectedPackageType !== E_PACKAGE_TYPE.DETAIL}">Detail</button>
                 </div>
             </div>
@@ -19,11 +19,11 @@
         <div id="menu-section">
             <div class="row">
                 <div id="preview-col" class="col-md-3" [ngClass]="{'wash-selected': selectedPackageType === E_PACKAGE_TYPE.WASH, 'detail-selected': selectedPackageType === E_PACKAGE_TYPE.DETAIL}">
-                    <app-package [selectedPackageType]="selectedPackageType" (packageSelect)="setFocusPackage($event.index)"></app-package>
+                    <app-package *ngIf="packageService.serviceReady" [selectedPackageType]="selectedPackageType" (packageSelect)="setFocusPackage($event)"></app-package>
                 </div>
 
                 <div id="package-options-col" class="col-md-9">
-                    <app-package-options></app-package-options>
+                    <app-package-options *ngIf="packageService.serviceReady"></app-package-options>
                 </div>
             </div>
         </div>

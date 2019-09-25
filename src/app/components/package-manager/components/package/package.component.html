@@ -3,8 +3,8 @@
         <div class="col-md-12">
             <div>
                 <ul class="nav nav-fill">
-                    <li *ngFor="let _package of packages; let i = index" class="nav-item" (click)="callSetFocusPackage(i)">
-                        <button mat-button [ngClass]="{'active': package.name === _package.name}">{{_package.name}}</button>
+                    <li *ngFor="let _package of packageService.packages | async let i = index" class="nav-item" (click)="callSetFocusPackage(i)">
+                        <button mat-button [ngClass]="{'active': (packageService.package | async)?.name === _package.name}">{{_package.name}}</button>
                     </li>
                 </ul>
             </div>
@@ -17,18 +17,16 @@
     <div class="row">
         <div class="col-md-12">
             <div class="package-header">
-                <h4>One Time</h4>
+                <strong><h4>One Time</h4></strong>
                 <img src="./assets/icons/icon-repeat-one.svg" alt="">
                 <img src="./assets/icons/icon-calendar-hollow.svg" alt="">
             </div>
             <div>
-                <div class="duration">
-                    <strong>Duration:&nbsp;~{{package.duration}}&nbsp; hours</strong>
-                </div>
+
 
                 <div class="package-list">
                     <mat-list>
-                        <mat-list-item *ngFor="let item of package.packageItems">
+                        <mat-list-item *ngFor="let item of (packageService.package | async)?.packageItems">
                             <div [ngSwitch]="item.isRequired">
                                 <img *ngSwitchCase="true"  class="item-icon" src="./assets/icons/icon-oval-check-hollow.svg" alt="">
                                 <img *ngSwitchCase="false"  class="item-icon" src="./assets/icons/icon-oval-plus-hollow.svg" alt="">

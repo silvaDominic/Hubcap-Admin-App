@@ -12,21 +12,19 @@
 .package-header {
     text-align: center;
 
+    margin: 0 -15px;
+    padding: 0.5em 0;
+
     h4, img {
         display: inline-block;
     }
 
     h4 {
         margin-right: 1em;
+        margin-bottom: 0;
     }
-}
 
-.duration {
-    background-color: var(--promo-yellow);
-    margin: 0 -15px;
-    padding: 0.5em 0;
-    color: black;
-    text-align: center;
+    background-color: var(--go);
 }
 
 .package-list {

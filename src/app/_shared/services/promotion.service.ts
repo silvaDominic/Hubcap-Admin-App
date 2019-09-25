@@ -23,10 +23,15 @@ export class PromotionService {
         private readonly carwashService: CarwashService
     ) {}
 
-    public stagePromotion(id: string): void {
-        this.promotion = new BehaviorSubject(this.carwashService.getPromotion(id));
-        // this.initLivePromotion();
-        console.log('SELECTED PROMOTION: ', this.promotion.getValue());
+    stagePromotion(id: string) {
+        for (const promotion of this.promotions) {
+            if (promotion.id === id) {
+                this.promotion = new BehaviorSubject(promotion);
+            } else {
+                console.log('Promo with id: ', id + ' not found!');
+                console.log('Possible incorrect Promo Id');
+            }
+        }
     }
 
     public stageTemplatePromotion(): void {
@@ -70,7 +75,10 @@ export class PromotionService {
 
 
     getAllPromotions(): Promotion[] {
-        return this.carwashService.getPromotions();
+        this.carwashService.getPromotions().subscribe(
+            promotions => this.promotions = promotions
+        );
+        return this.promotions;
     }
 
 /*    updatePromotions(_promotions: Promotion[]): Observable<Promotion[]> {

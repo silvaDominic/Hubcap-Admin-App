@@ -1,4 +1,4 @@
-<div class="menu-options-block">
+<div class="menu-options-block" *ngIf="(packageService.package | async) as focusPackage">
     <form #packageOptionsForm="ngForm" name="packageOptionsForm" autocomplete="off">
         <div id="color-key-row" class="row">
             <div class="col-md-3">
@@ -30,35 +30,19 @@
         <hr>
 
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-6">
                 <div class="price-container">
                     <div class="form-group">
-                        <label for="name">Price</label>
-                        <input type="text" class="form-control" id="name" required name="price">
+                        <label for="price">Price</label>
+                        <input type="text" class="form-control" id="price" required name="price" [(ngModel)]="focusPackage.onetimePrices['REGULAR']">
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-6">
                 <div class="price-container">
                     <div class="form-group">
-                        <label for="name">Price</label>
-                        <input type="text" class="form-control" id="name" required name="price">
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="price-container">
-                    <div class="form-group">
-                        <label for="name">Price</label>
-                        <input type="text" class="form-control" id="name" required name="price">
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="price-container">
-                    <div class="form-group">
-                        <label for="name">Price</label>
-                        <input type="text" class="form-control" id="name" required name="price">
+                        <label for="over-sized-price">Over-sized price</label>
+                        <input type="text" class="form-control" id="over-sized-price" required name="over-sized-price" [(ngModel)]="focusPackage.onetimePrices['OVERSIZED']">
                     </div>
                 </div>
             </div>
@@ -66,7 +50,7 @@
                 <div class="price-container">
                     <div class="form-group">
                         <label for="time">Duration (In hours)</label>
-                        <input type="text" class="form-control" id="time" required name="estimatedTime">
+                        <input type="text" class="form-control" id="time" required name="estimatedTime" [(ngModel)]="focusPackage.duration">
                     </div>
                 </div>
             </div>
@@ -74,21 +58,21 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="input-group option-container" *ngFor="let item of allPackageItems; let outerIndex = index">
-                    <div [ngClass]="{'input-group-prepend': item.subOptions.length > 0}">
+                <div class="input-group option-container" *ngFor="let item of displayPackages | keyvalue; let index = index">
+                    <div [ngClass]="{'input-group-prepend': item.key.subOptions.length > 0}">
                         <button type="button" class="btn option-button"
-                                [ngClass]="{'selected': item.isSelected}"
-                                (click)="buttonToggle($event, outerIndex, allPackageItems)"
-                                [attr.disabled]="item.isRequired ? 'disabled' : null">
-                            {{item.name}}
+                                [ngClass]="{'selected': item.value === true}"
+                                (click)="buttonToggle($event, index, item)"
+                                [attr.disabled]="item.key.isRequired ? 'disabled' : null">
+                            {{item.key.name}}
                         </button>
-                        <div class="button-indicator" [ngClass]="{'exterior': item.itemType === E_ITEM_TYPE.EXTERIOR, 'interior': item.itemType === E_ITEM_TYPE.INTERIOR}"></div>
+                        <div class="button-indicator" [ngClass]="{'exterior': item.key.itemType === E_ITEM_TYPE.EXTERIOR, 'interior': item.key.itemType === E_ITEM_TYPE.INTERIOR}"></div>
                     </div>
-                    <select *ngIf="item.subOptions.length !== 0" class="custom-select"
-                            [ngClass]="{'selected': item.isSelected}"
-                            [attr.required]="item.isRequired ? 'required' : null"
+                    <select *ngIf="item.key.subOptions.length !== 0" class="custom-select"
+                            [ngClass]="{'selected': item.value === true}"
+                            [attr.required]="item.key.isRequired ? 'required' : null"
                             name="item.selectedSubOption">
-                        <option *ngFor="let option of item.subOptions;" [value]="item.selectedSubOptions" name="item.selectedSubOption">{{option}}</option>
+                        <option *ngFor="let option of item.key.subOptions;" [value]="item.key.selectedSubOptions" name="item.selectedSubOption">{{option}}</option>
                     </select>
                 </div>
             </div>

@@ -6,7 +6,6 @@ import {Discount} from './models/discount.model';
 import {Promotion} from './models/promotion.model';
 
 export const CONSTANTS = {
-    PACKAGE_ITEMS_URL: 'http://localhost:4200/assets/data/all-package-items.json',
     PROMOTION_TEMPLATE: new Promotion(
         '00',
         '[NAME]',

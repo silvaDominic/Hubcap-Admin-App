@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterContentChecked, AfterContentInit, AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {PackageOptionsComponent} from './components/package-options/package-options.component';
 import {PackageService} from '../../_shared/services/package.service';
 import {SERVICE_TYPE} from '../../_shared/enums/SERVICE_TYPE';
@@ -21,25 +21,22 @@ export class PackageManagerComponent implements OnInit, AfterViewInit {
     }
 
     public ngOnInit() {
-        // Initialized package and set relevant fields
-        this.packageService.stagePackages(SERVICE_TYPE.WASH);
+        console.log('package-manager init');
+
     }
 
     public ngAfterViewInit(): void {
-        this.packageOptionsComp.refreshPackageOptions();
     }
 
-
     // Handles changing between Wash and Detail packages
-    public changePackageType(packageType: string) {
+    public changeServiceType(packageType: string) {
         this.selectedPackageType = SERVICE_TYPE[packageType];
-        this.packageService.stagePackages(this.selectedPackageType);
-        this.setFocusPackage(0);
+        this.packageService.setPackageArray(this.selectedPackageType);
     }
 
     public setFocusPackage(index: number) {
         // Stage package to be used in sub-components
-        this.packageService.getPackage(index);
+        this.packageService.setPackage(index);
         this.packageOptionsComp.refreshPackageOptions();
     }
 }

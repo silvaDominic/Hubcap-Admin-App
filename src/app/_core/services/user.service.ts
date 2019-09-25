@@ -77,14 +77,6 @@ export class UserService {
             );
     }
 
-    getCurrentUser(): AdminUser {
-        return this.currentUserSubject.value;
-    }
-
-    getUserRole(): PERMISSION_LEVEL {
-        return this.currentUserSubject.value.permissionLevel;
-    }
-
     // Update the user on the server (email, pass, etc)
     update(adminUser): Observable<AdminUser> {
         return this.apiService

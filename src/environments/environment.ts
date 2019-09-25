@@ -5,5 +5,7 @@
 
 export const environment = {
     production: false,
-    api_url: 'https://aaf3f2fc-49e5-4e2d-bfaa-bf1cfba517ff.mock.pstmn.io'
+    api_url: 'http://localhost:4200',
+    package_manager_path: '/assets/data/carwash.json',
+    static_package_items_url: '/assets/data/all-package-items.json',
 };
