@@ -4,6 +4,9 @@ import {SERVICE_TYPE} from './enums/SERVICE_TYPE';
 import {WASH_PACKAGE} from './enums/WASH_PACKAGE.model';
 import {Discount} from './models/discount.model';
 import {Promotion} from './models/promotion.model';
+import {Package} from './models/package.model';
+import {VEHICLE_TYPE} from './enums/VEHICLE_TYPE.model';
+import {PackageItem} from './models/package.item.model';
 
 export const CONSTANTS = {
     PROMOTION_TEMPLATE: new Promotion(
@@ -24,6 +27,14 @@ export const CONSTANTS = {
             []),
             '09:00',
             '17:00'
+    ),
+    PACKAGE_TEMPLATE: new Package(
+        '',
+        SERVICE_TYPE.WASH,
+        new Map<VEHICLE_TYPE, number>().set(VEHICLE_TYPE.REGULAR, 0).set(VEHICLE_TYPE.OVERSIZED, 0),
+        [],
+        0,
+        new Map<VEHICLE_TYPE, number>().set(VEHICLE_TYPE.REGULAR, 0).set(VEHICLE_TYPE.OVERSIZED, 0),
     ),
     SHORT_WEEKDAY: {weekday: 'short'},
     SHORT_MONTH: {month: 'short'},

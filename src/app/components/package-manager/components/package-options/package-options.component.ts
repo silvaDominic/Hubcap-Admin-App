@@ -2,6 +2,7 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {PackageItem} from '../../../../_shared/models/package.item.model';
 import {PackageService} from '../../../../_shared/services/package.service';
 import {ITEM_TYPE} from '../../../../_shared/enums/ITEM_TYPE.model';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {VEHICLE_TYPE} from '../../../../_shared/enums/VEHICLE_TYPE.model';
 
 @Component({
@@ -10,8 +11,11 @@ import {VEHICLE_TYPE} from '../../../../_shared/enums/VEHICLE_TYPE.model';
     styleUrls: ['./package-options.component.scss']
 })
 export class PackageOptionsComponent implements OnInit, AfterViewInit {
-    selectedPackageItems: PackageItem[] = Array<PackageItem>();
     private displayPackages: Map<PackageItem, boolean> = new Map<PackageItem, boolean>();
+
+    public selectedPackageItems: PackageItem[] = Array<PackageItem>();
+    public isMonthly = false;
+    public packageForm: FormGroup;
 
     // Enums variables
     E_ITEM_TYPE = ITEM_TYPE;
@@ -22,15 +26,23 @@ export class PackageOptionsComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {
         console.log('package-options init');
-
         this.initDisplayItems();
+        this.initForm();
     }
 
     ngAfterViewInit() {
         this.refreshPackageOptions();
     }
 
-    buttonToggle(event, index, item) {
+    private initForm (): void {
+        this.packageForm = this.packageService.getForm();
+    }
+
+    public toggleIsMonthly(event): void {
+        this.isMonthly = event.checked;
+    }
+
+    public buttonToggle(event, index, item): void {
         console.log('Clicked: ', item.key.name, item.value);
 
         event.target.classList.toggle('selected');
@@ -73,7 +85,6 @@ export class PackageOptionsComponent implements OnInit, AfterViewInit {
             for (const staticItem of this.displayPackages.keys()) {
                 if (selectedItem.name === staticItem.name) {
                     this.displayPackages.set(staticItem, true);
-                    staticItem.isRequired = selectedItem.isRequired;
                 }
             }
         }
@@ -90,7 +101,6 @@ export class PackageOptionsComponent implements OnInit, AfterViewInit {
             if (!this.displayPackages) {
                 this.initDisplayItems();
             }
-            item.isRequired = false;
             this.displayPackages.set(item, false);
         }
     }

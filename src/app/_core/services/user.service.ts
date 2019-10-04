@@ -11,7 +11,6 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
 import {AdminUser} from '../models/admin-user.model';
-import {PERMISSION_LEVEL} from '../../_shared/enums/PERMISSION_LEVEL.model';
 import {CarwashService} from '../../_shared/services/carwash.service';
 
 

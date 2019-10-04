@@ -23,7 +23,7 @@ export class PromotionService {
         private readonly carwashService: CarwashService
     ) {}
 
-    stagePromotion(id: string) {
+    public stagePromotion(id: string) {
         for (const promotion of this.promotions) {
             if (promotion.id === id) {
                 this.promotion = new BehaviorSubject(promotion);

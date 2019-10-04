@@ -17,7 +17,6 @@ export class PackageComponent implements OnInit {
     @Input() selectedPackageType: SERVICE_TYPE;
 
     constructor(private packageService: PackageService) {
-
     }
 
     ngOnInit() {
@@ -25,7 +24,7 @@ export class PackageComponent implements OnInit {
     }
 
     callSetFocusPackage(index: number) {
-        // this.packageService.setPackage(index);
+        this.packageService.creatingNewPackage = false;
         this.packageSelect.emit(index);
     }
 }

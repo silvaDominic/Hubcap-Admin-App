@@ -1,7 +1,21 @@
+@import "../../../../_shared/scss/expansion-panels";
+
 .package-block {
     position: relative;
     text-align: center;
     color: white;
+}
+
+#create-package-wrapper {
+    margin: 0 -15px;
+    text-align: center;
+    background-color: var(--tire);
+
+    button {
+        height: 100%;
+        width: 100%;
+        padding: 8px !important;
+    }
 }
 
 .package-price {
@@ -37,6 +51,10 @@
         color: white;
         font-weight: 400;
     }
+
+    mat-list-item ::ng-deep .mat-list-item-content {
+        padding: 0 !important;
+    }
 }
 
 .package-list::-webkit-scrollbar-track
@@ -63,14 +81,21 @@
     height: 28px;
 }
 
-.action-row {
+#action-row-wrapper {
     bottom: 0;
     position: absolute;
-    margin: 1em auto;
+}
+
+.action-row {
+    margin: 0.5em auto;
 
     button {
         border: 1px solid white;
         margin: 0 0.5em;
+    }
+
+    #delete-button {
+        width: 100%;
     }
 }
 

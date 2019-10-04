@@ -17,6 +17,7 @@ import {RouterModule} from '@angular/router';
     imports: [
         CommonModule,
         FormsModule,
+        ReactiveFormsModule,
         RouterModule,
         HttpClientModule,
         ReactiveFormsModule,
@@ -45,6 +46,7 @@ import {RouterModule} from '@angular/router';
     exports: [
         CommonModule,
         FormsModule,
+        ReactiveFormsModule,
         RouterModule,
         HttpClientModule,
         ReactiveFormsModule,

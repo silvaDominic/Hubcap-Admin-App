@@ -1,7 +1,13 @@
 <div id="overview-block">
     <div class="row">
         <div class="col-md-12">
-            <div>
+            <div *ngIf="packageService.packages">
+                <div id="create-package-wrapper">
+                    <button id="create-package-button" mat-button (click)="packageService.initNewPackage()">Create New Package</button>
+                </div>
+            </div>
+
+            <div *ngIf="packageService.packages">
                 <ul class="nav nav-fill">
                     <li *ngFor="let _package of packageService.packages | async let i = index" class="nav-item" (click)="callSetFocusPackage(i)">
                         <button mat-button [ngClass]="{'active': (packageService.package | async)?.name === _package.name}">{{_package.name}}</button>
@@ -17,32 +23,37 @@
     <div class="row">
         <div class="col-md-12">
             <div class="package-header">
-                <strong><h4>One Time</h4></strong>
-                <img src="./assets/icons/icon-repeat-one.svg" alt="">
-                <img src="./assets/icons/icon-calendar-hollow.svg" alt="">
-            </div>
-            <div>
-
-
-                <div class="package-list">
-                    <mat-list>
-                        <mat-list-item *ngFor="let item of (packageService.package | async)?.packageItems">
-                            <div [ngSwitch]="item.isRequired">
-                                <img *ngSwitchCase="true"  class="item-icon" src="./assets/icons/icon-oval-check-hollow.svg" alt="">
-                                <img *ngSwitchCase="false"  class="item-icon" src="./assets/icons/icon-oval-plus-hollow.svg" alt="">
-                                <span >{{item.name}}</span>
-                                <strong *ngIf="item.selectedSubOptions.length > 0">&nbsp;({{item.selectedSubOptions}})</strong>
-                            </div>
-                        </mat-list-item>
-                    </mat-list>
+                <div *ngIf="">
+                    <strong><h4>Monthly</h4></strong>
+                    <img src="./assets/icons/icon-calendar-hollow.svg" alt="">
                 </div>
+                <div>
+                    <strong><h4>One-Time</h4></strong>
+                    <img src="./assets/icons/icon-repeat-one.svg" alt="">
+                </div>
+            </div>
+
+            <div class="package-list">
+                <mat-list>
+                    <mat-list-item *ngFor="let item of (packageService.package | async)?.packageItems">
+                        <div>
+                            <img class="item-icon" src="./assets/icons/icon-oval-check-hollow.svg" alt="">
+                            <span >{{item.name}}</span>
+                            <strong *ngIf="item.selectedSubOptions.length > 0">&nbsp;({{item.selectedSubOptions}})</strong>
+                        </div>
+                    </mat-list-item>
+                </mat-list>
             </div>
         </div>
     </div>
 
-    <div class="row action-row">
-        <button mat-button>Update</button>
-        <button mat-button>Switch to Monthly</button>
-        <hr>
+    <div id="action-row-wrapper">
+        <div class="row action-row">
+            <button mat-button>Update</button>
+            <button mat-button>Switch to Monthly</button>
+        </div>
+        <div class="row action-row">
+            <button id="delete-button" mat-flat-button color="warn">Delete</button>
+        </div>
     </div>
 </div>

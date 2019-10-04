@@ -10,11 +10,10 @@
                             <select id="packageTypeSelect" class="custom-select" name="packageTypeSelect"
                                     formControlName="packageType"
                                     (change)="promotion.serviceType = ( $event.target.value || null );">
-                                <option value="Wash">Wash</option>
-                                <option value="Detail">Detail</option>
+                                <option value="WASH">Wash</option>
+                                <option value="DETAIL">Detail</option>
                             </select>
                         </div>
-                        <button mat-button matStepperNext type="button">Back</button>
                         <button mat-button matStepperNext type="button">Next</button>
                     </div>
                 </mat-step>
@@ -27,7 +26,7 @@
                             <input matInput placeholder="Ex: Early Bird Special" type="text" formControlName="name"
                                    required [value]="promotion.name" (input)="promotion.name = $event.target.value">
                         </mat-form-field>
-                        <button mat-button matStepperNext type="button">Back</button>
+                        <button mat-button matStepperPrevious type="button">Back</button>
                         <button mat-button matStepperNext type="button">Next</button>
                     </div>
                 </mat-step>
@@ -40,7 +39,7 @@
                             <input matInput placeholder="Ex: Get a 10% discount when coming in between 8:00AM and 10:00AM"
                                    formControlName="description" (input)="promotion.description = $event.target.value">
                         </mat-form-field>
-                        <button mat-button matStepperNext type="button">Back</button>
+                        <button mat-button matStepperPrevious type="button">Back</button>
                         <button mat-button matStepperNext type="button">Next</button>
                     </div>
                 </mat-step>
@@ -100,7 +99,7 @@
                             </div>
                         </div>
 
-                        <button mat-button matStepperNext type="button">Back</button>
+                        <button mat-button matStepperPrevious type="button">Back</button>
                         <button mat-button matStepperNext type="button">Next</button>
                     </div>
                 </mat-step>
@@ -145,7 +144,7 @@
                             </div>
                         </div>
 
-                        <button mat-button matStepperNext type="button">Back</button>
+                        <button mat-button matStepperPrevious type="button">Back</button>
                         <button mat-button matStepperNext type="button">Next</button>
                     </div>
                 </mat-step>
@@ -172,7 +171,7 @@
                             </mat-select>
                         </mat-form-field>
 
-                        <button mat-button matStepperNext type="button">Back</button>
+                        <button mat-button matStepperPrevious type="button">Back</button>
                         <button mat-button matStepperNext type="button">Next</button>
                     </div>
                 </mat-step>
@@ -198,7 +197,7 @@
                             </div>
                         </div>
 
-                        <button mat-button matStepperNext type="button">Back</button>
+                        <button mat-button matStepperPrevious type="button">Back</button>
                         <button mat-button matStepperNext type="button">Next</button>
                     </div>
                 </mat-step>
@@ -207,7 +206,7 @@
                     <p>All done! Click <strong *ngIf="isNew">"Create Promo"</strong><strong *ngIf="isEdit">Update
                         Promo</strong> to make package live!</p>
 
-                    <button mat-button matStepperNext type="button">Back</button>
+                    <button mat-button matStepperPrevious type="button">Back</button>
                     <button mat-button type="button" (click)="clearForm()">Reset</button>
                     <button mat-raised-button color="primary" type="button" *ngIf="isEdit"
                             (click)="updatePromo(); openSnackBar(promotion.name + ' Promo', 'Updated')">Update
@@ -219,7 +218,7 @@
                     </button>
                 </mat-step>
             </mat-vertical-stepper>
-            <pre>{{promotionForm.value | json}}</pre>
+<!--            <pre>{{promotionForm.value | json}}</pre>-->
         </form>
     </div>
 </div>
