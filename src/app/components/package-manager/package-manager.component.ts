@@ -22,7 +22,6 @@ export class PackageManagerComponent implements OnInit, AfterViewInit {
 
     public ngOnInit() {
         console.log('package-manager init');
-
     }
 
     public ngAfterViewInit(): void {

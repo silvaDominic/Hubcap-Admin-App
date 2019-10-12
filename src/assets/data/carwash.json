@@ -1,30 +1,83 @@
 {
-    "id": "1123",
-    "name": "George's Carwash",
-    "type": "WASHER_DETAILER",
-    "ratings": [
-        {
-            "customerName": "Shahroz Ahmed",
-            "score": "excellent",
-            "review": "Mexicans do it best.",
-            "date": "2019-07-15"
+    "metaData": {
+        "id": "1123",
+        "name": "George's Carwash",
+        "type": "WASHER_DETAILER",
+        "address": {
+            "city": "New York City",
+            "state": "NY",
+            "street": "1516 Gates Avenue",
+            "zipcode": "11237"
         },
-        {
-            "customerName": "Ruzin",
-            "score": "poor",
-            "review": "I wish I had a car to wash.",
-            "date": "2019-07-24"
+        "email": "contact@gcw.com",
+        "website": "georgeswash.com",
+        "phoneNumber": "6317854492",
+        "coordinates": null,
+        "hoursOfOperation": {
+            "storeHours": [
+                {
+                    "day": "MONDAY",
+                    "isOpen": true,
+                    "openTime": "08:00",
+                    "closeTime": "18:00"
+                },
+                {
+                    "day": "TUESDAY",
+                    "isOpen": true,
+                    "openTime": "08:00",
+                    "closeTime": "18:00"
+                },
+                {
+                    "day": "WEDNESDAY",
+                    "isOpen": true,
+                    "openTime": "08:00",
+                    "closeTime": "18:00"
+                },
+                {
+                    "day": "THURSDAY",
+                    "isOpen": true,
+                    "openTime": "08:00",
+                    "closeTime": "18:00"
+                },
+                {
+                    "day": "FRIDAY",
+                    "isOpen": true,
+                    "openTime": "08:00",
+                    "closeTime": "17:00"
+                },
+                {
+                    "day": "SATURDAY",
+                    "isOpen": false,
+                    "openTime": "",
+                    "closeTime": ""
+                },
+                {
+                    "day": "SUNDAY",
+                    "isOpen": false,
+                    "openTime": "",
+                    "closeTime": ""
+                }
+            ],
+            "hoursExceptions": [
+                {
+                    "name": "Christmas Eve",
+                    "date": "2019-12-24",
+                    "exceptionType": "MODIFIED",
+                    "openTime": "10:00",
+                    "closeTime": "14:00"
+                },
+                {
+                    "name": "Christmas Day",
+                    "date": "2019-12-25",
+                    "exceptionType": "CLOSED"
+                },
+                {
+                    "name": "Easter",
+                    "date": "2019-04-27",
+                    "exceptionType": "CLOSED"
+                }
+            ]
         }
-    ],
-    "address": {
-        "city": "New York City",
-        "state": "NY",
-        "street": "123 Fake Street",
-        "zipcode": "11237"
-    },
-    "coordinates": {
-        "latitude": 40.7128,
-        "longitude": 74.0060
     },
     "promotions": [
         {
@@ -605,70 +658,5 @@
             "isUnlimitedMonthly": null,
             "monthlyUses": null
         }
-    ],
-    "hoursOfOperation": {
-        "storeHours": [
-            {
-                "day": "MONDAY",
-                "isOpen": true,
-                "openTime": "08:00",
-                "closeTime": "18:00"
-            },
-            {
-                "day": "TUESDAY",
-                "isOpen": true,
-                "openTime": "08:00",
-                "closeTime": "18:00"
-            },
-            {
-                "day": "WEDNESDAY",
-                "isOpen": true,
-                "openTime": "08:00",
-                "closeTime": "18:00"
-            },
-            {
-                "day": "THURSDAY",
-                "isOpen": true,
-                "openTime": "08:00",
-                "closeTime": "18:00"
-            },
-            {
-                "day": "FRIDAY",
-                "isOpen": true,
-                "openTime": "08:00",
-                "closeTime": "17:00"
-            },
-            {
-                "day": "SATURDAY",
-                "isOpen": false,
-                "openTime": "",
-                "closeTime": ""
-            },
-            {
-                "day": "SUNDAY",
-                "isOpen": false,
-                "openTime": "",
-                "closeTime": ""
-            }
-        ],
-        "hoursExceptions": [
-            {
-                "name": "Christmas Eve",
-                "date": "2019-12-24",
-                "exceptionType": "MODIFIED",
-                "openTime": "10:00",
-                "closeTime": "14:00"
-            },
-            {
-                "name": "Christmas Day",
-                "date": "2019-12-25",
-                "exceptionType": "CLOSED"
-            },
-            {
-                "name": "Easter",
-                "date": "2019-04-27",
-                "exceptionType": "CLOSED"
-            }
-        ]
-    }
+    ]
 }

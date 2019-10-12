@@ -1,0 +1,150 @@
+import {PackageItem} from './models/package.item.model';
+import {CarwashCoordinates} from './models/carwash-coordinates.model';
+import {Discount} from './models/discount.model';
+import {Address} from './models/address.model';
+import {Rating} from './models/rating.model';
+import {Promotion} from './models/promotion.model';
+import {any} from 'codelyzer/util/function';
+import {HoursOfOperation} from './models/hours-of-operation.model';
+import {StoreHours} from './models/store-hours.model';
+import {Carwash} from './models/carwash.model';
+import {HoursException} from './models/hours-exception.model';
+import {Package} from './models/package.model';
+
+export class Utilities {
+
+
+    // Main util method for converting json data to instance objects
+/*    public convertToCarwashObject(data: any): Carwash {
+        const ratings = Array<Rating>();
+        data.ratings.map(rating => ratings.push(this.generateRating(rating)));
+
+        const promotions = Array<Promotion>();
+        data.promotions.map(promotion => promotions.push(this.generatePromotion(promotion)));
+
+        const washPackages = Array<Package>();
+        data.washPackages.map(washPackage => washPackages.push(this.generatePackage(washPackage)));
+
+        const detailPackages = Array<Package>();
+        data.detailPackages.map(detailPackage => detailPackages.push(this.generatePackage(detailPackage)));
+
+        return new Carwash(
+            data.id,
+            data.name,
+            data.type,
+            ratings,
+            this.generateAddress(data.address),
+            this.generateCoordinates(data.coordinates),
+            promotions,
+            washPackages,
+            detailPackages,
+            this.generateHoursOfOperation(data.hoursOfOperation)
+        );
+    }*/
+
+    public static generateAddress(data: any): Address {
+        return new Address(
+            data.city,
+            data.state,
+            data.street,
+            data.zipcode
+        );
+    }
+
+    public static convertToPackageItemsArray(data: any): PackageItem[] {
+        const packageItems = Array<PackageItem>();
+        data.packageItems.map(item => packageItems.push(this.generatePackageItem(item)));
+        return packageItems;
+    }
+
+    public static generateCoordinates(data: any): CarwashCoordinates {
+        return new CarwashCoordinates(
+            data.latitude,
+            data.longitude
+        );
+    }
+
+    public static generateRating(data: any): Rating {
+        return new Rating(
+            data.customerName,
+            data.score,
+            data.review,
+            data.date
+        );
+    }
+
+    public static generatePromotion(data: any): Promotion {
+        return new Promotion(
+            data.id,
+            data.name,
+            data.description,
+            data.serviceType,
+            data.frequencyType,
+            data.frequency,
+            data.startDate,
+            data.endDate,
+            data.discountPackages,
+            this.generateDiscount(data.discount),
+            data.startTime,
+            data.endTime
+        );
+    }
+
+    public static generateDiscount(data: any): Discount {
+        return new Discount(
+            data.E_DISCOUNT_TYPE,
+            data.discountAmount,
+            data.discountFeatures
+        );
+    }
+
+    public static generatePackage(data: any): Package {
+        return new Package(
+            data.name,
+            data.type,
+            data.onetimePrices,
+            data.packageItems.map(packageItem => this.generatePackageItem(packageItem)),
+            data.duration,
+            data.monthlyPrices
+        );
+    }
+
+    public static generatePackageItem(data: any): PackageItem {
+        return new PackageItem(
+            data.name,
+            data.itemType,
+            data.selectedSubOptions,
+            data.subOptions
+        );
+    }
+
+    public static generateHoursOfOperation(data: any) {
+        const storeHours = Array<StoreHours>();
+        data.storeHours.map(storeHour => storeHours.push(this.generateStoreHours(storeHour)));
+
+        const hoursExceptions = Array<HoursException>();
+        data.storeHours.map(exception => hoursExceptions.push(this.generateHoursExceptions(exception)));
+
+        return new HoursOfOperation(
+            storeHours,
+            hoursExceptions
+        );
+    }
+
+    public static generateHoursExceptions(data: any): HoursException {
+        return new HoursException(
+            data.name,
+            data.date,
+            data.exceptionType,
+            data.openTime,
+            data.closeTime);
+    }
+
+    public static generateStoreHours(data: any): StoreHours {
+        return new StoreHours(
+            data.day,
+            data.openTime,
+            data.closeTime
+        );
+    }
+}

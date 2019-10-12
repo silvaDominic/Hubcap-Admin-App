@@ -50,7 +50,8 @@
         </div>
 
       <mat-action-row class="store-actions">
-        <button mat-raised-button color="warn" (click)="deleteException(exceptions.indexOf(thisException))">Delete Exception</button>
+        <button mat-raised-button color="primary" (click)="storeService.updateException(thisException, exceptions.indexOf(thisException))">Update Exception</button>
+        <button mat-raised-button color="warn" (click)="storeService.deleteException(exceptions.indexOf(thisException))">Delete Exception</button>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>

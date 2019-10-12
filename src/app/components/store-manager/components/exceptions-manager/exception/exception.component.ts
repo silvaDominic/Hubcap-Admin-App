@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AmazingTimePickerService} from 'amazing-time-picker';
-import {HoursException} from '../../../shared/models/hours-exception.model';
+import {HoursException} from '../../../../../_shared/models/hours-exception.model';
 import {HOURS_EXCEPTION_TYPE} from '../../../../../_shared/enums/HOURS_EXCEPTION_TYPE.model';
+import {StoreService} from '../../../../../_shared/services/store.service';
 
 @Component({
     selector: 'app-exception',
@@ -18,16 +19,12 @@ export class ExceptionComponent implements OnInit {
 
     exceptionType = HOURS_EXCEPTION_TYPE;
 
-    constructor(private atp: AmazingTimePickerService) {
+    constructor(private readonly storeService: StoreService, private readonly atp: AmazingTimePickerService) {
         this.currentDate = new Date();
         this.exceptionDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDay());
     }
 
     ngOnInit() {
-    }
-
-    deleteException(index: number) {
-        this.exceptions.splice(index, 1);
     }
 
 }

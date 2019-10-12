@@ -1,6 +1,14 @@
 import {STATES} from '../enums/STATES.model';
 
 export class Address {
+
+    public static EMPTY_MODEL = <Address> {
+        city: '',
+        state: STATES.NY,
+        street: '',
+        zipcode: ''
+    };
+
     constructor(private _city: string,
                 public state: STATES,
                 private _street: string,

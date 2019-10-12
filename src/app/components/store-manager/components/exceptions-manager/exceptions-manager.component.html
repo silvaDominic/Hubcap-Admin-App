@@ -2,13 +2,13 @@
     <div class="row">
         <div class="col-md-12">
             <div class="exception-form-container">
-                <app-exception-form [exceptions]="exceptions"></app-exception-form>
+                <app-exception-form></app-exception-form>
             </div>
 
             <hr>
 
-            <div class="exception-list-container" *ngIf="exceptions">
-                <div *ngFor="let exception of exceptions">
+            <div class="exception-list-container">
+                <div *ngFor="let exception of (storeService.store | async).hoursOfOperation.hoursExceptions as exceptions">
                     <app-exception [thisException]="exception" [exceptions]="exceptions"></app-exception>
                 </div>
             </div>

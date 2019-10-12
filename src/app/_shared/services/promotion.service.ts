@@ -13,7 +13,7 @@ import {Promotion} from '../models/promotion.model';
 export class PromotionService {
 
     // public promotion: Promotion;
-    public promotion: BehaviorSubject<Promotion>;
+    public promotionSubject: BehaviorSubject<Promotion>;
     public promotionForm: FormGroup;
     public promotions: Promotion[];
 
@@ -26,7 +26,7 @@ export class PromotionService {
     public stagePromotion(id: string) {
         for (const promotion of this.promotions) {
             if (promotion.id === id) {
-                this.promotion = new BehaviorSubject(promotion);
+                this.promotionSubject = new BehaviorSubject(promotion);
             } else {
                 console.log('Promo with id: ', id + ' not found!');
                 console.log('Possible incorrect Promo Id');
@@ -35,33 +35,28 @@ export class PromotionService {
     }
 
     public stageTemplatePromotion(): void {
-        this.promotion = new BehaviorSubject(CONSTANTS.PROMOTION_TEMPLATE);
+        this.promotionSubject = new BehaviorSubject(CONSTANTS.PROMOTION_TEMPLATE);
         // this.initLivePromotion();
-        console.log('SELECTED PROMOTION: ', this.promotion.getValue());
+        console.log('SELECTED PROMOTION: ', this.promotionSubject.getValue());
     }
 
     // Returns the raw Promotion value
     public getPromotion(): Promotion {
-        if (!this.promotion) {
+        if (!this.promotionSubject) {
             console.log('No promotion staged!');
             console.log('Setting template');
             this.stageTemplatePromotion();
         }
-        return this.promotion.getValue();
+        return this.promotionSubject.getValue();
     }
 
     public initLivePromotion() {
-        this.promotion = new BehaviorSubject(<Promotion>{});
-        this.promotion.asObservable();
+        this.promotionSubject = new BehaviorSubject(<Promotion>{});
+        this.promotionSubject.asObservable();
     }
 
     public getForm(): FormGroup {
-        if (!this.promotionForm) {
-            console.log('No promotion form initialized');
-            console.log('Initializing...');
-            this.promotionForm = this.generatePromotionForm(this.getPromotion());
-        }
-        return this.promotionForm;
+        return this.generatePromotionForm(Promotion.EMPTY_MODEL);
     }
 
     public getFormControls(): any {
@@ -74,12 +69,12 @@ export class PromotionService {
     }
 
 
-    getAllPromotions(): Promotion[] {
+/*    getAllPromotions(): Promotion[] {
         this.carwashService.getPromotions().subscribe(
             promotions => this.promotions = promotions
         );
         return this.promotions;
-    }
+    }*/
 
 /*    updatePromotions(_promotions: Promotion[]): Observable<Promotion[]> {
         return this.http.put<Promotion[]>(this.promotionsUrl, _promotions);

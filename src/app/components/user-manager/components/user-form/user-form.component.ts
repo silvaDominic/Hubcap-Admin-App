@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {User} from '../../../../_shared/models/user.model';
 import {Role} from '../../../../_shared/models/role.model';
-import {Store} from '../../../store-manager/shared/models/store.model';
+import {Store} from '../../../../_shared/models/store.model';
 import {MatSnackBar} from '@angular/material';
 import {UsersService} from '../../../../_shared/services/users.service';
 import {PERMISSION_LEVEL} from '../../../../_shared/enums/PERMISSION_LEVEL.model';

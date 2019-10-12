@@ -1,10 +1,13 @@
 import {Component, Input} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {Store} from '../../shared/models/store.model';
-import {StoreHours} from '../../shared/models/store-hours.model';
-import {HoursException} from '../../shared/models/hours-exception.model';
-import {StoresService} from '../../../../_shared/services/stores.service';
+import {Store} from '../../../../_shared/models/store.model';
+import {StoreHours} from '../../../../_shared/models/store-hours.model';
+import {HoursException} from '../../../../_shared/models/hours-exception.model';
+import {StoreService} from '../../../../_shared/services/store.service';
 import {DAY} from '../../../../_shared/enums/DAY.model';
+import {Address} from '../../../../_shared/models/address.model';
+import {STATES} from '../../../../_shared/enums/STATES.model';
+import {CARWASH_TYPE} from '../../../../_shared/enums/CARWASH_TYPE.model';
 
 @Component({
   selector: 'app-store-form',
@@ -13,66 +16,19 @@ import {DAY} from '../../../../_shared/enums/DAY.model';
 })
 export class StoreFormComponent {
 
-    @Input() stores: Store[];
-    @Input() storeForm: FormGroup;
-    storeFormGroup: FormGroup;
+    storeForm: FormGroup;
     formExceptions: HoursException[];
 
-    vehicleKeys = StoresService.vehicleKeys;
-    dayKeys = StoresService.dayKeys;
+    E_DAY = DAY;
+    E_STATE_KEYS = Object.keys(STATES);
+    E_CARWASH_TYPE_KEYS = Object.keys(CARWASH_TYPE);
 
-    private static initStoreHours(dayEnum: DAY): StoreHours {
-        return new StoreHours(
-            dayEnum,
-            '',
-            ''
-        )
-    }
-
-    constructor(private storeService: StoresService) {
-        this.storeFormGroup = this.storeService.generateStoreForm(this.initStore());
+    constructor(private storeService: StoreService) {
+        this.storeForm = this.storeService.getForm();
         this.formExceptions = [];
     }
 
-    private initStore(): Store {
-        return new Store(
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            this.addStoreHours(),
-            [],
-            '',
-        );
-    }
-
-    private addStoreHours() {
-        const hours = [];
-        this.dayKeys.forEach(function(day) {
-            const dayEnum: DAY = DAY[day];
-            hours.push(StoreFormComponent.initStoreHours(dayEnum));
-        });
-        return hours;
-    }
-
-    createStore() {
-        const newStore = new Store(
-            '1124',
-            this.storeFormGroup.get('name').value,
-            this.storeFormGroup.get('address').value,
-            this.storeFormGroup.get('city').value,
-            this.storeFormGroup.get('state').value,
-            this.storeFormGroup.get('zip').value,
-            this.storeFormGroup.get('phoneNumber').value,
-            this.storeFormGroup.get('hoursOfOperation').value,
-            this.formExceptions,
-            this.storeFormGroup.get('website').value
-        );
-        this.stores.push(newStore);
-        this.storeFormGroup.reset();
-        console.log('New Store Created: ', newStore);
+    createStore(storeForm: FormGroup) {
+        this.storeService.createStore(storeForm);
     }
 }

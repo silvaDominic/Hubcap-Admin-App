@@ -1,2 +1,0 @@
-// Place common functions here
-

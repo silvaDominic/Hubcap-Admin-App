@@ -3,25 +3,20 @@
     <div class="store-form-container">
       <div class="card">
         <div class="card-header">
-          <div class="card-title text-center">
-            <h4>My Stores</h4>
-          </div>
           <div class="card-body">
             <div id="story-form-container">
               <div class="row">
                 <div class="col-md-12">
-                  <app-store-form [stores]="stores"></app-store-form>
+                  <app-store-form  *ngIf="!(storeService.store | async)"></app-store-form>
                 </div>
               </div>
             </div>
 
-            <hr>
-
-            <div *ngIf="stores">
-              <div class="store-list-container" *ngFor="let store of stores">
+            <div>
+              <div class="store-list-container" *ngIf="storeService.store | async">
                 <div class="row">
                   <div class="col-md-12">
-                    <app-store [thisStore]="store"></app-store>
+                    <app-store></app-store>
                   </div>
                 </div>
               </div>

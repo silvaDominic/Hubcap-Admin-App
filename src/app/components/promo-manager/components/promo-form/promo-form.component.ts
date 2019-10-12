@@ -59,7 +59,7 @@ export class PromoFormComponent implements OnInit {
 
     public ngOnInit(): void {
         // Initialize variables
-        this.promotionService.promotion.subscribe(promotion => this.promotion = promotion);
+        this.promotionService.promotionSubject.subscribe(promotion => this.promotion = promotion);
         this.allPackageItems = this.packageService.getAllPackageItems();
         this.initForm();
         console.log(this.promotion.discountPackages);

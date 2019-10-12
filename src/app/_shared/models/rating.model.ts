@@ -1,4 +1,12 @@
 export class Rating {
+
+    public static EMPTY_MODEL = <Rating>{
+        customerName: '',
+        score: 0,
+        review: '',
+        date: null
+    };
+
     constructor(public customerName: string,
                 public score: number,
                 public review: string,

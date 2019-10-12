@@ -8,4 +8,6 @@ export const environment = {
     api_url: 'http://localhost:4200',
     package_manager_path: '/assets/data/carwash.json',
     static_package_items_url: '/assets/data/all-package-items.json',
+    geolocation_base_url: 'https://maps.googleapis.com/maps/api/geocode/json',
+    GOOGLE_API_KEY: 'AIzaSyBmP-8g9b_1PsCHdNnlkThfMwLA1ADlrNU'
 };

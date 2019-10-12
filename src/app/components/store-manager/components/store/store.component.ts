@@ -1,29 +1,27 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Store} from '../../shared/models/store.model';
-import {StoresService} from '../../../../_shared/services/stores.service';
+import {Component, NgZone, OnInit} from '@angular/core';
+import {Store} from '../../../../_shared/models/store.model';
+import {StoreService} from '../../../../_shared/services/store.service';
+import {STATES} from '../../../../_shared/enums/STATES.model';
+import {FormGroup} from '@angular/forms';
+import {CARWASH_TYPE} from '../../../../_shared/enums/CARWASH_TYPE.model';
 
 @Component({
-  selector: 'app-store',
-  templateUrl: './store.component.html',
-  styleUrls: ['./store.component.scss']
+    selector: 'app-store',
+    templateUrl: './store.component.html',
+    styleUrls: ['./store.component.scss']
 })
 export class StoreComponent implements OnInit {
-  @Input() thisStore: Store;
+    E_STATE_KEYS = Object.keys(STATES);
+    E_CARWASH_TYPE_KEYS = Object.keys(CARWASH_TYPE);
 
-  vehicleKeys = StoresService.vehicleKeys;
-  dayKeys = StoresService.dayKeys;
+    address: Object;
 
-  constructor() { }
+    constructor(private readonly storeService: StoreService) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  updateStore(thisStore: Store) {
-    console.log(thisStore, ' updated');
-  }
-
-  deleteStore(thisStore: Store) {
-    console.log(thisStore, ' deleted');
-  }
-
+    updateStore(updatedStore: Store) {
+        this.storeService.updateStore(updatedStore);
+    }
 }

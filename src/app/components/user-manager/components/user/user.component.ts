@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Store} from '../../../store-manager/shared/models/store.model';
+import {Store} from '../../../../_shared/models/store.model';
 import {User} from '../../../../_shared/models/user.model';
 import {UsersService} from '../../../../_shared/services/users.service';
 import {PERMISSION_LEVEL} from '../../../../_shared/enums/PERMISSION_LEVEL.model';

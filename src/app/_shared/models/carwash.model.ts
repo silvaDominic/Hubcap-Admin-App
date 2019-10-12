@@ -4,33 +4,15 @@ import {Address} from './address.model';
 import {CarwashCoordinates} from './carwash-coordinates.model';
 import {Package} from './package.model';
 import {Promotion} from './promotion.model';
-import {HoursOfOperation} from '../../components/store-manager/shared/models/hours-of-operation.model';
+import {HoursOfOperation} from './hours-of-operation.model';
+import {Store} from './store.model';
 
 export class Carwash {
 
-
     constructor(
-    private _id: string,
-    public name: string,
-    public type: CARWASH_TYPE,
-    public ratings: Rating[],
-    public address: Address,
-    private _coordinates: CarwashCoordinates,
-    public promotions: Promotion[],
-    public washPackages: Package[],
-    public detailPackages: Package[],
-    public hoursOfOperation: HoursOfOperation) {
-    }
-
-    public getId(): string {
-        return this._id;
-    }
-
-    public get coordinates(): CarwashCoordinates {
-        return this._coordinates;
-    }
-
-    public set coordinates(value: CarwashCoordinates) {
-        this._coordinates = value;
-    }
+        public metaData: Store,
+        public promotions: Promotion[],
+        public washPackages: Package[],
+        public detailPackages: Package[]
+    ) {}
 }

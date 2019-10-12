@@ -25,13 +25,12 @@ export class UserService {
     constructor (
         private apiService: ApiService,
         private http: HttpClient,
-        private jwtService: JwtService,
-        private carWashService: CarwashService
+        private jwtService: JwtService
     ) {}
 
     // Verify JWT in localstorage with server & load user's info.
     // This runs once on application startup.
-    populate() {
+    public populate() {
         // If JWT detected, attempt to get & store user's info
         if (this.jwtService.getToken()) {
             console.log('getToken() returned something');
@@ -47,7 +46,7 @@ export class UserService {
         }
     }
 
-    setAuth(adminUser: AdminUser) {
+    public setAuth(adminUser: AdminUser) {
         // Save JWT sent from server in localstorage
         this.jwtService.saveToken(adminUser.token);
         // Set current user data into observable
@@ -56,7 +55,7 @@ export class UserService {
         this.isAuthenticatedSubject.next(true);
     }
 
-    purgeAuth() {
+    public purgeAuth() {
         // Remove JWT from localstorage
         this.jwtService.destroyToken();
         // Set current user to an empty object
@@ -65,7 +64,7 @@ export class UserService {
         this.isAuthenticatedSubject.next(false);
     }
 
-    attemptAuth(type, credentials): Observable<AdminUser> {
+    public attemptAuth(type, credentials): Observable<AdminUser> {
         const route = (type === 'login') ? '/login' : '';
         return this.apiService.post('/users' + route, new HttpParams(), new HttpHeaders(), {adminUser: credentials})
             .map(
@@ -77,13 +76,17 @@ export class UserService {
     }
 
     // Update the user on the server (email, pass, etc)
-    update(adminUser): Observable<AdminUser> {
+    public update(adminUser): Observable<AdminUser> {
         return this.apiService
-            .put('/user', { adminUser })
+            .put('/user', new HttpParams().set(adminUser, adminUser)) // TODO Look into this
             .map(data => {
                 // Update the currentUser observable
                 this.currentUserSubject.next(data.adminUser);
                 return data.adminUser;
             });
+    }
+
+    public getToken(): string {
+        return this.currentUserSubject.getValue().token;
     }
 }

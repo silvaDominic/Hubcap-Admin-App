@@ -1,4 +1,10 @@
 export class CarwashCoordinates {
+
+    public static EMPTY_MODEL = <CarwashCoordinates>{
+        latitude: '',
+        longitude: ''
+    };
+
     constructor(private _latitude: string,
                 private _longitude: string) {}
 

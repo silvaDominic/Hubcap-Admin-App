@@ -23,11 +23,11 @@
     <div class="row">
         <div class="col-md-12">
             <div class="package-header">
-                <div *ngIf="">
+                <div *ngIf="packageService.checkIsMonthly()">
                     <strong><h4>Monthly</h4></strong>
                     <img src="./assets/icons/icon-calendar-hollow.svg" alt="">
                 </div>
-                <div>
+                <div *ngIf="!packageService.checkIsMonthly()">
                     <strong><h4>One-Time</h4></strong>
                     <img src="./assets/icons/icon-repeat-one.svg" alt="">
                 </div>
@@ -50,10 +50,10 @@
     <div id="action-row-wrapper">
         <div class="row action-row">
             <button mat-button>Update</button>
-            <button mat-button>Switch to Monthly</button>
+            <button mat-button [disabled]="!packageService.checkIsMonthly()" (click)="packageService.toggleIsMonthly()">Switch to Monthly</button>
         </div>
         <div class="row action-row">
-            <button id="delete-button" mat-flat-button color="warn">Delete</button>
+            <button id="delete-button" mat-button>Delete</button>
         </div>
     </div>
 </div>

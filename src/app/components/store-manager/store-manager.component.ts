@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Store} from './shared/models/store.model';
-import {StoresService} from '../../_shared/services/stores.service';
+import {StoreService} from '../../_shared/services/store.service';
 
 @Component({
     selector: 'app-store-manager',
@@ -9,18 +8,9 @@ import {StoresService} from '../../_shared/services/stores.service';
 })
 export class StoreManagerComponent implements OnInit {
 
-    stores: Store[];
-    error: string;
-
-    constructor(private readonly storesService: StoresService) { }
+    constructor(private readonly storeService: StoreService) { }
 
     ngOnInit() {
-        // this.getAllStores();
     }
 
-/*    getAllStores() {
-        this.storesService.fetchAllStores()
-            .subscribe(stores => this.stores = stores,
-                error => this.error = error);
-    }*/
 }

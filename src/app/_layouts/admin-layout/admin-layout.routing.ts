@@ -28,7 +28,7 @@ export const layoutRoutes: Routes = [
         component: ScheduleManagerComponent
     },
     {
-        path: 'store',
+        path: 'store-manager',
         component: StoreManagerComponent
     },
     {

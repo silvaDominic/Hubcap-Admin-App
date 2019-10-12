@@ -3,8 +3,14 @@ import {DISCOUNT_TYPE} from '../enums/DISCOUNT_TYPE.model';
 
 export class Discount {
 
-    constructor(public discountType: DISCOUNT_TYPE = DISCOUNT_TYPE.PERCENT,
-                public discountAmount: number = null,
-                public discountFeatures: PackageItem[] = []) {
+    public static EMPTY_MODEL = <Discount>{
+        discountType: null,
+        discountAmount: null,
+        discountFeatures: []
+    };
+
+    constructor(public discountType: DISCOUNT_TYPE,
+                public discountAmount: number,
+                public discountFeatures: PackageItem[]) {
     }
 }

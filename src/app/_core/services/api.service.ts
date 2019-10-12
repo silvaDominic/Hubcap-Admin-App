@@ -17,12 +17,18 @@ export class ApiService {
         return  throwError(error.error);
     }
 
+
     get<T>(path: string, httpParams: HttpParams = new HttpParams(), httpHeaders: HttpHeaders = new HttpHeaders()): Observable<any> {
         return this.http.get(`${environment.api_url}${path}`, { params: httpParams, headers: httpHeaders })
             .pipe(catchError(this.formatErrors));
     }
 
-    put(path: string, body: Object = {}): Observable<any> {
+/*    get<T>(path: string, httpParams: HttpParams = new HttpParams(), httpHeaders: HttpHeaders = new HttpHeaders()): Observable<any> {
+        return this.http.get(`${path}`, { params: httpParams, headers: httpHeaders })
+            .pipe(catchError(this.formatErrors));
+    }*/
+
+    put(path: string, httpParams: HttpParams = new HttpParams(), httpHeaders: HttpHeaders = new HttpHeaders(), body: Object = {}): Observable<any> {
         return this.http.put(
             `${environment.api_url}${path}`,
             JSON.stringify(body)

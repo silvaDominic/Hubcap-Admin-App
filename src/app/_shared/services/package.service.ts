@@ -4,19 +4,11 @@ import {CarwashService} from './carwash.service';
 import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
 import {Package} from '../models/package.model';
 import {PackageItem} from '../models/package.item.model';
-import {Carwash} from '../models/carwash.model';
-import {Rating} from '../models/rating.model';
-import {Promotion} from '../models/promotion.model';
-import {Address} from '../models/address.model';
-import {CarwashCoordinates} from '../models/carwash-coordinates.model';
-import {Discount} from '../models/discount.model';
-import {StoreHours} from '../../components/store-manager/shared/models/store-hours.model';
-import {HoursException} from '../../components/store-manager/shared/models/hours-exception.model';
-import {HoursOfOperation} from '../../components/store-manager/shared/models/hours-of-operation.model';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {pluck} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {VEHICLE_TYPE} from '../enums/VEHICLE_TYPE.model';
+import {Utilities} from '../utilities';
 
 
 @Injectable({
@@ -29,6 +21,7 @@ export class PackageService {
     private readonly _package: Observable<Package> = this.packageSubject.asObservable();
     private readonly _packages: Observable<Package[]> = this.packagesSubject.asObservable();
     public creatingNewPackage = false;
+    public isMonthly = false;
 
     private currentPackageIndex: number;
     public serviceReady: boolean;
@@ -53,7 +46,7 @@ export class PackageService {
                 this.packageSubject.next(packages[this.currentPackageIndex]);
                 console.log('_LOADING PACKAGES COMPLETE_');
                 this.serviceReady = true;
-                console.log('CURRENT PACKAGE: ', this._package);
+                console.log('CURRENT PACKAGE: ', this.packageSubject.getValue());
             }
         );
     }
@@ -91,13 +84,26 @@ export class PackageService {
         );
     }
 
-    public isMonthly(): boolean {
-        return false;
+    // TODO Fix the monthly logic
+    // Check whether monthly prices has any values
+    public checkIsMonthly(): boolean {
+        this.isMonthly = this.packageSubject.getValue().monthlyPrices[VEHICLE_TYPE.REGULAR] !== null;
+        return this.isMonthly;
+    }
+
+    public toggleIsMonthly() {
+        this.isMonthly = !this.isMonthly;
     }
 
     initNewPackage(): void {
         this.creatingNewPackage = true;
-        this.packageSubject.next(Package.EMPTY_MODEL)
+        this.packageSubject.next(new Package(Package.EMPTY_MODEL.name,
+            Package.EMPTY_MODEL.type,
+            Package.EMPTY_MODEL.oneTimePrices,
+            Package.EMPTY_MODEL.packageItems,
+            Package.EMPTY_MODEL.duration,
+            Package.EMPTY_MODEL.monthlyPrices));
+        console.log(this.packageSubject.getValue());
     }
 
     createPackage(packageForm: FormGroup): void {
@@ -148,7 +154,7 @@ export class PackageService {
         return this.allPackageItems;
     }
 
-    /* --------------------- UTIL METHODS (From Carwash Service) ------------------------- */
+    /* --------------------- UTIL METHODS ------------------------- */
 
     private generatePackageForm(_package: Package): FormGroup {
         return this.fb.group({

@@ -8,6 +8,21 @@ import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
 
 export class Promotion {
 
+    public static EMPTY_MODEL = <Promotion>{
+        id: '',
+        name: '',
+        description: '',
+        serviceType: null,
+        frequencyType: null,
+        frequency: null,
+        startDate: null,
+        endDate: null,
+        discountPackages: [],
+        discount: Discount.EMPTY_MODEL,
+        startTime: '',
+        endTime: ''
+    };
+
     constructor(public id: string, public name: string, public description: string,
                 public serviceType: SERVICE_TYPE, public frequencyType: FREQUENCY_TYPE,
                 public frequency: FREQUENCY, public startDate: Date, public endDate: Date,

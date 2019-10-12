@@ -6,6 +6,7 @@
     "types": []
   },
   "include": [
+    "typings/*.d.ts",
     "*/**/*.ts",
     "*.ts"
   ],

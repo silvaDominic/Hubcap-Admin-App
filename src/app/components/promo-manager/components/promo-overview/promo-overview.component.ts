@@ -29,6 +29,6 @@ export class PromoOverviewComponent implements OnInit {
 
     ngOnInit() {
         // Initialize promotion with Live Promotion
-        this.promotionService.promotion.subscribe(promotion => this.promotion = promotion);
+        this.promotionService.promotionSubject.subscribe(promotion => this.promotion = promotion);
     }
 }

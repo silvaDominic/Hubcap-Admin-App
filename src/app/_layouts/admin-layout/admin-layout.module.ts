@@ -60,7 +60,7 @@ import {CoreModule} from '../../_core/core.module';
         ScheduleManagerComponent,
         AppointmentFormComponent,
         AppointmentComponent,
-        QrScannerManagerComponent
+        QrScannerManagerComponent,
     ],
     exports: [
     ],

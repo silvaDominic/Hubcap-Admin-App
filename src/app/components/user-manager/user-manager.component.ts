@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from '../../_shared/models/user.model';
-import {Store} from '../store-manager/shared/models/store.model';
+import {Store} from '../../_shared/models/store.model';
 import {UsersService} from '../../_shared/services/users.service';
-import {StoresService} from '../../_shared/services/stores.service';
+import {StoreService} from '../../_shared/services/store.service';
 
 @Component({
   selector: 'app-user-manager',
@@ -15,7 +15,7 @@ export class UserManagerComponent implements OnInit {
 
     error: string;
 
-  constructor(private usersService: UsersService, private storesService: StoresService) { }
+  constructor(private usersService: UsersService, private storesService: StoreService) { }
 
     ngOnInit() {
         this.getAllUsers()
