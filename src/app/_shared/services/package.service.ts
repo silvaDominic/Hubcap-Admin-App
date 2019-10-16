@@ -4,11 +4,12 @@ import {CarwashService} from './carwash.service';
 import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
 import {Package} from '../models/package.model';
 import {PackageItem} from '../models/package.item.model';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 import {pluck} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {VEHICLE_TYPE} from '../enums/VEHICLE_TYPE.model';
 import {Utilities} from '../utilities';
+import {CONSTANTS} from '../CONSTANTS';
 
 
 @Injectable({
@@ -17,9 +18,9 @@ import {Utilities} from '../utilities';
 export class PackageService {
     private packageSubject = new BehaviorSubject<Package>(<Package>{});
     private packagesSubject = new BehaviorSubject<Package[]>(<Package[]>[]);
-    private readonly allPackageItems: PackageItem[] = [];
     private readonly _package: Observable<Package> = this.packageSubject.asObservable();
     private readonly _packages: Observable<Package[]> = this.packagesSubject.asObservable();
+    private readonly _allPackageItems = of(new Array<PackageItem>());
     public creatingNewPackage = false;
     public isMonthly = false;
 
@@ -27,26 +28,35 @@ export class PackageService {
     public serviceReady: boolean;
 
     constructor(private carwashService: CarwashService, private readonly fb: FormBuilder) {
-        this.allPackageItems = carwashService.getAllPackageItems();
+        this._allPackageItems = carwashService.getAllPackageItems();
+        this.currentPackageIndex = 0;
         this.loadPackages(SERVICE_TYPE.WASH);
-        this.currentPackageIndex = 1;
-    }
-
-    public getForm(): FormGroup {
-        return this.generatePackageForm(Package.EMPTY_MODEL);
     }
 
     // Initializes packages and package items
-    public loadPackages(type: SERVICE_TYPE) {
+    public loadPackages(type: SERVICE_TYPE): void {
         this.serviceReady = false;
         console.log('_LOADING PACKAGES_');
         this.carwashService.getAllPackages(type).subscribe(
             packages => {
-                this.packagesSubject.next(packages);
-                this.packageSubject.next(packages[this.currentPackageIndex]);
-                console.log('_LOADING PACKAGES COMPLETE_');
-                this.serviceReady = true;
-                console.log('CURRENT PACKAGE: ', this.packageSubject.getValue());
+                if (packages != null || undefined) {
+                    console.log('Package Array VALID', packages);
+                    this.packagesSubject.next(packages);
+                    if (packages[this.currentPackageIndex] != null || undefined) {
+                        this.packageSubject.next(packages[this.currentPackageIndex]);
+                        console.log('_LOADING PACKAGES COMPLETE_');
+                        this.serviceReady = true;
+                        console.log('CURRENT PACKAGE: ', this.packageSubject.getValue());
+                    } else {
+                        console.log('Package Invalid', packages[this.currentPackageIndex]);
+                        this.packageSubject.next(Package.EMPTY_MODEL);
+                        this.serviceReady = true;
+                        this.creatingNewPackage = true;
+                    }
+
+                } else {
+                    console.log('_NO PACKAGES FOUND_');
+                }
             }
         );
     }
@@ -63,7 +73,11 @@ export class PackageService {
         return this._packages;
     }
 
-    public setPackage(index: number) {
+    get allPackageItems(): Observable<PackageItem[]> {
+        return this._allPackageItems;
+    }
+
+    public setPackage(index: number): void {
         if (index !== this.currentPackageIndex) {
             console.log('_SET PACKAGE_');
             this.currentPackageIndex = index;
@@ -78,46 +92,52 @@ export class PackageService {
         this.loadPackages(type);
     }
 
-    public getPackageItems(): Observable<PackageItem[]> {
-        return this._package.pipe(
-            pluck('packageItems')
-        );
+    public getPackageArrayLength(): number {
+        return this.packagesSubject.getValue().length;
     }
 
     // TODO Fix the monthly logic
     // Check whether monthly prices has any values
     public checkIsMonthly(): boolean {
-        this.isMonthly = this.packageSubject.getValue().monthlyPrices[VEHICLE_TYPE.REGULAR] !== null;
-        return this.isMonthly;
+        // this.isMonthly = this.packageSubject.getValue().monthlyPrices[VEHICLE_TYPE.REGULAR] !== null;
+        // return this.isMonthly;
+        return false;
     }
 
+    // TODO Fix the monthly logic
     public toggleIsMonthly() {
         this.isMonthly = !this.isMonthly;
     }
 
     initNewPackage(): void {
         this.creatingNewPackage = true;
-        this.packageSubject.next(new Package(Package.EMPTY_MODEL.name,
-            Package.EMPTY_MODEL.type,
-            Package.EMPTY_MODEL.oneTimePrices,
-            Package.EMPTY_MODEL.packageItems,
-            Package.EMPTY_MODEL.duration,
-            Package.EMPTY_MODEL.monthlyPrices));
+        this.packageSubject.next(
+            new Package(
+                Package.EMPTY_MODEL.id,
+                Package.EMPTY_MODEL.name,
+                Package.EMPTY_MODEL.type,
+                Package.EMPTY_MODEL.oneTimePrices,
+                Package.EMPTY_MODEL.packageItems,
+                Package.EMPTY_MODEL.duration,
+                Package.EMPTY_MODEL.monthlyPrices
+            )
+        );
         console.log(this.packageSubject.getValue());
     }
 
-    createPackage(packageForm: FormGroup): void {
+    createPackage(packageForm: FormGroup): number {
         // Instantiate and initialize temp variables for One Time and Monthly price maps
         const oneTimePrices = new Map<VEHICLE_TYPE, number>();
         oneTimePrices.set(VEHICLE_TYPE.REGULAR, packageForm.get('pricingFormGroup.oneTimeRegularPrice').value);
         oneTimePrices.set(VEHICLE_TYPE.OVERSIZED, packageForm.get('pricingFormGroup.oneTimeOverSizedPrice').value);
 
         const monthlyPrices = new Map<VEHICLE_TYPE, number>();
-        monthlyPrices.set(VEHICLE_TYPE.REGULAR, packageForm.get('pricingFormGroup.monthlyOverSizedPrice').value);
+        monthlyPrices.set(VEHICLE_TYPE.REGULAR, packageForm.get('pricingFormGroup.monthlyRegularPrice').value);
         monthlyPrices.set(VEHICLE_TYPE.OVERSIZED, packageForm.get('pricingFormGroup.monthlyOverSizedPrice').value);
 
         // Instantiate new Package
         const newPackage = new Package(
+            null,
             packageForm.get('nameFormGroup.name').value,
             SERVICE_TYPE.WASH,
             oneTimePrices,
@@ -128,33 +148,34 @@ export class PackageService {
 
         console.log('Creating new package: ', newPackage);
 
-        // Update packages array subject
-        const currentValue = this.packagesSubject.value;
-        const updatedValue = [...currentValue, newPackage];
-        this.packagesSubject.next(updatedValue);
+        // Update package subjects AND packages array
+        this.packageSubject.next(newPackage);
+
+        const currentPackagesArrayValue = this.packagesSubject.getValue();
+        this.packagesSubject.next([...currentPackagesArrayValue, newPackage]);
+
+        // Returns the last index of the array
+        return this.getPackageArrayLength() - 1;
     }
 
-/*    get displayPackages(): Map<PackageItem, boolean> {
-        return this._displayPackages;
-    }*/
+    savePackage(packageToPost: Package) {
+        this.carwashService.postNewPackage(packageToPost);
+    }
 
-/*    public resetDisplayPackages(): void {
-        // Fill list of display packages
-        for (const item of this.allPackageItems) {
-            this.displayPackages.set(item, false);
-        }
-    }*/
-
-/*    setDisplayPackage(packageItem: PackageItem, selected: boolean) {
-        this._displayPackages.set(packageItem, selected);
-    }*/
+    savePackageArray(packageArrayToPost: Package[]) {
+        this.carwashService.postNewPackageArray(packageArrayToPost);
+    }
 
     // Static list of packages
-    public getAllPackageItems(): PackageItem[] {
+    public getAllPackageItems(): Observable<PackageItem[]> {
         return this.allPackageItems;
     }
 
-    /* --------------------- UTIL METHODS ------------------------- */
+    /* --------------------- FORM METHODS ------------------------- */
+
+    public getForm(): FormGroup {
+        return this.generatePackageForm(Package.EMPTY_MODEL);
+    }
 
     private generatePackageForm(_package: Package): FormGroup {
         return this.fb.group({

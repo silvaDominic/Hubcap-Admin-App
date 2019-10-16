@@ -14,11 +14,15 @@ export class PromoManagerComponent implements OnInit {
     constructor(private readonly promotionService: PromotionService, private readonly carwashService: CarwashService) {}
 
     ngOnInit() {
-        this.promotionService.stageTemplatePromotion();
-
+        console.log('promo-manager init');
+        // this.promotionService.stageTemplatePromotion();
     }
 
-    public setFocusPromotion(id: string) {
-        this.promotionService.stagePromotion(id);
+    public setFocusPromotion(index: number) {
+        this.promotionService.setPromotion(index);
+    }
+
+    public setFocusPromotionById(id: string) {
+        this.promotionService.setPromotionById(id);
     }
 }

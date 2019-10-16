@@ -1,4 +1,3 @@
-import {WASH_PACKAGE} from '../enums/WASH_PACKAGE.model';
 import {VEHICLE_TYPE} from '../enums/VEHICLE_TYPE.model';
 
 export class Appointment {
@@ -9,7 +8,7 @@ export class Appointment {
                 public dropOffTime: string,
                 public pickUpTime: string,
                 public vehicleType: VEHICLE_TYPE,
-                public packageName: WASH_PACKAGE,
+                public packageName: string,
                 public isHCclient: boolean,
                 public phoneNumber?: string,
                 public email?: string) {}

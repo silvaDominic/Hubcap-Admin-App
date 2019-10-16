@@ -81,10 +81,11 @@
     },
     "promotions": [
         {
+            "id": "1357",
             "name": "Early Bird Special",
             "description": "Get a 10% discount when coming in between 8:00AM and 10:00AM",
+            "serviceType": "WASH",
             "frequencyType": "ONE_TIME",
-            "packageType": "WASH",
             "frequency": null,
             "startDate": "2019-03-15",
             "endDate": "2019-04-15",
@@ -100,13 +101,15 @@
                 "discountFeatures": [""]
             },
             "startTime": "08:00",
-            "endTime": "10:00"
+            "endTime": "10:00",
+            "isActive": true
         },
         {
+            "id": "1227",
             "name": "Late Night Special",
             "description": "Get a 5% discount when coming in between 6:00PM and 8:00PM",
+            "serviceType": "WASH",
             "frequencyType": "REOCCURRING",
-            "packageType": "WASH",
             "frequency": "WEEKLY",
             "startDate": "2019-07-15",
             "endDate": "2019-08-31",
@@ -120,13 +123,15 @@
                 "discountFeatures": ["Window Clean"]
             },
             "startTime": "18:00",
-            "endTime": "20:00"
+            "endTime": "20:00",
+            "isActive": true
         },
         {
+            "id": "2356",
             "name": "Ladies Day",
             "description": "Ladies get a dollar off",
+            "serviceType": "WASH",
             "frequencyType": "REOCCURRING",
-            "packageType": "WASH",
             "frequency": "DAILY",
             "startDate": "2018-01-01",
             "endDate": "2018-12-31",
@@ -141,175 +146,17 @@
                 "discountFeatures": [""]
             },
             "startTime": "8:00",
-            "endTime": "17:00"
+            "endTime": "17:00",
+            "isActive": false
         }
     ],
-    "washPackages": [
-        {
-            "type": "WASH",
-            "name": "Silver",
-            "oneTimePrices": {"REGULAR": 8, "OVERSIZED":  14},
-            "monthlyPrices": {"REGULAR": 40, "OVERSIZED":  70},
-            "packageItems": [
-                {
-                    "name": "Wash",
-                    "itemType": "EXTERIOR",
-                    "selectedSubOptions": [],
-                    "subOptions" : [
-                        "Soft Touch",
-                        "Touch Free",
-                        "Hand Wash"
-                    ]
-                },
-                {
-                    "name": "Dry",
-                    "itemType": "EXTERIOR",
-                    "selectedSubOptions": [],
-                    "subOptions" : [
-                        "Machine Dry",
-                        "Hand Dry"
-                    ]
-                },
-                {
-                    "name": "Tire & Wheel Clean",
-                    "itemType": "EXTERIOR",
-                    "selectedSubOptions": [],
-                    "subOptions": []
-                }
-            ],
-            "duration": 0,
-            "isUnlimitedMonthly": false,
-            "monthlyUses": 5
-        },
-        {
-            "type": "WASH",
-            "name": "Gold",
-            "oneTimePrices": {"REGULAR": 12, "OVERSIZED":  20},
-            "monthlyPrices": {"REGULAR": 50, "OVERSIZED":  80},
-            "packageItems": [
-                {
-                    "name": "Wash",
-                    "itemType": "EXTERIOR",
-                    "selectedSubOptions": [],
-                    "subOptions" : [
-                        "Soft Touch",
-                        "Touch Free",
-                        "Hand Wash"
-                    ]
-                },
-                {
-                    "name": "Dry",
-                    "itemType": "EXTERIOR",
-                    "selectedSubOptions": [],
-                    "subOptions" : [
-                        "Machine Dry",
-                        "Hand Dry"
-                    ]
-                },
-                {
-                    "name": "Tire & Wheel Clean",
-                    "itemType": "EXTERIOR",
-                    "selectedSubOptions": [],
-                    "subOptions": []
-                },
-                {
-                    "name": "Windows Wiped",
-                    "itemType": "INTERIOR",
-                    "selectedSubOptions": [],
-                    "subOptions": []
-                },
-                {
-                    "name": "Full Interior Vacuum",
-                    "itemType": "INTERIOR",
-                    "selectedSubOptions": [],
-                    "subOptions": []
-                }
-            ],
-            "duration": 0,
-            "isUnlimitedMonthly": false,
-            "monthlyUses": 8
-        },
-        {
-            "type": "WASH",
-            "name": "Platinum",
-            "oneTimePrices": {"REGULAR": 8, "OVERSIZED":  14},
-            "monthlyPrices": {"REGULAR": 60, "OVERSIZED":  90},
-            "packageItems": [
-                {
-                    "name": "Wash",
-                    "itemType": "EXTERIOR",
-                    "selectedSubOptions": [],
-                    "subOptions" : [
-                        "Soft Touch",
-                        "Touch Free",
-                        "Hand Wash"
-                    ]
-                },
-                {
-                    "name": "Dry",
-                    "itemType": "EXTERIOR",
-                    "selectedSubOptions": [],
-                    "subOptions" : [
-                        "Machine Dry",
-                        "Hand Dry"
-                    ]
-                },
-                {
-                    "name": "Tire & Wheel Clean",
-                    "itemType": "EXTERIOR",
-                    "selectedSubOptions": [],
-                    "subOptions": []
-                },
-                {
-                    "name": "Tire & Wheel Shine",
-                    "itemType": "EXTERIOR",
-                    "selectedSubOptions": [],
-                    "subOptions": []
-                },
-                {
-                    "name": "Exterior Gloss/Car Shine",
-                    "itemType": "EXTERIOR",
-                    "selectedSubOptions": [],
-                    "subOptions": [
-                        "Hot Wax",
-                        "Clear Coat Protectant",
-                        "Blue Coral Pink Spray Wax",
-                        "Body Gloss",
-                        "Shine Wax",
-                        "Buff 'N Shine",
-                        "Hand Applied Liquid Wax",
-                        "Liquid Diamond Body Gloss",
-                        "Carnauba Hot Wax",
-                        "Triple Foam Wax",
-                        "Lava Shine",
-                        "Hot Wax and Shine",
-                        "Exterior Body Shine",
-                        "Hot Bubble Wax"
-                    ]
-                },
-                {
-                    "name": "Windows Wiped",
-                    "itemType": "INTERIOR",
-                    "selectedSubOptions": [],
-                    "subOptions": []
-                },
-                {
-                    "name": "Full Interior Vacuum",
-                    "itemType": "INTERIOR",
-                    "selectedSubOptions": [],
-                    "subOptions": []
-                }
-            ],
-            "duration": 0,
-            "isUnlimitedMonthly": true,
-            "monthlyUses": null
-        }
-    ],
+    "washPackages": [],
     "detailPackages": [
         {
+            "id": "0012",
             "type": "DETAIL",
             "name": "Interior",
-            "onetimePrices": {"REGULAR": 80, "OVERSIZED":  140},
+            "oneTimePrices": {"REGULAR": 80, "OVERSIZED":  140},
             "monthlyPrices": {"REGULAR": 40, "OVERSIZED":  70},
             "packageItems": [
                 {
@@ -388,13 +235,13 @@
                 }
             ],
             "duration": 2,
-            "isUnlimitedMonthly": null,
             "monthlyUses": null
         },
         {
+            "id": "0013",
             "type": "DETAIL",
             "name": "Exterior",
-            "onetimePrices": {"REGULAR": 8, "OVERSIZED":  14},
+            "oneTimePrices": {"REGULAR": 8, "OVERSIZED":  14},
             "monthlyPrices": {"REGULAR": 40, "OVERSIZED":  70},
             "packageItems": [
                 {
@@ -494,13 +341,13 @@
                 }
             ],
             "duration": 3,
-            "isUnlimitedMonthly": null,
             "monthlyUses": null
         },
         {
+            "id": "0014",
             "type": "DETAIL",
             "name": "Complete",
-            "onetimePrices": {"REGULAR": 8, "OVERSIZED":  14},
+            "oneTimePrices": {"REGULAR": 8, "OVERSIZED":  14},
             "monthlyPrices": {"REGULAR": 40, "OVERSIZED":  70},
             "packageItems": [
                 {
@@ -655,7 +502,6 @@
                 }
             ],
             "duration": 4,
-            "isUnlimitedMonthly": null,
             "monthlyUses": null
         }
     ]

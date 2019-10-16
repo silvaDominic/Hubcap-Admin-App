@@ -25,7 +25,7 @@
     <!-------------------- PACKAGE FORM ---------------------->
 
     <form #packageOptionsForm="ngForm" name="packageOptionsForm" autocomplete="off">
-        <div *ngIf="!packageService.creatingNewPackage">
+        <div *ngIf="packageService.creatingNewPackage == false">
             <div class="row">
                 <div class="col-md-6">
                     <div class="price-container">
@@ -42,7 +42,7 @@
                         <div class="form-group">
                             <label for="time">Duration (In Minutes)</label>
                             <input type="text" class="form-control" id="time" required name="estimatedTime"
-                                   (input)="focusPackage.name = $event.target.value">
+                                   [(ngModel)]="focusPackage.duration">
                         </div>
                     </div>
                 </div>
@@ -51,9 +51,7 @@
                         <div class="form-group">
                             <label for="price">Price</label>
                             <input type="text" class="form-control" id="price" required name="price"
-                                   [(ngModel)]="focusPackage.oneTimePrices[E_VEHICLE_TYPE.REGULAR]">
-                            <input *ngIf="" type="text" class="form-control" id="price" required name="price"
-                                   (input)="focusPackage.monthlyPrices[E_VEHICLE_TYPE.REGULAR] = $event.target.value">
+                                   [(ngModel)]="focusPackage?.oneTimePrices[E_VEHICLE_TYPE.REGULAR]">
                         </div>
                     </div>
                 </div>
@@ -98,7 +96,7 @@
 
     <!-------------------- NEW PACKAGE FORM ---------------------->
 
-    <form *ngIf="packageService.creatingNewPackage" [formGroup]="packageForm" novalidate>
+    <form *ngIf="packageService.creatingNewPackage == true" [formGroup]="packageForm" novalidate>
         <mat-horizontal-stepper id="pacakge-form-stepper" class="custom-class" linear="true">
             <mat-step id="name" label="Name">
                 <div formGroupName="nameFormGroup">
@@ -219,7 +217,7 @@
 
                     <button mat-button matStepperPrevious type="button">Back</button>
                     <button type="submit" mat-raised-button color="primary"
-                            (click)="packageService.createPackage(packageForm)">Create Package
+                            (click)="createPackage(packageForm)">Create Package
                     </button>
                 </div>
             </mat-step>

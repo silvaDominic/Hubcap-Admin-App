@@ -3,9 +3,10 @@ import {HttpClient} from '@angular/common/http';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CarwashService} from './carwash.service';
 import {CONSTANTS} from '../CONSTANTS';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 import {Discount} from '../models/discount.model';
 import {Promotion} from '../models/promotion.model';
+import {PackageItem} from '../models/package.item.model';
 
 @Injectable({
     providedIn: 'root'
@@ -13,86 +14,124 @@ import {Promotion} from '../models/promotion.model';
 export class PromotionService {
 
     // public promotion: Promotion;
-    public promotionSubject: BehaviorSubject<Promotion>;
-    public promotionForm: FormGroup;
-    public promotions: Promotion[];
+    private promotionSubject = new BehaviorSubject<Promotion>(<Promotion>{});
+    private promotionsSubject = new BehaviorSubject<Promotion[]>(<Promotion[]>[]);
+    public _promotions = this.promotionsSubject.asObservable();
+    public _promotion = this.promotionSubject.asObservable();
+    private readonly _allPackageItems = of(new Array<PackageItem>());
+
+    private currentPromotionIndex = 0;
+    private currentPromotionId: string = null;
+    public serviceReady = false;
 
     constructor(
         private readonly fb: FormBuilder,
         private readonly http: HttpClient,
         private readonly carwashService: CarwashService
-    ) {}
+    ) {
+        this._allPackageItems = carwashService.getAllPackageItems();
+        this.loadPromotions();
+    }
 
-    public stagePromotion(id: string) {
-        for (const promotion of this.promotions) {
-            if (promotion.id === id) {
-                this.promotionSubject = new BehaviorSubject(promotion);
-            } else {
-                console.log('Promo with id: ', id + ' not found!');
-                console.log('Possible incorrect Promo Id');
+    public loadPromotions(): void {
+        this.serviceReady = false;
+        console.log('_LOADING PROMOTIONS_');
+        this.carwashService.getPromotionsArray().subscribe(
+            promotions => {
+                if (promotions !== null || undefined) {
+                    this.promotionsSubject.next(promotions);
+                    this.promotionSubject.next(promotions[this.currentPromotionIndex]);
+                    // this.currentPromotionId = this.promotionSubject.getValue().id;
+                    this.serviceReady = true;
+                    console.log('_LOADING PROMOTIONS COMPLETE_');
+                    console.log('CURRENT PROMOTION: ', this.promotionSubject.getValue());
+                } else {
+                    console.log('_NO PROMOTIONS FOUND_');
+                }
             }
+        );
+    }
+
+    public get promotion(): Observable<Promotion> {
+        if (!this._promotion) {
+            console.log('Promotion is null');
+            this.loadPromotions();
+        }
+        return this._promotion;
+    }
+
+    public get promotions(): Observable<Promotion[]> {
+        if (!this._promotions) {
+            console.log('Promotion array is null');
+            this.loadPromotions();
+        }
+        return this._promotions;
+    }
+
+    get allPackageItems(): Observable<PackageItem[]> {
+        return this._allPackageItems;
+    }
+
+    public setPromotion(index: number): void {
+        if (index !== this.currentPromotionIndex) {
+            console.log('_SET PROMOTION_');
+            this.currentPromotionIndex = index;
+            this.promotionSubject.next(this.promotionsSubject.getValue()[index]); // TODO Check if the Observable should be loaded instead
+        } else {
+            return;
         }
     }
 
+    public setPromotionById(id: string): void {
+        if (id !== this.currentPromotionId) {
+            console.log('_SET PROMOTION BY ID_');
+            this.currentPromotionId = id;
+            this.promotionsSubject.getValue().filter(
+                (promotion) => {
+                    if (promotion.id === this.currentPromotionId) {
+                        this.promotionSubject.next(promotion);
+                    }
+                }
+            );
+        }
+    }
+
+    public toggleActive(id: string) {
+        console.log('_SET PROMOTION BY ID_');
+        const currentPromotionsArrayValue = this.promotionsSubject.getValue();
+        currentPromotionsArrayValue.filter(
+            (promotion) => {
+                if (promotion.id === id) {
+                    console.log('PROMO EXISTS: ', id);
+                    if (promotion.isActive) {
+                        promotion.isActive = false;
+                    } else if (!promotion.isActive) {
+                        promotion.isActive = true;
+                    }
+                    return;
+                } else {
+                    console.log('NO PROMO EXISTS: ', id);
+                }
+            }
+        );
+        this.promotionsSubject.next([...currentPromotionsArrayValue]);
+    }
+
     public stageTemplatePromotion(): void {
-        this.promotionSubject = new BehaviorSubject(CONSTANTS.PROMOTION_TEMPLATE);
+        this.promotionSubject.next(CONSTANTS.PROMOTION_TEMPLATE);
         // this.initLivePromotion();
         console.log('SELECTED PROMOTION: ', this.promotionSubject.getValue());
     }
 
-    // Returns the raw Promotion value
-    public getPromotion(): Promotion {
-        if (!this.promotionSubject) {
-            console.log('No promotion staged!');
-            console.log('Setting template');
-            this.stageTemplatePromotion();
-        }
-        return this.promotionSubject.getValue();
-    }
-
-    public initLivePromotion() {
-        this.promotionSubject = new BehaviorSubject(<Promotion>{});
-        this.promotionSubject.asObservable();
-    }
+    /* ----------------- FORM METHODS ------------------- */
 
     public getForm(): FormGroup {
         return this.generatePromotionForm(Promotion.EMPTY_MODEL);
     }
 
-    public getFormControls(): any {
-        if (!this.promotionForm) {
-            console.log('Cannot retrieve controls without first initializing form');
-            console.log('Initializing...');
-            this.getForm();
-        }
-        return this.promotionForm;
-    }
-
-
-/*    getAllPromotions(): Promotion[] {
-        this.carwashService.getPromotions().subscribe(
-            promotions => this.promotions = promotions
-        );
-        return this.promotions;
-    }*/
-
-/*    updatePromotions(_promotions: Promotion[]): Observable<Promotion[]> {
-        return this.http.put<Promotion[]>(this.promotionsUrl, _promotions);
-    }
-
-    updatePromotion(_promotion: Promotion): Observable<Promotion> {
-        return this.http.put<Promotion>(this.promotionsUrl, _promotion);
-    }
-
-    newPromotion(_promotion: Promotion): Observable<Promotion> {
-        return this.http.post<Promotion>(this.promotionsUrl, _promotion);
-    }*/
-
-    /* ----------------- FORM METHODS ------------------- */
-
     public generatePromotionForm(promotion: Promotion) {
         return this.fb.group( {
-            packageTypeFormGroup: this.generatePackageTypeFormGroup(promotion),
+            serviceTypeFormGroup: this.generateServiceTypeFormGroup(promotion),
             nameFormGroup: this.generateNameFormGroup(promotion),
             descriptionFormGroup: this.generateDescriptionFormGroup(promotion),
             frequencyFormGroup: this.generateFrequencyFormGroup(promotion),
@@ -102,9 +141,9 @@ export class PromotionService {
         });
     }
 
-    private generatePackageTypeFormGroup(promotion: Promotion): FormGroup {
+    private generateServiceTypeFormGroup(promotion: Promotion): FormGroup {
         return this.fb.group({
-            packageType: [promotion.serviceType, Validators.required],
+            serviceType: [promotion.serviceType, Validators.required],
         });
     }
 
@@ -158,21 +197,22 @@ export class PromotionService {
     public convertFormToModel(controls: any): Promotion {
         return new Promotion(
             this.generateId(),
-            controls.type,
             controls.name,
             controls.description,
+            controls.serviceType,
             controls.frequencyType,
             controls.frequency,
             controls.startDate,
             controls.endDate,
-            controls.serviceType,
+            controls.discountPackages,
             new Discount(
                 controls.discount.discountType,
                 controls.discount.discountAmount,
                 controls.discount.discountFeatures
             ),
             controls.startTime,
-            controls.endTime
+            controls.endTime,
+            false
         );
     }
 }

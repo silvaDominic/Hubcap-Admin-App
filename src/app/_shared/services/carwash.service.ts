@@ -17,6 +17,7 @@ import {map, pluck, tap} from 'rxjs/operators';
 import {Store} from '../models/store.model';
 import {CONSTANTS} from '../CONSTANTS';
 import {UserService} from '../../_core/services/user.service';
+import {Utilities} from '../utilities';
 
 @Injectable({
     providedIn: 'root'
@@ -26,39 +27,37 @@ export class CarwashService {
     private static staticPackageItemsPath = environment.static_package_items_url;
     private static carwashSubject = new BehaviorSubject(<Carwash>{});
     public static carwash: Observable<Carwash>;
-    private static staticPackageItems: PackageItem[] = Array<PackageItem>();
+    private static staticPackageItems = of(new Array<PackageItem>());
 
     constructor(
         private readonly http: HttpClient,
         private readonly apiService: ApiService,
         private readonly userService: UserService
-    ) {}
+    ) {
+    }
 
     // Register Carwash object
-    public registerCarwash() {
-        console.log('registerCarwash called');
+    public registerCarwash(): void {
         if (!CarwashService.carwash) {
             CarwashService.carwash = CarwashService.carwashSubject.asObservable();
             console.log('No carwash fetched.');
             console.log('FETCHING...');
             this.fetchCarwash().subscribe(
                 carwash => {
-                    CarwashService.carwashSubject.next(carwash);
+                    CarwashService.carwashSubject.next(Utilities.convertToCarwashObject(carwash));
                     console.log('_LOADING CARWASH COMPLETE_');
                     console.log('CURRENT CARWASH: ', CarwashService.carwashSubject.getValue());
+                    this.registerAllPackageItems();
                 }
             );
-            this.registerAllPackageItems();
         } else {
             console.log('Carwash already fetched.');
         }
     }
 
     // Register all package items
-    public registerAllPackageItems() {
-       this.fetchStaticPackageItems().subscribe(
-           allPackageItems =>  CarwashService.staticPackageItems = allPackageItems
-       );
+    public registerAllPackageItems(): void {
+        CarwashService.staticPackageItems = this.fetchStaticPackageItems();
     }
 
     // Retrieve JSON from backend
@@ -79,6 +78,7 @@ export class CarwashService {
             case SERVICE_TYPE.WASH:
                 return CarwashService.carwash.pipe(
                     pluck('washPackages'));
+                break;
             case SERVICE_TYPE.DETAIL:
                 return CarwashService.carwash.pipe(
                     pluck('detailPackages'));
@@ -90,36 +90,32 @@ export class CarwashService {
         }
     }
 
+    // Return static list of packageItems
+    public getAllPackageItems(): Observable<PackageItem[]> {
+        return CarwashService.staticPackageItems;
+    }
+
+    /* STORE */
     public getCarwashMetaData(): Observable<Store> {
         let store = Store.EMPTY_MODEL;
 
         CarwashService.carwash.subscribe(carwash => {
-            store = carwash.metaData;
-
-/*                store.id = carwash.metaData.id;
-                store.name = carwash.metaData.name;
-                store.type = carwash.metaData.type;
-                store.ratings = carwash.metaData.ratings;
-                store.address = carwash.metaData.address;
-                store.phoneNumber = carwash.metaData.phoneNumber;
-                store.coordinates = carwash.metaData.coordinates;
-                store.hoursOfOperation = carwash.metaData.hoursOfOperation;
-                store.email = carwash.metaData.email;
-                store.website = carwash.metaData.website*/
-            }
-        );
+                store = carwash.metaData
+            });
         return of(store);
     }
 
-    // Return static list of packageItems
-    public getAllPackageItems(): PackageItem[] {
-        return CarwashService.staticPackageItems;
+    /* PROMOTIONS */
+    public getPromotionsArray(): Observable<Promotion[]> {
+        console.log('_GET PROMOTIONS ARRAY CW_: ', CarwashService.carwash.pipe(pluck('promotions')));
+        return CarwashService.carwash.pipe(pluck('promotions'));
     }
+
 
     /* ---------------- API CALLS -----------------*/
 
     /* STORE */
-    public createNewStore(newStore: Store)  {
+    public postNewStore(newStore: Store): void  {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
@@ -129,14 +125,15 @@ export class CarwashService {
         this.apiService.post('/stores', new HttpParams(), httpHeaders).subscribe(
             response => {
                 // Set new ID generated from backend and cache new store
+                console.log('Store post SUCCESS: ', response);
                 newStore.id = response.id;
                 this.cacheStore(newStore);
             },
-            error => console.log('Error CREATING store: ', error)
+            error => console.log('Error POSTING store: ', error)
         );
     }
 
-    updateStore(updatedStore: Store) {
+    public updateStore(updatedStore: Store): void {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
@@ -153,11 +150,62 @@ export class CarwashService {
         )*/
     }
 
-    private cacheStore(storeToUpdate: Store) {
+    private cacheStore(storeToCache: Store): void {
         // Create new carwash object with updated metadata info
-        const updatedCarwash = CarwashService.carwashSubject.getValue();
-        updatedCarwash.metaData = storeToUpdate;
+        const carwashToUpdate = CarwashService.carwashSubject.getValue();
+        carwashToUpdate.metaData = storeToCache;
         // Push to carwash cached object
-        CarwashService.carwashSubject.next(updatedCarwash);
+        CarwashService.carwashSubject.next(carwashToUpdate);
+    }
+
+    /* PACKAGE */
+    public postNewPackage(newPackage: Package) {
+        // Set HttpHeaders
+        const httpHeaders = new HttpHeaders();
+        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
+        // httpHeaders.set('Bearer Token', this.userService.getToken());
+
+        // Make post and save new object on success
+        this.apiService.post('/packages', new HttpParams(), httpHeaders).subscribe(
+            response => {
+                // Set new ID generated from backend and cache new store
+                console.log('Package Post SUCCESS: ', response);
+                this.cachePackage(newPackage);
+            },
+            error => console.log('Error POSTING package: ', error)
+        );
+    }
+
+    public postNewPackageArray(newPackageArray: Package[]) {
+        // Set HttpHeaders
+        const httpHeaders = new HttpHeaders();
+        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
+        // httpHeaders.set('Bearer Token', this.userService.getToken());
+
+        // Make post and save new object on success
+        this.apiService.post('/packages', new HttpParams(), httpHeaders).subscribe(
+            response => {
+                // Set new ID generated from backend and cache new store
+                console.log('Package Array Post SUCCESS: ', response);
+                this.cachePackageArray(newPackageArray);
+            },
+            error => console.log('Error POSTING package array: ', error)
+        );
+    }
+
+    private cachePackage(packageToCache: Package) {
+        // Create new carwash object with updated package array info
+        const carwashToUpdate = CarwashService.carwashSubject.getValue();
+        carwashToUpdate.washPackages = [...carwashToUpdate.washPackages, packageToCache];
+        // Push to carwash cached object
+        CarwashService.carwashSubject.next(carwashToUpdate);
+    }
+
+    private cachePackageArray(packageArrayToCache: Package[]) {
+        // Create new carwash object with updated package array info
+        const carwashToUpdate = CarwashService.carwashSubject.getValue();
+        carwashToUpdate.washPackages = packageArrayToCache;
+        // Push to carwash cached object
+        CarwashService.carwashSubject.next(carwashToUpdate);
     }
 }

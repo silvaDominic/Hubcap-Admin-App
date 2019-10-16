@@ -1,10 +1,10 @@
-<div id="overview-block" *ngIf="promotion">
+<div id="overview-block" *ngIf="(promotionService.promotion | async) as focusPromotion">
     <div id="overview-header">
-        <h3>{{promotion.name}}</h3>
+        <h3>{{focusPromotion.name}}</h3>
     </div>
     <div id="overview-description">
-        <p>{{promotion.description}}</p>
-        <p>{{promotion.serviceType}}</p>
+        <p>{{focusPromotion.description}}</p>
+        <p>{{focusPromotion.serviceType}}</p>
     </div>
 
     <div id="overview-date-container">
@@ -16,16 +16,16 @@
             </div>
             <div class="col-md-5">
                 <div class="focusPromotion-date">
-                    <span>{{promotion.startDate.toLocaleDateString('en-us', _CONSTANTS.SHORT_WEEKDAY)}}</span>,&nbsp;
-                    <span>{{promotion.startDate.toLocaleDateString('en-us', _CONSTANTS.SHORT_MONTH)}}</span>&nbsp;
-                    <span>{{promotion.startDate.toLocaleDateString('en-us', _CONSTANTS.NUM_YEAR)}}</span>
+                    <span>{{focusPromotion.startDate.toLocaleDateString('en-us', C_CONSTANTS.SHORT_WEEKDAY)}}</span>,&nbsp;
+                    <span>{{focusPromotion.startDate.toLocaleDateString('en-us', C_CONSTANTS.SHORT_MONTH)}}</span>&nbsp;
+                    <span>{{focusPromotion.startDate.toLocaleDateString('en-us', C_CONSTANTS.NUM_YEAR)}}</span>
             </div>
             </div>
             <div class="col-md-5">
                 <div class="focusPromotion-date">
-                    <span>{{promotion.endDate.toLocaleDateString('en-us', _CONSTANTS.SHORT_WEEKDAY)}}</span>,&nbsp;
-                    <span>{{promotion.endDate.toLocaleDateString('en-us', _CONSTANTS.SHORT_MONTH)}}</span>&nbsp;
-                    <span>{{promotion.endDate.toLocaleDateString('en-us', _CONSTANTS.NUM_YEAR)}}</span>
+                    <span>{{focusPromotion.endDate.toLocaleDateString('en-us', C_CONSTANTS.SHORT_WEEKDAY)}}</span>,&nbsp;
+                    <span>{{focusPromotion.endDate.toLocaleDateString('en-us', C_CONSTANTS.SHORT_MONTH)}}</span>&nbsp;
+                    <span>{{focusPromotion.endDate.toLocaleDateString('en-us', C_CONSTANTS.NUM_YEAR)}}</span>
                 </div>
             </div>
         </div>
@@ -40,28 +40,28 @@
             </div>
             <div class="col-sm-5">
                 <div class="focusPromotion-time">
-                    <span>{{promotion.startTime}}</span>
+                    <span>{{focusPromotion.startTime}}</span>
                 </div>
             </div>
             <div class="col-sm-5">
                 <div class="focusPromotion-time">
-                    <span>{{promotion.endTime}}</span>
+                    <span>{{focusPromotion.endTime}}</span>
                 </div>
             </div>
         </div>
     </div>
 
     <div id="overview-discount-container">
-        <div class="promo-price" *ngIf="promotion.discount.discountType === E_DISCOUNT_TYPE.PERCENT">
-            <h3>{{promotion.discount.discountAmount}}% off</h3>
+        <div class="promo-price" *ngIf="focusPromotion.discount.discountType === E_DISCOUNT_TYPE.PERCENT">
+            <h3>{{focusPromotion.discount.discountAmount}}% off</h3>
         </div>
-        <div class="promo-price" *ngIf="promotion.discount.discountType === E_DISCOUNT_TYPE.DOLLAR">
-            <h3>${{promotion.discount.discountAmount}} off</h3>
+        <div class="promo-price" *ngIf="focusPromotion.discount.discountType === E_DISCOUNT_TYPE.DOLLAR">
+            <h3>${{focusPromotion.discount.discountAmount}} off</h3>
         </div>
-        <div class="promo-price" *ngIf="promotion.discount.discountType === E_DISCOUNT_TYPE.FREE">
+        <div class="promo-price" *ngIf="focusPromotion.discount.discountType === E_DISCOUNT_TYPE.FREE">
             <h3>Free</h3>
             <ul>
-                <li *ngFor="let feature of promotion.discount.discountFeatures">
+                <li *ngFor="let feature of focusPromotion.discount.discountFeatures">
                     <h4>{{feature}}</h4>
                 </li>
             </ul>
@@ -69,52 +69,12 @@
     </div>
 
     <div class="overview-package-container">
-        <div *ngIf="promotion.serviceType === E_SERVICE_TYPE.DETAIL" class="row">
-            <div class="col-4">
+        <div class="row">
+            <div class="col-4" *ngFor="let _package of packageService.packages | async">
                 <div class="package-badge"
-                     [ngClass]="{'selected': promotion.discountPackages.includes(E_DETAIL_PACKAGE.EXTERIOR)}">
-                    <img src="./assets/icons/icon-detail-exterior.svg">
-                    <div><strong>Exterior</strong></div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="package-badge"
-                     [ngClass]="{'selected': promotion.discountPackages.includes(E_DETAIL_PACKAGE.INTERIOR)}">
-                    <img src="./assets/icons/icon-detail-interior.svg">
-                    <div><strong>Interior</strong></div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="package-badge"
-                     [ngClass]="{'selected': promotion.discountPackages.includes(E_DETAIL_PACKAGE.COMPLETE)}">
-                    <img src="./assets/icons/icon-detail-both.svg">
-                    <div><strong>Complete</strong></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="overview-package-container">
-        <div *ngIf="promotion.serviceType === E_SERVICE_TYPE.WASH" class="row">
-            <div class="col-4">
-                <div class="package-badge"
-                     [ngClass]="{'selected': promotion.discountPackages.includes(E_WASH_PACKAGE.SILVER)}">
-                    <img src="./assets/icons/iconA-wash-bronze.svg">
-                    <div><h4>Silver</h4></div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="package-badge"
-                     [ngClass]="{'selected': promotion.discountPackages.includes(E_WASH_PACKAGE.GOLD)}">
-                    <img src="./assets/icons/iconA-wash-silver.svg">
-                    <div><h4>Gold</h4></div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="package-badge"
-                     [ngClass]="{'selected': promotion.discountPackages.includes(E_WASH_PACKAGE.PLATINUM)}">
-                    <img src="./assets/icons/iconA-wash-gold.svg">
-                    <div><h4>Platinum</h4></div>
+                     [ngClass]="{'selected': focusPromotion.discountPackages.includes(_package.name)}">
+                    <img *ngIf="focusPromotion.serviceType === E_SERVICE_TYPE.WASH" src="./assets/icons/icon-package-round.svg">
+                    <div><h4>{{_package.name}}</h4></div>
                 </div>
             </div>
         </div>

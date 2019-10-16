@@ -16,7 +16,6 @@ export class Store {
         hoursOfOperation: HoursOfOperation.EMPTY_MODEL,
         email: '',
         website: '',
-        ratings: new Array(Rating.EMPTY_MODEL)
     };
 
     constructor(public id: string,
@@ -27,6 +26,5 @@ export class Store {
                 public coordinates: Map<string, string>,
                 public hoursOfOperation: HoursOfOperation,
                 public email: string,
-                public website: string,
-                public ratings: Rating[]) {}
+                public website: string) {}
 }

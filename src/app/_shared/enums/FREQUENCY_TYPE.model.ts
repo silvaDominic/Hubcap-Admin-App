@@ -1,4 +1,4 @@
 export enum FREQUENCY_TYPE {
-    ONE_TIME = 'One-Time',
-    REOCCURRING = 'Reocurring'
+    ONE_TIME = 'ONE_TIME',
+    REOCCURRING = 'REOCCURRING'
 }

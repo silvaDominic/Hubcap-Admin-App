@@ -1,4 +1,3 @@
-import {WASH_PACKAGE} from '../enums/WASH_PACKAGE.model';
 import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
 
 export class Client {
@@ -9,6 +8,6 @@ export class Client {
                 public selectedVehicle: string,
                 public plateNumber: string,
                 public packageType: SERVICE_TYPE,
-                public selectedPackage: WASH_PACKAGE
+                public selectedPackage: string
     ) {}
 }

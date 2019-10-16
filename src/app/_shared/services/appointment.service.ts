@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {VEHICLE_TYPE} from '../enums/VEHICLE_TYPE.model';
-import {WASH_PACKAGE} from '../enums/WASH_PACKAGE.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Appointment} from '../models/appointment.model';
 
@@ -12,7 +11,6 @@ import {Appointment} from '../models/appointment.model';
 export class AppointmentService {
 
     public static vehiclesKeys = Object.keys(VEHICLE_TYPE);
-    public static packageKeys = Object.keys(WASH_PACKAGE);
 
     private appointmentsUrl = 'http://localhost:4200/assets/data/appointments.json';
 

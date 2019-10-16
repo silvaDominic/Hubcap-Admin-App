@@ -14,7 +14,6 @@ export class AppointmentFormComponent implements OnInit {
     @Input() appointments: Appointment[];
     appointmentFormGroup: FormGroup;
     vehiclesKeys = AppointmentService.vehiclesKeys;
-    packagesKeys = AppointmentService.packageKeys;
 
     currentDate: Date;
     startDate: Date;

@@ -1,11 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {AmazingTimePickerService} from 'amazing-time-picker';
-import {DETAIL_PACKAGE} from '../../../../_shared/enums/DETAIL_PACKAGE.model';
 import {ALL_PACKAGES} from '../../../../_shared/enums/ALL_PACKAGES.model';
 import {PackageService} from '../../../../_shared/services/package.service';
 import {FREQUENCY_TYPE} from '../../../../_shared/enums/FREQUENCY_TYPE.model';
-import {WASH_PACKAGE} from '../../../../_shared/enums/WASH_PACKAGE.model';
 import {PackageItem} from '../../../../_shared/models/package.item.model';
 import {Promotion} from '../../../../_shared/models/promotion.model';
 import {SERVICE_TYPE} from '../../../../_shared/enums/SERVICE_TYPE';
@@ -32,14 +30,9 @@ export class PromoFormComponent implements OnInit {
     E_DISCOUNT_TYPE = DISCOUNT_TYPE;
     E_FREQUENCY_TYPE = FREQUENCY_TYPE;
     E_SERVICE_TYPE = SERVICE_TYPE;
-    E_WASH_PACKAGE = WASH_PACKAGE;
-    E_DETAIL_PACKAGE = DETAIL_PACKAGE;
     E_ALL_PACKAGES = ALL_PACKAGES;
 
     OBJECT = Object;
-
-    detailPackages = Object.keys(DETAIL_PACKAGE);
-    washPackages = Object.keys(WASH_PACKAGE);
 
     // For initialization
     currentDate: Date;
@@ -59,15 +52,8 @@ export class PromoFormComponent implements OnInit {
 
     public ngOnInit(): void {
         // Initialize variables
-        this.promotionService.promotionSubject.subscribe(promotion => this.promotion = promotion);
-        this.allPackageItems = this.packageService.getAllPackageItems();
+        // this.allPackageItems = this.packageService.getAllPackageItems();
         this.initForm();
-        console.log(this.promotion.discountPackages);
-        for (const p of Object.values(this.E_WASH_PACKAGE)) {
-            console.log(p);
-        }
-        // this.promotions = this.promotionService.getAllPromotions();
-
     }
 
     private initForm(): void {

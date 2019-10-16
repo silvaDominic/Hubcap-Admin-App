@@ -1,46 +1,48 @@
 import {PackageItem} from './models/package.item.model';
-import {CarwashCoordinates} from './models/carwash-coordinates.model';
 import {Discount} from './models/discount.model';
 import {Address} from './models/address.model';
-import {Rating} from './models/rating.model';
 import {Promotion} from './models/promotion.model';
-import {any} from 'codelyzer/util/function';
 import {HoursOfOperation} from './models/hours-of-operation.model';
 import {StoreHours} from './models/store-hours.model';
 import {Carwash} from './models/carwash.model';
 import {HoursException} from './models/hours-exception.model';
 import {Package} from './models/package.model';
+import {Store} from './models/store.model';
 
 export class Utilities {
 
-
     // Main util method for converting json data to instance objects
-/*    public convertToCarwashObject(data: any): Carwash {
-        const ratings = Array<Rating>();
-        data.ratings.map(rating => ratings.push(this.generateRating(rating)));
-
+    public static convertToCarwashObject(data: any): Carwash {
         const promotions = Array<Promotion>();
-        data.promotions.map(promotion => promotions.push(this.generatePromotion(promotion)));
+        data.promotions.map(promotion => promotions.push(Utilities.generatePromotion(promotion)));
 
         const washPackages = Array<Package>();
-        data.washPackages.map(washPackage => washPackages.push(this.generatePackage(washPackage)));
+        data.washPackages.map(washPackage => washPackages.push(Utilities.generatePackage(washPackage)));
 
         const detailPackages = Array<Package>();
-        data.detailPackages.map(detailPackage => detailPackages.push(this.generatePackage(detailPackage)));
+        data.detailPackages.map(detailPackage => detailPackages.push(Utilities.generatePackage(detailPackage)));
 
         return new Carwash(
+            Utilities.generateMetaData(data.metaData),
+            promotions,
+            washPackages,
+            detailPackages
+        );
+    }
+
+    public static generateMetaData(data: any): Store {
+        return new Store(
             data.id,
             data.name,
             data.type,
-            ratings,
-            this.generateAddress(data.address),
-            this.generateCoordinates(data.coordinates),
-            promotions,
-            washPackages,
-            detailPackages,
-            this.generateHoursOfOperation(data.hoursOfOperation)
-        );
-    }*/
+            Utilities.generateAddress(data),
+            data.phoneNumber,
+            data.coordinates,
+            Utilities.generateHoursOfOperation(data.hoursOfOperation),
+            data.email,
+            data.website
+        )
+    }
 
     public static generateAddress(data: any): Address {
         return new Address(
@@ -57,21 +59,14 @@ export class Utilities {
         return packageItems;
     }
 
-    public static generateCoordinates(data: any): CarwashCoordinates {
-        return new CarwashCoordinates(
-            data.latitude,
-            data.longitude
-        );
-    }
-
-    public static generateRating(data: any): Rating {
+/*    public static generateRating(data: any): Rating {
         return new Rating(
             data.customerName,
             data.score,
             data.review,
             data.date
         );
-    }
+    }*/
 
     public static generatePromotion(data: any): Promotion {
         return new Promotion(
@@ -81,12 +76,13 @@ export class Utilities {
             data.serviceType,
             data.frequencyType,
             data.frequency,
-            data.startDate,
-            data.endDate,
+            new Date(data.startDate),
+            new Date(data.endDate),
             data.discountPackages,
             this.generateDiscount(data.discount),
             data.startTime,
-            data.endTime
+            data.endTime,
+            data.isActive
         );
     }
 
@@ -100,9 +96,10 @@ export class Utilities {
 
     public static generatePackage(data: any): Package {
         return new Package(
+            data.id,
             data.name,
             data.type,
-            data.onetimePrices,
+            data.oneTimePrices,
             data.packageItems.map(packageItem => this.generatePackageItem(packageItem)),
             data.duration,
             data.monthlyPrices
@@ -147,4 +144,6 @@ export class Utilities {
             data.closeTime
         );
     }
+
+    constructor() {}
 }

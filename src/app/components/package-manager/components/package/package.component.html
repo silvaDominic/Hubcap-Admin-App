@@ -1,15 +1,15 @@
-<div id="overview-block">
+<div id="overview-block" *ngIf="(packageService.packages | async) as packageArray">
     <div class="row">
         <div class="col-md-12">
-            <div *ngIf="packageService.packages">
+            <div>
                 <div id="create-package-wrapper">
                     <button id="create-package-button" mat-button (click)="packageService.initNewPackage()">Create New Package</button>
                 </div>
             </div>
 
-            <div *ngIf="packageService.packages">
+            <div>
                 <ul class="nav nav-fill">
-                    <li *ngFor="let _package of packageService.packages | async let i = index" class="nav-item" (click)="callSetFocusPackage(i)">
+                    <li *ngFor="let _package of packageArray let i = index" class="nav-item" (click)="callSetFocusPackage(i)">
                         <button mat-button [ngClass]="{'active': (packageService.package | async)?.name === _package.name}">{{_package.name}}</button>
                     </li>
                 </ul>
@@ -47,9 +47,10 @@
         </div>
     </div>
 
-    <div id="action-row-wrapper">
+    <div id="action-row-wrapper" *ngIf="(packageService.package | async) as focusPackage">
         <div class="row action-row">
-            <button mat-button>Update</button>
+            <button mat-button (click)="savePackage(focusPackage)">Save Package</button>
+            <button mat-button (click)="savePackageArray(packageArray)">Save ALL Packages</button>
             <button mat-button [disabled]="!packageService.checkIsMonthly()" (click)="packageService.toggleIsMonthly()">Switch to Monthly</button>
         </div>
         <div class="row action-row">

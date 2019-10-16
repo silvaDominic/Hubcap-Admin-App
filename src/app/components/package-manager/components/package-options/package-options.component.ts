@@ -1,8 +1,8 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {PackageItem} from '../../../../_shared/models/package.item.model';
 import {PackageService} from '../../../../_shared/services/package.service';
 import {ITEM_TYPE} from '../../../../_shared/enums/ITEM_TYPE.model';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {VEHICLE_TYPE} from '../../../../_shared/enums/VEHICLE_TYPE.model';
 
 @Component({
@@ -11,9 +11,11 @@ import {VEHICLE_TYPE} from '../../../../_shared/enums/VEHICLE_TYPE.model';
     styleUrls: ['./package-options.component.scss']
 })
 export class PackageOptionsComponent implements OnInit, AfterViewInit {
+    @Output() packageSelect = new EventEmitter<number>();
+
     private displayPackages: Map<PackageItem, boolean> = new Map<PackageItem, boolean>();
 
-    public selectedPackageItems: PackageItem[] = Array<PackageItem>();
+    public selectedPackageItems: PackageItem[] = new Array<PackageItem>();
     public isMonthly = false;
     public packageForm: FormGroup;
 
@@ -68,11 +70,21 @@ export class PackageOptionsComponent implements OnInit, AfterViewInit {
         // Update local variable when packages change
         this.packageService.package.subscribe(
             _package => {
+                console.log('Current package stage ', _package);
                 this.selectedPackageItems = _package.packageItems;
                 this.resetDisplayItems();
                 this.updateDisplayItems();
             }
         );
+    }
+
+    createPackage(packageForm: FormGroup) {
+        this.callSetFocusPackage(this.packageService.createPackage(packageForm));
+    }
+
+    callSetFocusPackage(index: number) {
+        this.packageService.creatingNewPackage = false;
+        this.packageSelect.emit(index);
     }
 
     /*
@@ -91,9 +103,13 @@ export class PackageOptionsComponent implements OnInit, AfterViewInit {
     }
 
     initDisplayItems() {
-        for (const item of this.packageService.getAllPackageItems()) {
-            this.displayPackages.set(item, false);
-        }
+        this.packageService.getAllPackageItems().subscribe(
+            packageItems => {
+                for (const item of packageItems) {
+                    this.displayPackages.set(item, false);
+                }
+            }
+        )
     }
 
     private resetDisplayItems() {

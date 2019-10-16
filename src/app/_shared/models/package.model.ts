@@ -6,6 +6,7 @@ import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
 export class Package {
 
     static readonly EMPTY_MODEL = <Package>{
+        id: null,
         name: '',
         type: SERVICE_TYPE.WASH,
         oneTimePrices: new Map<VEHICLE_TYPE, number>().set(VEHICLE_TYPE.REGULAR, null).set(VEHICLE_TYPE.OVERSIZED, null),
@@ -15,6 +16,7 @@ export class Package {
     };
 
     constructor(
+        public id: string,
         public name: string,
         public type: SERVICE_TYPE,
         public oneTimePrices: Map<VEHICLE_TYPE, number>,

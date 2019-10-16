@@ -14,7 +14,6 @@ import {PackageOptionsComponent} from '../package-options/package-options.compon
 export class PackageComponent implements OnInit {
 
     @Output() packageSelect = new EventEmitter<number>();
-    @Input() selectedPackageType: SERVICE_TYPE;
 
     constructor(private packageService: PackageService) {
     }
@@ -26,5 +25,13 @@ export class PackageComponent implements OnInit {
     callSetFocusPackage(index: number) {
         this.packageService.creatingNewPackage = false;
         this.packageSelect.emit(index);
+    }
+
+    public savePackage(packageToUpdate: Package): void {
+        this.packageService.savePackage(packageToUpdate)
+    }
+
+    public savePackageArray(packageArrayToUpdate: Package[]): void {
+        this.packageService.savePackageArray(packageArrayToUpdate);
     }
 }

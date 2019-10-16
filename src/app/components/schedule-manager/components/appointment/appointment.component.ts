@@ -11,7 +11,6 @@ export class AppointmentComponent implements OnInit {
 
     @Input() thisAppointment: Appointment;
     vehiclesKeys = AppointmentService.vehiclesKeys;
-    packagesKeys = AppointmentService.packageKeys;
 
     currentDate: Date;
     appointmentDate: Date;

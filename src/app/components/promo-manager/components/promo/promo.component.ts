@@ -6,6 +6,7 @@ import {ALL_PACKAGES} from '../../../../_shared/enums/ALL_PACKAGES.model';
 import {FREQUENCY_TYPE} from '../../../../_shared/enums/FREQUENCY_TYPE.model';
 import {SERVICE_TYPE} from '../../../../_shared/enums/SERVICE_TYPE';
 import {DISCOUNT_TYPE} from '../../../../_shared/enums/DISCOUNT_TYPE.model';
+import {PromotionService} from '../../../../_shared/services/promotion.service';
 
 @Component({
     selector: 'app-promo',
@@ -14,21 +15,26 @@ import {DISCOUNT_TYPE} from '../../../../_shared/enums/DISCOUNT_TYPE.model';
 })
 export class PromoComponent implements OnInit {
 
-    @Input() promoForm: PromoFormComponent;
-    @Input() historyComp: PromoHistoryComponent;
-    @Input() focusPromotion: Promotion;
+    @Input() thisPromotion: Promotion;
 
     frequencyType = FREQUENCY_TYPE;
     discountType = DISCOUNT_TYPE;
     packageType = SERVICE_TYPE;
     package = ALL_PACKAGES;
 
-    constructor() {}
+    constructor(private readonly promotionService: PromotionService) {}
 
     ngOnInit(): void {
 
     }
 
+    public editPromo(id: string) {
+        this.promotionService.setPromotionById(id);
+    }
+
+    public toggleActive(id: string) {
+        this.promotionService.toggleActive(id);
+    }
 /*    markInactive(promo: Promotion) {
         for (const a_promo of this.historyComp.activePromos) {
             if (a_promo === promo) {

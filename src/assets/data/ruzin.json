@@ -1,0 +1,96 @@
+{
+    "id": 234,
+    "businessID": "hubcap01",
+    "businessName": "hubacp wash",
+    "type": "flex",
+    "detailFlag": true,
+    "favFlag": true,
+    "carWashName": "HubCap alpha wash",
+    "ratingObject": [
+        {
+            "customerName": "customer",
+            "rating": 3,
+            "review": "All hail hubcap",
+            "date": {
+                "day": 23,
+                "month": 8,
+                "year": 2019
+            }
+        }
+    ],
+    "hoursOfOperation": {
+        "Monday": {
+            "openHours": {
+                "hours": 13,
+                "minutes": 24
+            },
+            "closingHours": {
+                "hours": 13,
+                "minutes": 24
+            }
+        }
+    },
+    "address": {
+        "zipCode": 11237,
+        "city": "New York",
+        "address": " !516 gates avenue , Apt 1 R",
+        "state": "NY"
+    },
+    "promotionsFlag": true,
+    "promotions": [
+        {
+            "carWashName": "Hubcap",
+            "price": 24,
+            "hours": {
+                "openHours": {
+                    "hours": 13,
+                    "minutes": 24
+                },
+                "closingHours": {
+                    "hours": 13,
+                    "minutes": 24
+                }
+            },
+            "address": {
+                "zipCode": 11237,
+                "city": "New York",
+                "address": " !516 gates avenue , Apt 1 R",
+                "state": "NY"
+            },
+            "features": [
+                "feature1",
+                "feature2"
+            ],
+            "promoDescription": "this promo is fire "
+        }
+    ],
+    "packages": {
+        "package1": {
+            "type": "Flex",
+            "packageName": "gold",
+            "monthly": true,
+            "features": [
+                "Fetaure0",
+                "Fetaure1",
+                "Fetaure2",
+                "Fetaure3",
+                "Fetaure4"
+            ],
+            "oneTimePrice": {
+                "priceSize": {
+                    "v1": 23,
+                    "v2": 24,
+                    "v3": 44
+                }
+            },
+            "monthlyPrice": {
+                "priceSize": {
+                    "v1": 23,
+                    "v2": 24,
+                    "v3": 44
+                }
+            }
+        }
+    },
+    "coordinates": null
+}

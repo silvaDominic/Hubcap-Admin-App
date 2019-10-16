@@ -3,15 +3,15 @@
         <mat-expansion-panel hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <span><strong>{{focusPromotion.name}}</strong></span>
+                    <span><strong>{{thisPromotion.name}}</strong></span>
                 </mat-panel-title>
                 <mat-panel-description>
                     <div></div>
-                    <div *ngIf="focusPromotion.frequencyType === frequencyType.ONE_TIME">
+                    <div *ngIf="thisPromotion.frequencyType === frequencyType.ONE_TIME">
                         <span>One Time</span>
                         <img class="one-time" src="./assets/icons/icon-calendar-hollow.svg">
                     </div>
-                    <div *ngIf="focusPromotion.frequencyType === frequencyType.REOCCURRING">
+                    <div *ngIf="thisPromotion.frequencyType === frequencyType.REOCCURRING">
                         <span>Reoccurring</span>
                         <img class="reoccurring" src="./assets/icons/icon-repeat.svg">
                     </div>
@@ -20,7 +20,7 @@
 
             <div class="row description-row">
                 <div class="col-12">
-                    <p>{{focusPromotion.description}}</p>
+                    <p>{{thisPromotion.description}}</p>
                 </div>
             </div>
 
@@ -32,13 +32,13 @@
                 </div>
                 <div class="col-5">
                     <div class="promo-date">
-                        <span>{{focusPromotion.startDate}}</span>
+                        <span>{{thisPromotion.startDate}}</span>
                     </div>
                 </div>
 
                 <div class="col-5">
                     <div class="promo-date">
-                        <span>{{focusPromotion.endDate}}</span>
+                        <span>{{thisPromotion.endDate}}</span>
                     </div>
                 </div>
             </div>
@@ -51,13 +51,13 @@
                 </div>
                 <div class="col-5">
                     <div class="promo-time">
-                        <span>{{focusPromotion.startTime}}</span>
+                        <span>{{thisPromotion.startTime}}</span>
                     </div>
                 </div>
 
                 <div class="col-5">
                     <div class="promo-time">
-                        <span>{{focusPromotion.endTime}}</span>
+                        <span>{{thisPromotion.endTime}}</span>
                     </div>
                 </div>
             </div>
@@ -65,61 +65,61 @@
             <div class="row price-row">
                 <div class="col-12">
                     <div class="header-content">
-                        <div class="promo-price" *ngIf="focusPromotion.discount.discountType === discountType.PERCENT">
-                            <span>{{focusPromotion.discount.discountAmount}}% off</span></div>
-                        <div class="promo-price" *ngIf="focusPromotion.discount.discountType === discountType.DOLLAR">
-                            <span>${{focusPromotion.discount.discountAmount}} off</span></div>
+                        <div class="promo-price" *ngIf="thisPromotion.discount.discountType === discountType.PERCENT">
+                            <span>{{thisPromotion.discount.discountAmount}}% off</span></div>
+                        <div class="promo-price" *ngIf="thisPromotion.discount.discountType === discountType.DOLLAR">
+                            <span>${{thisPromotion.discount.discountAmount}} off</span></div>
                         <div class="promo-price"
-                             *ngIf="focusPromotion.discount.discountType === discountType.FREE"><span>
+                             *ngIf="thisPromotion.discount.discountType === discountType.FREE"><span>
                                     Free</span>
-                            <div *ngFor="let feature of focusPromotion.discount.discountFeatures">{{feature}}</div>
+                            <div *ngFor="let feature of thisPromotion.discount.discountFeatures">{{feature}}</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div *ngIf="focusPromotion.serviceType === packageType.DETAIL" class="row">
+            <div *ngIf="thisPromotion.serviceType === packageType.DETAIL" class="row">
                 <div class="col-4">
                     <div class="package-badge"
-                         [ngClass]="{'selected': focusPromotion.discountPackages.includes(package.INTERIOR)}">
+                         [ngClass]="{'selected': thisPromotion.discountPackages.includes(package.INTERIOR)}">
                         <img src="./assets/icons/icon-detail-interior.svg">
                         <div class="text-center"><strong>Interior</strong></div>
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="package-badge"
-                         [ngClass]="{'selected': focusPromotion.discountPackages.includes(package.EXTERIOR)}">
+                         [ngClass]="{'selected': thisPromotion.discountPackages.includes(package.EXTERIOR)}">
                         <img src="./assets/icons/icon-detail-exterior.svg">
                         <div class="text-center"><strong>Exterior</strong></div>
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="package-badge"
-                         [ngClass]="{'selected': focusPromotion.discountPackages.includes(package.COMPLETE)}">
+                         [ngClass]="{'selected': thisPromotion.discountPackages.includes(package.COMPLETE)}">
                         <img src="./assets/icons/icon-detail-both.svg">
                         <div class="text-center"><strong>Complete</strong></div>
                     </div>
                 </div>
             </div>
 
-            <div *ngIf="focusPromotion.serviceType === packageType.WASH" class="row">
+            <div *ngIf="thisPromotion.serviceType === packageType.WASH" class="row">
                 <div class="col-4">
                     <div class="package-badge"
-                         [ngClass]="{'selected': focusPromotion.discountPackages.includes(package.SILVER)}">
+                         [ngClass]="{'selected': thisPromotion.discountPackages.includes(package.SILVER)}">
                         <img src="./assets/icons/iconA-wash-bronze.svg">
                         <div class="text-center"><strong>Silver</strong></div>
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="package-badge"
-                         [ngClass]="{'selected': focusPromotion.discountPackages.includes(package.GOLD)}">
+                         [ngClass]="{'selected': thisPromotion.discountPackages.includes(package.GOLD)}">
                         <img src="./assets/icons/iconA-wash-silver.svg">
                         <div class="text-center"><strong>Gold</strong></div>
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="package-badge"
-                         [ngClass]="{'selected': focusPromotion.discountPackages.includes(package.PLATINUM)}">
+                         [ngClass]="{'selected': thisPromotion.discountPackages.includes(package.PLATINUM)}">
                         <img src="./assets/icons/iconA-wash-gold.svg">
                         <div class="text-center"><strong>Platinum</strong></div>
                     </div>
@@ -127,9 +127,10 @@
             </div>
 
             <mat-action-row>
-                <button type="button" class="btn note-btn btn-edit" (click)="callEditPromo(focusPromotion)">Edit
+                <button type="button" class="btn note-btn btn-edit" (click)="editPromo(thisPromotion.id)">
+                    Edit
                 </button>
-                <button type="button" class="btn note-btn btn-success" (click)="markInactive(focusPromotion)">
+                <button type="button" class="btn note-btn btn-success" (click)="toggleActive(thisPromotion.id)">
                     Deactivate
                 </button>
             </mat-action-row>

@@ -181,7 +181,6 @@ export class StoreService {
             storeForm.get('hoursOfOperation').value,
             storeForm.get('email').value,
             storeForm.get('website').value,
-            new Array(Rating.EMPTY_MODEL)
         );
     }
 

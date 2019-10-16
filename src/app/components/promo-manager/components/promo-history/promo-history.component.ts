@@ -10,11 +10,6 @@ import {PromotionService} from '../../../../_shared/services/promotion.service';
 })
 export class PromoHistoryComponent implements OnInit {
 
-    @Input() historyPromotions: Promotion[];
-    @Input() promoForm: PromoFormComponent;
-
-    history = this;
-
     activePromos: Promotion[];
     inActivePromos: Promotion[];
 
@@ -26,6 +21,7 @@ export class PromoHistoryComponent implements OnInit {
     ngOnInit() {
         this.refreshHistory();
     }
+
 
     // getActivePromos() {
     //     const freshArray = [];
