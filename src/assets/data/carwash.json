@@ -150,7 +150,167 @@
             "isActive": false
         }
     ],
-    "washPackages": [],
+    "washPackages": [
+        {
+            "id": "0123",
+            "type": "WASH",
+            "name": "Silver",
+            "oneTimePrices": {"REGULAR": 8, "OVERSIZED":  14},
+            "monthlyPrices": {"REGULAR": 40, "OVERSIZED":  70},
+            "packageItems": [
+                {
+                    "name": "Wash",
+                    "itemType": "EXTERIOR",
+                    "selectedSubOptions": [],
+                    "subOptions" : [
+                        "Soft Touch",
+                        "Touch Free",
+                        "Hand Wash"
+                    ]
+                },
+                {
+                    "name": "Dry",
+                    "itemType": "EXTERIOR",
+                    "selectedSubOptions": [],
+                    "subOptions" : [
+                        "Machine Dry",
+                        "Hand Dry"
+                    ]
+                },
+                {
+                    "name": "Tire & Wheel Clean",
+                    "itemType": "EXTERIOR",
+                    "selectedSubOptions": [],
+                    "subOptions": []
+                }
+            ],
+            "duration": 0,
+            "monthlyUses": 5
+        },
+        {
+            "id": "0124",
+            "type": "WASH",
+            "name": "Gold",
+            "oneTimePrices": {"REGULAR": 12, "OVERSIZED":  20},
+            "monthlyPrices": {"REGULAR": 50, "OVERSIZED":  80},
+            "packageItems": [
+                {
+                    "name": "Wash",
+                    "itemType": "EXTERIOR",
+                    "selectedSubOptions": [],
+                    "subOptions" : [
+                        "Soft Touch",
+                        "Touch Free",
+                        "Hand Wash"
+                    ]
+                },
+                {
+                    "name": "Dry",
+                    "itemType": "EXTERIOR",
+                    "selectedSubOptions": [],
+                    "subOptions" : [
+                        "Machine Dry",
+                        "Hand Dry"
+                    ]
+                },
+                {
+                    "name": "Tire & Wheel Clean",
+                    "itemType": "EXTERIOR",
+                    "selectedSubOptions": [],
+                    "subOptions": []
+                },
+                {
+                    "name": "Windows Wiped",
+                    "itemType": "INTERIOR",
+                    "selectedSubOptions": [],
+                    "subOptions": []
+                },
+                {
+                    "name": "Full Interior Vacuum",
+                    "itemType": "INTERIOR",
+                    "selectedSubOptions": [],
+                    "subOptions": []
+                }
+            ],
+            "duration": 0,
+            "monthlyUses": 8
+        },
+        {
+            "id": "0126",
+            "type": "WASH",
+            "name": "Platinum",
+            "oneTimePrices": {"REGULAR": 8, "OVERSIZED":  14},
+            "monthlyPrices": {"REGULAR": 60, "OVERSIZED":  90},
+            "packageItems": [
+                {
+                    "name": "Wash",
+                    "itemType": "EXTERIOR",
+                    "selectedSubOptions": [],
+                    "subOptions" : [
+                        "Soft Touch",
+                        "Touch Free",
+                        "Hand Wash"
+                    ]
+                },
+                {
+                    "name": "Dry",
+                    "itemType": "EXTERIOR",
+                    "selectedSubOptions": [],
+                    "subOptions" : [
+                        "Machine Dry",
+                        "Hand Dry"
+                    ]
+                },
+                {
+                    "name": "Tire & Wheel Clean",
+                    "itemType": "EXTERIOR",
+                    "selectedSubOptions": [],
+                    "subOptions": []
+                },
+                {
+                    "name": "Tire & Wheel Shine",
+                    "itemType": "EXTERIOR",
+                    "selectedSubOptions": [],
+                    "subOptions": []
+                },
+                {
+                    "name": "Exterior Gloss/Car Shine",
+                    "itemType": "EXTERIOR",
+                    "selectedSubOptions": [],
+                    "subOptions": [
+                        "Hot Wax",
+                        "Clear Coat Protectant",
+                        "Blue Coral Pink Spray Wax",
+                        "Body Gloss",
+                        "Shine Wax",
+                        "Buff 'N Shine",
+                        "Hand Applied Liquid Wax",
+                        "Liquid Diamond Body Gloss",
+                        "Carnauba Hot Wax",
+                        "Triple Foam Wax",
+                        "Lava Shine",
+                        "Hot Wax and Shine",
+                        "Exterior Body Shine",
+                        "Hot Bubble Wax"
+                    ]
+                },
+                {
+                    "name": "Windows Wiped",
+                    "itemType": "INTERIOR",
+                    "selectedSubOptions": [],
+                    "subOptions": []
+                },
+                {
+                    "name": "Full Interior Vacuum",
+                    "itemType": "INTERIOR",
+                    "selectedSubOptions": [],
+                    "subOptions": []
+                }
+            ],
+            "duration": 0,
+            "monthlyUses": null
+        }
+    ],
     "detailPackages": [
         {
             "id": "0012",

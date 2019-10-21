@@ -1,4 +1,4 @@
-<div class="menu-options-block" *ngIf="(packageService.package | async) as focusPackage">
+<div class="menu-options-block" *ngIf="(packageService.package | async) as focusPackage else loading">
     <div id="color-key-row" class="row">
         <div class="col-md-4">
             <div class="color-key">
@@ -82,10 +82,10 @@
                             <div class="button-indicator"
                                  [ngClass]="{'exterior': item.key.itemType === E_ITEM_TYPE.EXTERIOR, 'interior': item.key.itemType === E_ITEM_TYPE.INTERIOR}"></div>
                         </div>
-                        <select *ngIf="item.key.subOptions.length !== 0" class="custom-select"
+                        <select *ngIf="item.key.subOptions.length != 0" class="custom-select"
                                 [ngClass]="{'selected': item.value === true}"
                                 name="item.selectedSubOption">
-                            <option *ngFor="let option of item.key.subOptions;" [value]="item.key.selectedSubOptions"
+                            <option *ngFor="let option of item.key.subOptions;" [value]="option"
                                     name="item.selectedSubOption">{{option}}</option>
                         </select>
                     </div>

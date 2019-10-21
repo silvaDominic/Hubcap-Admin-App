@@ -15,7 +15,7 @@ export class PackageComponent implements OnInit {
 
     @Output() packageSelect = new EventEmitter<number>();
 
-    constructor(private packageService: PackageService) {
+    constructor(private readonly packageService: PackageService) {
     }
 
     ngOnInit() {

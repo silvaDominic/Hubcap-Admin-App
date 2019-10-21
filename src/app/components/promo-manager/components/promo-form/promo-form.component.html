@@ -154,7 +154,7 @@
                         <mat-form-field  *ngIf="focusPromotion.serviceType === E_SERVICE_TYPE.WASH">
                             <mat-label for="packageSelect">Packages</mat-label>
                             <mat-select formControlName="discountPackages" id="packageSelect" multiple [(ngModel)]="focusPromotion.discountPackages">
-                                <mat-option *ngFor="let _package of packageService.packages | async; let i = index"
+                                <mat-option *ngFor="let _package of packageService.packageArray | async; let i = index"
                                             [value]="_package">{{_package.name}}</mat-option>
                             </mat-select>
                         </mat-form-field>

@@ -3,7 +3,6 @@ import {Discount} from './discount.model';
 import {FREQUENCY} from '../enums/FREQUENCY.model';
 import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
 
-
 export class Promotion {
 
     public static EMPTY_MODEL = <Promotion>{

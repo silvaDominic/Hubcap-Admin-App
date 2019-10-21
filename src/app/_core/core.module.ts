@@ -20,9 +20,7 @@ import {CarwashService} from '../_shared/services/carwash.service';
         AuthGuard,
         RoleGuard,
         JwtService,
-        UserService,
-        CarwashService
-    ],
+        UserService],
     declarations: []
 })
 export class CoreModule { }

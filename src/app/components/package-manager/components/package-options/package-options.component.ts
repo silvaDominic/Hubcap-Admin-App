@@ -1,16 +1,18 @@
-import {AfterViewInit, Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {PackageItem} from '../../../../_shared/models/package.item.model';
 import {PackageService} from '../../../../_shared/services/package.service';
 import {ITEM_TYPE} from '../../../../_shared/enums/ITEM_TYPE.model';
 import {FormGroup} from '@angular/forms';
 import {VEHICLE_TYPE} from '../../../../_shared/enums/VEHICLE_TYPE.model';
+import {Observable, Subscription} from 'rxjs';
+import {Package} from '../../../../_shared/models/package.model';
 
 @Component({
     selector: 'app-package-options',
     templateUrl: './package-options.component.html',
     styleUrls: ['./package-options.component.scss']
 })
-export class PackageOptionsComponent implements OnInit, AfterViewInit {
+export class PackageOptionsComponent implements OnInit, OnDestroy {
     @Output() packageSelect = new EventEmitter<number>();
 
     private displayPackages: Map<PackageItem, boolean> = new Map<PackageItem, boolean>();
@@ -18,22 +20,23 @@ export class PackageOptionsComponent implements OnInit, AfterViewInit {
     public selectedPackageItems: PackageItem[] = new Array<PackageItem>();
     public isMonthly = false;
     public packageForm: FormGroup;
+    public subscriptions: Subscription[] = [];
 
     // Enums variables
     E_ITEM_TYPE = ITEM_TYPE;
     E_VEHICLE_TYPE = VEHICLE_TYPE;
 
-    constructor(private packageService: PackageService) {
+    constructor(private readonly packageService: PackageService) {
     }
 
-    ngOnInit() {
+    public ngOnInit() {
         console.log('package-options init');
         this.initDisplayItems();
         this.initForm();
+        console.log(this.packageService.package);
     }
 
-    ngAfterViewInit() {
-        this.refreshPackageOptions();
+    public ngOnDestroy(): void {
     }
 
     private initForm (): void {
@@ -56,43 +59,57 @@ export class PackageOptionsComponent implements OnInit, AfterViewInit {
                     console.log(item.key.name + ' converted to false ' + packageItem.name);
                     this.selectedPackageItems.splice(i, 1);
                 }
-            })
+            });
         // If NOT selected, select and add to selectedPackageItems array
         } else if (!item.value) {
             item.value = true;
             console.log(item.key.name + ' converted to ' + item.value);
+            console.log(item);
             this.selectedPackageItems.push(item.key);
         }
+    }
+
+    public createPackage(packageForm: FormGroup) {
+        this.callSetFocusPackage(this.packageService.createPackage(packageForm));
+    }
+
+    public callSetFocusPackage(index: number) {
+        this.packageService.creatingNewPackage = false;
+        this.packageSelect.emit(index);
+    }
+
+    private initDisplayItems() {
+        const tempSub = this.packageService.getAllPackageItems().subscribe(
+            packageItems => {
+                for (const item of packageItems) {
+                    this.displayPackages.set(item, false);
+                }
+                console.log('Display Packages :', this.displayPackages);
+                this.refreshPackageOptions();
+                this.subscriptions.push(tempSub);
+            }
+        );
     }
 
     public refreshPackageOptions() {
         console.log('REFRESHING PACKAGE OPTIONS');
         // Update local variable when packages change
-        this.packageService.package.subscribe(
+        const packageSub = this.packageService.package;
+            packageSub.subscribe(
             _package => {
-                console.log('Current package stage ', _package);
+                console.log('Current selectedItems', this.selectedPackageItems);
+                console.log('Current package state on refresh', _package);
                 this.selectedPackageItems = _package.packageItems;
                 this.resetDisplayItems();
                 this.updateDisplayItems();
-            }
+            }, error => {console.log(error)}
         );
-    }
-
-    createPackage(packageForm: FormGroup) {
-        this.callSetFocusPackage(this.packageService.createPackage(packageForm));
-    }
-
-    callSetFocusPackage(index: number) {
-        this.packageService.creatingNewPackage = false;
-        this.packageSelect.emit(index);
     }
 
     /*
         Updates display packages according to selected packages
      */
     private updateDisplayItems() {
-        console.log('updating', this.selectedPackageItems);
-
         for (const selectedItem of this.selectedPackageItems) {
             for (const staticItem of this.displayPackages.keys()) {
                 if (selectedItem.name === staticItem.name) {
@@ -102,19 +119,10 @@ export class PackageOptionsComponent implements OnInit, AfterViewInit {
         }
     }
 
-    initDisplayItems() {
-        this.packageService.getAllPackageItems().subscribe(
-            packageItems => {
-                for (const item of packageItems) {
-                    this.displayPackages.set(item, false);
-                }
-            }
-        )
-    }
 
-    private resetDisplayItems() {
+    public resetDisplayItems() {
         for (const item of this.displayPackages.keys()) {
-            if (!this.displayPackages) {
+            if (this.displayPackages == null || this.displayPackages.size <= 0) {
                 this.initDisplayItems();
             }
             this.displayPackages.set(item, false);

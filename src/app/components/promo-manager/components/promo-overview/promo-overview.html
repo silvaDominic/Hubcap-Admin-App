@@ -70,7 +70,7 @@
 
     <div class="overview-package-container">
         <div class="row">
-            <div class="col-4" *ngFor="let _package of packageService.packages | async">
+            <div class="col-4" *ngFor="let _package of packageService.packageArray | async">
                 <div class="package-badge"
                      [ngClass]="{'selected': focusPromotion.discountPackages.includes(_package.name)}">
                     <img *ngIf="focusPromotion.serviceType === E_SERVICE_TYPE.WASH" src="./assets/icons/icon-package-round.svg">

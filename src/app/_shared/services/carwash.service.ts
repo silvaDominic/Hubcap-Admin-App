@@ -74,10 +74,12 @@ export class CarwashService {
 
     /* PACKAGES */
     public getAllPackages(type: SERVICE_TYPE): Observable<Package[]> {
+        console.log('CW GWASHED CALLED');
         switch (type) {
             case SERVICE_TYPE.WASH:
-                return CarwashService.carwash.pipe(
-                    pluck('washPackages'));
+                return CarwashService.carwash.pipe(map(carwash => {
+                    return carwash.washPackages;
+                }));
                 break;
             case SERVICE_TYPE.DETAIL:
                 return CarwashService.carwash.pipe(
@@ -97,12 +99,7 @@ export class CarwashService {
 
     /* STORE */
     public getCarwashMetaData(): Observable<Store> {
-        let store = Store.EMPTY_MODEL;
-
-        CarwashService.carwash.subscribe(carwash => {
-                store = carwash.metaData
-            });
-        return of(store);
+        return CarwashService.carwash.pipe(pluck('metaData'));
     }
 
     /* PROMOTIONS */

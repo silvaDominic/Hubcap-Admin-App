@@ -6,8 +6,7 @@ import {PromotionService} from '../../_shared/services/promotion.service';
 @Component({
     selector: 'app-promo-manager',
     templateUrl: './promo-manager.component.html',
-    styleUrls: ['./promo-manager.component.scss'],
-    providers: [PromotionService]
+    styleUrls: ['./promo-manager.component.scss']
 })
 export class PromoManagerComponent implements OnInit {
 

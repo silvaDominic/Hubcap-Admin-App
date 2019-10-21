@@ -1,4 +1,4 @@
-<div id="overview-block" *ngIf="(packageService.packages | async) as packageArray">
+<div id="overview-block" *ngIf="(packageService.packageArray | async) as packageArray">
     <div class="row">
         <div class="col-md-12">
             <div>
@@ -35,7 +35,7 @@
 
             <div class="package-list">
                 <mat-list>
-                    <mat-list-item *ngFor="let item of (packageService.package | async)?.packageItems">
+                    <mat-list-item *ngFor="let item of (packageService.package | async).packageItems">
                         <div>
                             <img class="item-icon" src="./assets/icons/icon-oval-check-hollow.svg" alt="">
                             <span >{{item.name}}</span>
@@ -49,12 +49,15 @@
 
     <div id="action-row-wrapper" *ngIf="(packageService.package | async) as focusPackage">
         <div class="row action-row">
-            <button mat-button (click)="savePackage(focusPackage)">Save Package</button>
-            <button mat-button (click)="savePackageArray(packageArray)">Save ALL Packages</button>
-            <button mat-button [disabled]="!packageService.checkIsMonthly()" (click)="packageService.toggleIsMonthly()">Switch to Monthly</button>
+            <button mat-button type="button" (click)="savePackage(focusPackage)">Save Package</button>
+            <button id="delete-button" type="button" mat-button>Delete</button>
         </div>
+
         <div class="row action-row">
-            <button id="delete-button" mat-button>Delete</button>
+            <button mat-button id="save-all-button" type="button" (click)="savePackageArray(packageArray)">Save ALL Packages</button>
+<!--
+            <button mat-button [disabled]="!packageService.checkIsMonthly()" (click)="packageService.toggleIsMonthly()">Switch to Monthly</button>
+-->
         </div>
     </div>
 </div>

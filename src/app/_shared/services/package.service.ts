@@ -1,54 +1,82 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import 'rxjs/add/operator/map';
 import {CarwashService} from './carwash.service';
 import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
 import {Package} from '../models/package.model';
 import {PackageItem} from '../models/package.item.model';
-import {BehaviorSubject, Observable, of} from 'rxjs';
-import {pluck} from 'rxjs/operators';
+import {BehaviorSubject, Observable, of, Subscription} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {VEHICLE_TYPE} from '../enums/VEHICLE_TYPE.model';
-import {Utilities} from '../utilities';
-import {CONSTANTS} from '../CONSTANTS';
+import {last} from 'rxjs/operators';
 
 
 @Injectable({
     providedIn: 'root',
 })
 export class PackageService {
-    private packageSubject = new BehaviorSubject<Package>(<Package>{});
-    private packagesSubject = new BehaviorSubject<Package[]>(<Package[]>[]);
+    private readonly packageSubject = new BehaviorSubject<Package>( new Package(
+        Package.EMPTY_MODEL.id,
+        Package.EMPTY_MODEL.name,
+        Package.EMPTY_MODEL.type,
+        Package.EMPTY_MODEL.oneTimePrices,
+        Package.EMPTY_MODEL.packageItems,
+        Package.EMPTY_MODEL.duration,
+        Package.EMPTY_MODEL.monthlyPrices
+    ));
+    private readonly packageArraySubject = new BehaviorSubject<Package[]>(new Array(new Package(
+        Package.EMPTY_MODEL.id,
+        Package.EMPTY_MODEL.name,
+        Package.EMPTY_MODEL.type,
+        Package.EMPTY_MODEL.oneTimePrices,
+        Package.EMPTY_MODEL.packageItems,
+        Package.EMPTY_MODEL.duration,
+        Package.EMPTY_MODEL.monthlyPrices
+    )));
     private readonly _package: Observable<Package> = this.packageSubject.asObservable();
-    private readonly _packages: Observable<Package[]> = this.packagesSubject.asObservable();
-    private readonly _allPackageItems = of(new Array<PackageItem>());
+    private readonly _packageArray: Observable<Package[]> = this.packageArraySubject.asObservable();
+    private _allPackageItems = of(new Array<PackageItem>());
     public creatingNewPackage = false;
     public isMonthly = false;
 
-    private currentPackageIndex: number;
+    private _currentPackageIndex: number;
     public serviceReady: boolean;
+    private mainSubscription: Subscription;
 
-    constructor(private carwashService: CarwashService, private readonly fb: FormBuilder) {
-        this._allPackageItems = carwashService.getAllPackageItems();
-        this.currentPackageIndex = 0;
-        this.loadPackages(SERVICE_TYPE.WASH);
+    constructor(private readonly carwashService: CarwashService, private readonly fb: FormBuilder) {
+        this._currentPackageIndex = 0;
+    }
+
+    clearSubs() {
+        console.log('Clearing Main Sub: ', this.mainSubscription);
+        // this.mainSubscription.unsubscribe();
+        this.packageSubject.next(Package.EMPTY_MODEL);
+        this.packageArraySubject.next(new Array(Package.EMPTY_MODEL));
+        this._allPackageItems = of(new Array<PackageItem>());
+        console.log(this.packageArraySubject.getValue());
+        console.log(this.packageSubject.getValue());
     }
 
     // Initializes packages and package items
     public loadPackages(type: SERVICE_TYPE): void {
         this.serviceReady = false;
         console.log('_LOADING PACKAGES_');
-        this.carwashService.getAllPackages(type).subscribe(
-            packages => {
-                if (packages != null || undefined) {
-                    console.log('Package Array VALID', packages);
-                    this.packagesSubject.next(packages);
-                    if (packages[this.currentPackageIndex] != null || undefined) {
-                        this.packageSubject.next(packages[this.currentPackageIndex]);
+        // this.mainSubscription = this.carwashService.getAllPackages(type).subscribe(
+            const temp = this.carwashService.getAllPackages(type);
+            temp.subscribe(
+            packageArray => {
+                if (packageArray != null || undefined) {
+                    console.log('Package Array VALID', packageArray);
+                    console.log('CURRENT PACKAGE ARRAY: ', this.packageArraySubject.getValue());
+                    this.packageArraySubject.next(packageArray);
+                    if (packageArray[this._currentPackageIndex] != null || undefined) {
                         console.log('_LOADING PACKAGES COMPLETE_');
-                        this.serviceReady = true;
                         console.log('CURRENT PACKAGE: ', this.packageSubject.getValue());
+                        this.packageSubject.next(packageArray[this._currentPackageIndex]);
+                        this.serviceReady = true;
                     } else {
-                        console.log('Package Invalid', packages[this.currentPackageIndex]);
+                        console.log('Package INVALID', packageArray[this._currentPackageIndex]);
+                        console.log('@ Index: ', this._currentPackageIndex);
+                        console.log('Creating empty package...');
                         this.packageSubject.next(Package.EMPTY_MODEL);
                         this.serviceReady = true;
                         this.creatingNewPackage = true;
@@ -57,6 +85,7 @@ export class PackageService {
                 } else {
                     console.log('_NO PACKAGES FOUND_');
                 }
+                this._allPackageItems = this.carwashService.getAllPackageItems();
             }
         );
     }
@@ -69,8 +98,8 @@ export class PackageService {
         return this._package;
     }
 
-    get packages(): Observable<Package[]> {
-        return this._packages;
+    get packageArray(): Observable<Package[]> {
+        return this._packageArray;
     }
 
     get allPackageItems(): Observable<PackageItem[]> {
@@ -78,13 +107,20 @@ export class PackageService {
     }
 
     public setPackage(index: number): void {
-        if (index !== this.currentPackageIndex) {
+        if (index !== this._currentPackageIndex) {
             console.log('_SET PACKAGE_');
-            this.currentPackageIndex = index;
-            this.packageSubject.next(this.packagesSubject.getValue()[index]);
-        } else {
-            return;
+            console.log('@ Index: ', index);
+            this._currentPackageIndex = index;
+            this.packageSubject.next(this.packageArraySubject.getValue()[index]);
         }
+    }
+
+    get currentPackageIndex() {
+        return this._currentPackageIndex;
+    }
+
+    set currentPackageIndex(newIndex: number) {
+        this._currentPackageIndex = newIndex;
     }
 
     public setPackageArray(type: SERVICE_TYPE) {
@@ -93,7 +129,7 @@ export class PackageService {
     }
 
     public getPackageArrayLength(): number {
-        return this.packagesSubject.getValue().length;
+        return this.packageArraySubject.getValue().length;
     }
 
     // TODO Fix the monthly logic
@@ -122,6 +158,8 @@ export class PackageService {
                 Package.EMPTY_MODEL.monthlyPrices
             )
         );
+        // Current index null until package created or existing package selected
+        this._currentPackageIndex = null;
         console.log(this.packageSubject.getValue());
     }
 
@@ -151,8 +189,8 @@ export class PackageService {
         // Update package subjects AND packages array
         this.packageSubject.next(newPackage);
 
-        const currentPackagesArrayValue = this.packagesSubject.getValue();
-        this.packagesSubject.next([...currentPackagesArrayValue, newPackage]);
+        const currentPackagesArrayValue = this.packageArraySubject.getValue();
+        this.packageArraySubject.next([...currentPackagesArrayValue, newPackage]);
 
         // Returns the last index of the array
         return this.getPackageArrayLength() - 1;
