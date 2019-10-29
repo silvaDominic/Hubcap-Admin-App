@@ -37,11 +37,7 @@
 }
 
 #menu-options-section {
-  flex-grow: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-  min-height: 0;
-  height: 725px;
+
   -moz-border-radius-bottomleft: 2em;
   -moz-border-radius-bottomright: 2em;
 }
@@ -49,6 +45,11 @@
 
 
 #package-options-col {
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 825px;
+  height: 100%;
   background-color: white;
   border-bottom-right-radius: 1em;
   border-top-right-radius: 1em;

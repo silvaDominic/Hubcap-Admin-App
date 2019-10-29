@@ -29,6 +29,7 @@ import {RouterModule} from '@angular/router';
 import {layoutRoutes} from './admin-layout.routing';
 import {PageNotFoundComponent} from '../../components/page-not-found/page-not-found.component';
 import {CoreModule} from '../../_core/core.module';
+import {CarwashService} from '../../_shared/services/carwash.service';
 
 @NgModule({
     imports: [
@@ -60,7 +61,7 @@ import {CoreModule} from '../../_core/core.module';
         ScheduleManagerComponent,
         AppointmentFormComponent,
         AppointmentComponent,
-        QrScannerManagerComponent,
+        QrScannerManagerComponent
     ],
     exports: [
     ],

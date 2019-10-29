@@ -5,7 +5,7 @@ export class StoreHours {
     public static EMPTY_MODEL = {
         day: null,
         openTime: '',
-        closeTime: ''
+        closeTime: '',
     };
 
     constructor(public day: DAY,
@@ -13,7 +13,9 @@ export class StoreHours {
                 public closeTime: string = '') {}
 
     public isOpen(): boolean {
+/*        const currentTime = new Date().getTime();
         console.log('Temporary');
+        if (currentTime > this.openTime)*/
         return false;
     }
 }

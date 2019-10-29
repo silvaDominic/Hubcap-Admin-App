@@ -45,6 +45,20 @@ form {
     margin: 6px;
 }
 
+.price-container {
+    label {
+        padding-right: 0.2em;
+    }
+
+    img {
+        width: 25px;
+        height: 25px;
+        opacity: 0.5;
+    }
+
+    transition: all 1s !important;
+}
+
 .option-container, .option-container > div, select {
     display: inline-block;
     width: auto !important;

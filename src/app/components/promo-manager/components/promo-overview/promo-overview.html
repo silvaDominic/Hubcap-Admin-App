@@ -1,10 +1,16 @@
 <div id="overview-block" *ngIf="(promotionService.promotion | async) as focusPromotion">
-    <div id="overview-header">
-        <h3>{{focusPromotion.name}}</h3>
+    <div *ngIf="!promotionService.creatingNewPromotion" id="create-promo-wrapper" class="new-promo-wrapper">
+        <button mat-button (click)="promotionService.initNewPromotion()"><h5>Create New Promotion</h5></button>
     </div>
+
+    <div *ngIf="promotionService.creatingNewPromotion" id="cancel-promo-wrapper" class="new-promo-wrapper">
+        <button mat-button (click)="promotionService.cancelNewPromotion()"><h5>Cancel Promotion Creation</h5></button>
+    </div>
+
     <div id="overview-description">
+        <h3><strong>{{focusPromotion.name}}</strong></h3>
         <p>{{focusPromotion.description}}</p>
-        <p>{{focusPromotion.serviceType}}</p>
+        <p>Service Type: {{focusPromotion.serviceType}}</p>
     </div>
 
     <div id="overview-date-container">
@@ -70,11 +76,15 @@
 
     <div class="overview-package-container">
         <div class="row">
-            <div class="col-4" *ngFor="let _package of packageService.packageArray | async">
-                <div class="package-badge"
-                     [ngClass]="{'selected': focusPromotion.discountPackages.includes(_package.name)}">
-                    <img *ngIf="focusPromotion.serviceType === E_SERVICE_TYPE.WASH" src="./assets/icons/icon-package-round.svg">
-                    <div><h4>{{_package.name}}</h4></div>
+            <div class="col">
+                <p>Available for the following packages:</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4" *ngFor="let _package of focusPromotion.discountPackages">
+                <div class="package-badge">
+                    <img src="./assets/icons/icon-package-round.svg">
+                    <div><h4>{{_package}}</h4></div>
                 </div>
             </div>
         </div>

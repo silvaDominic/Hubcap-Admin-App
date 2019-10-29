@@ -2,8 +2,9 @@
     {
         "name": "Wash",
         "itemType": "EXTERIOR",
-        "selectedSubOptions": [],
+        "selectedSubOption": "--Must Select One--",
         "subOptions" : [
+            "--Must Select One--",
             "Soft Touch",
             "Touch Free",
             "Hand Wash"
@@ -12,8 +13,9 @@
     {
         "name": "Dry",
         "itemType": "EXTERIOR",
-        "selectedSubOptions": [],
+        "selectedSubOption": "--Must Select One--",
         "subOptions" : [
+            "--Must Select One--",
             "Machine Dry",
             "Hand Dry"
         ]
@@ -21,26 +23,27 @@
     {
         "name": "Tire & Wheel Clean",
         "itemType": "EXTERIOR",
-        "selectedSubOptions": [],
+        "selectedSubOption": "--Must Select One--",
         "subOptions": []
     },
     {
         "name": "Undercarriage Wash",
         "itemType": "EXTERIOR",
-        "selectedSubOptions": [],
+        "selectedSubOption": "--Must Select One--",
         "subOptions": []
     },
     {
         "name": "Tire & Wheel Shine",
         "itemType": "EXTERIOR",
-        "selectedSubOptions": [],
+        "selectedSubOption": "--Must Select One--",
         "subOptions": []
     },
     {
         "name": "Exterior Gloss/Car Shine",
         "itemType": "EXTERIOR",
-        "selectedSubOptions": [],
+        "selectedSubOption": "--Must Select One--",
         "subOptions": [
+            "--Must Select One--",
             "Hot Wax",
             "Clear Coat Protectant",
             "Blue Coral Pink Spray Wax",
@@ -60,14 +63,15 @@
     {
         "name": "Windshield Applicant",
         "itemType": "EXTERIOR",
-        "selectedSubOptions": [],
+        "selectedSubOption": "--Must Select One--",
         "subOptions": []
     },
     {
         "name": "Exterior Protectant",
         "itemType": "EXTERIOR",
-        "selectedSubOptions": [],
+        "selectedSubOption": "--Must Select One--",
         "subOptions": [
+            "--Must Select One--",
             "Clearcoat Conditioner",
             "Lava Paint Sealant",
             "Carnauba Wax",
@@ -85,44 +89,45 @@
     {
         "name": "Bug Repellant",
         "itemType": "EXTERIOR",
-        "selectedSubOptions": [],
+        "selectedSubOption": "--Must Select One--",
         "subOptions": []
     },
     {
         "name": "Rust Inhibitor",
         "itemType": "EXTERIOR",
-        "selectedSubOptions": [],
+        "selectedSubOption": "--Must Select One--",
         "subOptions": []
     },
     {
         "name": "Free Self-Serve Vacuum",
         "itemType": "EXTERIOR",
-        "selectedSubOptions": [],
+        "selectedSubOption": "--Must Select One--",
         "subOptions": []
     },
     {
         "name": "Windows Wiped",
         "itemType": "INTERIOR",
-        "selectedSubOptions": [],
+        "selectedSubOption": "--Must Select One--",
         "subOptions": []
     },
     {
         "name": "Full Interior Vacuum",
         "itemType": "INTERIOR",
-        "selectedSubOptions": [],
+        "selectedSubOption": "--Must Select One--",
         "subOptions": []
     },
     {
         "name": "Full Interior Wipe",
         "itemType": "INTERIOR",
-        "selectedSubOptions": [],
+        "selectedSubOption": "--Must Select One--",
         "subOptions": []
     },
     {
         "name": "Interior Conditioning/Dressing",
         "itemType": "INTERIOR",
-        "selectedSubOptions": [],
+        "selectedSubOption": "--Must Select One--",
         "subOptions": [
+            "--Must Select One--",
             "All Interior",
             "Door Jambs",
             "Dashboard",
@@ -135,24 +140,25 @@
     {
         "name": "Trunk Vacuum",
         "itemType": "INTERIOR",
-        "selectedSubOptions": [],
+        "selectedSubOption": "",
         "subOptions": []
     },
     {
         "name": "Mats Washed/Shampooed",
         "itemType": "INTERIOR",
-        "selectedSubOptions": [],
+        "selectedSubOption": "--Must Select One--",
         "subOptions": [
+            "--Must Select One--",
             "Rubber Mats",
             "Upholstery Mats",
             "Trunk Mats",
-            "Mixed"
+            "All Mats"
         ]
     },
     {
         "name": "Air Freshener",
         "itemType": "INTERIOR",
-        "selectedSubOptions": [],
+        "selectedSubOption": "",
         "subOptions": []
     }
 ]

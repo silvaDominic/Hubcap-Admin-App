@@ -1,6 +1,28 @@
 @import '../../../../_shared/scss/expansion-panels';
 @import '../../shared/scss/promos';
 
+.promo-block {
+  width: 400px;
+}
+
+.package-badge {
+  padding: 1em;
+  text-align: center;
+
+  img {
+    padding: 0.5em 0;
+    width: 50%;
+  }
+}
+
+.discount-type {
+  margin: 1em;
+}
+
+.date-time-row {
+  padding: 0.5em 0;
+}
+
 mat-panel-title {
   color: var(--tire);
 }

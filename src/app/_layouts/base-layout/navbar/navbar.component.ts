@@ -9,15 +9,20 @@ import {Router} from '@angular/router';
     styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+
     private listTitles: any[];
     location: Location;
     mobile_menu_visible: any = 0;
     private toggleButton: any;
-    private sidebarVisible: boolean;
+    private _sidebarVisible: boolean;
 
     constructor(location: Location, private element: ElementRef, private router: Router) {
         this.location = location;
-        this.sidebarVisible = false;
+        this._sidebarVisible = false;
+    }
+
+    get sidebarVisible(): boolean {
+        return this._sidebarVisible;
     }
 
     ngOnInit() {
@@ -43,13 +48,13 @@ export class NavbarComponent implements OnInit {
 
         body.classList.add('nav-open');
 
-        this.sidebarVisible = true;
+        this._sidebarVisible = true;
     };
 
     sidebarClose() {
         const body = document.getElementsByTagName('body')[0];
         this.toggleButton.classList.remove('toggled');
-        this.sidebarVisible = false;
+        this._sidebarVisible = false;
         body.classList.remove('nav-open');
     };
 
@@ -58,7 +63,7 @@ export class NavbarComponent implements OnInit {
         // const body = document.getElementsByTagName('body')[0];
         const $toggle = document.getElementsByClassName('navbar-toggler')[0];
 
-        if (this.sidebarVisible === false) {
+        if (this._sidebarVisible === false) {
             this.sidebarOpen();
         } else {
             this.sidebarClose();

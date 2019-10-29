@@ -1,4 +1,4 @@
-import {PackageItem} from './models/package.item.model';
+import {DisplayPackageItem} from './models/display-package-item.model';
 import {Discount} from './models/discount.model';
 import {Address} from './models/address.model';
 import {Promotion} from './models/promotion.model';
@@ -8,6 +8,7 @@ import {Carwash} from './models/carwash.model';
 import {HoursException} from './models/hours-exception.model';
 import {Package} from './models/package.model';
 import {Store} from './models/store.model';
+import {PackageItem} from './models/package-item.model';
 
 export class Utilities {
 
@@ -35,7 +36,7 @@ export class Utilities {
             data.id,
             data.name,
             data.type,
-            Utilities.generateAddress(data),
+            Utilities.generateAddress(data.address),
             data.phoneNumber,
             data.coordinates,
             Utilities.generateHoursOfOperation(data.hoursOfOperation),
@@ -88,7 +89,7 @@ export class Utilities {
 
     public static generateDiscount(data: any): Discount {
         return new Discount(
-            data.E_DISCOUNT_TYPE,
+            data.discountType,
             data.discountAmount,
             data.discountFeatures
         );
@@ -109,9 +110,7 @@ export class Utilities {
     public static generatePackageItem(data: any): PackageItem {
         return new PackageItem(
             data.name,
-            data.itemType,
-            data.selectedSubOptions,
-            data.subOptions
+            data.selectedSubOption
         );
     }
 
@@ -120,7 +119,7 @@ export class Utilities {
         data.storeHours.map(storeHour => storeHours.push(this.generateStoreHours(storeHour)));
 
         const hoursExceptions = Array<HoursException>();
-        data.storeHours.map(exception => hoursExceptions.push(this.generateHoursExceptions(exception)));
+        data.hoursExceptions.map(exception => hoursExceptions.push(this.generateHoursExceptions(exception)));
 
         return new HoursOfOperation(
             storeHours,

@@ -1,19 +1,19 @@
 <div id="overview-block" *ngIf="(packageService.packageArray | async) as packageArray">
     <div class="row">
         <div class="col-md-12">
-            <div>
-                <div id="create-package-wrapper">
-                    <button id="create-package-button" mat-button (click)="packageService.initNewPackage()">Create New Package</button>
-                </div>
+            <div id="create-package-wrapper" class="new-package-wrapper" *ngIf="!packageService.creatingNewPackage">
+                <button mat-button (click)="packageService.initNewPackage()"><h5>Create New Package</h5></button>
             </div>
 
-            <div>
-                <ul class="nav nav-fill">
-                    <li *ngFor="let _package of packageArray let i = index" class="nav-item" (click)="callSetFocusPackage(i)">
-                        <button mat-button [ngClass]="{'active': (packageService.package | async)?.name === _package.name}">{{_package.name}}</button>
-                    </li>
-                </ul>
+            <div id="cancel-package-wrapper" class="new-package-wrapper" *ngIf="packageService.creatingNewPackage">
+                <button mat-button (click)="packageService.cancelNewPackage()"><h5>Cancel Package Creation</h5></button>
             </div>
+
+            <ul class="nav nav-fill">
+                <li *ngFor="let _package of packageArray let i = index" class="nav-item" (click)="callSetFocusPackage(i)">
+                    <button mat-button [ngClass]="{'active': (packageService.package | async)?.name === _package.name}">{{_package.name}}</button>
+                </li>
+            </ul>
 
             <hr>
 
@@ -22,24 +22,35 @@
 
     <div class="row">
         <div class="col-md-12">
-            <div class="package-header">
+<!--            <div class="package-header">
                 <div *ngIf="packageService.checkIsMonthly()">
-                    <strong><h4>Monthly</h4></strong>
                     <img src="./assets/icons/icon-calendar-hollow.svg" alt="">
+                    <strong><h4>Monthly Wash</h4></strong>
                 </div>
                 <div *ngIf="!packageService.checkIsMonthly()">
-                    <strong><h4>One-Time</h4></strong>
                     <img src="./assets/icons/icon-repeat-one.svg" alt="">
+                    <strong><h4>One-Time Wash</h4></strong>
                 </div>
-            </div>
+            </div>-->
+
+            <ul id="prices-tabs" class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a (click)="packageService.switchToOneTime()" [ngClass]="{'active': !packageService.isMonthly}" class="nav-link" id="home-tab" role="tab" aria-controls="home"
+                       aria-selected="true">One-Time</a>
+                </li>
+                <li class="nav-item">
+                    <a (click)="packageService.switchToMonthly()" [ngClass]="{'active': packageService.isMonthly}" class="nav-link" id="profile-tab" role="tab" aria-controls="profile"
+                       aria-selected="false">Monthly</a>
+                </li>
+            </ul>
 
             <div class="package-list">
                 <mat-list>
                     <mat-list-item *ngFor="let item of (packageService.package | async).packageItems">
                         <div>
                             <img class="item-icon" src="./assets/icons/icon-oval-check-hollow.svg" alt="">
-                            <span >{{item.name}}</span>
-                            <strong *ngIf="item.selectedSubOptions.length > 0">&nbsp;({{item.selectedSubOptions}})</strong>
+                            <span>{{item.name}}</span>
+                            <strong *ngIf="item.selectedSubOption.length > 0">&nbsp;({{item.selectedSubOption}})</strong>
                         </div>
                     </mat-list-item>
                 </mat-list>

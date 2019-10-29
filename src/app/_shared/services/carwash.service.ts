@@ -2,18 +2,13 @@ import {Injectable} from '@angular/core';
 import {Carwash} from '../models/carwash.model';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {CARWASH_TYPE} from '../enums/CARWASH_TYPE.model';
-import {Rating} from '../models/rating.model';
-import {Address} from '../models/address.model';
-import {CarwashCoordinates} from '../models/carwash-coordinates.model';
-import {PackageItem} from '../models/package.item.model';
+import {DisplayPackageItem} from '../models/display-package-item.model';
 import {Package} from '../models/package.model';
 import {Promotion} from '../models/promotion.model';
-import {HoursOfOperation} from '../models/hours-of-operation.model';
 import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
 import {ApiService} from '../../_core/services/api.service';
 import {environment} from '../../../environments/environment';
-import {map, pluck, tap} from 'rxjs/operators';
+import {pluck} from 'rxjs/operators';
 import {Store} from '../models/store.model';
 import {CONSTANTS} from '../CONSTANTS';
 import {UserService} from '../../_core/services/user.service';
@@ -27,7 +22,7 @@ export class CarwashService {
     private static staticPackageItemsPath = environment.static_package_items_url;
     private static carwashSubject = new BehaviorSubject(<Carwash>{});
     public static carwash: Observable<Carwash>;
-    private static staticPackageItems = of(new Array<PackageItem>());
+    private static displayPackageItems = of(new Array<DisplayPackageItem>());
 
     constructor(
         private readonly http: HttpClient,
@@ -57,7 +52,7 @@ export class CarwashService {
 
     // Register all package items
     public registerAllPackageItems(): void {
-        CarwashService.staticPackageItems = this.fetchStaticPackageItems();
+        CarwashService.displayPackageItems = this.fetchStaticPackageItems();
     }
 
     // Retrieve JSON from backend
@@ -66,20 +61,22 @@ export class CarwashService {
     }
 
     // Retrieve all package items from assets
-    private fetchStaticPackageItems(): Observable<PackageItem[]> {
-        return this.apiService.get<PackageItem[]>(CarwashService.staticPackageItemsPath);
+    private fetchStaticPackageItems(): Observable<DisplayPackageItem[]> {
+        return this.apiService.get<DisplayPackageItem[]>(CarwashService.staticPackageItemsPath);
     }
 
     /* ---------------- MAIN GET METHODS -----------------*/
 
     /* PACKAGES */
     public getAllPackages(type: SERVICE_TYPE): Observable<Package[]> {
-        console.log('CW GWASHED CALLED');
+/*        if (!CarwashService.carwash) {
+            console.log('Carwash object is null. Registering...');
+            this.registerCarwash();
+        }*/
         switch (type) {
             case SERVICE_TYPE.WASH:
-                return CarwashService.carwash.pipe(map(carwash => {
-                    return carwash.washPackages;
-                }));
+                return CarwashService.carwash.pipe(
+                    pluck('washPackages'));
                 break;
             case SERVICE_TYPE.DETAIL:
                 return CarwashService.carwash.pipe(
@@ -93,8 +90,8 @@ export class CarwashService {
     }
 
     // Return static list of packageItems
-    public getAllPackageItems(): Observable<PackageItem[]> {
-        return CarwashService.staticPackageItems;
+    public getDisplayPackageItems(): Observable<DisplayPackageItem[]> {
+        return CarwashService.displayPackageItems;
     }
 
     /* STORE */
@@ -104,7 +101,6 @@ export class CarwashService {
 
     /* PROMOTIONS */
     public getPromotionsArray(): Observable<Promotion[]> {
-        console.log('_GET PROMOTIONS ARRAY CW_: ', CarwashService.carwash.pipe(pluck('promotions')));
         return CarwashService.carwash.pipe(pluck('promotions'));
     }
 
@@ -161,6 +157,8 @@ export class CarwashService {
         const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
         // httpHeaders.set('Bearer Token', this.userService.getToken());
+
+        console.log('Package to Post: ', newPackage);
 
         // Make post and save new object on success
         this.apiService.post('/packages', new HttpParams(), httpHeaders).subscribe(

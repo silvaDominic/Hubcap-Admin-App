@@ -1,4 +1,4 @@
-import {PackageItem} from './package.item.model';
+import {DisplayPackageItem} from './display-package-item.model';
 import {DISCOUNT_TYPE} from '../enums/DISCOUNT_TYPE.model';
 
 export class Discount {
@@ -11,6 +11,6 @@ export class Discount {
 
     constructor(public discountType: DISCOUNT_TYPE,
                 public discountAmount: number,
-                public discountFeatures: PackageItem[]) {
+                public discountFeatures: DisplayPackageItem[]) {
     }
 }

@@ -2,11 +2,12 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CarwashService} from './carwash.service';
-import {CONSTANTS} from '../CONSTANTS';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {Discount} from '../models/discount.model';
 import {Promotion} from '../models/promotion.model';
-import {PackageItem} from '../models/package.item.model';
+import {DisplayPackageItem} from '../models/display-package-item.model';
+import {Package} from '../models/package.model';
+import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
 
 @Injectable({
     providedIn: 'root'
@@ -15,12 +16,16 @@ export class PromotionService {
 
     // public promotion: Promotion;
     private promotionSubject = new BehaviorSubject<Promotion>(<Promotion>{});
-    private promotionsSubject = new BehaviorSubject<Promotion[]>(<Promotion[]>[]);
-    public _promotions = this.promotionsSubject.asObservable();
-    public _promotion = this.promotionSubject.asObservable();
-    private readonly _allPackageItems = of(new Array<PackageItem>());
+    private promotionArraySubject = new BehaviorSubject<Promotion[]>(<Promotion[]>[]);
+    public readonly _promotionArray = this.promotionArraySubject.asObservable();
+    public readonly _promotion = this.promotionSubject.asObservable();
+    private readonly _displayPackageItems = of(new Array<DisplayPackageItem>());
+    public creatingNewPromotion = false;
+    public washPackageArray = new Array<Package>();
+    public detailPackageArray = new Array<Package>();
+    public currentPackageArray = new Array<Package>();
 
-    private currentPromotionIndex = 0;
+    private _currentPromotionIndex = 0;
     private currentPromotionId: string = null;
     public serviceReady = false;
 
@@ -29,7 +34,7 @@ export class PromotionService {
         private readonly http: HttpClient,
         private readonly carwashService: CarwashService
     ) {
-        this._allPackageItems = carwashService.getAllPackageItems();
+        this._displayPackageItems = carwashService.getDisplayPackageItems();
         this.loadPromotions();
     }
 
@@ -39,7 +44,7 @@ export class PromotionService {
         this.carwashService.getPromotionsArray().subscribe(
             promotions => {
                 if (promotions !== null || undefined) {
-                    this.promotionsSubject.next(promotions);
+                    this.promotionArraySubject.next(promotions);
                     this.promotionSubject.next(promotions[this.currentPromotionIndex]);
                     // this.currentPromotionId = this.promotionSubject.getValue().id;
                     this.serviceReady = true;
@@ -52,6 +57,23 @@ export class PromotionService {
         );
     }
 
+    public loadPackageArray(type: SERVICE_TYPE, skipReset: boolean = false): void {
+        const tempSub = this.carwashService.getAllPackages(type).subscribe(
+            packageArray => {
+                this.currentPackageArray = packageArray;
+
+                if (skipReset == false) {
+                    // Clear discount packages and update promo subject
+                    const tempPromo = this.promotionSubject.getValue();
+                    tempPromo.discountPackages = [];
+                    this.promotionSubject.next(tempPromo);
+                }
+
+            }
+        );
+        tempSub.unsubscribe();
+    }
+
     public get promotion(): Observable<Promotion> {
         if (!this._promotion) {
             console.log('Promotion is null');
@@ -60,23 +82,31 @@ export class PromotionService {
         return this._promotion;
     }
 
-    public get promotions(): Observable<Promotion[]> {
-        if (!this._promotions) {
+    public get promotionArray(): Observable<Promotion[]> {
+        if (!this._promotionArray) {
             console.log('Promotion array is null');
             this.loadPromotions();
         }
-        return this._promotions;
+        return this._promotionArray;
     }
 
-    get allPackageItems(): Observable<PackageItem[]> {
-        return this._allPackageItems;
+    get displayPackageItems(): Observable<DisplayPackageItem[]> {
+        return this._displayPackageItems;
+    }
+
+    get currentPromotionIndex() {
+        return this._currentPromotionIndex;
+    }
+
+    set currentPromotionIndex(index) {
+        this._currentPromotionIndex = index;
     }
 
     public setPromotion(index: number): void {
         if (index !== this.currentPromotionIndex) {
             console.log('_SET PROMOTION_');
             this.currentPromotionIndex = index;
-            this.promotionSubject.next(this.promotionsSubject.getValue()[index]); // TODO Check if the Observable should be loaded instead
+            this.promotionSubject.next(this.promotionArraySubject.getValue()[index]); // TODO Check if the Observable should be loaded instead
         } else {
             return;
         }
@@ -86,7 +116,7 @@ export class PromotionService {
         if (id !== this.currentPromotionId) {
             console.log('_SET PROMOTION BY ID_');
             this.currentPromotionId = id;
-            this.promotionsSubject.getValue().filter(
+            this.promotionArraySubject.getValue().filter(
                 (promotion) => {
                     if (promotion.id === this.currentPromotionId) {
                         this.promotionSubject.next(promotion);
@@ -98,7 +128,7 @@ export class PromotionService {
 
     public toggleActive(id: string) {
         console.log('_SET PROMOTION BY ID_');
-        const currentPromotionsArrayValue = this.promotionsSubject.getValue();
+        const currentPromotionsArrayValue = this.promotionArraySubject.getValue();
         currentPromotionsArrayValue.filter(
             (promotion) => {
                 if (promotion.id === id) {
@@ -114,13 +144,23 @@ export class PromotionService {
                 }
             }
         );
-        this.promotionsSubject.next([...currentPromotionsArrayValue]);
+        this.promotionArraySubject.next([...currentPromotionsArrayValue]);
     }
 
-    public stageTemplatePromotion(): void {
-        this.promotionSubject.next(CONSTANTS.PROMOTION_TEMPLATE);
-        // this.initLivePromotion();
-        console.log('SELECTED PROMOTION: ', this.promotionSubject.getValue());
+    initNewPromotion() {
+        this.creatingNewPromotion = true;
+        this.promotionSubject.next(Promotion.EMPTY_MODEL);
+        this._currentPromotionIndex = null;
+    }
+
+    cancelNewPromotion(): void {
+        this.creatingNewPromotion = false;
+        if (this.promotionArraySubject.getValue().length > 0) {
+            this.setPromotion(0);
+        } else {
+            console.log('No promotion to default to. Current index set to null');
+            this.currentPromotionIndex = null;
+        }
     }
 
     /* ----------------- FORM METHODS ------------------- */

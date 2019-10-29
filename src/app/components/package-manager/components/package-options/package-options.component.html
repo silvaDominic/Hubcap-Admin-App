@@ -24,15 +24,40 @@
 
     <!-------------------- PACKAGE FORM ---------------------->
 
-    <form #packageOptionsForm="ngForm" name="packageOptionsForm" autocomplete="off">
-        <div *ngIf="packageService.creatingNewPackage == false">
+    <div *ngIf="packageService.creatingNewPackage == false">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="price-container">
+                    <div class="form-group">
+                        <label for="time">Package Name</label>
+                        <input type="text" class="form-control" id="name" required name="name"
+                               [(ngModel)]="focusPackage.name">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="price-container">
+                    <div class="form-group">
+                        <label for="time">Duration (In Minutes)</label>
+                        <input type="text" class="form-control" id="time" required name="estimatedTime"
+                               [(ngModel)]="focusPackage.duration">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--ONE TIME WASH INPUTS-->
+
+        <div id="one-time-price-container" *ngIf="!packageService.isMonthly">
             <div class="row">
                 <div class="col-md-6">
                     <div class="price-container">
                         <div class="form-group">
-                            <label for="time">Package Name</label>
-                            <input type="text" class="form-control" id="name" required name="name"
-                                   [(ngModel)]="focusPackage.name">
+                            <label for="price">Price</label>
+                            <img src="./assets/icons/icon-repeat-one.svg" alt="">
+                            <input type="text" class="form-control" id="price" required name="price"
+                                   [(ngModel)]="focusPackage?.oneTimePrices[E_VEHICLE_TYPE.REGULAR]">
                         </div>
                     </div>
                 </div>
@@ -40,18 +65,28 @@
                 <div class="col-md-6">
                     <div class="price-container">
                         <div class="form-group">
-                            <label for="time">Duration (In Minutes)</label>
-                            <input type="text" class="form-control" id="time" required name="estimatedTime"
-                                   [(ngModel)]="focusPackage.duration">
+                            <label for="over-sized-price">Over-sized price</label>
+                            <img src="./assets/icons/icon-repeat-one.svg" alt="">
+                            <input type="text" class="form-control" id="over-sized-price" required
+                                   name="over-sized-price"
+                                   [(ngModel)]="focusPackage.oneTimePrices[E_VEHICLE_TYPE.OVERSIZED]">
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!--MONTHLY WASH INPUTS-->
+
+        <div id="monthly-price-container" *ngIf="packageService.isMonthly">
+            <div class="row">
                 <div class="col-md-6">
                     <div class="price-container">
                         <div class="form-group">
                             <label for="price">Price</label>
+                            <img src="./assets/icons/icon-calendar-hollow.svg" alt="">
                             <input type="text" class="form-control" id="price" required name="price"
-                                   [(ngModel)]="focusPackage?.oneTimePrices[E_VEHICLE_TYPE.REGULAR]">
+                                   [(ngModel)]="focusPackage?.monthlyPrices[E_VEHICLE_TYPE.REGULAR]">
                         </div>
                     </div>
                 </div>
@@ -59,40 +94,38 @@
                     <div class="price-container">
                         <div class="form-group">
                             <label for="over-sized-price">Over-sized price</label>
-                            <input *ngIf="!packageService.checkIsMonthly()" type="text" class="form-control" id="over-sized-price" required
-                                   name="over-sized-price"
-                                   [(ngModel)]="focusPackage.oneTimePrices[E_VEHICLE_TYPE.OVERSIZED]">
-                            <input *ngIf="packageService.checkIsMonthly()" type="text" class="form-control" id="over-sized-price" required
+                            <img src="./assets/icons/icon-calendar-hollow.svg" alt="">
+                            <input type="text" class="form-control" id="over-sized-price" required
                                    name="over-sized-price"
                                    [(ngModel)]="focusPackage.monthlyPrices[E_VEHICLE_TYPE.OVERSIZED]">
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="input-group option-container"
-                         *ngFor="let item of displayPackages | keyvalue; let index = index">
-                        <div [ngClass]="{'input-group-prepend': item.key.subOptions.length > 0}">
-                            <button type="button" class="btn option-button"
-                                    [ngClass]="{'selected': item.value === true}"
-                                    (click)="buttonToggle($event, index, item)">
-                                {{item.key.name}}
-                            </button>
-                            <div class="button-indicator"
-                                 [ngClass]="{'exterior': item.key.itemType === E_ITEM_TYPE.EXTERIOR, 'interior': item.key.itemType === E_ITEM_TYPE.INTERIOR}"></div>
-                        </div>
-                        <select *ngIf="item.key.subOptions.length != 0" class="custom-select"
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group option-container"
+                     *ngFor="let item of displayPackageItems | keyvalue; let index = index">
+                    <div [ngClass]="{'input-group-prepend': item.key.subOptions.length > 0}">
+                        <button type="button" class="btn option-button"
                                 [ngClass]="{'selected': item.value === true}"
-                                name="item.selectedSubOption">
-                            <option *ngFor="let option of item.key.subOptions;" [value]="option"
-                                    name="item.selectedSubOption">{{option}}</option>
-                        </select>
+                                (click)="buttonToggle($event, index, item)">
+                            {{item.key.name}}
+                        </button>
+                        <div class="button-indicator"
+                             [ngClass]="{'exterior': item.key.itemType === E_ITEM_TYPE.EXTERIOR, 'interior': item.key.itemType === E_ITEM_TYPE.INTERIOR}"></div>
                     </div>
+                    <select *ngIf="item.key.subOptions.length != 0 || null" class="custom-select"
+                            (change)="selectChange($event, index, item)"
+                            [ngClass]="{'selected': item.value === true}" [(ngModel)]="item.key.selectedSubOption">
+                        <option *ngFor="let option of item.key.subOptions;" [value]="option">{{option}}</option>
+                    </select>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
 
     <!-------------------- NEW PACKAGE FORM ---------------------->
 
@@ -185,7 +218,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="input-group option-container"
-                                 *ngFor="let item of displayPackages | keyvalue; let index = index">
+                                 *ngFor="let item of displayPackageItems | keyvalue; let index = index">
                                 <div [ngClass]="{'input-group-prepend': item.key.subOptions.length > 0}">
                                     <button type="button" class="btn option-button"
                                             [ngClass]="{'selected': item.value === true}"
@@ -199,7 +232,7 @@
                                         [ngClass]="{'selected': item.value === true}"
                                         name="item.selectedSubOption">
                                     <option *ngFor="let option of item.key.subOptions;"
-                                            [value]="item.key.selectedSubOptions"
+                                            [value]="item.key.selectedSubOption"
                                             name="item.selectedSubOption">{{option}}</option>
                                 </select>
                             </div>

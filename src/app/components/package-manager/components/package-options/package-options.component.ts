@@ -1,26 +1,26 @@
 import {AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
-import {PackageItem} from '../../../../_shared/models/package.item.model';
+import {DisplayPackageItem} from '../../../../_shared/models/display-package-item.model';
 import {PackageService} from '../../../../_shared/services/package.service';
 import {ITEM_TYPE} from '../../../../_shared/enums/ITEM_TYPE.model';
 import {FormGroup} from '@angular/forms';
 import {VEHICLE_TYPE} from '../../../../_shared/enums/VEHICLE_TYPE.model';
 import {Observable, Subscription} from 'rxjs';
 import {Package} from '../../../../_shared/models/package.model';
+import {PackageItem} from '../../../../_shared/models/package-item.model';
 
 @Component({
     selector: 'app-package-options',
     templateUrl: './package-options.component.html',
     styleUrls: ['./package-options.component.scss']
 })
-export class PackageOptionsComponent implements OnInit, OnDestroy {
+export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit {
     @Output() packageSelect = new EventEmitter<number>();
 
-    private displayPackages: Map<PackageItem, boolean> = new Map<PackageItem, boolean>();
+    private displayPackageItems: Map<DisplayPackageItem, boolean> = new Map<DisplayPackageItem, boolean>();
 
     public selectedPackageItems: PackageItem[] = new Array<PackageItem>();
     public isMonthly = false;
     public packageForm: FormGroup;
-    public subscriptions: Subscription[] = [];
 
     // Enums variables
     E_ITEM_TYPE = ITEM_TYPE;
@@ -39,6 +39,9 @@ export class PackageOptionsComponent implements OnInit, OnDestroy {
     public ngOnDestroy(): void {
     }
 
+    ngAfterViewInit(): void {
+    }
+
     private initForm (): void {
         this.packageForm = this.packageService.getForm();
     }
@@ -48,11 +51,11 @@ export class PackageOptionsComponent implements OnInit, OnDestroy {
     }
 
     public buttonToggle(event, index, item): void {
-        console.log('Clicked: ', item.key.name, item.value);
+        console.log('Clicked: ', item.key, item.value);
 
         event.target.classList.toggle('selected');
         // If selected, deselect and remove from selectedPackageItems array
-        if (item.value === true) {
+        if (item.value == true) {
             item.value = false;
             this.selectedPackageItems.filter((packageItem, i) => {
                 if (item.key.name === packageItem.name) {
@@ -61,12 +64,21 @@ export class PackageOptionsComponent implements OnInit, OnDestroy {
                 }
             });
         // If NOT selected, select and add to selectedPackageItems array
-        } else if (!item.value) {
+        } else if (item.value == false) {
             item.value = true;
             console.log(item.key.name + ' converted to ' + item.value);
             console.log(item);
             this.selectedPackageItems.push(item.key);
         }
+    }
+
+    public selectChange(event, index, item): void {
+        // If selected, deselect and remove from selectedPackageItems array
+        this.selectedPackageItems.filter((packageItem, i) => {
+            if (item.key.name === packageItem.name) {
+                this.selectedPackageItems[i].selectedSubOption = item.key.selectedSubOption
+            }
+        });
     }
 
     public createPackage(packageForm: FormGroup) {
@@ -79,14 +91,13 @@ export class PackageOptionsComponent implements OnInit, OnDestroy {
     }
 
     private initDisplayItems() {
-        const tempSub = this.packageService.getAllPackageItems().subscribe(
+        this.packageService.getDisplayPackageItems().subscribe(
             packageItems => {
                 for (const item of packageItems) {
-                    this.displayPackages.set(item, false);
+                    this.displayPackageItems.set(item, false);
                 }
-                console.log('Display Packages :', this.displayPackages);
+                console.log('Display Packages :', this.displayPackageItems);
                 this.refreshPackageOptions();
-                this.subscriptions.push(tempSub);
             }
         );
     }
@@ -94,16 +105,16 @@ export class PackageOptionsComponent implements OnInit, OnDestroy {
     public refreshPackageOptions() {
         console.log('REFRESHING PACKAGE OPTIONS');
         // Update local variable when packages change
-        const packageSub = this.packageService.package;
-            packageSub.subscribe(
+        const packageSub = this.packageService.package.subscribe(
             _package => {
                 console.log('Current selectedItems', this.selectedPackageItems);
-                console.log('Current package state on refresh', _package);
                 this.selectedPackageItems = _package.packageItems;
+                console.log('Current package state on refresh', _package);
                 this.resetDisplayItems();
                 this.updateDisplayItems();
             }, error => {console.log(error)}
         );
+        packageSub.unsubscribe();
     }
 
     /*
@@ -111,21 +122,22 @@ export class PackageOptionsComponent implements OnInit, OnDestroy {
      */
     private updateDisplayItems() {
         for (const selectedItem of this.selectedPackageItems) {
-            for (const staticItem of this.displayPackages.keys()) {
+            for (const staticItem of this.displayPackageItems.keys()) {
                 if (selectedItem.name === staticItem.name) {
-                    this.displayPackages.set(staticItem, true);
+                    staticItem.selectedSubOption = selectedItem.selectedSubOption;
+                    this.displayPackageItems.set(staticItem, true);
                 }
             }
         }
     }
 
-
     public resetDisplayItems() {
-        for (const item of this.displayPackages.keys()) {
-            if (this.displayPackages == null || this.displayPackages.size <= 0) {
+        for (const item of this.displayPackageItems.keys()) {
+            if (this.displayPackageItems == null || this.displayPackageItems.size <= 0) {
+                console.log('Display packages null. Attempting to reinitialize');
                 this.initDisplayItems();
             }
-            this.displayPackages.set(item, false);
+            this.displayPackageItems.set(item, false);
         }
     }
 }

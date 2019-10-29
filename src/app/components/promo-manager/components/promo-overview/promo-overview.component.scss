@@ -1,51 +1,72 @@
 #overview-block {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 
-  > div {
-    margin: 0 1em;
-  }
+    > div {
+        margin: 0 1em;
+    }
 }
 
-#overview-header {
-  text-align: center;
-  padding: 1em 0;
-  margin: 0 -15px !important;
-  border-top-left-radius: 1em;
-  background-color: var(--tire);
-  color: white;
+.new-promo-wrapper {
+    text-align: center;
+    margin: 0 -15px !important;
+    border-top-left-radius: 1em;
+    background-color: var(--tire);
+    color: white;
+
+    button {
+        height: 100%;
+        width: 100%;
+        padding: 18px 8px !important;
+
+        h5 {
+            margin-bottom: 0 !important;
+        }
+    }
+}
+
+#create-promo-wrapper {
+    background-color: var(--go);
+}
+
+#cancel-promo-wrapper {
+    background-color: var(--stop);
 }
 
 #overview-description {
-  padding: 1.0em 0;
+    padding: 1.0em 0;
+
+    h3 {
+        margin-top: 0 !important;
+    }
 }
 
 #overview-time-container, #overview-date-container {
-  padding: 0.5em 0;
+    padding: 0.5em 0;
 }
 
 #overview-discount-container {
-  padding: 0.5em 0;
-  text-align: center;
-  color: var(--go);
-  overflow-y: scroll;
-  max-height: 500px;
+    padding: 0.5em 0;
+    text-align: center;
+    color: var(--go);
+    overflow-y: scroll;
+    max-height: 500px;
 }
 
 .overview-package-container {
-  padding: 0.5em 0;
+    padding: 0.5em 0;
 }
 
 .package-badge {
-  text-align: center;
-  opacity: 0.4;
+    text-align: center;
+    opacity: 0.4;
 
-  img {
-    width: 100%;
-    padding: 0.5em;
-  }
+    img {
+        width: 100%;
+        padding: 0.5em;
+    }
 }
 
 .selected {
-  opacity: 1 !important;
+    opacity: 1 !important;
 }

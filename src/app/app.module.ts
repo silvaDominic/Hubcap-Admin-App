@@ -10,6 +10,7 @@ import {BaseLayoutModule} from './_layouts/base-layout/base-layout.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import {CarwashService} from './_shared/services/carwash.service';
 
 @NgModule({
     imports: [

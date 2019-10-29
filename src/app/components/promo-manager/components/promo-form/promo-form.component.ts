@@ -4,12 +4,13 @@ import {AmazingTimePickerService} from 'amazing-time-picker';
 import {ALL_PACKAGES} from '../../../../_shared/enums/ALL_PACKAGES.model';
 import {PackageService} from '../../../../_shared/services/package.service';
 import {FREQUENCY_TYPE} from '../../../../_shared/enums/FREQUENCY_TYPE.model';
-import {PackageItem} from '../../../../_shared/models/package.item.model';
+import {DisplayPackageItem} from '../../../../_shared/models/display-package-item.model';
 import {Promotion} from '../../../../_shared/models/promotion.model';
 import {SERVICE_TYPE} from '../../../../_shared/enums/SERVICE_TYPE';
 import {MatSnackBar} from '@angular/material';
 import {DISCOUNT_TYPE} from '../../../../_shared/enums/DISCOUNT_TYPE.model';
 import {PromotionService} from '../../../../_shared/services/promotion.service';
+import { Package } from 'app/_shared/models/package.model';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class PromoFormComponent implements OnInit {
 
     promotion: Promotion;
     promotions: Promotion[];
-    allPackageItems: PackageItem[];
+    discountPackage: Package[];
+    selectedServiceType: SERVICE_TYPE;
 
     // Form Builder Groups
     promotionForm: FormGroup;
@@ -30,9 +32,6 @@ export class PromoFormComponent implements OnInit {
     E_DISCOUNT_TYPE = DISCOUNT_TYPE;
     E_FREQUENCY_TYPE = FREQUENCY_TYPE;
     E_SERVICE_TYPE = SERVICE_TYPE;
-    E_ALL_PACKAGES = ALL_PACKAGES;
-
-    OBJECT = Object;
 
     // For initialization
     currentDate: Date;
@@ -40,32 +39,26 @@ export class PromoFormComponent implements OnInit {
 
     error: string;
 
-    constructor(private atpService: AmazingTimePickerService, private snackBar: MatSnackBar,
-                private packageService: PackageService, private promotionService: PromotionService) {
-
-
+    constructor(private readonly atpService: AmazingTimePickerService, private readonly snackBar: MatSnackBar,
+                private readonly packageService: PackageService, private readonly promotionService: PromotionService) {
 
         // For Amazing Time Picker
         this.currentDate = new Date();
         this.startDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDay());
+
+        console.log('Time Demo');
+        console.log('Time 1: ', this.currentDate.getHours() + ':' + this.currentDate.getMinutes());
+        console.log('Time 2: ', this.currentDate.toLocaleTimeString());
     }
 
     public ngOnInit(): void {
         // Initialize variables
-        // this.allPackageItems = this.packageService.getAllPackageItems();
         this.initForm();
     }
 
     private initForm(): void {
         this.promotionForm = this.promotionService.getForm();
     }
-
-/*    getAllPackageItems() {
-        this.packageService.fetchAllWashPackageItems()
-            .subscribe(packageItems => this.packageItems = packageItems,
-                error => this.error = error
-            );
-    }*/
 
     discardForm() {
         this.promotion = this.promotions[0];

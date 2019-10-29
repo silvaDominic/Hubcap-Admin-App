@@ -1,6 +1,7 @@
-import {PackageItem} from './package.item.model';
+import {DisplayPackageItem} from './display-package-item.model';
 import {VEHICLE_TYPE} from '../enums/VEHICLE_TYPE.model';
 import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
+import {PackageItem} from './package-item.model';
 
 
 export class Package {

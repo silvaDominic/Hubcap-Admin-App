@@ -1,18 +1,18 @@
 import {ITEM_TYPE} from '../enums/ITEM_TYPE.model';
 
-export class PackageItem {
+export class DisplayPackageItem {
 
-    public static EMPTY_MODEL = <PackageItem>{
+    public static EMPTY_MODEL = <DisplayPackageItem>{
         name: '',
         itemType: null,
-        selectedSubOptions: [],
+        selectedSubOption: '',
         subOptions: []
     };
 
     constructor(
         public name: string,
         public itemType: ITEM_TYPE = ITEM_TYPE.EXTERIOR,
-        public selectedSubOptions: string[],
+        public selectedSubOption: string,
         public subOptions: string[]) {
     }
 }

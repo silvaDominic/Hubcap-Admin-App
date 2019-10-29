@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {CarwashService} from '../../_shared/services/carwash.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PromotionService} from '../../_shared/services/promotion.service';
+import {SERVICE_TYPE} from '../../_shared/enums/SERVICE_TYPE';
 
 
 @Component({
@@ -8,13 +8,19 @@ import {PromotionService} from '../../_shared/services/promotion.service';
     templateUrl: './promo-manager.component.html',
     styleUrls: ['./promo-manager.component.scss']
 })
-export class PromoManagerComponent implements OnInit {
+export class PromoManagerComponent implements OnInit, OnDestroy {
 
-    constructor(private readonly promotionService: PromotionService, private readonly carwashService: CarwashService) {}
+    constructor(private readonly promotionService: PromotionService) {}
 
-    ngOnInit() {
+    public ngOnInit(): void {
         console.log('promo-manager init');
-        // this.promotionService.stageTemplatePromotion();
+        this.promotionService.loadPackageArray(SERVICE_TYPE.WASH, true);
+    }
+
+    public ngOnDestroy(): void {
+        if (this.promotionService.creatingNewPromotion) {
+            this.promotionService.cancelNewPromotion();
+        }
     }
 
     public setFocusPromotion(index: number) {

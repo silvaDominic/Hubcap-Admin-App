@@ -1,17 +1,17 @@
-<div id="promo-block">
+<div class="promo-block">
     <mat-accordion id="promo-accordion">
-        <mat-expansion-panel hideToggle>
+        <mat-expansion-panel hideToggle [expanded]="step===promoIndex" (opened)="step=promoIndex">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <span><strong>{{thisPromotion.name}}</strong></span>
                 </mat-panel-title>
                 <mat-panel-description>
                     <div></div>
-                    <div *ngIf="thisPromotion.frequencyType === frequencyType.ONE_TIME">
+                    <div *ngIf="thisPromotion.frequencyType === E_FREQUENCY_TYPE.ONE_TIME">
                         <span>One Time</span>
                         <img class="one-time" src="./assets/icons/icon-calendar-hollow.svg">
                     </div>
-                    <div *ngIf="thisPromotion.frequencyType === frequencyType.REOCCURRING">
+                    <div *ngIf="thisPromotion.frequencyType === E_FREQUENCY_TYPE.REOCCURRING">
                         <span>Reoccurring</span>
                         <img class="reoccurring" src="./assets/icons/icon-repeat.svg">
                     </div>
@@ -24,7 +24,7 @@
                 </div>
             </div>
 
-            <div class="row date-row">
+            <div class="row date-time-row">
                 <div class="col-2">
                     <div id="date-icon" class="header-icon">
                         <img src="./assets/icons/icon-calendar-hollow.svg">
@@ -32,18 +32,22 @@
                 </div>
                 <div class="col-5">
                     <div class="promo-date">
-                        <span>{{thisPromotion.startDate}}</span>
+                        <span>{{thisPromotion.startDate.toLocaleDateString('en-us', C_CONSTANTS.SHORT_WEEKDAY)}}</span>,&nbsp;
+                        <span>{{thisPromotion.startDate.toLocaleDateString('en-us', C_CONSTANTS.SHORT_MONTH)}}</span>&nbsp;
+                        <span>{{thisPromotion.startDate.toLocaleDateString('en-us', C_CONSTANTS.NUM_YEAR)}}</span>
                     </div>
                 </div>
 
                 <div class="col-5">
                     <div class="promo-date">
-                        <span>{{thisPromotion.endDate}}</span>
+                        <span>{{thisPromotion.endDate.toLocaleDateString('en-us', C_CONSTANTS.SHORT_WEEKDAY)}}</span>,&nbsp;
+                        <span>{{thisPromotion.endDate.toLocaleDateString('en-us', C_CONSTANTS.SHORT_MONTH)}}</span>&nbsp;
+                        <span>{{thisPromotion.endDate.toLocaleDateString('en-us', C_CONSTANTS.NUM_YEAR)}}</span>
                     </div>
                 </div>
             </div>
 
-            <div class="row time-row">
+            <div class="row date-time-row">
                 <div class="col-2">
                     <div id="time-icon" class="header-icon">
                         <img src="./assets/icons/icon-clock-hollow.svg">
@@ -65,63 +69,24 @@
             <div class="row price-row">
                 <div class="col-12">
                     <div class="header-content">
-                        <div class="promo-price" *ngIf="thisPromotion.discount.discountType === discountType.PERCENT">
-                            <span>{{thisPromotion.discount.discountAmount}}% off</span></div>
-                        <div class="promo-price" *ngIf="thisPromotion.discount.discountType === discountType.DOLLAR">
-                            <span>${{thisPromotion.discount.discountAmount}} off</span></div>
-                        <div class="promo-price"
-                             *ngIf="thisPromotion.discount.discountType === discountType.FREE"><span>
+                        <div class="discount-type" *ngIf="thisPromotion.discount.discountType === E_DISCOUNT_TYPE.PERCENT">
+                            <h3>{{thisPromotion.discount.discountAmount}}% off</h3></div>
+                        <div class="discount-type" *ngIf="thisPromotion.discount.discountType === E_DISCOUNT_TYPE.DOLLAR">
+                            <h3>${{thisPromotion.discount.discountAmount}} off</h3></div>
+                        <div class="discount-type"
+                             *ngIf="thisPromotion.discount.discountType === E_DISCOUNT_TYPE.FREE"><span>
                                     Free</span>
-                            <div *ngFor="let feature of thisPromotion.discount.discountFeatures">{{feature}}</div>
+                            <h4 *ngFor="let feature of thisPromotion.discount.discountFeatures">{{feature}}</h4>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div *ngIf="thisPromotion.serviceType === packageType.DETAIL" class="row">
-                <div class="col-4">
-                    <div class="package-badge"
-                         [ngClass]="{'selected': thisPromotion.discountPackages.includes(package.INTERIOR)}">
-                        <img src="./assets/icons/icon-detail-interior.svg">
-                        <div class="text-center"><strong>Interior</strong></div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="package-badge"
-                         [ngClass]="{'selected': thisPromotion.discountPackages.includes(package.EXTERIOR)}">
-                        <img src="./assets/icons/icon-detail-exterior.svg">
-                        <div class="text-center"><strong>Exterior</strong></div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="package-badge"
-                         [ngClass]="{'selected': thisPromotion.discountPackages.includes(package.COMPLETE)}">
-                        <img src="./assets/icons/icon-detail-both.svg">
-                        <div class="text-center"><strong>Complete</strong></div>
-                    </div>
-                </div>
-            </div>
-
-            <div *ngIf="thisPromotion.serviceType === packageType.WASH" class="row">
-                <div class="col-4">
-                    <div class="package-badge"
-                         [ngClass]="{'selected': thisPromotion.discountPackages.includes(package.SILVER)}">
-                        <img src="./assets/icons/iconA-wash-bronze.svg">
-                        <div class="text-center"><strong>Silver</strong></div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="package-badge"
-                         [ngClass]="{'selected': thisPromotion.discountPackages.includes(package.GOLD)}">
-                        <img src="./assets/icons/iconA-wash-silver.svg">
-                        <div class="text-center"><strong>Gold</strong></div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="package-badge"
-                         [ngClass]="{'selected': thisPromotion.discountPackages.includes(package.PLATINUM)}">
-                        <img src="./assets/icons/iconA-wash-gold.svg">
-                        <div class="text-center"><strong>Platinum</strong></div>
+            <div class="row">
+                <div *ngFor="let promo of thisPromotion.discountPackages" class="col-4">
+                    <div class="package-badge">
+                        <img src="./assets/icons/icon-package-round.svg">
+                        <div><strong>{{promo}}</strong></div>
                     </div>
                 </div>
             </div>

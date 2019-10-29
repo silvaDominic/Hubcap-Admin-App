@@ -6,18 +6,6 @@
     "detailFlag": true,
     "favFlag": true,
     "carWashName": "HubCap alpha wash",
-    "ratingObject": [
-        {
-            "customerName": "customer",
-            "rating": 3,
-            "review": "All hail hubcap",
-            "date": {
-                "day": 23,
-                "month": 8,
-                "year": 2019
-            }
-        }
-    ],
     "hoursOfOperation": {
         "Monday": {
             "openHours": {
