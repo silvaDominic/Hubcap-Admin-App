@@ -1,6 +1,6 @@
 <div class="promo-form-block">
     <div *ngIf="(promotionService.promotion | async) as focusPromotion" id="form-row">
-        <form [formGroup]="promotionForm" novalidate (ngSubmit)="createPromo()">
+        <form [formGroup]="promotionForm" novalidate>
             <mat-vertical-stepper id="promo-form-stepper" class="custom-class" linear="false">
                 <mat-step id="name" label="Name">
                     <div formGroupName="nameFormGroup">
@@ -10,7 +10,7 @@
                             <input matInput placeholder="Ex: Early Bird Special" type="text" formControlName="name"
                                    required [value]="focusPromotion.name" [(ngModel)]="focusPromotion.name">
                         </mat-form-field>
-                        <button mat-button matStepperNext type="button">Next</button>
+                        <button mat-button matStepperNext type="submit">Next</button>
                     </div>
                 </mat-step>
 
@@ -30,7 +30,7 @@
                             </mat-select>
                         </mat-form-field>
                         <button mat-button matStepperPrevious type="button">Back</button>
-                        <button mat-button matStepperNext type="button">Next</button>
+                        <button mat-button matStepperNext type="submit">Next</button>
                     </div>
                 </mat-step>
 
@@ -46,65 +46,74 @@
                                    formControlName="description" [(ngModel)]="focusPromotion.description">
                         </mat-form-field>
                         <button mat-button matStepperPrevious type="button">Back</button>
-                        <button mat-button matStepperNext type="button">Next</button>
+                        <button mat-button matStepperNext type="submit">Next</button>
                     </div>
                 </mat-step>
 
                 <!--FREQUENCY GROUP-->
 
-                <mat-step [stepControl]="frequencyFormGroup" id="frequency" label="Frequency">
-                    <div formGroupName="frequencyFormGroup">
+                <mat-step [stepControl]="frequencyFormGroup" id="frequency" label="Scheduling">
+                    <div formGroupName="schedulingFormGroup">
                         <div class="row">
                             <div class="col-md-4">
-                                <p>How often will this promotion be available?</p>
-                                <mat-radio-group class="promo-radio-group" formControlName="frequencyType"
-                                                 [(ngModel)]="focusPromotion.frequencyType">
-                                    <mat-radio-button value="ONE_TIME" class="promo-radio-button">One-Time
-                                    </mat-radio-button>
-                                    <mat-radio-button value="REOCCURRING" class="promo-radio-button">Reoccurring
-                                    </mat-radio-button>
+                                <p>Will this be a reoccurring promotion?</p>
+                                <mat-radio-group class="promo-radio-group" formControlName="isReoccurring"
+                                                 [(ngModel)]="focusPromotion.isReoccurring">
+                                    <mat-radio-button [value]="false" class="promo-radio-button">No</mat-radio-button>
+                                    <mat-radio-button [value]="true" class="promo-radio-button">Yes</mat-radio-button>
                                 </mat-radio-group>
                             </div>
 
                             <!--FREQUENCY-->
+                            <div *ngIf="focusPromotion.isReoccurring" formGroupName="frequencyFormGroup" class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <span>On what basis will it be reoccurring?</span>
+                                        <mat-form-field class="input-group">
+                                            <mat-select id="reoccurringSelect" name="reoccurringSelect"
+                                                        formControlName="frequencyType" [(ngModel)]="focusPromotion.frequency.type">
+                                                <mat-option value="WEEKLY">Weekly</mat-option>
+                                                <mat-option value="MONTHLY">Monthly</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
 
-                            <div class="col-md-4" *ngIf="focusPromotion.frequencyType === E_FREQUENCY_TYPE.REOCCURRING">
-                                <p>On what basis will it be reoccurring?</p>
-                                <div class="input-group">
-                                    <select id="reoccurringSelect" class="custom-select" name="reoccurringSelect"
-                                            formControlName="frequency" [(ngModel)]="focusPromotion.frequency">
-                                        <option value="DAILY">Daily</option>
-                                        <option value="WEEKLY">Weekly</option>
-                                        <option value="MONTHLY">Monthly</option>
-                                    </select>
+                                    <div class="col-md-6" *ngIf="focusPromotion.frequency.type === E_FREQUENCY.WEEKLY && focusPromotion.isReoccurring">
+                                        <span>What day of the WEEK will this be available</span>
+                                        <mat-form-field>
+                                            <mat-select id="daySelect" name="daySelect" formControlName="frequencyValue" [(ngModel)]="focusPromotion.frequency.value">
+                                                <mat-option [value]="day" *ngFor="let day of K_DAY">{{day}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-6" *ngIf="focusPromotion.frequency.type === E_FREQUENCY.MONTHLY && focusPromotion.isReoccurring">
+                                        <span>What day of the MONTH will this be available?</span>
+                                        <mat-form-field>
+                                            <mat-select id="dateSelect" name="dateSelect" formControlName="frequencyValue" [(ngModel)]="focusPromotion.frequency.value">
+                                                <mat-option [value]="(i + 1).toString()" *ngFor="let date of [].constructor(28); let i = index">{{i + 1}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
                                 </div>
                             </div>
 
                             <!--DATE-->
 
-                            <div class="col-md-4" *ngIf="focusPromotion.frequencyType === E_FREQUENCY_TYPE.ONE_TIME">
-                                <p>Choose when the promotion will begin.<br>It will reoccur on
-                                    a {{focusPromotion.frequency}}
-                                    basis.</p>
+                            <div class="col-md-4" *ngIf="!focusPromotion.isReoccurring">
+                                <span>On what date will this promotion BEGIN</span>
                                 <mat-form-field>
-                                    <input matInput [matDatepicker]="startDate" placeholder="Choose a START date"
+                                    <input matInput [matDatepicker]="startDate"
                                            formControlName="startDate" required [(ngModel)]="focusPromotion.startDate">
                                     <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
                                     <mat-datepicker #startDate startView="year" [startAt]="startDate"></mat-datepicker>
                                 </mat-form-field>
-
-                                <mat-form-field>
-                                    <input matInput [matDatepicker]="endDate" placeholder="Choose an END date"
-                                           formControlName="endDate" required [(ngModel)]="focusPromotion.endDate">
-                                    <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-                                    <mat-datepicker #endDate startView="year" [startAt]="startDate"></mat-datepicker>
-                                </mat-form-field>
                             </div>
 
-                            <div class="col-md-4" *ngIf="focusPromotion.frequencyType === E_FREQUENCY_TYPE.REOCCURRING">
-                                <p>Choose when the promotion will be available to use</p>
+                            <div class="col-md-4" *ngIf="!focusPromotion.isReoccurring">
+                                <span>On what date will this promotion END</span>
                                 <mat-form-field>
-                                    <input matInput [matDatepicker]="endDate" placeholder="Choose an END date"
+                                    <input matInput [matDatepicker]="endDate"
                                            formControlName="endDate" required [(ngModel)]="focusPromotion.endDate">
                                     <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
                                     <mat-datepicker #endDate startView="year" [startAt]="startDate"></mat-datepicker>
@@ -113,7 +122,35 @@
                         </div>
 
                         <button mat-button matStepperPrevious type="button">Back</button>
-                        <button mat-button matStepperNext type="button">Next</button>
+                        <button mat-button matStepperNext type="submit">Next</button>
+                    </div>
+                </mat-step>
+
+                <!--PROMOTION TIME-->
+
+                <mat-step [stepControl]="activeTimeFormGroup" label="Promotion Time">
+                    <div formGroupName="activeTimeFormGroup">
+                        <p>What hours will this promotion be active</p>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <mat-form-field>
+                                    <mat-label for="startTime">Choose a start time</mat-label>
+                                    <input matInput id="startTime" type="time" atp-time-picker formControlName="startTime"
+                                           [(ngModel)]="focusPromotion.startTime">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-6">
+                                <mat-form-field>
+                                    <mat-label for="endTime">Choose an end time</mat-label>
+                                    <input matInput id="endTime" type="time" atp-time-picker formControlName="endTime"
+                                           [(ngModel)]="focusPromotion.endTime">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <button mat-button matStepperPrevious type="button">Back</button>
+                        <button mat-button matStepperNext type="submit">Next</button>
                     </div>
                 </mat-step>
 
@@ -166,7 +203,7 @@
                         </div>
 
                         <button mat-button matStepperPrevious type="button">Back</button>
-                        <button mat-button matStepperNext type="button">Next</button>
+                        <button mat-button matStepperNext type="submit">Next</button>
                     </div>
                 </mat-step>
 
@@ -178,45 +215,17 @@
 
                         <mat-form-field>
                             <mat-label for="packageSelect">Packages</mat-label>
-                            <mat-select id="packageSelect" formControlName="discountPackages" id="packageSelect" multiple name="packageSelect"
+                            <mat-select id="packageSelect" formControlName="discountPackages" multiple
+                                        name="packageSelect"
                                         [(ngModel)]="focusPromotion.discountPackages">
-                                    <mat-option *ngFor="let _package of promotionService.currentPackageArray; let i = index"
+                                <mat-option *ngFor="let _package of promotionService.currentPackageArray; let i = index"
                                             [value]="_package.name">{{_package.name}}</mat-option>
 
                             </mat-select>
                         </mat-form-field>
 
                         <button mat-button matStepperPrevious type="button">Back</button>
-                        <button mat-button matStepperNext type="button">Next</button>
-                    </div>
-                </mat-step>
-
-                <!--PROMOTION TIME-->
-
-                <mat-step [stepControl]="activeTimeFormGroup" label="Promotion Time">
-                    <div formGroupName="activeTimeFormGroup">
-                        <p>What hours will this promotion be active</p>
-
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <mat-form-field>
-                                    <mat-label for="startTime">Choose a start time</mat-label>
-                                    <input matInput id="startTime" type="time" atp-time-picker
-                                           formControlName="startTime"
-                                           [(ngModel)]="focusPromotion.startTime">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-sm-6">
-                                <mat-form-field>
-                                    <mat-label for="endTime">Choose an end time</mat-label>
-                                    <input matInput id="endTime" type="time" atp-time-picker formControlName="endTime"
-                                           [(ngModel)]="focusPromotion.endTime">
-                                </mat-form-field>
-                            </div>
-                        </div>
-
-                        <button mat-button matStepperPrevious type="button">Back</button>
-                        <button mat-button matStepperNext type="button">Next</button>
+                        <button mat-button matStepperNext type="submit">Next</button>
                     </div>
                 </mat-step>
 
@@ -229,16 +238,13 @@
                         to make package live!</p>
 
                     <button mat-button matStepperPrevious type="button">Back</button>
-                    <button mat-button type="button" (click)="clearForm()">Reset</button>
-                    <button *ngIf="promotionService.creatingNewPromotion == false" mat-raised-button color="primary" type="button"
-                            (click)="updatePromo(focusPromotion); openSnackBar(focusPromotion.name + ' Promo', 'Saved')">
+                    <button *ngIf="promotionService.creatingNewPromotion == false" mat-raised-button color="primary"
+                            type="button" (click)="updatePromo(focusPromotion); openSnackBar(focusPromotion.name + ' Promo', 'Saved')">
                         Save Promo
                     </button>
 
-                    <button *ngIf="promotionService.creatingNewPromotion == true" mat-raised-button color="primary" type="submit"
-                            (click)="createPromo(); openSnackBar(focusPromotion.name + ' Promo', 'Created')">
-                        Create Promo
-                    </button>
+                    <button *ngIf="promotionService.creatingNewPromotion == true" mat-raised-button color="primary"
+                            type="button" (click)="createPromotion(promotionForm);">Create Promo</button>
                 </mat-step>
             </mat-vertical-stepper>
             <!--            <pre>{{promotionForm.value | json}}</pre>-->

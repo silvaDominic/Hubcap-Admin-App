@@ -1,7 +1,6 @@
-import {FREQUENCY_TYPE} from '../enums/FREQUENCY_TYPE.model';
 import {Discount} from './discount.model';
-import {FREQUENCY} from '../enums/FREQUENCY.model';
 import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
+import {Frequency} from './frequency.model';
 
 export class Promotion {
 
@@ -10,8 +9,8 @@ export class Promotion {
         name: '',
         description: '',
         serviceType: null,
-        frequencyType: null,
-        frequency: null,
+        isReoccurring: false,
+        frequency: Frequency.EMPTY_MODEL,
         startDate: new Date(),
         endDate: new Date(),
         discountPackages: [],
@@ -22,8 +21,8 @@ export class Promotion {
     };
 
     constructor(public id: string, public name: string, public description: string,
-                public serviceType: SERVICE_TYPE, public frequencyType: FREQUENCY_TYPE,
-                public frequency: FREQUENCY, public startDate: Date, public endDate: Date,
+                public serviceType: SERVICE_TYPE, public isReoccurring: boolean,
+                public frequency: Frequency, public startDate: Date, public endDate: Date,
                 public discountPackages: string[], public discount: Discount,
                 public startTime: string, public endTime: string, public isActive: boolean) {
     }

@@ -78,10 +78,13 @@
             "name": "Early Bird Special",
             "description": "Get a 10% discount when coming in between 8:00AM and 10:00AM",
             "serviceType": "WASH",
-            "frequencyType": "ONE_TIME",
-            "frequency": null,
-            "startDate": "2019-03-15",
-            "endDate": "2019-04-15",
+            "isReoccurring": true,
+            "frequency": {
+                "type": "MONTHLY",
+                "value": "15"
+            },
+            "startDate": null,
+            "endDate": null,
             "discountPackages": [
                 "GOLD",
                 "SILVER",
@@ -102,10 +105,13 @@
             "name": "Late Night Special",
             "description": "Get a 5% discount when coming in between 6:00PM and 8:00PM",
             "serviceType": "WASH",
-            "frequencyType": "REOCCURRING",
-            "frequency": "WEEKLY",
-            "startDate": "2019-07-15",
-            "endDate": "2019-08-31",
+            "isReoccurring": true,
+            "frequency": {
+                "type": "WEEKLY",
+                "value": "TUESDAY"
+            },
+            "startDate": null,
+            "endDate": null,
             "discountPackages": [
                 "GOLD"
             ],
@@ -124,8 +130,11 @@
             "name": "Ladies Day",
             "description": "Ladies get a dollar off",
             "serviceType": "WASH",
-            "frequencyType": "REOCCURRING",
-            "frequency": "DAILY",
+            "isReoccurring": false,
+            "frequency": {
+                "type": null,
+                "value": null
+            },
             "startDate": "2018-01-01",
             "endDate": "2018-12-31",
             "discountPackages": [

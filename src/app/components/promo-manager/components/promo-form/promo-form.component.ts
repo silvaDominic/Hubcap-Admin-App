@@ -1,16 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {AmazingTimePickerService} from 'amazing-time-picker';
-import {ALL_PACKAGES} from '../../../../_shared/enums/ALL_PACKAGES.model';
 import {PackageService} from '../../../../_shared/services/package.service';
-import {FREQUENCY_TYPE} from '../../../../_shared/enums/FREQUENCY_TYPE.model';
-import {DisplayPackageItem} from '../../../../_shared/models/display-package-item.model';
 import {Promotion} from '../../../../_shared/models/promotion.model';
 import {SERVICE_TYPE} from '../../../../_shared/enums/SERVICE_TYPE';
 import {MatSnackBar} from '@angular/material';
 import {DISCOUNT_TYPE} from '../../../../_shared/enums/DISCOUNT_TYPE.model';
 import {PromotionService} from '../../../../_shared/services/promotion.service';
-import { Package } from 'app/_shared/models/package.model';
+import {DAY} from '../../../../_shared/enums/DAY.model';
+import {FREQUENCY} from '../../../../_shared/enums/FREQUENCY.model';
 
 
 @Component({
@@ -20,24 +18,24 @@ import { Package } from 'app/_shared/models/package.model';
 })
 export class PromoFormComponent implements OnInit {
 
-    promotion: Promotion;
-    promotions: Promotion[];
-    discountPackage: Package[];
-    selectedServiceType: SERVICE_TYPE;
+    public promotion: Promotion;
+    public promotions: Promotion[];
 
     // Form Builder Groups
-    promotionForm: FormGroup;
+    public promotionForm: FormGroup;
+    public isCompleted = [false, false, false, false, false, false, false];
 
     // Enums
-    E_DISCOUNT_TYPE = DISCOUNT_TYPE;
-    E_FREQUENCY_TYPE = FREQUENCY_TYPE;
-    E_SERVICE_TYPE = SERVICE_TYPE;
+    public E_DISCOUNT_TYPE = DISCOUNT_TYPE;
+    public E_FREQUENCY = FREQUENCY;
+    public E_SERVICE_TYPE = SERVICE_TYPE;
+    public K_DAY = Object.keys(DAY);
 
     // For initialization
-    currentDate: Date;
-    startDate: Date;
+    public currentDate: Date;
+    public startDate: Date;
 
-    error: string;
+    public error: string;
 
     constructor(private readonly atpService: AmazingTimePickerService, private readonly snackBar: MatSnackBar,
                 private readonly packageService: PackageService, private readonly promotionService: PromotionService) {
@@ -45,10 +43,6 @@ export class PromoFormComponent implements OnInit {
         // For Amazing Time Picker
         this.currentDate = new Date();
         this.startDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDay());
-
-        console.log('Time Demo');
-        console.log('Time 1: ', this.currentDate.getHours() + ':' + this.currentDate.getMinutes());
-        console.log('Time 2: ', this.currentDate.toLocaleTimeString());
     }
 
     public ngOnInit(): void {
@@ -60,40 +54,24 @@ export class PromoFormComponent implements OnInit {
         this.promotionForm = this.promotionService.getForm();
     }
 
-    discardForm() {
-        this.promotion = this.promotions[0];
-    }
-
-    createPromo() {
-        this.promotions.push(this.promotionService.convertFormToModel(this.promotionForm.value)); // FIX THIS
-        this.discardForm();
-        this.openSnackBar(this.promotion.name + ' Promo', 'Created');
-        /*        this.promotionService.newPromotion(promotion)
-                    .subscribe(_promo => this.promotions.push(_promo));*/
-    }
-
-    newPromo() {
-        this.clearForm();
+    createPromotion(promoForm: FormGroup) {
+        this.promotionService.createNewPromotion(promoForm).then((res) => {
+            if (res == true) {
+                this.openSnackBar(promoForm.get('nameFormGroup.name').value + ' Promo', 'Created')
+            } else if (res == false) {
+                alert('Error Posting ' + promoForm.get('nameFormGroup.name').value + '.' + ' Try again or contact your Admin')
+            }
+        })
     }
 
     updatePromo(promo: Promotion) {
-        const promoIndex = this.promotions.indexOf(promo);
-        this.promotions.push(promo);
-        this.promotion = this.promotions[promoIndex];
-        this.openSnackBar(promo.name + ' Promo', 'Updated');
-/*        this.promotionService.updatePromotion(promotion)
-            .subscribe(_promo => this.promotions.push(_promo));*/
+
     }
 
     openSnackBar(message: string, action: string) {
         this.snackBar.open(message, action, {
             duration: 4000,
         });
-    }
-
-    clearForm() {
-/*        this.promotion = PromoFormComponent.initPromotion();
-        this.fillForm(PromoFormComponent.initPromotion());*/
     }
 }
 

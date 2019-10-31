@@ -1,17 +1,17 @@
 <div class="promo-block">
     <mat-accordion id="promo-accordion">
-        <mat-expansion-panel hideToggle [expanded]="step===promoIndex" (opened)="step=promoIndex">
+        <mat-expansion-panel hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <span><strong>{{thisPromotion.name}}</strong></span>
                 </mat-panel-title>
                 <mat-panel-description>
                     <div></div>
-                    <div *ngIf="thisPromotion.frequencyType === E_FREQUENCY_TYPE.ONE_TIME">
+                    <div *ngIf="!thisPromotion.isReoccurring">
                         <span>One Time</span>
                         <img class="one-time" src="./assets/icons/icon-calendar-hollow.svg">
                     </div>
-                    <div *ngIf="thisPromotion.frequencyType === E_FREQUENCY_TYPE.REOCCURRING">
+                    <div *ngIf="thisPromotion.isReoccurring">
                         <span>Reoccurring</span>
                         <img class="reoccurring" src="./assets/icons/icon-repeat.svg">
                     </div>
@@ -32,17 +32,31 @@
                 </div>
                 <div class="col-5">
                     <div class="promo-date">
-                        <span>{{thisPromotion.startDate.toLocaleDateString('en-us', C_CONSTANTS.SHORT_WEEKDAY)}}</span>,&nbsp;
-                        <span>{{thisPromotion.startDate.toLocaleDateString('en-us', C_CONSTANTS.SHORT_MONTH)}}</span>&nbsp;
-                        <span>{{thisPromotion.startDate.toLocaleDateString('en-us', C_CONSTANTS.NUM_YEAR)}}</span>
+                        <div *ngIf="!thisPromotion.isReoccurring">
+                            <span>{{thisPromotion.startDate.toLocaleDateString('en-us', C_CONSTANTS.SHORT_WEEKDAY)}}</span>,&nbsp;
+                            <span>{{thisPromotion.startDate.toLocaleDateString('en-us', C_CONSTANTS.SHORT_MONTH)}}</span>&nbsp;
+                            <span>{{thisPromotion.startDate.toLocaleDateString('en-us', C_CONSTANTS.NUM_DAY)}}</span>&nbsp;
+                            <span>{{thisPromotion.startDate.toLocaleDateString('en-us', C_CONSTANTS.NUM_YEAR)}}</span>
+                        </div>
+                        <div *ngIf="thisPromotion.isReoccurring">
+                            <span *ngIf="thisPromotion.frequency.type === E_FREQUENCY.WEEKLY">Every</span>
+                            <span *ngIf="thisPromotion.frequency.type === E_FREQUENCY.MONTHLY">Every Month</span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-5">
                     <div class="promo-date">
-                        <span>{{thisPromotion.endDate.toLocaleDateString('en-us', C_CONSTANTS.SHORT_WEEKDAY)}}</span>,&nbsp;
-                        <span>{{thisPromotion.endDate.toLocaleDateString('en-us', C_CONSTANTS.SHORT_MONTH)}}</span>&nbsp;
-                        <span>{{thisPromotion.endDate.toLocaleDateString('en-us', C_CONSTANTS.NUM_YEAR)}}</span>
+                        <div *ngIf="!thisPromotion.isReoccurring">
+                            <span>{{thisPromotion.endDate.toLocaleDateString('en-us', C_CONSTANTS.SHORT_WEEKDAY)}}</span>,&nbsp;
+                            <span>{{thisPromotion.endDate.toLocaleDateString('en-us', C_CONSTANTS.SHORT_MONTH)}}</span>&nbsp;
+                            <span>{{thisPromotion.startDate.toLocaleDateString('en-us', C_CONSTANTS.NUM_DAY)}}</span>&nbsp;
+                            <span>{{thisPromotion.endDate.toLocaleDateString('en-us', C_CONSTANTS.NUM_YEAR)}}</span>
+                        </div>
+                        <div *ngIf="thisPromotion.isReoccurring">
+                            <span *ngIf="thisPromotion.frequency.type === E_FREQUENCY.WEEKLY">{{thisPromotion.frequency.value}}</span>
+                            <span *ngIf="thisPromotion.frequency.type === E_FREQUENCY.MONTHLY">On {{thisPromotion.frequency.value}}</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -55,13 +69,13 @@
                 </div>
                 <div class="col-5">
                     <div class="promo-time">
-                        <span>{{thisPromotion.startTime}}</span>
+                        <span>{{promotionService.formatTime(thisPromotion.startTime)}}</span>
                     </div>
                 </div>
 
                 <div class="col-5">
                     <div class="promo-time">
-                        <span>{{thisPromotion.endTime}}</span>
+                        <span>{{promotionService.formatTime(thisPromotion.endTime)}}</span>
                     </div>
                 </div>
             </div>
@@ -69,14 +83,18 @@
             <div class="row price-row">
                 <div class="col-12">
                     <div class="header-content">
-                        <div class="discount-type" *ngIf="thisPromotion.discount.discountType === E_DISCOUNT_TYPE.PERCENT">
+                        <div class="discount-type"
+                             *ngIf="thisPromotion.discount.discountType === E_DISCOUNT_TYPE.PERCENT">
                             <h3>{{thisPromotion.discount.discountAmount}}% off</h3></div>
-                        <div class="discount-type" *ngIf="thisPromotion.discount.discountType === E_DISCOUNT_TYPE.DOLLAR">
+                        <div class="discount-type"
+                             *ngIf="thisPromotion.discount.discountType === E_DISCOUNT_TYPE.DOLLAR">
                             <h3>${{thisPromotion.discount.discountAmount}} off</h3></div>
                         <div class="discount-type"
-                             *ngIf="thisPromotion.discount.discountType === E_DISCOUNT_TYPE.FREE"><span>
-                                    Free</span>
-                            <h4 *ngFor="let feature of thisPromotion.discount.discountFeatures">{{feature}}</h4>
+                             *ngIf="thisPromotion.discount.discountType === E_DISCOUNT_TYPE.FREE">
+                            <h4>Free</h4>
+                            <ul>
+                                <li *ngFor="let feature of thisPromotion.discount.discountFeatures">{{feature}}</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -95,8 +113,11 @@
                 <button type="button" class="btn note-btn btn-edit" (click)="editPromo(thisPromotion.id)">
                     Edit
                 </button>
-                <button type="button" class="btn note-btn btn-success" (click)="toggleActive(thisPromotion.id)">
+                <button *ngIf="thisPromotion.isActive" type="button" class="btn note-btn btn-danger" (click)="toggleActive(thisPromotion.id)">
                     Deactivate
+                </button>
+                <button *ngIf="!thisPromotion.isActive" type="button" class="btn note-btn btn-success" (click)="toggleActive(thisPromotion.id)">
+                    Activate
                 </button>
             </mat-action-row>
         </mat-expansion-panel>

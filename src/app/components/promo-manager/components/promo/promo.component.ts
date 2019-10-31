@@ -1,13 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Promotion} from '../../../../_shared/models/promotion.model';
-import {PromoFormComponent} from '../promo-form/promo-form.component';
-import {PromoHistoryComponent} from '../promo-history/promo-history.component';
-import {ALL_PACKAGES} from '../../../../_shared/enums/ALL_PACKAGES.model';
-import {FREQUENCY_TYPE} from '../../../../_shared/enums/FREQUENCY_TYPE.model';
-import {SERVICE_TYPE} from '../../../../_shared/enums/SERVICE_TYPE';
 import {DISCOUNT_TYPE} from '../../../../_shared/enums/DISCOUNT_TYPE.model';
 import {PromotionService} from '../../../../_shared/services/promotion.service';
 import {CONSTANTS} from '../../../../_shared/CONSTANTS';
+import {FREQUENCY} from '../../../../_shared/enums/FREQUENCY.model';
 
 @Component({
     selector: 'app-promo',
@@ -20,7 +16,7 @@ export class PromoComponent implements OnInit {
     @Input() promoIndex: number;
     public step = 0;
 
-    public E_FREQUENCY_TYPE = FREQUENCY_TYPE;
+    public E_FREQUENCY = FREQUENCY;
     public E_DISCOUNT_TYPE = DISCOUNT_TYPE;
     public C_CONSTANTS = CONSTANTS;
 

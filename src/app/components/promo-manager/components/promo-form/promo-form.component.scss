@@ -1,3 +1,6 @@
+@import '~saturn-datepicker/theming';
+//@include sat-datepicker-theme($theme); # material theme data structure https://material.angular.io/guide/theming#defining-a-custom-theme;
+
 .option-button {
   margin: 6px;
 }
@@ -6,10 +9,10 @@
   display: inline-block;
 }
 
-.promo-radio-group {
+/*.promo-radio-group {
   display: inline-flex;
   flex-direction: column;
-}
+}*/
 
 .promo-radio-button {
   margin: 5px;

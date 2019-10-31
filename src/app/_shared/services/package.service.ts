@@ -1,4 +1,4 @@
-import {Injectable, OnDestroy, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/map';
 import {CarwashService} from './carwash.service';
 import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
@@ -108,8 +108,8 @@ export class PackageService {
 
     // Check whether monthly prices has any values
     public hasMonthly(): boolean {
-        console.log(this.packageSubject.getValue().isMonthly());
-        return this.packageSubject.getValue().isMonthly();
+        console.log('Has monthly? ', this.packageSubject.getValue().monthlyPrices.get(VEHICLE_TYPE.REGULAR));
+        return !!(this.packageSubject.getValue().monthlyPrices.get(VEHICLE_TYPE.REGULAR) !== null || 0);
     }
 
     switchToMonthly() {

@@ -11,6 +11,7 @@ import {
 import {AmazingTimePickerModule} from 'amazing-time-picker';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
+import {SatDatepickerModule, SatNativeDateModule} from 'saturn-datepicker';
 
 
 @NgModule({
@@ -29,7 +30,6 @@ import {RouterModule} from '@angular/router';
         MatListModule,
         MatTooltipModule,
         MatCheckboxModule,
-        MatDatepickerModule,
         MatNativeDateModule,
         MatTabsModule,
         MatIconModule,
@@ -41,7 +41,10 @@ import {RouterModule} from '@angular/router';
         MatExpansionModule,
         MatSidenavModule,
         MatToolbarModule,
-        AmazingTimePickerModule
+        AmazingTimePickerModule,
+        SatDatepickerModule,
+        SatNativeDateModule,
+        MatDatepickerModule
     ],
     exports: [
         CommonModule,
@@ -58,7 +61,6 @@ import {RouterModule} from '@angular/router';
         MatListModule,
         MatTooltipModule,
         MatCheckboxModule,
-        MatDatepickerModule,
         MatNativeDateModule,
         MatTabsModule,
         MatIconModule,
@@ -70,7 +72,10 @@ import {RouterModule} from '@angular/router';
         MatExpansionModule,
         MatSidenavModule,
         MatToolbarModule,
-        AmazingTimePickerModule
+        AmazingTimePickerModule,
+        SatDatepickerModule,
+        SatNativeDateModule,
+        MatDatepickerModule
     ]
 })
 

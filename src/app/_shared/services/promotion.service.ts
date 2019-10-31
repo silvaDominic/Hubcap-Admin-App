@@ -8,21 +8,19 @@ import {Promotion} from '../models/promotion.model';
 import {DisplayPackageItem} from '../models/display-package-item.model';
 import {Package} from '../models/package.model';
 import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
+import {Frequency} from '../models/frequency.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class PromotionService {
 
-    // public promotion: Promotion;
     private promotionSubject = new BehaviorSubject<Promotion>(<Promotion>{});
     private promotionArraySubject = new BehaviorSubject<Promotion[]>(<Promotion[]>[]);
     public readonly _promotionArray = this.promotionArraySubject.asObservable();
     public readonly _promotion = this.promotionSubject.asObservable();
     private readonly _displayPackageItems = of(new Array<DisplayPackageItem>());
     public creatingNewPromotion = false;
-    public washPackageArray = new Array<Package>();
-    public detailPackageArray = new Array<Package>();
     public currentPackageArray = new Array<Package>();
 
     private _currentPromotionIndex = 0;
@@ -61,6 +59,7 @@ export class PromotionService {
         const tempSub = this.carwashService.getAllPackages(type).subscribe(
             packageArray => {
                 this.currentPackageArray = packageArray;
+                console.log('Current Package Array', this.currentPackageArray);
 
                 if (skipReset == false) {
                     // Clear discount packages and update promo subject
@@ -147,13 +146,13 @@ export class PromotionService {
         this.promotionArraySubject.next([...currentPromotionsArrayValue]);
     }
 
-    initNewPromotion() {
+    public initNewPromotion() {
         this.creatingNewPromotion = true;
         this.promotionSubject.next(Promotion.EMPTY_MODEL);
         this._currentPromotionIndex = null;
     }
 
-    cancelNewPromotion(): void {
+    public cancelNewPromotion(): void {
         this.creatingNewPromotion = false;
         if (this.promotionArraySubject.getValue().length > 0) {
             this.setPromotion(0);
@@ -161,6 +160,53 @@ export class PromotionService {
             console.log('No promotion to default to. Current index set to null');
             this.currentPromotionIndex = null;
         }
+    }
+
+    public createNewPromotion(promoForm: FormGroup): Promise<boolean> {
+        const frequency = new Frequency(
+            promoForm.get('schedulingFormGroup.frequencyFormGroup.frequencyType').value,
+            promoForm.get('schedulingFormGroup.frequencyFormGroup.frequencyValue').value
+        );
+
+        const discount = new Discount(
+            promoForm.get('discountFormGroup.discountType').value,
+            promoForm.get('discountFormGroup.discountAmount').value,
+            promoForm.get('discountFormGroup.discountFeatures').value,
+        );
+
+        const newPromotion = new Promotion(
+            null,
+            promoForm.get('nameFormGroup.name').value,
+            promoForm.get('descriptionFormGroup.description').value,
+            promoForm.get('serviceTypeFormGroup.serviceType').value,
+            promoForm.get('schedulingFormGroup.isReoccurring').value,
+            frequency,
+            promoForm.get('schedulingFormGroup.startDate').value,
+            promoForm.get('schedulingFormGroup.endDate').value,
+            promoForm.get('discountPackagesFormGroup.discountPackages').value,
+            discount,
+            promoForm.get('activeTimeFormGroup.startTime').value,
+            promoForm.get('activeTimeFormGroup.endTime').value,
+            true
+        );
+
+        console.log('Creating new promo: ', newPromotion);
+
+        this.promotionSubject.next(newPromotion);
+
+        const currentPromotionArrayValue = this.promotionArraySubject.getValue();
+        this.promotionArraySubject.next([...currentPromotionArrayValue, newPromotion]);
+
+        return this.carwashService.postNewPromotion(newPromotion).then((res) => {
+                // Set new ID generated from backend and cache new store
+                console.log('Promotion Post SUCCESS: ', res);
+                this.carwashService.cachePromotion(newPromotion);
+                return true;
+            }
+        ).catch(reason => {
+            console.log('Error POSTING package: ', reason);
+            return false;
+        })
     }
 
     /* ----------------- FORM METHODS ------------------- */
@@ -171,10 +217,10 @@ export class PromotionService {
 
     public generatePromotionForm(promotion: Promotion) {
         return this.fb.group( {
-            serviceTypeFormGroup: this.generateServiceTypeFormGroup(promotion),
             nameFormGroup: this.generateNameFormGroup(promotion),
+            serviceTypeFormGroup: this.generateServiceTypeFormGroup(promotion),
             descriptionFormGroup: this.generateDescriptionFormGroup(promotion),
-            frequencyFormGroup: this.generateFrequencyFormGroup(promotion),
+            schedulingFormGroup: this.generateSchedulingFormGroup(promotion),
             discountFormGroup: this.generateDiscountFormGroup(promotion),
             discountPackagesFormGroup: this.genererateDiscountPackagesFormGroup(promotion),
             activeTimeFormGroup: this.generateActiveTimeFormGroup(promotion)
@@ -199,13 +245,20 @@ export class PromotionService {
         });
     }
 
-    private generateFrequencyFormGroup(promotion: Promotion): FormGroup {
+    private generateSchedulingFormGroup(promotion: Promotion): FormGroup {
         return this.fb.group({
-            frequencyType: [promotion.frequencyType, Validators.required],
-            frequency: [promotion.frequency, Validators.required],
+            isReoccurring: [promotion.isReoccurring, Validators.required],
+            frequencyFormGroup: this.generateFrequencyFormGroup(promotion.frequency),
             startDate: [promotion.startDate, Validators.required],
             endDate: [promotion.endDate, Validators.required],
         });
+    }
+
+    private generateFrequencyFormGroup(frequency: Frequency) {
+        return this.fb.group({
+            frequencyType: [frequency.type, Validators.required],
+            frequencyValue: [frequency.value, Validators.required]
+        })
     }
 
     private generateDiscountFormGroup(promotion: Promotion): FormGroup {
@@ -240,10 +293,10 @@ export class PromotionService {
             controls.name,
             controls.description,
             controls.serviceType,
-            controls.frequencyType,
+            controls.isReoccurring,
             controls.frequency,
-            controls.startDate,
-            controls.endDate,
+            controls.startDate.toUTCString(),
+            controls.endDate.toUTCString(),
             controls.discountPackages,
             new Discount(
                 controls.discount.discountType,
@@ -254,5 +307,16 @@ export class PromotionService {
             controls.endTime,
             false
         );
+    }
+
+    calculateDiscount(discount: Discount, _package: Package) {
+
+    }
+
+    formatTime(stringHour: string) {
+        let numHour = parseInt(stringHour, 10);
+        const suffix = numHour >= 12 ? ' PM' : ' AM';
+        numHour = ((numHour + 11) % 12 + 1);
+        return numHour.toString() + suffix;
     }
 }

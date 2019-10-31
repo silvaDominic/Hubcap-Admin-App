@@ -46,8 +46,12 @@ form {
 }
 
 .price-container {
-    label {
+    label, strong {
         padding-right: 0.2em;
+    }
+
+    strong {
+        font-weight: bold;
     }
 
     img {
@@ -55,8 +59,6 @@ form {
         height: 25px;
         opacity: 0.5;
     }
-
-    transition: all 1s !important;
 }
 
 .option-container, .option-container > div, select {
@@ -162,4 +164,9 @@ select[required="required"] {
 .btn {
     margin-top: 0 !important;
     margin-bottom: 0 !important;
+}
+
+/*NEW PACKAGE*/
+#new-monthly-price-container {
+    margin-top: 2em;
 }

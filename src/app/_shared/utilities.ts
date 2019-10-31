@@ -1,4 +1,3 @@
-import {DisplayPackageItem} from './models/display-package-item.model';
 import {Discount} from './models/discount.model';
 import {Address} from './models/address.model';
 import {Promotion} from './models/promotion.model';
@@ -9,6 +8,7 @@ import {HoursException} from './models/hours-exception.model';
 import {Package} from './models/package.model';
 import {Store} from './models/store.model';
 import {PackageItem} from './models/package-item.model';
+import {Frequency} from './models/frequency.model';
 
 export class Utilities {
 
@@ -75,8 +75,8 @@ export class Utilities {
             data.name,
             data.description,
             data.serviceType,
-            data.frequencyType,
-            data.frequency,
+            data.isReoccurring,
+            this.generateFrequency(data.frequency),
             new Date(data.startDate),
             new Date(data.endDate),
             data.discountPackages,
@@ -85,6 +85,13 @@ export class Utilities {
             data.endTime,
             data.isActive
         );
+    }
+
+    public static generateFrequency(data: any): Frequency {
+        return new Frequency(
+            data.type,
+            data.value
+        )
     }
 
     public static generateDiscount(data: any): Discount {

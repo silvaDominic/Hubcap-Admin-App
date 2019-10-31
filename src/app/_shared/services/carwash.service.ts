@@ -8,11 +8,12 @@ import {Promotion} from '../models/promotion.model';
 import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
 import {ApiService} from '../../_core/services/api.service';
 import {environment} from '../../../environments/environment';
-import {pluck} from 'rxjs/operators';
+import {pluck, take} from 'rxjs/operators';
 import {Store} from '../models/store.model';
 import {CONSTANTS} from '../CONSTANTS';
 import {UserService} from '../../_core/services/user.service';
 import {Utilities} from '../utilities';
+import {toPromise} from 'rxjs-compat/operator/toPromise';
 
 @Injectable({
     providedIn: 'root'
@@ -69,10 +70,6 @@ export class CarwashService {
 
     /* PACKAGES */
     public getAllPackages(type: SERVICE_TYPE): Observable<Package[]> {
-/*        if (!CarwashService.carwash) {
-            console.log('Carwash object is null. Registering...');
-            this.registerCarwash();
-        }*/
         switch (type) {
             case SERVICE_TYPE.WASH:
                 return CarwashService.carwash.pipe(
@@ -82,6 +79,16 @@ export class CarwashService {
                 return CarwashService.carwash.pipe(
                     pluck('detailPackages'));
                 break;
+
+                // TODO Find out why merge is not working
+/*            case SERVICE_TYPE.WASH_AND_DETAIL:
+                const washPackages = CarwashService.carwash.pipe(
+                    pluck('washPackages'));
+                const detailPackages = CarwashService.carwash.pipe(
+                    pluck('detailPackages'));
+
+                return Observable.merge(washPackages, detailPackages);
+                break;*/
             default:
                 console.log('Invalid Package type');
                 console.log('Package type: ' + type + ' not found');
@@ -191,7 +198,13 @@ export class CarwashService {
     private cachePackage(packageToCache: Package) {
         // Create new carwash object with updated package array info
         const carwashToUpdate = CarwashService.carwashSubject.getValue();
-        carwashToUpdate.washPackages = [...carwashToUpdate.washPackages, packageToCache];
+
+        // Check type to ensure it's saved to correct array
+        if (packageToCache.type === SERVICE_TYPE.WASH) {
+            carwashToUpdate.washPackages = [...carwashToUpdate.washPackages, packageToCache];
+        } else if (packageToCache.type === SERVICE_TYPE.DETAIL) {
+            carwashToUpdate.detailPackages = [...carwashToUpdate.detailPackages, packageToCache];
+        }
         // Push to carwash cached object
         CarwashService.carwashSubject.next(carwashToUpdate);
     }
@@ -200,6 +213,27 @@ export class CarwashService {
         // Create new carwash object with updated package array info
         const carwashToUpdate = CarwashService.carwashSubject.getValue();
         carwashToUpdate.washPackages = packageArrayToCache;
+        // Push to carwash cached object
+        CarwashService.carwashSubject.next(carwashToUpdate);
+    }
+
+    /* PROMOTION */
+    public postNewPromotion(newPromotion: Promotion): Promise<any> {
+        // Set HttpHeaders
+        const httpHeaders = new HttpHeaders();
+        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
+        // httpHeaders.set('Bearer Token', this.userService.getToken());
+
+        console.log('Promotion to Post: ', newPromotion);
+
+        // Make post and save new object on success
+        return this.apiService.post('/promotions', new HttpParams(), httpHeaders).pipe(take(1)).toPromise();
+    }
+
+    public cachePromotion(promotionToCache: Promotion) {
+        // Create new carwash object with updated promo array info
+        const carwashToUpdate = CarwashService.carwashSubject.getValue();
+        carwashToUpdate.promotions = [...carwashToUpdate.promotions, promotionToCache];
         // Push to carwash cached object
         CarwashService.carwashSubject.next(carwashToUpdate);
     }

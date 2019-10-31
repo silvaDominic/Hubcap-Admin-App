@@ -34,7 +34,8 @@
 }
 
 #overview-description {
-    padding: 1.0em 0;
+    padding-top: 1em;
+    padding-bottom: 0.5em;
 
     h3 {
         margin-top: 0 !important;
@@ -45,12 +46,34 @@
     padding: 0.5em 0;
 }
 
+.overview-container {
+    overflow-y: auto;
+    overflow-x: hidden;
+    text-align: center;
+}
+
 #overview-discount-container {
     padding: 0.5em 0;
-    text-align: center;
-    color: var(--go);
-    overflow-y: scroll;
-    max-height: 500px;
+    max-height: 200px;
+
+    ul {
+        text-align: left !important;
+    }
+}
+
+.overview-container::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: white;
+}
+
+.overview-container::-webkit-scrollbar {
+    width: 5px;
+    background-color: #ccc;
+}
+
+.overview-container::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border: 1px solid #ccc;
 }
 
 .overview-package-container {

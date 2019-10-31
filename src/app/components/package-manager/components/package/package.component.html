@@ -22,17 +22,6 @@
 
     <div class="row">
         <div class="col-md-12">
-<!--            <div class="package-header">
-                <div *ngIf="packageService.checkIsMonthly()">
-                    <img src="./assets/icons/icon-calendar-hollow.svg" alt="">
-                    <strong><h4>Monthly Wash</h4></strong>
-                </div>
-                <div *ngIf="!packageService.checkIsMonthly()">
-                    <img src="./assets/icons/icon-repeat-one.svg" alt="">
-                    <strong><h4>One-Time Wash</h4></strong>
-                </div>
-            </div>-->
-
             <ul id="prices-tabs" class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
                     <a (click)="packageService.switchToOneTime()" [ngClass]="{'active': !packageService.isMonthly}" class="nav-link" id="home-tab" role="tab" aria-controls="home"

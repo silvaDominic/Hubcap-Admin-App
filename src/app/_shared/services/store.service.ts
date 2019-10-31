@@ -51,7 +51,7 @@ export class StoreService {
         return this.storeSubject.pipe(pluck('hoursOfOperation', 'hoursExceptions'));
     }
 
-    getForm(): FormGroup {
+    public getForm(): FormGroup {
         return this.generateStoreForm(Store.EMPTY_MODEL);
     }
 
@@ -86,7 +86,7 @@ export class StoreService {
     }
 
     /* STORE HANDLERS */
-    createStore(storeForm: FormGroup) {
+    public createStore(storeForm: FormGroup) {
         const addressCoordinates = new Map<string, string>();
         let newStore: Store;
 
@@ -118,7 +118,7 @@ export class StoreService {
 
     }
 
-    updateStore(updatedStore: Store) {
+    public updateStore(updatedStore: Store) {
         console.log('Updated Store: ', updatedStore);
         const addressCoordinates = new Map<string, string>();
 
@@ -163,7 +163,7 @@ export class StoreService {
 
     }
 
-    instantiateStore(storeForm: FormGroup, coordinates: Map<string, string>): Store {
+    public instantiateStore(storeForm: FormGroup, coordinates: Map<string, string>): Store {
         const newAddress = new Address(
             storeForm.get('city').value,
             storeForm.get('state').value,

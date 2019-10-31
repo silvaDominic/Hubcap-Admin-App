@@ -10,8 +10,10 @@
     <div id="overview-description">
         <h3><strong>{{focusPromotion.name}}</strong></h3>
         <p>{{focusPromotion.description}}</p>
-        <p>Service Type: {{focusPromotion.serviceType}}</p>
+        <span>Applicable for {{focusPromotion.serviceType}} services.</span>
     </div>
+
+    <hr>
 
     <div id="overview-date-container">
         <div class="row">
@@ -21,17 +23,31 @@
                 </div>
             </div>
             <div class="col-md-5">
-                <div class="focusPromotion-date">
-                    <span>{{focusPromotion.startDate.toLocaleDateString('en-us', C_CONSTANTS.SHORT_WEEKDAY)}}</span>,&nbsp;
-                    <span>{{focusPromotion.startDate.toLocaleDateString('en-us', C_CONSTANTS.SHORT_MONTH)}}</span>&nbsp;
-                    <span>{{focusPromotion.startDate.toLocaleDateString('en-us', C_CONSTANTS.NUM_YEAR)}}</span>
-            </div>
+                <div class="promo-date">
+                    <div *ngIf="!focusPromotion.isReoccurring">
+                        <span>{{focusPromotion.startDate.toLocaleDateString('en-us', C_CONSTANTS.SHORT_WEEKDAY)}}</span>,&nbsp;
+                        <span>{{focusPromotion.startDate.toLocaleDateString('en-us', C_CONSTANTS.SHORT_MONTH)}}</span>&nbsp;
+                        <span>{{focusPromotion.startDate.toLocaleDateString('en-us', C_CONSTANTS.NUM_DAY)}}</span>&nbsp;
+                        <span>{{focusPromotion.startDate.toLocaleDateString('en-us', C_CONSTANTS.NUM_YEAR)}}</span>
+                    </div>
+                    <div *ngIf="focusPromotion.isReoccurring">
+                        <span *ngIf="focusPromotion.frequency.type === E_FREQUENCY.WEEKLY">Every</span>
+                        <span *ngIf="focusPromotion.frequency.type === E_FREQUENCY.MONTHLY">Every Month</span>
+                    </div>
+                </div>
             </div>
             <div class="col-md-5">
-                <div class="focusPromotion-date">
-                    <span>{{focusPromotion.endDate.toLocaleDateString('en-us', C_CONSTANTS.SHORT_WEEKDAY)}}</span>,&nbsp;
-                    <span>{{focusPromotion.endDate.toLocaleDateString('en-us', C_CONSTANTS.SHORT_MONTH)}}</span>&nbsp;
-                    <span>{{focusPromotion.endDate.toLocaleDateString('en-us', C_CONSTANTS.NUM_YEAR)}}</span>
+                <div class="promo-date">
+                    <div *ngIf="!focusPromotion.isReoccurring">
+                        <span>{{focusPromotion.endDate.toLocaleDateString('en-us', C_CONSTANTS.SHORT_WEEKDAY)}}</span>,&nbsp;
+                        <span>{{focusPromotion.endDate.toLocaleDateString('en-us', C_CONSTANTS.SHORT_MONTH)}}</span>&nbsp;
+                        <span>{{focusPromotion.endDate.toLocaleDateString('en-us', C_CONSTANTS.NUM_DAY)}}</span>&nbsp;
+                        <span>{{focusPromotion.endDate.toLocaleDateString('en-us', C_CONSTANTS.NUM_YEAR)}}</span>
+                    </div>
+                    <div *ngIf="focusPromotion.isReoccurring">
+                        <span *ngIf="focusPromotion.frequency.type === E_FREQUENCY.WEEKLY">{{focusPromotion.frequency.value}}</span>
+                        <span *ngIf="focusPromotion.frequency.type === E_FREQUENCY.MONTHLY">On {{focusPromotion.frequency.value}}</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -46,18 +62,23 @@
             </div>
             <div class="col-sm-5">
                 <div class="focusPromotion-time">
-                    <span>{{focusPromotion.startTime}}</span>
+                    <span>{{promotionService.formatTime(focusPromotion.startTime)}}</span>
                 </div>
             </div>
             <div class="col-sm-5">
                 <div class="focusPromotion-time">
-                    <span>{{focusPromotion.endTime}}</span>
+                    <span>{{promotionService.formatTime(focusPromotion.endTime)}}</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="overview-discount-container">
+    <hr>
+
+    <div id="overview-discount-container" class="overview-container">
+        <p *ngIf="focusPromotion.discount.discountType !== E_DISCOUNT_TYPE.FREE">The customer will receive a discount of:</p>
+        <p *ngIf="focusPromotion.discount.discountType === E_DISCOUNT_TYPE.FREE">The customer will receive the following FREE feature(s):</p>
+
         <div class="promo-price" *ngIf="focusPromotion.discount.discountType === E_DISCOUNT_TYPE.PERCENT">
             <h3>{{focusPromotion.discount.discountAmount}}% off</h3>
         </div>
@@ -65,7 +86,6 @@
             <h3>${{focusPromotion.discount.discountAmount}} off</h3>
         </div>
         <div class="promo-price" *ngIf="focusPromotion.discount.discountType === E_DISCOUNT_TYPE.FREE">
-            <h3>Free</h3>
             <ul>
                 <li *ngFor="let feature of focusPromotion.discount.discountFeatures">
                     <h4>{{feature}}</h4>
@@ -74,10 +94,10 @@
         </div>
     </div>
 
-    <div class="overview-package-container">
+    <div id="overview-package-container" class="overview-container">
         <div class="row">
             <div class="col">
-                <p>Available for the following packages:</p>
+                <p>any of the select packages below</p>
             </div>
         </div>
         <div class="row">

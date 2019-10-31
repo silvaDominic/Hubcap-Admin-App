@@ -129,11 +129,11 @@
 
     <!-------------------- NEW PACKAGE FORM ---------------------->
 
-    <form *ngIf="packageService.creatingNewPackage == true" [formGroup]="packageForm" novalidate>
+    <form id="new-package-form" *ngIf="packageService.creatingNewPackage == true" [formGroup]="packageForm" novalidate>
         <mat-horizontal-stepper id="pacakge-form-stepper" class="custom-class" linear="true">
             <mat-step id="name" label="Name">
                 <div formGroupName="nameFormGroup">
-                    <p>What is the name of this package?</p>
+                    <span>What is the name of this package?</span>
 
                     <mat-form-field>
                         <input matInput placeholder="Ex: Gold" type="text" formControlName="name" required>
@@ -143,8 +143,10 @@
             </mat-step>
 
             <mat-step id="prices" label="Pricing">
-                <div formGroupName="pricingFormGroup">
+                <div formGroupName="pricingFormGroup" class="price-container">
                     <p>What will the price of this package be?</p>
+
+                    <strong>One Time Pricing</strong><img src="./assets/icons/icon-repeat-one.svg" alt="">
 
                     <div class="row">
                         <div class="col-sm-6">
@@ -170,10 +172,9 @@
                         </div>
                     </div>
 
-                    <div *ngIf="isMonthly">
-                        <p>Monthly Pricing</p>
+                    <div id="new-monthly-price-container" class="price-container" *ngIf="isMonthly">
+                        <strong>Monthly Pricing</strong><img src="./assets/icons/icon-calendar-hollow.svg" alt="">
                         <div class="row">
-
                             <div class="col-sm-6">
                                 <mat-form-field>
                                     <label for="monthlyRegularPrice">Regular Price</label>
@@ -198,7 +199,7 @@
 
             <mat-step id="duration" label="Duration">
                 <div formGroupName="durationFormGroup">
-                    <p>What will the approximate duration of the package be? (In Minutes)</p>
+                    <span>What will the approximate duration of the package be? (In Minutes)</span>
 
                     <div>
                         <mat-form-field>
@@ -213,7 +214,7 @@
 
             <mat-step id="packageItems" label="Package Items">
                 <div formGroupName="packageItemsFormGroup">
-                    <p>Select all package items to be included in this package</p>
+                    <span>Select all package items to be included in this package</span>
 
                     <div class="row">
                         <div class="col-md-12">
