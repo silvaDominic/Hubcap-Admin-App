@@ -11,6 +11,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import {CarwashService} from './_shared/services/carwash.service';
+import {DialogBoxComponent} from './_shared/components/dialog-box/dialog-box.component';
 
 @NgModule({
     imports: [
@@ -31,6 +32,7 @@ import {CarwashService} from './_shared/services/carwash.service';
     ],
     exports: [],
     providers: [],
+    entryComponents: [DialogBoxComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

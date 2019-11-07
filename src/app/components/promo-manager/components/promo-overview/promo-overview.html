@@ -1,6 +1,6 @@
 <div id="overview-block" *ngIf="(promotionService.promotion | async) as focusPromotion">
     <div *ngIf="!promotionService.creatingNewPromotion" id="create-promo-wrapper" class="new-promo-wrapper">
-        <button mat-button (click)="promotionService.initNewPromotion()"><h5>Create New Promotion</h5></button>
+        <button mat-button (click)="promotionService.initNewPromotion();"><h5>Create New Promotion</h5></button>
     </div>
 
     <div *ngIf="promotionService.creatingNewPromotion" id="cancel-promo-wrapper" class="new-promo-wrapper">
@@ -8,14 +8,15 @@
     </div>
 
     <div id="overview-description">
-        <h3><strong>{{focusPromotion.name}}</strong></h3>
-        <p>{{focusPromotion.description}}</p>
-        <span>Applicable for {{focusPromotion.serviceType}} services.</span>
+        <h3 *ngIf="promotionService.validFormSteps.get(E_PROMO_FORM_STEPS.NAME) == true"><strong>{{focusPromotion.name}}</strong></h3>
+        <p *ngIf="promotionService.validFormSteps.get(E_PROMO_FORM_STEPS.DESCRIPTION) == true">{{focusPromotion.description}}</p>
+        <span *ngIf="promotionService.validFormSteps.get(E_PROMO_FORM_STEPS.SERVICE_TYPE) == true">Applicable for {{focusPromotion.serviceType}} services.</span>
     </div>
 
-    <hr>
 
-    <div id="overview-date-container">
+    <div id="overview-date-container" *ngIf="promotionService.validFormSteps.get(E_PROMO_FORM_STEPS.SCHEDULING) == true">
+        <hr>
+
         <div class="row">
             <div class="col-md-2 m-auto">
                 <div id="date-icon" class="header-icon">
@@ -53,19 +54,22 @@
         </div>
     </div>
 
-    <div id="overview-time-container">
+    <div id="overview-time-container" *ngIf="promotionService.validFormSteps.get(E_PROMO_FORM_STEPS.PROMOTION_TIME) == true">
         <div class="row">
             <div class="col-sm-2 m-auto">
                 <div id="time-icon" class="header-icon">
                     <img src="./assets/icons/icon-clock-hollow.svg">
                 </div>
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-4">
                 <div class="focusPromotion-time">
                     <span>{{promotionService.formatTime(focusPromotion.startTime)}}</span>
                 </div>
             </div>
-            <div class="col-sm-5">
+            <div class="col-2">
+                <span>to</span>
+            </div>
+            <div class="col-sm-4">
                 <div class="focusPromotion-time">
                     <span>{{promotionService.formatTime(focusPromotion.endTime)}}</span>
                 </div>
@@ -73,9 +77,10 @@
         </div>
     </div>
 
-    <hr>
 
-    <div id="overview-discount-container" class="overview-container">
+    <div id="overview-discount-container" class="overview-container" *ngIf="promotionService.validFormSteps.get(E_PROMO_FORM_STEPS.DISCOUNT) == true">
+        <hr>
+
         <p *ngIf="focusPromotion.discount.discountType !== E_DISCOUNT_TYPE.FREE">The customer will receive a discount of:</p>
         <p *ngIf="focusPromotion.discount.discountType === E_DISCOUNT_TYPE.FREE">The customer will receive the following FREE feature(s):</p>
 
@@ -94,7 +99,7 @@
         </div>
     </div>
 
-    <div id="overview-package-container" class="overview-container">
+    <div id="overview-package-container" class="overview-container" *ngIf="promotionService.validFormSteps.get(E_PROMO_FORM_STEPS.DISCOUNTED_PACKAGES) == true">
         <div class="row">
             <div class="col">
                 <p>any of the select packages below</p>

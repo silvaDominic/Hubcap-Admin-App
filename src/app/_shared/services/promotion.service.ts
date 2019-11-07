@@ -9,6 +9,8 @@ import {DisplayPackageItem} from '../models/display-package-item.model';
 import {Package} from '../models/package.model';
 import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
 import {Frequency} from '../models/frequency.model';
+import {PROMO_FORM_STEPS} from '../enums/PROMO_FORM_STEPS.model';
+import {CONSTANTS} from '../CONSTANTS';
 
 @Injectable({
     providedIn: 'root'
@@ -26,6 +28,7 @@ export class PromotionService {
     private _currentPromotionIndex = 0;
     private currentPromotionId: string = null;
     public serviceReady = false;
+    public validFormSteps = new Map<string, boolean>();
 
     constructor(
         private readonly fb: FormBuilder,
@@ -36,6 +39,12 @@ export class PromotionService {
         this.loadPromotions();
     }
 
+    public resetValidFormSteps(defaultValue: boolean = false): void {
+        for (const step of Object.keys(PROMO_FORM_STEPS)) {
+            this.validFormSteps.set(step, defaultValue);
+        }
+    }
+
     public loadPromotions(): void {
         this.serviceReady = false;
         console.log('_LOADING PROMOTIONS_');
@@ -43,9 +52,10 @@ export class PromotionService {
             promotions => {
                 if (promotions !== null || undefined) {
                     this.promotionArraySubject.next(promotions);
-                    this.promotionSubject.next(promotions[this.currentPromotionIndex]);
+                    this.promotionSubject.next(CONSTANTS.PROMOTION_TEMPLATE);
                     // this.currentPromotionId = this.promotionSubject.getValue().id;
                     this.serviceReady = true;
+                    this.resetValidFormSteps(true);
                     console.log('_LOADING PROMOTIONS COMPLETE_');
                     console.log('CURRENT PROMOTION: ', this.promotionSubject.getValue());
                 } else {
@@ -101,6 +111,12 @@ export class PromotionService {
         this._currentPromotionIndex = index;
     }
 
+    getPromotionById(id): Observable<Promotion> {
+        return this.promotionArraySubject.map(
+            promotionArray => promotionArray.filter(promotion => promotion.id === id)[0]
+        );
+    }
+
     public setPromotion(index: number): void {
         if (index !== this.currentPromotionIndex) {
             console.log('_SET PROMOTION_');
@@ -150,19 +166,27 @@ export class PromotionService {
         this.creatingNewPromotion = true;
         this.promotionSubject.next(Promotion.EMPTY_MODEL);
         this._currentPromotionIndex = null;
+        this.resetValidFormSteps();
     }
 
     public cancelNewPromotion(): void {
         this.creatingNewPromotion = false;
         if (this.promotionArraySubject.getValue().length > 0) {
             this.setPromotion(0);
+            this.resetValidFormSteps(true);
         } else {
             console.log('No promotion to default to. Current index set to null');
             this.currentPromotionIndex = null;
         }
     }
 
-    public createNewPromotion(promoForm: FormGroup): Promise<boolean> {
+    public updatePromotion(promoForm: FormGroup, isNewPromo: boolean = false): Promise<boolean> {
+        let id = this.promotionSubject.getValue().id;
+
+        if (isNewPromo) {
+            id = null;
+        }
+
         const frequency = new Frequency(
             promoForm.get('schedulingFormGroup.frequencyFormGroup.frequencyType').value,
             promoForm.get('schedulingFormGroup.frequencyFormGroup.frequencyValue').value
@@ -192,21 +216,47 @@ export class PromotionService {
 
         console.log('Creating new promo: ', newPromotion);
 
-        this.promotionSubject.next(newPromotion);
-
-        const currentPromotionArrayValue = this.promotionArraySubject.getValue();
-        this.promotionArraySubject.next([...currentPromotionArrayValue, newPromotion]);
-
         return this.carwashService.postNewPromotion(newPromotion).then((res) => {
                 // Set new ID generated from backend and cache new store
                 console.log('Promotion Post SUCCESS: ', res);
-                this.carwashService.cachePromotion(newPromotion);
+
+                this.promotionSubject.next(Promotion.EMPTY_MODEL);
+
+                const currentPromotionArrayValue = this.promotionArraySubject.getValue();
+                this.promotionArraySubject.next([...currentPromotionArrayValue, newPromotion]);
+                this.carwashService.cachePromotions([...currentPromotionArrayValue, newPromotion]);
                 return true;
             }
         ).catch(reason => {
-            console.log('Error POSTING package: ', reason);
+            console.warn('Error POSTING promotion: ' + newPromotion.name);
             return false;
         })
+    }
+
+    public deletePromotion(id: string): Promise<boolean> {
+        const updatedPromotionArray = this.promotionArraySubject.getValue();
+
+        return new Promise<boolean>(((resolve, reject) => {
+            updatedPromotionArray.some(
+                (promotion, i) => {
+                    if (promotion.id === id) {
+                        return this.carwashService.deletePromotion(id).then((result) => {
+                                console.log('Promotion deletion SUCCESS: ', result);
+                                updatedPromotionArray.splice(i, 1);
+
+                                this.promotionArraySubject.next(updatedPromotionArray);
+                                this.carwashService.cachePromotions(updatedPromotionArray);
+                                resolve(true);
+                            }
+                        ).catch(reason => {
+                            reject('Error DELETING promotion: ' + promotion.id)
+                        });
+                    } else if (i == updatedPromotionArray.length - 1) {
+                        reject('Promotion with ID: ' + id + ' does not exist. Try again or contact your Admin for help');
+                    }
+                }
+            );
+        }));
     }
 
     /* ----------------- FORM METHODS ------------------- */
@@ -216,7 +266,7 @@ export class PromotionService {
     }
 
     public generatePromotionForm(promotion: Promotion) {
-        return this.fb.group( {
+        return this.fb.group({
             nameFormGroup: this.generateNameFormGroup(promotion),
             serviceTypeFormGroup: this.generateServiceTypeFormGroup(promotion),
             descriptionFormGroup: this.generateDescriptionFormGroup(promotion),
@@ -263,9 +313,9 @@ export class PromotionService {
 
     private generateDiscountFormGroup(promotion: Promotion): FormGroup {
         return this.fb.group({
-                    discountType: [promotion.discount.discountType, Validators.required],
-                    discountAmount: [promotion.discount.discountAmount],
-                    discountFeatures: [promotion.discount.discountFeatures]
+            discountType: [promotion.discount.discountType, Validators.required],
+            discountAmount: [promotion.discount.discountAmount],
+            discountFeatures: [promotion.discount.discountFeatures]
         });
     }
 

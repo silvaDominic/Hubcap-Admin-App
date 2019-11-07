@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
 
   public ngOnInit(): void {
       this.carWashService.registerCarwash();
-      // this.userService.populate();
+      this.carWashService.registerAllPackageItems();
+    // this.userService.populate();
   }
 }

@@ -7,6 +7,7 @@ import {VEHICLE_TYPE} from '../../../../_shared/enums/VEHICLE_TYPE.model';
 import {Observable, Subscription} from 'rxjs';
 import {Package} from '../../../../_shared/models/package.model';
 import {PackageItem} from '../../../../_shared/models/package-item.model';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-package-options',
@@ -26,7 +27,7 @@ export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit
     E_ITEM_TYPE = ITEM_TYPE;
     E_VEHICLE_TYPE = VEHICLE_TYPE;
 
-    constructor(private readonly packageService: PackageService) {
+    constructor(private readonly packageService: PackageService, private readonly snackBar: MatSnackBar) {
     }
 
     public ngOnInit() {
@@ -42,7 +43,7 @@ export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit
     ngAfterViewInit(): void {
     }
 
-    private initForm (): void {
+    private initForm(): void {
         this.packageForm = this.packageService.getForm();
     }
 
@@ -63,7 +64,7 @@ export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit
                     this.selectedPackageItems.splice(i, 1);
                 }
             });
-        // If NOT selected, select and add to selectedPackageItems array
+            // If NOT selected, select and add to selectedPackageItems array
         } else if (item.value == false) {
             item.value = true;
             console.log(item.key.name + ' converted to ' + item.value);
@@ -72,7 +73,7 @@ export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit
         }
     }
 
-    public selectChange(event, index, item): void {
+    public selectInputChange(event, index, item): void {
         // If selected, deselect and remove from selectedPackageItems array
         this.selectedPackageItems.filter((packageItem, i) => {
             if (item.key.name === packageItem.name) {
@@ -82,7 +83,15 @@ export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit
     }
 
     public createPackage(packageForm: FormGroup) {
-        this.callSetFocusPackage(this.packageService.createPackage(packageForm));
+        this.packageService.createPackage(packageForm).then((result) => {
+            if (result == true) {
+                this.callSetFocusPackage(this.packageService.getPackageArrayLength() - 1);
+                this.openSnackBar(packageForm.get('nameFormGroup.name').value + ' Promo', 'Created');
+                // Otherwise, display alert
+            } else if (result == false) {
+                alert('Error CREATING ' + packageForm.get('nameFormGroup.name').value + '.' + ' Try again or contact your Admin.')
+            }
+        });
     }
 
     public callSetFocusPackage(index: number) {
@@ -112,7 +121,9 @@ export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit
                 console.log('Current package state on refresh', _package);
                 this.resetDisplayItems();
                 this.updateDisplayItems();
-            }, error => {console.log(error)}
+            }, error => {
+                console.log(error)
+            }
         );
         packageSub.unsubscribe();
     }
@@ -139,5 +150,11 @@ export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit
             }
             this.displayPackageItems.set(item, false);
         }
+    }
+
+    private openSnackBar(message: string, action: string) {
+        this.snackBar.open(message, action, {
+            duration: 4000,
+        });
     }
 }

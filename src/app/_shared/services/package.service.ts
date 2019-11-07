@@ -7,6 +7,7 @@ import {DisplayPackageItem} from '../models/display-package-item.model';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {VEHICLE_TYPE} from '../enums/VEHICLE_TYPE.model';
+import {PackageItem} from '../models/package-item.model';
 
 
 @Injectable({
@@ -25,7 +26,6 @@ export class PackageService {
     public serviceReady: boolean;
 
     constructor(private readonly carwashService: CarwashService, private readonly fb: FormBuilder) {
-        this._currentPackageIndex = 0;
         this.currentPackageIndex = 0;
         this.loadPackageArray(SERVICE_TYPE.WASH);
     }
@@ -35,8 +35,8 @@ export class PackageService {
         this.serviceReady = false;
         console.log('_LOADING PACKAGES_');
         // this.mainSubscription = this.carwashService.getAllPackages(type).subscribe(
-            const temp = this.carwashService.getAllPackages(type);
-            temp.subscribe(
+        const temp = this.carwashService.getAllPackages(type);
+        temp.subscribe(
             packageArray => {
                 if (packageArray != null || undefined) {
                     console.log('Package Array VALID', packageArray);
@@ -72,6 +72,12 @@ export class PackageService {
         return this._package;
     }
 
+    getPackageById(id: string) {
+        return this.packageArraySubject.map(
+            packageArray => packageArray.filter(_package => _package.id === id)[0]
+        );
+    }
+
     get packageArray(): Observable<Package[]> {
         return this._packageArray;
     }
@@ -104,6 +110,10 @@ export class PackageService {
 
     public getPackageArrayLength(): number {
         return this.packageArraySubject.getValue().length;
+    }
+
+    public getCurrentPackageType(): SERVICE_TYPE {
+        return this.packageSubject.getValue().type;
     }
 
     // Check whether monthly prices has any values
@@ -143,12 +153,12 @@ export class PackageService {
         );
         // Current index null until package created or existing package selected
         this._currentPackageIndex = null;
-        console.log(this.packageSubject.getValue());
+        console.log('Initialized Package: ', this.packageSubject.getValue());
     }
 
     cancelNewPackage(): void {
         this.creatingNewPackage = false;
-        if (this.packageArraySubject.getValue().length > 0) {
+        if (this.packageArraySubject.getValue().length > 0 && this.packageArraySubject.getValue() != null) {
             this.setPackage(0);
         } else {
             console.log('No package to default to. Current index set to null');
@@ -156,7 +166,7 @@ export class PackageService {
         }
     }
 
-    createPackage(packageForm: FormGroup): number {
+    createPackage(packageForm: FormGroup): Promise<boolean> {
         // Instantiate and initialize temp variables for One Time and Monthly price maps
         const oneTimePrices = new Map<VEHICLE_TYPE, number>();
         oneTimePrices.set(VEHICLE_TYPE.REGULAR, packageForm.get('pricingFormGroup.oneTimeRegularPrice').value);
@@ -165,6 +175,8 @@ export class PackageService {
         const monthlyPrices = new Map<VEHICLE_TYPE, number>();
         monthlyPrices.set(VEHICLE_TYPE.REGULAR, packageForm.get('pricingFormGroup.monthlyRegularPrice').value);
         monthlyPrices.set(VEHICLE_TYPE.OVERSIZED, packageForm.get('pricingFormGroup.monthlyOverSizedPrice').value);
+
+        console.log('Package Items from Form: ', packageForm.get('packageItemsFormGroup.packageItems').value);
 
         // Instantiate new Package
         const newPackage = new Package(
@@ -179,22 +191,71 @@ export class PackageService {
 
         console.log('Creating new package: ', newPackage);
 
-        // Update package subjects AND packages array
-        this.packageSubject.next(newPackage);
-
-        const currentPackagesArrayValue = this.packageArraySubject.getValue();
-        this.packageArraySubject.next([...currentPackagesArrayValue, newPackage]);
-
-        // Returns the last index of the array
-        return this.getPackageArrayLength() - 1;
+        return this.savePackage(newPackage);
     }
 
-    savePackage(packageToPost: Package) {
-        this.carwashService.postNewPackage(packageToPost);
+    deletePackage(id: string, serviceType: SERVICE_TYPE): Promise<boolean> {
+        const updatedPackageArray = this.packageArraySubject.getValue();
+
+        return new Promise<boolean>(((resolve, reject) => {
+            updatedPackageArray.some(
+                (_package, i) => {
+                    if (_package.id === id) {
+                        return this.carwashService.deletePackage(id).then((result) => {
+                                console.log('Package deletion SUCCESS: ', result);
+                                updatedPackageArray.splice(i, 1);
+
+                                this.packageArraySubject.next(updatedPackageArray);
+                                this.carwashService.cachePackages(updatedPackageArray, serviceType);
+                                resolve(true);
+                            }
+                        ).catch(reason => {
+                            reject('Error DELETING package: ' + _package.id);
+                        });
+                    } else if (i == updatedPackageArray.length - 1) {
+                        reject('Package with ID: ' + id + ' does not exist. Try again or contact your Admin for help');
+                    }
+                }
+            );
+        }));
     }
 
-    savePackageArray(packageArrayToPost: Package[]) {
-        this.carwashService.postNewPackageArray(packageArrayToPost);
+    savePackage(updatedPackage: Package): Promise<boolean> {
+        return this.carwashService.postNewPackage(updatedPackage).then((res) => {
+            console.log('Package Post SUCCESS', res);
+
+            // Update package
+            this.packageSubject.next(updatedPackage);
+
+            // Update package array
+            const currentPackagesArrayValue = this.packageArraySubject.getValue();
+            this.packageArraySubject.next([...currentPackagesArrayValue, updatedPackage]);
+
+            // Update carwash object
+            this.carwashService.cachePackages([...currentPackagesArrayValue, updatedPackage], updatedPackage.type);
+
+            return true;
+        }).catch((reason) => {
+            console.warn('Error SAVING package: ' + updatedPackage.name);
+            return false;
+        });
+    }
+
+    savePackageArray(updatedPackageArray: Package[], serviceType: SERVICE_TYPE): Promise<boolean> {
+        return this.carwashService.postNewPackageArray(updatedPackageArray).then((res) => {
+            console.log('Package Post SUCCESS', res);
+
+            // Update packages
+            this.packageArraySubject.next(updatedPackageArray);
+
+            // Update carwash object
+            this.carwashService.cachePackages(updatedPackageArray, serviceType);
+
+            return true;
+        }).catch((reason) => {
+            console.warn('Error SAVING all packages of type: ' + serviceType);
+            return false;
+        });
     }
 
     // Static list of packages

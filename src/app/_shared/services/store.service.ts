@@ -86,9 +86,8 @@ export class StoreService {
     }
 
     /* STORE HANDLERS */
-    public createStore(storeForm: FormGroup) {
+    public createStore(storeForm: FormGroup): Promise<boolean> {
         const addressCoordinates = new Map<string, string>();
-        let newStore: Store;
 
         // Create address string for Geocode API call
         const fullAddressQuery = (
@@ -102,20 +101,48 @@ export class StoreService {
         httpParams = httpParams.set('address', fullAddressQuery);
         httpParams = httpParams.set('key', environment.GOOGLE_API_KEY);
 
-        // Geocode API call
-        this.apiService.get(environment.geolocation_base_url, httpParams).subscribe(
-            response => {
-                // Convert lat & lng to CarwashCoordinates
-                addressCoordinates.set('lat', response.data.results[0].geometry.location.lat);
-                addressCoordinates.set('lng', response.data.results[0].geometry.location.lng);
-                // Create new store object to be pushed to backend
-                newStore = this.instantiateStore(storeForm, addressCoordinates);
-                // this.carwashService.createNewStore(newStore);
-                console.log('LAT AND LONG VALUES: ', addressCoordinates);
-                // this.carwashService.createNewStore(newStore);
-            }
-        );
+        return new Promise((resolve, reject) => {
+            // Geocode API call
+            this.apiService.get(environment.geolocation_base_url, httpParams).subscribe(
+                response => {
+                    // Convert lat & lng to CarwashCoordinates
+                    addressCoordinates.set('lat', response.data.results[0].geometry.location.lat);
+                    addressCoordinates.set('lng', response.data.results[0].geometry.location.lng);
+                    // Create new store object to be pushed to backend
 
+                    const newAddress = new Address(
+                        storeForm.get('city').value,
+                        storeForm.get('state').value,
+                        storeForm.get('streetAddress').value,
+                        storeForm.get('zipcode').value,
+                    );
+
+                    const newStore = new Store(
+                        null,
+                        storeForm.get('name').value,
+                        storeForm.get('type').value,
+                        newAddress,
+                        storeForm.get('phoneNumber').value,
+                        addressCoordinates,
+                        storeForm.get('hoursOfOperation').value,
+                        storeForm.get('email').value,
+                        storeForm.get('website').value,
+                    );
+
+                    console.log('LAT AND LONG VALUES: ', addressCoordinates);
+
+                    return this.carwashService.postNewStore(newStore).then((response) => {
+                        console.log('Carwash Post SUCCESS');
+
+                        console.log('Store post SUCCESS: ', response);
+                        newStore.id = response.id;
+                        this.storeSubject.next(newStore);
+                    });
+                }, error => {
+                    console.warn('Unable to retrieve address coordinates.', error)
+                }
+            );
+        });
     }
 
     public updateStore(updatedStore: Store) {

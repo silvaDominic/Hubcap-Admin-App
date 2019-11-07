@@ -9,6 +9,7 @@ import {DISCOUNT_TYPE} from '../../../../_shared/enums/DISCOUNT_TYPE.model';
 import {PromotionService} from '../../../../_shared/services/promotion.service';
 import {DAY} from '../../../../_shared/enums/DAY.model';
 import {FREQUENCY} from '../../../../_shared/enums/FREQUENCY.model';
+import {PROMO_FORM_STEPS} from '../../../../_shared/enums/PROMO_FORM_STEPS.model';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class PromoFormComponent implements OnInit {
     public E_DISCOUNT_TYPE = DISCOUNT_TYPE;
     public E_FREQUENCY = FREQUENCY;
     public E_SERVICE_TYPE = SERVICE_TYPE;
+    public E_PROMO_FORM_STEPS = PROMO_FORM_STEPS;
     public K_DAY = Object.keys(DAY);
 
     // For initialization
@@ -55,20 +57,30 @@ export class PromoFormComponent implements OnInit {
     }
 
     createPromotion(promoForm: FormGroup) {
-        this.promotionService.createNewPromotion(promoForm).then((res) => {
+        this.promotionService.updatePromotion(promoForm, true).then((res) => {
+            // Display success message, if the promotion was successfully posted
             if (res == true) {
                 this.openSnackBar(promoForm.get('nameFormGroup.name').value + ' Promo', 'Created')
+            // Otherwise, display alert
             } else if (res == false) {
-                alert('Error Posting ' + promoForm.get('nameFormGroup.name').value + '.' + ' Try again or contact your Admin')
+                alert('Error CREATING ' + promoForm.get('nameFormGroup.name').value + '.' + ' Try again or contact your Admin.')
             }
         })
     }
 
-    updatePromo(promo: Promotion) {
-
+    updatePromotion(promoForm: FormGroup) {
+        this.promotionService.updatePromotion(promoForm).then((result) => {
+            // Display success message, if the promotion was successfully posted
+            if (result == true) {
+                this.openSnackBar(promoForm.get('nameFormGroup.name').value + ' Promo', 'Updated')
+                // Otherwise, display alert
+            } else if (result == false) {
+                alert('Error UPDATING ' + promoForm.get('nameFormGroup.name').value + '.' + ' Try again or contact your Admin.')
+            }
+        })
     }
 
-    openSnackBar(message: string, action: string) {
+    private openSnackBar(message: string, action: string) {
         this.snackBar.open(message, action, {
             duration: 4000,
         });

@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <mat-icon id="close-icon" (click)="closeDialog()"></mat-icon>
+            <h1 mat-dialog-title>{{data.title}}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div mat-dialog-content>
+                <p>{{data.dialog}}</p>
+            </div>
+            <div mat-dialog-actions>
+                <button mat-flat-button color="warn" cdkFocusInitial [mat-dialog-close]="false">No</button>
+                <button mat-flat-button color="primary" [mat-dialog-close]="true">Yes</button>
+            </div>
+        </div>
+    </div>
+
+</div>

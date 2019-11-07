@@ -110,10 +110,13 @@
             </div>
 
             <mat-action-row>
-                <button type="button" class="btn note-btn btn-edit" (click)="editPromo(thisPromotion.id)">
+                <button type="button" class="btn note-btn btn-danger" (click)="deletePromotion(thisPromotion.id)">
+                    Delete
+                </button>
+                <button type="button" class="btn note-btn btn-edit" (click)="editPromotion(thisPromotion.id)">
                     Edit
                 </button>
-                <button *ngIf="thisPromotion.isActive" type="button" class="btn note-btn btn-danger" (click)="toggleActive(thisPromotion.id)">
+                <button *ngIf="thisPromotion.isActive" type="button" class="btn note-btn btn-warning" (click)="toggleActive(thisPromotion.id)">
                     Deactivate
                 </button>
                 <button *ngIf="!thisPromotion.isActive" type="button" class="btn note-btn btn-success" (click)="toggleActive(thisPromotion.id)">

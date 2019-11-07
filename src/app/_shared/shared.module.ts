@@ -12,6 +12,8 @@ import {AmazingTimePickerModule} from 'amazing-time-picker';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
 import {SatDatepickerModule, SatNativeDateModule} from 'saturn-datepicker';
+import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -44,7 +46,8 @@ import {SatDatepickerModule, SatNativeDateModule} from 'saturn-datepicker';
         AmazingTimePickerModule,
         SatDatepickerModule,
         SatNativeDateModule,
-        MatDatepickerModule
+        MatDatepickerModule,
+        MatDialogModule
     ],
     exports: [
         CommonModule,
@@ -76,7 +79,8 @@ import {SatDatepickerModule, SatNativeDateModule} from 'saturn-datepicker';
         SatDatepickerModule,
         SatNativeDateModule,
         MatDatepickerModule
-    ]
+    ],
+    declarations: [DialogBoxComponent]
 })
 
 export class SharedModule {}

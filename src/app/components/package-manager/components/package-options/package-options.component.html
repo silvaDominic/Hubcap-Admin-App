@@ -118,7 +118,7 @@
                              [ngClass]="{'exterior': item.key.itemType === E_ITEM_TYPE.EXTERIOR, 'interior': item.key.itemType === E_ITEM_TYPE.INTERIOR}"></div>
                     </div>
                     <select *ngIf="item.key.subOptions.length != 0 || null" class="custom-select"
-                            (change)="selectChange($event, index, item)"
+                            (change)="selectInputChange($event, index, item)"
                             [ngClass]="{'selected': item.value === true}" [(ngModel)]="item.key.selectedSubOption">
                         <option *ngFor="let option of item.key.subOptions;" [value]="option">{{option}}</option>
                     </select>
@@ -229,12 +229,10 @@
                                     <div class="button-indicator"
                                          [ngClass]="{'exterior': item.key.itemType === E_ITEM_TYPE.EXTERIOR, 'interior': item.key.itemType === E_ITEM_TYPE.INTERIOR}"></div>
                                 </div>
-                                <select *ngIf="item.key.subOptions.length !== 0" class="custom-select"
-                                        [ngClass]="{'selected': item.value === true}"
-                                        name="item.selectedSubOption">
-                                    <option *ngFor="let option of item.key.subOptions;"
-                                            [value]="item.key.selectedSubOption"
-                                            name="item.selectedSubOption">{{option}}</option>
+                                <select *ngIf="item.key.subOptions.length != 0 || item.key.subOptions.length == null" class="custom-select"
+                                        (change)="selectInputChange($event, index, item)"
+                                        [ngClass]="{'selected': item.value === true}">
+                                    <option *ngFor="let option of item.key.subOptions;" [value]="option">{{option}}</option>
                                 </select>
                             </div>
                         </div>
@@ -246,7 +244,7 @@
             </mat-step>
 
             <mat-step id="complete" label="Complete Package">
-                <div formGroupName="packageItemsFormGroup">
+                <div>
                     <p>All Set! Click <strong>Create Package</strong> to make package live!</p>
 
                     <button mat-button matStepperPrevious type="button">Back</button>

@@ -10,7 +10,7 @@
                             <input matInput placeholder="Ex: Early Bird Special" type="text" formControlName="name"
                                    required [value]="focusPromotion.name" [(ngModel)]="focusPromotion.name">
                         </mat-form-field>
-                        <button mat-button matStepperNext type="submit">Next</button>
+                        <button mat-button matStepperNext type="submit" (click)="promotionService.validFormSteps.set(E_PROMO_FORM_STEPS.NAME, true)">Next</button>
                     </div>
                 </mat-step>
 
@@ -30,7 +30,7 @@
                             </mat-select>
                         </mat-form-field>
                         <button mat-button matStepperPrevious type="button">Back</button>
-                        <button mat-button matStepperNext type="submit">Next</button>
+                        <button mat-button matStepperNext type="submit" (click)="promotionService.validFormSteps.set(E_PROMO_FORM_STEPS.SERVICE_TYPE, true)">Next</button>
                     </div>
                 </mat-step>
 
@@ -46,7 +46,7 @@
                                    formControlName="description" [(ngModel)]="focusPromotion.description">
                         </mat-form-field>
                         <button mat-button matStepperPrevious type="button">Back</button>
-                        <button mat-button matStepperNext type="submit">Next</button>
+                        <button mat-button matStepperNext type="submit" (click)="promotionService.validFormSteps.set(E_PROMO_FORM_STEPS.DESCRIPTION, true)">Next</button>
                     </div>
                 </mat-step>
 
@@ -122,7 +122,7 @@
                         </div>
 
                         <button mat-button matStepperPrevious type="button">Back</button>
-                        <button mat-button matStepperNext type="submit">Next</button>
+                        <button mat-button matStepperNext type="submit" (click)="promotionService.validFormSteps.set(E_PROMO_FORM_STEPS.SCHEDULING, true)">Next</button>
                     </div>
                 </mat-step>
 
@@ -150,7 +150,7 @@
                         </div>
 
                         <button mat-button matStepperPrevious type="button">Back</button>
-                        <button mat-button matStepperNext type="submit">Next</button>
+                        <button mat-button matStepperNext type="submit" (click)="promotionService.validFormSteps.set(E_PROMO_FORM_STEPS.PROMOTION_TIME, true)">Next</button>
                     </div>
                 </mat-step>
 
@@ -203,7 +203,7 @@
                         </div>
 
                         <button mat-button matStepperPrevious type="button">Back</button>
-                        <button mat-button matStepperNext type="submit">Next</button>
+                        <button mat-button matStepperNext type="submit" (click)="promotionService.validFormSteps.set(E_PROMO_FORM_STEPS.DISCOUNT, true)">Next</button>
                     </div>
                 </mat-step>
 
@@ -225,7 +225,7 @@
                         </mat-form-field>
 
                         <button mat-button matStepperPrevious type="button">Back</button>
-                        <button mat-button matStepperNext type="submit">Next</button>
+                        <button mat-button matStepperNext type="submit"(click)="promotionService.validFormSteps.set(E_PROMO_FORM_STEPS.DISCOUNTED_PACKAGES, true)">Next</button>
                     </div>
                 </mat-step>
 
@@ -239,7 +239,7 @@
 
                     <button mat-button matStepperPrevious type="button">Back</button>
                     <button *ngIf="promotionService.creatingNewPromotion == false" mat-raised-button color="primary"
-                            type="button" (click)="updatePromo(focusPromotion); openSnackBar(focusPromotion.name + ' Promo', 'Saved')">
+                            type="button" (click)="updatePromotion(promotionForm); openSnackBar(focusPromotion.name + ' Promo', 'Saved')">
                         Save Promo
                     </button>
 

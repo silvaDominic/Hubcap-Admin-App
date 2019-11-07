@@ -1,5 +1,5 @@
 export enum CARWASH_TYPE {
-    WASHER = 'washer',
-    WASHER_DETAILER = 'washer_detailer',
-    MOBILE = 'mobile'
+    WASHER = 'WASHER',
+    WASHER_DETAILER = 'WASHER_DETAILER',
+    MOBILE = 'MOBILE'
 }

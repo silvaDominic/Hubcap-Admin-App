@@ -50,14 +50,11 @@
     <div id="action-row-wrapper" *ngIf="(packageService.package | async) as focusPackage">
         <div class="row action-row">
             <button mat-button type="button" (click)="savePackage(focusPackage)">Save Package</button>
-            <button id="delete-button" type="button" mat-button>Delete</button>
+            <button id="delete-button" type="button" mat-button (click)="deletePackage(focusPackage.id)">Delete</button>
         </div>
 
         <div class="row action-row">
             <button mat-button id="save-all-button" type="button" (click)="savePackageArray(packageArray)">Save ALL Packages</button>
-<!--
-            <button mat-button [disabled]="!packageService.checkIsMonthly()" (click)="packageService.toggleIsMonthly()">Switch to Monthly</button>
--->
         </div>
     </div>
 </div>
