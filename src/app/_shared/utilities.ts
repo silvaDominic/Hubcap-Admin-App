@@ -147,7 +147,8 @@ export class Utilities {
         return new StoreHours(
             data.day,
             data.openTime,
-            data.closeTime
+            data.closeTime,
+            data.isOpen
         );
     }
 

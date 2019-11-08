@@ -78,10 +78,10 @@
                         <h4>Store Hours</h4>
                     </div>
                     <div class="hours-block">
-                        <div class="list-group-item" *ngFor="let hours of focusStore.hoursOfOperation.storeHours;">
+                        <div class="list-group-item" *ngFor="let hours of focusStore?.hoursOfOperation?.storeHours; let i = index;">
                             <div class="row">
                                 <div class="col-md-4 day-checkbox-container">
-                                    <mat-checkbox [(ngModel)]="hours.isOpen">{{hours.day}}</mat-checkbox>
+                                    <mat-checkbox [(ngModel)]="hours.isOpen" [name]="i.toString()">{{hours.day}}</mat-checkbox>
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field>

@@ -23,10 +23,10 @@ export class ApiService {
             .pipe(catchError(this.formatErrors));
     }
 
-/*    get<T>(path: string, httpParams: HttpParams = new HttpParams(), httpHeaders: HttpHeaders = new HttpHeaders()): Observable<any> {
-        return this.http.get(`${path}`, { params: httpParams, headers: httpHeaders })
+    getGeoLocation<T>(httpParams: HttpParams = new HttpParams(), httpHeaders: HttpHeaders = new HttpHeaders()): Observable<any> {
+        return this.http.get(environment.geolocation_base_url, { params: httpParams, headers: httpHeaders })
             .pipe(catchError(this.formatErrors));
-    }*/
+    }
 
     put(path: string, httpParams: HttpParams = new HttpParams(), httpHeaders: HttpHeaders = new HttpHeaders(), body: Object = {}): Observable<any> {
         return this.http.put(

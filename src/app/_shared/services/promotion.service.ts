@@ -180,12 +180,7 @@ export class PromotionService {
         }
     }
 
-    public updatePromotion(promoForm: FormGroup, isNewPromo: boolean = false): Promise<boolean> {
-        let id = this.promotionSubject.getValue().id;
-
-        if (isNewPromo) {
-            id = null;
-        }
+    public createNewPromotion(promoForm: FormGroup): Promise<boolean> {
 
         const frequency = new Frequency(
             promoForm.get('schedulingFormGroup.frequencyFormGroup.frequencyType').value,
@@ -217,6 +212,53 @@ export class PromotionService {
         console.log('Creating new promo: ', newPromotion);
 
         return this.carwashService.postNewPromotion(newPromotion).then((res) => {
+                // Set new ID generated from backend and cache new store
+                console.log('Promotion Post SUCCESS: ', res);
+
+                this.promotionSubject.next(Promotion.EMPTY_MODEL);
+
+                const currentPromotionArrayValue = this.promotionArraySubject.getValue();
+                this.promotionArraySubject.next([...currentPromotionArrayValue, newPromotion]);
+                this.carwashService.cachePromotions([...currentPromotionArrayValue, newPromotion]);
+                return true;
+            }
+        ).catch(reason => {
+            console.warn('Error POSTING promotion: ' + newPromotion.name);
+            return false;
+        })
+    }
+
+    public updatePromotion(promoForm: FormGroup) {
+        const frequency = new Frequency(
+            promoForm.get('schedulingFormGroup.frequencyFormGroup.frequencyType').value,
+            promoForm.get('schedulingFormGroup.frequencyFormGroup.frequencyValue').value
+        );
+
+        const discount = new Discount(
+            promoForm.get('discountFormGroup.discountType').value,
+            promoForm.get('discountFormGroup.discountAmount').value,
+            promoForm.get('discountFormGroup.discountFeatures').value,
+        );
+
+        const newPromotion = new Promotion(
+            null,
+            promoForm.get('nameFormGroup.name').value,
+            promoForm.get('descriptionFormGroup.description').value,
+            promoForm.get('serviceTypeFormGroup.serviceType').value,
+            promoForm.get('schedulingFormGroup.isReoccurring').value,
+            frequency,
+            promoForm.get('schedulingFormGroup.startDate').value,
+            promoForm.get('schedulingFormGroup.endDate').value,
+            promoForm.get('discountPackagesFormGroup.discountPackages').value,
+            discount,
+            promoForm.get('activeTimeFormGroup.startTime').value,
+            promoForm.get('activeTimeFormGroup.endTime').value,
+            true
+        );
+
+        console.log('Creating new promo: ', newPromotion);
+
+        return this.carwashService.updatePromotion(newPromotion).then((res) => {
                 // Set new ID generated from backend and cache new store
                 console.log('Promotion Post SUCCESS: ', res);
 

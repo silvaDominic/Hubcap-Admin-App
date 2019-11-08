@@ -6,16 +6,11 @@ export class StoreHours {
         day: null,
         openTime: '',
         closeTime: '',
+        isOpen: false
     };
 
     constructor(public day: DAY,
                 public openTime: string = '',
-                public closeTime: string = '') {}
-
-    public isOpen(): boolean {
-/*        const currentTime = new Date().getTime();
-        console.log('Temporary');
-        if (currentTime > this.openTime)*/
-        return false;
-    }
+                public closeTime: string = '',
+                public isOpen: boolean = false) {}
 }

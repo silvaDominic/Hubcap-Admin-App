@@ -6,8 +6,18 @@
 export const environment = {
     production: false,
     api_url: 'http://localhost:4200',
-    package_manager_path: '/assets/data/carwash.json',
-    static_package_items_url: '/assets/data/all-package-items.json',
+    carwash_url: '/assets/data/carwash.json',
+    display_package_items_url: '/assets/data/all-package-items.json',
     geolocation_base_url: 'https://maps.googleapis.com/maps/api/geocode/json',
-    GOOGLE_API_KEY: 'AIzaSyBmP-8g9b_1PsCHdNnlkThfMwLA1ADlrNU'
+    GOOGLE_API_KEY: 'AIzaSyBmP-8g9b_1PsCHdNnlkThfMwLA1ADlrNU',
+    new_store_url: '',
+    new_package_url: '',
+    new_promotion_url: '',
+    update_store_url: '',
+    update_package_url: '',
+    update_package_array_url: '',
+    update_promotion_url: '',
+    delete_store_url: '',
+    delete_package_url: '',
+    delete_promotion_url: ''
 };

@@ -104,10 +104,10 @@ export class StoreService {
         return new Promise((resolve, reject) => {
             // Geocode API call
             this.apiService.get(environment.geolocation_base_url, httpParams).subscribe(
-                response => {
+                geoResponse => {
                     // Convert lat & lng to CarwashCoordinates
-                    addressCoordinates.set('lat', response.data.results[0].geometry.location.lat);
-                    addressCoordinates.set('lng', response.data.results[0].geometry.location.lng);
+                    addressCoordinates.set('lat', geoResponse.data.results[0].geometry.location.lat);
+                    addressCoordinates.set('lng', geoResponse.data.results[0].geometry.location.lng);
                     // Create new store object to be pushed to backend
 
                     const newAddress = new Address(
@@ -131,22 +131,27 @@ export class StoreService {
 
                     console.log('LAT AND LONG VALUES: ', addressCoordinates);
 
+                    // Post new store
                     return this.carwashService.postNewStore(newStore).then((response) => {
-                        console.log('Carwash Post SUCCESS');
-
                         console.log('Store post SUCCESS: ', response);
                         newStore.id = response.id;
                         this.storeSubject.next(newStore);
+
+                        this.carwashService.cacheStore(newStore);
+                        resolve(true);
+                    }).catch(reason => {
+                        reject(reason);
                     });
                 }, error => {
                     console.warn('Unable to retrieve address coordinates.', error)
+                    reject();
                 }
             );
         });
     }
 
-    public updateStore(updatedStore: Store) {
-        console.log('Updated Store: ', updatedStore);
+    public updateStore(updatedStore: Store): Promise<boolean> {
+        console.log('Store to update: ', updatedStore);
         const addressCoordinates = new Map<string, string>();
 
         // Create address string for Geocode API call
@@ -166,29 +171,40 @@ export class StoreService {
         httpHeaders = httpHeaders.set('Access-Control-Allow-Origin', '*');
         httpHeaders = httpHeaders.set('Content-Type', 'application/json');
 
-        // Make Geocode API call if location has changed
-        if (updatedStore.coordinates !== this.storeSubject.getValue().coordinates) {
-            console.log('Addresses change detected. Recalculating coordinates...');
-            this.apiService.get(environment.geolocation_base_url, httpParams, httpHeaders).subscribe(
-                response => {
+        return new Promise((resolve, reject) => {
+            this.apiService.getGeoLocation(httpParams, httpHeaders).subscribe(
+                geoResponse => {
                     // Convert lat & lng to CarwashCoordinates
-                    addressCoordinates.set('lat', response.data.results[0].geometry.location.lat);
-                    addressCoordinates.set('lng', response.data.results[0].geometry.location.lng);
+                    addressCoordinates.set('lat', geoResponse.data.results[0].geometry.location.lat);
+                    addressCoordinates.set('lng', geoResponse.data.results[0].geometry.location.lng);
                     // Create new store object to be pushed to backend
                     console.log('LAT AND LONG VALUES: ', addressCoordinates);
-                    this.carwashService.updateStore(updatedStore);
+                    // Post new store
+                    return this.carwashService.updateStore(updatedStore).then((response) => {
+                        console.log('Store post SUCCESS: ', response);
+                        updatedStore.id = response.id;
+                        this.storeSubject.next(updatedStore);
+
+                        this.carwashService.cacheStore(updatedStore);
+                        resolve(true);
+                    }).catch(reason => {
+                        reject(reason);
+                    });
                 },
                 error => {
-                    console.log('Update Store Error: ', error)
+                    console.log('Unable to retrieve coordinates.', error);
+                    reject();
                 }
             );
-        }
-
+        });
     }
+
 
     deleteStore(id: string) {
 
     }
+
+    /* --------------------- UTILITY METHODS ------------------------- */
 
     public instantiateStore(storeForm: FormGroup, coordinates: Map<string, string>): Store {
         const newAddress = new Address(
@@ -211,8 +227,6 @@ export class StoreService {
         );
     }
 
-    /* --------------------- UTIL METHODS ------------------------- */
-
     public generateStoreForm(store: Store): FormGroup {
         return this.fb.group({
             id: [store.id],
@@ -232,9 +246,9 @@ export class StoreService {
     private generateHoursForm(storeHours: StoreHours): FormGroup {
         return this.fb.group({
             day: [storeHours.day, Validators.required],
-            isOpen: [storeHours.isOpen(), Validators.required],
             openTime: [storeHours.openTime, Validators.required],
-            closeTime: [storeHours.closeTime, Validators.required]
+            closeTime: [storeHours.closeTime, Validators.required],
+            isOpen: [storeHours.isOpen, Validators.required]
         });
     }
 

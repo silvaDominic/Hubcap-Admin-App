@@ -166,6 +166,8 @@ export class PackageService {
         }
     }
 
+    // Post and Cache new package
+    // WARNING - DUPLICATE CODE WITH 'savePackage()'
     createPackage(packageForm: FormGroup): Promise<boolean> {
         // Instantiate and initialize temp variables for One Time and Monthly price maps
         const oneTimePrices = new Map<VEHICLE_TYPE, number>();
@@ -184,16 +186,75 @@ export class PackageService {
             packageForm.get('nameFormGroup.name').value,
             SERVICE_TYPE.WASH,
             oneTimePrices,
-            packageForm.get('packageItemsFormGroup.packageItems').value,
+            packageForm.get('packageItemsFormGroup.packageItems').value, // Not typing properly
             packageForm.get('durationFormGroup.duration').value,
             monthlyPrices,
         );
 
         console.log('Creating new package: ', newPackage);
 
-        return this.savePackage(newPackage);
+        return this.carwashService.postNewPackage(newPackage).then((res) => {
+            console.log('Package Post SUCCESS', res);
+
+            // Update package
+            this.packageSubject.next(newPackage);
+
+            // Update package array
+            const currentPackagesArrayValue = this.packageArraySubject.getValue();
+            this.packageArraySubject.next([...currentPackagesArrayValue, newPackage]);
+
+            // Update carwash object
+            this.carwashService.cachePackages([...currentPackagesArrayValue, newPackage], newPackage.type);
+
+            return true;
+        }).catch((reason) => {
+            console.warn('Error SAVING package: ' + newPackage.name);
+            return false;
+        });
     }
 
+    // Update and save updated package
+    // WARNING - DUPLICATE CODE WITH 'createNewPackage()'
+    savePackage(updatedPackage: Package): Promise<boolean> {
+        return this.carwashService.updatePackage(updatedPackage).then((res) => {
+            console.log('Package Post SUCCESS', res);
+
+            // Update package
+            this.packageSubject.next(updatedPackage);
+
+            // Update package array
+            const currentPackagesArrayValue = this.packageArraySubject.getValue();
+            this.packageArraySubject.next([...currentPackagesArrayValue, updatedPackage]);
+
+            // Update carwash object
+            this.carwashService.cachePackages([...currentPackagesArrayValue, updatedPackage], updatedPackage.type);
+
+            return true;
+        }).catch((reason) => {
+            console.warn('Error SAVING package: ' + updatedPackage.name);
+            return false;
+        });
+    }
+
+    // Update and cache entire package array
+    savePackageArray(updatedPackageArray: Package[], serviceType: SERVICE_TYPE): Promise<boolean> {
+        return this.carwashService.updatePackageArray(updatedPackageArray).then((res) => {
+            console.log('Package Post SUCCESS', res);
+
+            // Update packages
+            this.packageArraySubject.next(updatedPackageArray);
+
+            // Update carwash object
+            this.carwashService.cachePackages(updatedPackageArray, serviceType);
+
+            return true;
+        }).catch((reason) => {
+            console.warn('Error SAVING all packages of type: ' + serviceType);
+            return false;
+        });
+    }
+
+    // Delete package from database and remove locally
     deletePackage(id: string, serviceType: SERVICE_TYPE): Promise<boolean> {
         const updatedPackageArray = this.packageArraySubject.getValue();
 
@@ -218,44 +279,6 @@ export class PackageService {
                 }
             );
         }));
-    }
-
-    savePackage(updatedPackage: Package): Promise<boolean> {
-        return this.carwashService.postNewPackage(updatedPackage).then((res) => {
-            console.log('Package Post SUCCESS', res);
-
-            // Update package
-            this.packageSubject.next(updatedPackage);
-
-            // Update package array
-            const currentPackagesArrayValue = this.packageArraySubject.getValue();
-            this.packageArraySubject.next([...currentPackagesArrayValue, updatedPackage]);
-
-            // Update carwash object
-            this.carwashService.cachePackages([...currentPackagesArrayValue, updatedPackage], updatedPackage.type);
-
-            return true;
-        }).catch((reason) => {
-            console.warn('Error SAVING package: ' + updatedPackage.name);
-            return false;
-        });
-    }
-
-    savePackageArray(updatedPackageArray: Package[], serviceType: SERVICE_TYPE): Promise<boolean> {
-        return this.carwashService.postNewPackageArray(updatedPackageArray).then((res) => {
-            console.log('Package Post SUCCESS', res);
-
-            // Update packages
-            this.packageArraySubject.next(updatedPackageArray);
-
-            // Update carwash object
-            this.carwashService.cachePackages(updatedPackageArray, serviceType);
-
-            return true;
-        }).catch((reason) => {
-            console.warn('Error SAVING all packages of type: ' + serviceType);
-            return false;
-        });
     }
 
     // Static list of packages

@@ -19,8 +19,8 @@ import {CARWASH_COMPONENT} from '../enums/CARWASH_COMPONENT.model';
     providedIn: 'root'
 })
 export class CarwashService {
-    private static carwashPath = environment.package_manager_path;
-    private static staticPackageItemsPath = environment.static_package_items_url;
+    private static carwashPath = environment.carwash_url;
+    private static staticPackageItemsPath = environment.display_package_items_url;
     private static carwashSubject = new BehaviorSubject(<Carwash>{});
     public static carwash: Observable<Carwash>;
     private static displayPackageItems = of(new Array<DisplayPackageItem>());
@@ -50,18 +50,18 @@ export class CarwashService {
         }
     }
 
-    // Register all package items
-    public registerAllPackageItems(): void {
-        CarwashService.displayPackageItems = this.fetchStaticPackageItems();
+    // Register all package items to static variable
+    public registerDisplayPackageItems(): void {
+        CarwashService.displayPackageItems = this.fetchDisplayPackageItems();
     }
 
-    // Retrieve JSON from backend
+    // Retrieve Carwash object from backend
     private fetchCarwash(): Observable<Carwash> {
         return this.apiService.get<Carwash>(CarwashService.carwashPath);
     }
 
     // Retrieve all package items from assets
-    private fetchStaticPackageItems(): Observable<DisplayPackageItem[]> {
+    private fetchDisplayPackageItems(): Observable<DisplayPackageItem[]> {
         return this.apiService.get<DisplayPackageItem[]>(CarwashService.staticPackageItemsPath);
     }
 
@@ -114,34 +114,26 @@ export class CarwashService {
     /* ---------------- API CALLS -----------------*/
 
     /* STORE */
-    public postNewStore(newStore: Store): Promise<boolean> {
+    public postNewStore(newStore: Store): Promise<any> {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
         // httpHeaders.set('Bearer Token', this.userService.getToken());
 
         // Make post and save new object on success
-        return this.apiService.post('/stores', new HttpParams(), httpHeaders, newStore).pipe(take(1)).toPromise();
+        return this.apiService.post(environment.new_store_url, new HttpParams(), httpHeaders, newStore).pipe(take(1)).toPromise();
     }
 
-    public updateStore(updatedStore: Store): void {
+    public updateStore(updatedStore: Store): Promise<any> {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
+        httpHeaders.set('Bearer Token', this.userService.getToken());
 
-        // Temporary
-        this.cacheStore(updatedStore);
-
-
-        /*        this.apiService.post('stores', new HttpParams(), httpHeaders).subscribe(
-                    response => {
-                        this.cacheStore(updatedStore);
-                    },
-                    error => console.log('Error UPDATING store: ', error)
-                )*/
+        return this.apiService.post(environment.update_store_url, new HttpParams(), httpHeaders, updatedStore).pipe(take(1)).toPromise();
     }
 
-    private cacheStore(storeToCache: Store): void {
+    public cacheStore(storeToCache: Store): void {
         // Create new carwash object with updated metadata info
         const carwashToUpdate = CarwashService.carwashSubject.getValue();
         carwashToUpdate.metaData = storeToCache;
@@ -150,7 +142,7 @@ export class CarwashService {
     }
 
     /* PACKAGE */
-    public postNewPackage(newPackage: Package) {
+    public postNewPackage(newPackage: Package): Promise<any> {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
@@ -159,20 +151,33 @@ export class CarwashService {
         console.log('Package to Post: ', newPackage);
 
         // Make post and return promise for subservice to resolve
-        return this.apiService.post('/packages', new HttpParams(), httpHeaders, newPackage).pipe(take(1)).toPromise();
+        return this.apiService.post(environment.new_package_url, new HttpParams(), httpHeaders, newPackage).pipe(take(1)).toPromise();
     }
 
-    public postNewPackageArray(newPackageArray: Package[]): Promise<any> {
+    public updatePackage(newPackage: Package): Promise<any> {
+        // Set HttpHeaders
+        const httpHeaders = new HttpHeaders();
+        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
+        // httpHeaders.set('Bearer Token', this.userService.getToken());
+
+        console.log('Package to Post: ', newPackage);
+
+        // Make post and return promise for subservice to resolve
+        return this.apiService.post(environment.update_package_url, new HttpParams(), httpHeaders, newPackage).pipe(take(1)).toPromise();
+    }
+
+
+    public updatePackageArray(newPackageArray: Package[]): Promise<any> {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
         // httpHeaders.set('Bearer Token', this.userService.getToken());
 
         // Make post and return promise for subservice to resolve
-        return this.apiService.post('/packages', new HttpParams(), httpHeaders, newPackageArray).pipe(take(1)).toPromise();
+        return this.apiService.post(environment.update_package_array_url, new HttpParams(), httpHeaders, newPackageArray).pipe(take(1)).toPromise();
     }
 
-    public deletePackage(id: string) {
+    public deletePackage(id: string): Promise<any> {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
@@ -183,10 +188,10 @@ export class CarwashService {
         httpParams.set('id', id);
 
         // Make post and return promise for subservice to resolve
-        return this.apiService.post('/packages', httpParams, httpHeaders).pipe(take(1)).toPromise();
+        return this.apiService.post(environment.delete_package_url, httpParams, httpHeaders).pipe(take(1)).toPromise();
     }
 
-    public cachePackages(packageArrayToCache: Package[], type: SERVICE_TYPE) {
+    public cachePackages(packageArrayToCache: Package[], type: SERVICE_TYPE): void {
         // Create new carwash object with updated package array info
         const carwashToUpdate = CarwashService.carwashSubject.getValue();
 
@@ -210,7 +215,19 @@ export class CarwashService {
         console.log('Promotion to Post: ', newPromotion);
 
         // Make post and return promise for subservice to resolve
-        return this.apiService.post('/promotions', new HttpParams(), httpHeaders, newPromotion).pipe(take(1)).toPromise();
+        return this.apiService.post(environment.new_promotion_url, new HttpParams(), httpHeaders, newPromotion).pipe(take(1)).toPromise();
+    }
+
+    public updatePromotion(newPromotion: Promotion): Promise<any> {
+        // Set HttpHeaders
+        const httpHeaders = new HttpHeaders();
+        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
+        // httpHeaders.set('Bearer Token', this.userService.getToken());
+
+        console.log('Promotion to Post: ', newPromotion);
+
+        // Make post and return promise for subservice to resolve
+        return this.apiService.post(environment.update_promotion_url, new HttpParams(), httpHeaders, newPromotion).pipe(take(1)).toPromise();
     }
 
     public deletePromotion(id: string): Promise<any> {
@@ -224,11 +241,10 @@ export class CarwashService {
         httpParams.set('id', id);
 
         // Make post and return promise for subservice to resolve
-
-        return this.apiService.post('/promotions', httpParams, httpHeaders).pipe(take(1)).toPromise();
+        return this.apiService.post(environment.delete_promotion_url, httpParams, httpHeaders).pipe(take(1)).toPromise();
     }
 
-    public cachePromotions(promotionArrayToCache: Promotion[]) {
+    public cachePromotions(promotionArrayToCache: Promotion[]): void {
         // Create new carwash object with updated promo array info
         const carwashToUpdate = CarwashService.carwashSubject.getValue();
         carwashToUpdate.promotions = promotionArrayToCache;
