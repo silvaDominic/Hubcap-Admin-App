@@ -2,33 +2,43 @@
   margin: auto;
 }
 
+canvas {
+  position: relative;
+  width: 100% !important;
+  height: 100% !important;
+}
+
 .scanner-wrapper {
   position: relative;
   display: block;
-/*  height: 600px;
-  width: 600px;*/
   margin: auto;
-}
-
-.output-wrapper {
-  position: relative;
-  bottom: 0;
-}
-
-#output-message {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  text-align: center;
-  color: red;
 }
 
 .scanner-wrapper .overlay {
   position: absolute;
+  left: 25%;
+  top: 25%;
   display: block;
-  width: 25%;
-  height:25%;
+  width: 50%;
+  height: 50%;
   border: 3px dashed lightgray;
+  z-index: 9 !important;
+}
+
+#output-wrapper {
+  position: relative;
+
+}
+
+.output-message {
+  bottom: 0;
+  text-align: center;
+  color: white;
+  background-color: var(--danger);
+}
+
+.scan-success {
+  background-color: var(--go) !important;
 }
 
 .modal-footer {

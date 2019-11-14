@@ -9,7 +9,7 @@ export class DialogBoxService {
     constructor(private readonly dialogBox: MatDialog) {
     }
 
-    openDialogBox(title: string, dialog: string) {
+    public openDialogBox(title: string, dialog: string) {
         return this.dialogBox.open(DialogBoxComponent, {
             data: {
                 title: title,

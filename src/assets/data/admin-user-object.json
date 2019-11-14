@@ -3,13 +3,12 @@
     "lastName": "Silva",
     "id": "123",
     "email": "dom.92@live.com",
-    "password": "goodpassword",
+    "password": "changedPassword",
     "dateCreated": "08-29-2019",
-    "role": "LOCAL-ADMIN",
+    "role": "LOCAL_ADMIN",
     "storeIds": [
         "1345"
     ],
-    "businessId": "1357924680",
     "verified": false,
     "active": false
 }

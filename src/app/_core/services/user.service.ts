@@ -7,25 +7,24 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/do';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
 import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
 import {AdminUser} from '../models/admin-user.model';
-import {CarwashService} from '../../_shared/services/carwash.service';
+import {environment} from '../../../environments/environment';
 
 
 @Injectable()
 export class UserService {
     private currentUserSubject = new BehaviorSubject<AdminUser>(new AdminUser());
-    public currentUser = this.currentUserSubject.asObservable().distinctUntilChanged();
+    public _currentUser = this.currentUserSubject.asObservable().distinctUntilChanged();
 
     private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
     public isAuthenticated = this.isAuthenticatedSubject.asObservable();
 
     constructor (
-        private apiService: ApiService,
-        private http: HttpClient,
-        private jwtService: JwtService
+        private readonly apiService: ApiService,
+        private readonly http: HttpClient,
+        private readonly jwtService: JwtService,
     ) {}
 
     // Verify JWT in localstorage with server & load user's info.
@@ -34,12 +33,13 @@ export class UserService {
         // If JWT detected, attempt to get & store user's info
         if (this.jwtService.getToken()) {
             console.log('getToken() returned something');
-            this.apiService.get('/user', new HttpParams(), new HttpHeaders().set('Authorization', this.jwtService.getToken().toString()))
+            this.apiService.get(environment.users_url, new HttpParams(), new HttpHeaders().set('Authorization', this.jwtService.getToken().toString()))
                 .subscribe(
                     data => this.setAuth(data.adminUser),
                     err => this.purgeAuth()
                 );
-            // this.carWashService.registerCarwash();
+/*            this.carwashService.registerCarwash();
+            this.carwashService.registerDisplayPackageItems();*/
         } else {
             // Remove any potential remnants of previous auth states
             this.purgeAuth();
@@ -55,6 +55,10 @@ export class UserService {
         this.isAuthenticatedSubject.next(true);
     }
 
+    public get currentUser(): Observable<AdminUser> {
+        return this._currentUser;
+    }
+
     public purgeAuth() {
         // Remove JWT from localstorage
         this.jwtService.destroyToken();
@@ -66,7 +70,7 @@ export class UserService {
 
     public attemptAuth(type, credentials): Observable<AdminUser> {
         const route = (type === 'login') ? '/login' : '';
-        return this.apiService.post('/users' + route, new HttpParams(), new HttpHeaders(), {adminUser: credentials})
+        return this.apiService.post(environment.users_url + route, new HttpParams(), new HttpHeaders(), {adminUser: credentials})
             .map(
                 data => {
                     this.setAuth(data.adminUser);
@@ -78,7 +82,7 @@ export class UserService {
     // Update the user on the server (email, pass, etc)
     public update(adminUser): Observable<AdminUser> {
         return this.apiService
-            .put('/user', new HttpParams().set(adminUser, adminUser)) // TODO Look into this
+            .post(environment.users_url, new HttpParams().set(adminUser, adminUser)) // TODO Look into this
             .map(data => {
                 // Update the currentUser observable
                 this.currentUserSubject.next(data.adminUser);

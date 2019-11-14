@@ -12,7 +12,10 @@
         "email": "contact@gcw.com",
         "website": "georgeswash.com",
         "phoneNumber": "6317854492",
-        "coordinates": null,
+        "coordinates": {
+            "lat": null,
+            "lng": null
+        },
         "hoursOfOperation": {
             "storeHours": [
                 {

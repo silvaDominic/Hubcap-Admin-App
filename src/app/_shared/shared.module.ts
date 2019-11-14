@@ -14,6 +14,7 @@ import {RouterModule} from '@angular/router';
 import {SatDatepickerModule, SatNativeDateModule} from 'saturn-datepicker';
 import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import {MatDialogModule} from '@angular/material/dialog';
         MatExpansionModule,
         MatSidenavModule,
         MatToolbarModule,
+        MatProgressBarModule,
         AmazingTimePickerModule,
         SatDatepickerModule,
         SatNativeDateModule,
@@ -75,6 +77,7 @@ import {MatDialogModule} from '@angular/material/dialog';
         MatExpansionModule,
         MatSidenavModule,
         MatToolbarModule,
+        MatProgressBarModule,
         AmazingTimePickerModule,
         SatDatepickerModule,
         SatNativeDateModule,

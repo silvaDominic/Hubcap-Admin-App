@@ -8,7 +8,7 @@
                       <h4 class="card-title">Profile</h4>
                   </div>
                   <div class="card-body">
-                      <div *ngIf="currentUser">
+                      <div *ngIf="userService.currentUser | async as currentUser">
                           <div class="row">
                               <div class="col-6">
                                   <mat-form-field class="example-full-width">

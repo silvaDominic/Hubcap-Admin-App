@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from '../../_shared/models/user.model';
-import {UsersService} from '../../_shared/services/users.service';
+import {UserService} from '../../_core/services/user.service';
 
 @Component({
     selector: 'app-user-profile',
@@ -12,13 +12,10 @@ export class ProfileComponent implements OnInit {
     currentUser: User;
     error: string;
 
-    constructor(private userService: UsersService) {}
+    constructor(private userService: UserService) {}
 
     private getCurrentUser(): void {
-        this.userService.fetchUser()
-            .subscribe(user => this.currentUser = user,
-                error => this.error = error,
-                () => console.log(this.currentUser));
+
     }
 
     public ngOnInit(): void {
@@ -26,7 +23,7 @@ export class ProfileComponent implements OnInit {
     }
 
     public updateProfile(updatedUser: User) {
-        this.userService.updateUser(updatedUser);
+        // this.userService.updateUser(updatedUser);
     }
 
 }

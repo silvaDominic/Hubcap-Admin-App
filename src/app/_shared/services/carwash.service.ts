@@ -166,7 +166,6 @@ export class CarwashService {
         return this.apiService.post(environment.update_package_url, new HttpParams(), httpHeaders, newPackage).pipe(take(1)).toPromise();
     }
 
-
     public updatePackageArray(newPackageArray: Package[]): Promise<any> {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
