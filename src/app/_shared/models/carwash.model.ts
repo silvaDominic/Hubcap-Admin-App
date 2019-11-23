@@ -9,6 +9,13 @@ import {Store} from './store.model';
 
 export class Carwash {
 
+    public static EMPTY_MODEL = <Carwash> {
+        metaData: Store.EMPTY_MODEL,
+        promotions: new Array<Promotion>(),
+        washPackages: new Array<Package>(),
+        detailPackages: new Array<Package>()
+    };
+
     constructor(
         public metaData: Store,
         public promotions: Promotion[],

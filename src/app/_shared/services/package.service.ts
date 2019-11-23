@@ -36,11 +36,11 @@ export class PackageService {
         const temp = this.carwashService.getAllPackages(type);
         temp.subscribe(
             packageArray => {
-                if (packageArray != null || undefined) {
+                if (packageArray != null || packageArray != undefined) {
                     console.log('Package Array VALID', packageArray);
                     console.log('CURRENT PACKAGE ARRAY: ', this.packageArraySubject.getValue());
                     this.packageArraySubject.next(packageArray);
-                    if (packageArray[this._currentPackageIndex] != null || undefined) {
+                    if (packageArray[this._currentPackageIndex] != null || packageArray[this._currentPackageIndex] != undefined) {
                         console.log('_LOADING PACKAGES COMPLETE_');
                         console.log('CURRENT PACKAGE: ', this.packageSubject.getValue());
                         this.packageSubject.next(packageArray[this._currentPackageIndex]);
@@ -56,6 +56,9 @@ export class PackageService {
 
                 } else {
                     console.log('_NO PACKAGES FOUND_');
+                    console.log('Creating Empty Array');
+                    this.packageArraySubject.next(new Array<Package>());
+                    this.packageSubject.next(Package.EMPTY_MODEL);
                 }
                 this._DisplayPackageItems = this.carwashService.getDisplayPackageItems();
             }

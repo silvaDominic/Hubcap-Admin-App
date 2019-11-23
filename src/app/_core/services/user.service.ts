@@ -1,16 +1,17 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Rx';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/do';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { ApiService } from './api.service';
-import { JwtService } from './jwt.service';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {ApiService} from './api.service';
+import {JwtService} from './jwt.service';
 import {AdminUser} from '../models/admin-user.model';
 import {environment} from '../../../environments/environment';
+import {CarwashService} from '../../_shared/services/carwash.service';
 
 
 @Injectable()
@@ -21,11 +22,12 @@ export class UserService {
     private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
     public isAuthenticated = this.isAuthenticatedSubject.asObservable();
 
-    constructor (
+    constructor(
         private readonly apiService: ApiService,
         private readonly http: HttpClient,
         private readonly jwtService: JwtService,
-    ) {}
+    ) {
+    }
 
     // Verify JWT in localstorage with server & load user's info.
     // This runs once on application startup.
@@ -35,11 +37,13 @@ export class UserService {
             console.log('getToken() returned something');
             this.apiService.get(environment.users_url, new HttpParams(), new HttpHeaders().set('Authorization', this.jwtService.getToken().toString()))
                 .subscribe(
-                    data => this.setAuth(data.adminUser),
+                    data => {
+                        this.setAuth(data.adminUser);
+                        // this.carwashService.registerCarwash();
+                        // this.carwashService.registerDisplayPackageItems();
+                    },
                     err => this.purgeAuth()
                 );
-/*            this.carwashService.registerCarwash();
-            this.carwashService.registerDisplayPackageItems();*/
         } else {
             // Remove any potential remnants of previous auth states
             this.purgeAuth();

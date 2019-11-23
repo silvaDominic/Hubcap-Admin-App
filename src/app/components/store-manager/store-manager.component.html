@@ -7,7 +7,7 @@
             <div id="story-form-container">
               <div class="row">
                 <div class="col-md-12">
-                  <app-store-form  *ngIf="!(storeService.store | async)"></app-store-form>
+                  <app-store-form  *ngIf="(storeService.store | async) == null || (storeService.store | async) == undefined"></app-store-form>
                 </div>
               </div>
             </div>
