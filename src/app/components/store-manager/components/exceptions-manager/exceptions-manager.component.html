@@ -7,7 +7,7 @@
 
             <hr>
 
-            <div class="exception-list-container">
+            <div class="exception-list-container" *ngIf="(storeService.store | async)">
                 <div *ngFor="let exception of (storeService.store | async).hoursOfOperation.hoursExceptions as exceptions">
                     <app-exception [thisException]="exception" [exceptions]="exceptions"></app-exception>
                 </div>

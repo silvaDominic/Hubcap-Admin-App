@@ -18,12 +18,12 @@
 
         <div id="menu-section">
             <div class="row">
-                <div id="preview-col" class="col-md-3" [ngClass]="{'wash-selected': selectedServiceType === E_PACKAGE_TYPE.WASH, 'detail-selected': selectedServiceType === E_PACKAGE_TYPE.DETAIL}">
-                    <app-package *ngIf="packageService.serviceReady" (packageSelect)="setFocusPackage($event)"></app-package>
+                <div *ngIf="packageService.serviceReady && packageService.getPackageArrayLength() > 0" id="preview-col" class="col-md-3" [ngClass]="{'wash-selected': selectedServiceType === E_PACKAGE_TYPE.WASH, 'detail-selected': selectedServiceType === E_PACKAGE_TYPE.DETAIL}">
+                    <app-package (packageSelect)="setFocusPackage($event)"></app-package>
                 </div>
 
-                <div id="package-options-col" class="col-md-9">
-                    <app-package-options *ngIf="packageService.serviceReady" (packageSelect)="setFocusPackage($event)"></app-package-options>
+                <div id="package-options-col" [ngClass]="{'col-md-12': packageService.getPackageArrayLength() <= 0, 'col-md-9': packageService.getPackageArrayLength() > 0}">
+                    <app-package-options (packageSelect)="setFocusPackage($event)"></app-package-options>
                 </div>
             </div>
         </div>

@@ -7,13 +7,13 @@
             <div id="story-form-container">
               <div class="row">
                 <div class="col-md-12">
-                  <app-store-form  *ngIf="(storeService.store | async) == null || (storeService.store | async) == undefined"></app-store-form>
+                  <app-store-form  *ngIf="(storeService.store | async).id == null || (storeService.store | async).id == undefined"></app-store-form>
                 </div>
               </div>
             </div>
 
             <div>
-              <div class="store-list-container" *ngIf="storeService.store | async">
+              <div class="store-list-container" *ngIf="(storeService.store | async).id != null || (storeService.store | async).id != undefined">
                 <div class="row">
                   <div class="col-md-12">
                     <app-store></app-store>

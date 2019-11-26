@@ -38,12 +38,12 @@ export class CarwashService {
             carwash => {
                 console.log('Response: ', carwash);
                 // Create an empty Carwash object if null
-                if (carwash == null || carwash == undefined) {
-                    console.log('No carwash fetched.');
-                    console.log('FETCHING...');
+                if (carwash == null) {
+                    console.log('No carwash created');
                     CarwashService.carwashSubject.next(Utilities.convertToCarwashObject(Carwash.EMPTY_MODEL));
+                    console.log(CarwashService.carwash);
                     // Set carwash if one already exists
-                } else if (CarwashService.carwash != null || CarwashService.carwash != undefined) {
+                } else if (carwash != null || carwash != undefined) {
                     CarwashService.carwashSubject.next(Utilities.convertToCarwashObject(carwash));
                     console.log('_LOADING CARWASH COMPLETE_');
                     console.log('CURRENT CARWASH: ', CarwashService.carwashSubject.getValue());
@@ -59,8 +59,8 @@ export class CarwashService {
 
     // Retrieve Carwash object from backend
     private fetchCarwash(): Observable<Carwash> {
-        return this.apiService.get<Carwash>(CarwashService.carwashPath);
-        // return of(null);
+        // return this.apiService.get<Carwash>(CarwashService.carwashPath);
+        return of(null);
     }
 
     // Retrieve all package items from assets

@@ -30,7 +30,7 @@
                             <div class="col-md-4">
                                 <mat-form-field>
                                     <mat-label for="carwash-type">Carwash Type</mat-label>
-                                    <mat-select id="carwash-type" formControlName="carwash-type">
+                                    <mat-select id="carwash-type" formControlName="type">
                                         <mat-option *ngFor="let type of E_CARWASH_TYPE_KEYS"
                                                     [value]="type">{{type}}</mat-option>
                                     </mat-select>
@@ -91,12 +91,11 @@
                                     <h4>Store Hours</h4>
                                 </div>
                                 <div class="hours-block" formArrayName="storeHours">
-                                    <div class="list-group-item" *ngFor="let day of E_DAY | keyvalue let hour of storeForm.controls['storeHours'];
-                  let i = index;"
+                                    <div class="list-group-item" *ngFor="let day of E_DAY_KEYS let hour of storeForm.get('storeHours').value; let i = index;"
                                          formGroupName="{{i}}">
                                         <div class="row">
                                             <div class="col-md-4 day-checkbox-container">
-                                                <mat-checkbox formControlName="isOpen">{{day.key}}</mat-checkbox>
+                                                <mat-checkbox formControlName="isOpen">{{day}}</mat-checkbox>
                                             </div>
                                             <div class="col-md-4">
                                                 <mat-form-field>

@@ -22,7 +22,7 @@ export class StoreFormComponent {
     storeForm: FormGroup;
     formExceptions: HoursException[];
 
-    E_DAY = DAY;
+    E_DAY_KEYS = Object.keys(DAY);
     E_STATE_KEYS = Object.keys(STATES);
     E_CARWASH_TYPE_KEYS = Object.keys(CARWASH_TYPE);
 

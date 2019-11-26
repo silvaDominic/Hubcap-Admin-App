@@ -50,7 +50,7 @@ export class PromotionService {
         console.log('_LOADING PROMOTIONS_');
         this.carwashService.getPromotionsArray().subscribe(
             promotions => {
-                if (promotions !== null || undefined) {
+                if (promotions != null) {
                     this.promotionArraySubject.next(promotions);
                     this.promotionSubject.next(CONSTANTS.PROMOTION_TEMPLATE);
                     // this.currentPromotionId = this.promotionSubject.getValue().id;
@@ -85,7 +85,7 @@ export class PromotionService {
 
     public get promotion(): Observable<Promotion> {
         if (!this._promotion) {
-            console.log('Promotion is null');
+            console.log('Promotion is null or undefined');
             this.loadPromotions();
         }
         return this._promotion;
@@ -93,7 +93,7 @@ export class PromotionService {
 
     public get promotionArray(): Observable<Promotion[]> {
         if (!this._promotionArray) {
-            console.log('Promotion array is null');
+            console.log('Promotion array is null or undefined');
             this.loadPromotions();
         }
         return this._promotionArray;
@@ -174,9 +174,11 @@ export class PromotionService {
         if (this.promotionArraySubject.getValue().length > 0) {
             this.setPromotion(0);
             this.resetValidFormSteps(true);
-        } else {
+        } else if (this.promotionArraySubject.getValue().length <= 0) {
             console.log('No promotion to default to. Current index set to null');
             this.currentPromotionIndex = null;
+            this.promotionSubject.next(CONSTANTS.PROMOTION_TEMPLATE);
+            this.resetValidFormSteps(true);
         }
     }
 

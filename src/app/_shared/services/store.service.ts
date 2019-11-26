@@ -7,7 +7,6 @@ import {StoreHours} from '../models/store-hours.model';
 import {HoursException} from '../models/hours-exception.model';
 import {Store} from '../models/store.model';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {Rating} from '../models/rating.model';
 import {Address} from '../models/address.model';
 import {pluck} from 'rxjs/operators';
 import {ApiService} from '../../_core/services/api.service';
@@ -17,9 +16,8 @@ import {environment} from '../../../environments/environment';
     providedIn: 'root'
 })
 export class StoreService {
-    public serviceReady: boolean;
     private storeSubject = new BehaviorSubject<Store>(<Store>{});
-    private readonly _store = this.storeSubject.asObservable();
+    private _store: Observable<Store>;
 
     constructor(
         private readonly fb: FormBuilder,
@@ -31,12 +29,11 @@ export class StoreService {
     }
 
     public loadStore() {
-        this.serviceReady = false;
         console.log('_LOADING STORE_');
         this.carwashService.getCarwashMetaData().subscribe(
             store => {
+                this._store = this.storeSubject.asObservable();
                 this.storeSubject.next(store);
-                this.serviceReady = true;
                 console.log('_LOADING STORE COMPLETE_');
                 console.log('CURRENT STORE: ', this.storeSubject.getValue());
             }
@@ -91,10 +88,12 @@ export class StoreService {
 
         // Create address string for Geocode API call
         const fullAddressQuery = (
-            storeForm.get('streetAddress').value +
-            storeForm.get('city').value +
+            storeForm.get('streetAddress').value + ' ' +
+            storeForm.get('city').value + ' ' +
             storeForm.get('state').value
         );
+
+        console.log(fullAddressQuery);
 
         // Set params for Geocode API call
         let httpParams = new HttpParams();
@@ -103,7 +102,7 @@ export class StoreService {
 
         return new Promise((resolve, reject) => {
             // Geocode API call
-            this.apiService.get(environment.geolocation_base_url, httpParams).subscribe(
+            this.apiService.getGeoLocation(httpParams).subscribe(
                 geoResponse => {
                     // Convert lat & lng to CarwashCoordinates
                     addressCoordinates.set('lat', geoResponse.data.results[0].geometry.location.lat);
@@ -143,7 +142,7 @@ export class StoreService {
                         reject(reason);
                     });
                 }, error => {
-                    console.warn('Unable to retrieve address coordinates.', error)
+                    console.warn('Unable to retrieve address coordinates.', error);
                     reject();
                 }
             );
@@ -231,6 +230,7 @@ export class StoreService {
         return this.fb.group({
             id: [store.id],
             name: [store.name, Validators.required],
+            type: [store.type, Validators.required],
             streetAddress: [store.address.street, Validators.required],
             city: [store.address.city, Validators.required],
             state: [store.address.state, Validators.required],
@@ -268,6 +268,7 @@ export class StoreService {
             const dayEnum: DAY = DAY[day];
             hours.push(new StoreHours(dayEnum));
         });
+        console.log('Form Store Hours: ', hours);
         return hours;
     }
 }

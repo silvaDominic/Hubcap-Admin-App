@@ -14,14 +14,22 @@ export class Utilities {
 
     // Main util method for converting json data to instance objects
     public static convertToCarwashObject(data: any): Carwash {
-        const promotions = Array<Promotion>();
-        data.promotions.map(promotion => promotions.push(Utilities.generatePromotion(promotion)));
-
         const washPackages = Array<Package>();
-        data.washPackages.map(washPackage => washPackages.push(Utilities.generatePackage(washPackage)));
-
         const detailPackages = Array<Package>();
-        data.detailPackages.map(detailPackage => detailPackages.push(Utilities.generatePackage(detailPackage)));
+        const promotions = Array<Promotion>();
+
+        if (data.washPackages != null || data.washPackages != undefined) {
+            data.washPackages.map(washPackage => washPackages.push(Utilities.generatePackage(washPackage)));
+
+        }
+        if (data.detailPackages != null || data.detailPackages != undefined) {
+            data.detailPackages.map(detailPackage => detailPackages.push(Utilities.generatePackage(detailPackage)));
+        }
+
+        if (data.promotions != null || data.promotions  != undefined) {
+            data.promotions.map(promotion => promotions.push(Utilities.generatePromotion(promotion)));
+        }
+
 
         return new Carwash(
             Utilities.generateMetaData(data.metaData),

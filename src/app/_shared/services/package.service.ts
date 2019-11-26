@@ -14,8 +14,8 @@ import {VEHICLE_TYPE} from '../enums/VEHICLE_TYPE.model';
 export class PackageService {
     private readonly packageSubject = new BehaviorSubject<Package>(<Package>{});
     private readonly packageArraySubject = new BehaviorSubject<Package[]>(<Package[]>[]);
-    private readonly _package: Observable<Package> = this.packageSubject.asObservable();
-    private readonly _packageArray: Observable<Package[]> = this.packageArraySubject.asObservable();
+    private _package: Observable<Package> = this.packageSubject.asObservable();
+    private _packageArray: Observable<Package[]> = this.packageArraySubject.asObservable();
     private _DisplayPackageItems = of(new Array<DisplayPackageItem>());
     public creatingNewPackage = false;
     private _isMonthly = false;
@@ -31,21 +31,25 @@ export class PackageService {
     // Initializes packages and package items
     public loadPackageArray(type: SERVICE_TYPE): void {
         this.serviceReady = false;
+
         console.log('_LOADING PACKAGES_');
         // this.mainSubscription = this.carwashService.getAllPackages(type).subscribe(
         const temp = this.carwashService.getAllPackages(type);
         temp.subscribe(
             packageArray => {
-                if (packageArray != null || packageArray != undefined) {
+                // Check if package array is valid
+                if (packageArray != null && !(packageArray.length <= 0)) {
                     console.log('Package Array VALID', packageArray);
                     console.log('CURRENT PACKAGE ARRAY: ', this.packageArraySubject.getValue());
                     this.packageArraySubject.next(packageArray);
+                    // If valid check if the first in the array is valid
                     if (packageArray[this._currentPackageIndex] != null || packageArray[this._currentPackageIndex] != undefined) {
                         console.log('_LOADING PACKAGES COMPLETE_');
                         console.log('CURRENT PACKAGE: ', this.packageSubject.getValue());
                         this.packageSubject.next(packageArray[this._currentPackageIndex]);
                         this.serviceReady = true;
                     } else {
+                        // If first package of array is invalid, warn browser and create empty one for use in form
                         console.log('Package INVALID', packageArray[this._currentPackageIndex]);
                         console.log('@ Index: ', this._currentPackageIndex);
                         console.log('Creating empty package...');
@@ -55,10 +59,11 @@ export class PackageService {
                     }
 
                 } else {
+                    // If no packages are found, create empty one for use in form
                     console.log('_NO PACKAGES FOUND_');
-                    console.log('Creating Empty Array');
-                    this.packageArraySubject.next(new Array<Package>());
+                    console.log('Package Creation Required');
                     this.packageSubject.next(Package.EMPTY_MODEL);
+                    this.creatingNewPackage = true;
                 }
                 this._DisplayPackageItems = this.carwashService.getDisplayPackageItems();
             }
@@ -67,7 +72,7 @@ export class PackageService {
 
     get package(): Observable<Package> {
         if (!this._package) {
-            console.log('Package is null');
+            console.log('Package is null or undefined');
             this.loadPackageArray(SERVICE_TYPE.WASH);
         }
         return this._package;
@@ -80,6 +85,10 @@ export class PackageService {
     }
 
     get packageArray(): Observable<Package[]> {
+        if (!this._packageArray) {
+            console.log('Package Array is null or undefined');
+            this.loadPackageArray(SERVICE_TYPE.WASH);
+        }
         return this._packageArray;
     }
 
