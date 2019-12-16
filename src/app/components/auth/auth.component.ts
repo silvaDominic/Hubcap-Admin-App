@@ -49,10 +49,11 @@ export class AuthComponent implements OnInit {
         this.userService
             .attemptAuth(this.authType, credentials)
             .subscribe(
-                data => this.router.navigateByUrl('/'),
+                data => this.router.navigateByUrl('/'), // Make profile default
                 err => {
                     this.errors = err;
                     this.isSubmitting = false;
+                    // Redirect back to register/login
                 }
             );
     }

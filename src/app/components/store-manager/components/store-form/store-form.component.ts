@@ -32,13 +32,17 @@ export class StoreFormComponent {
     }
 
     createStore(storeForm: FormGroup) {
-        this.storeService.createStore(storeForm).then((response) => {
-            if (response == true) {
-                this.openSnackBar(this.storeForm.get('name').value, 'Created')
-            } else {
-                alert('Error CREATING ' + this.storeForm.get('name').value + '.' + ' Try again or contact your Admin.')
-            }
-        });
+        if (storeForm.valid) {
+            this.storeService.createStore(storeForm).then((response) => {
+                if (response == true) {
+                    this.openSnackBar(this.storeForm.get('name').value, 'Created')
+                } else {
+                    alert('Error CREATING ' + this.storeForm.get('name').value + '.' + ' Try again or contact your Admin.')
+                }
+            });
+        } else {
+            alert('Please fill out the remaining fields');
+        }
     }
 
     private openSnackBar(message: string, action: string) {

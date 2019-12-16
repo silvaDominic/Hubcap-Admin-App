@@ -7,6 +7,7 @@ import {DisplayPackageItem} from '../models/display-package-item.model';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {VEHICLE_TYPE} from '../enums/VEHICLE_TYPE.model';
+import {PackageItem} from '../models/package-item.model';
 
 @Injectable({
     providedIn: 'root',
@@ -196,7 +197,7 @@ export class PackageService {
             packageForm.get('nameFormGroup.name').value,
             SERVICE_TYPE.WASH,
             oneTimePrices,
-            packageForm.get('packageItemsFormGroup.packageItems').value, // Not typing properly
+            <PackageItem[]>packageForm.get('packageItemsFormGroup.packageItems').value, // Not typing properly
             packageForm.get('durationFormGroup.duration').value,
             monthlyPrices,
         );

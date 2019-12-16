@@ -3,9 +3,9 @@ import {ITEM_TYPE} from '../enums/ITEM_TYPE.model';
 export class DisplayPackageItem {
 
     public static EMPTY_MODEL = <DisplayPackageItem>{
-        name: '',
+        name: null,
         itemType: null,
-        selectedSubOption: '',
+        selectedSubOption: null,
         subOptions: []
     };
 

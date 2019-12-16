@@ -39,7 +39,7 @@
                         <div>
                             <img class="item-icon" src="./assets/icons/icon-oval-check-hollow.svg" alt="">
                             <span>{{item.name}}</span>
-                            <strong *ngIf="item.selectedSubOption.length > 0">&nbsp;({{item.selectedSubOption}})</strong>
+                            <strong *ngIf="item.selectedSubOption != null && item.selectedSubOption > 0">&nbsp;({{item.selectedSubOption}})</strong>
                         </div>
                     </mat-list-item>
                 </mat-list>

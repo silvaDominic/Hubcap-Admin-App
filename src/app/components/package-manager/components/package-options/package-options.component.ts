@@ -69,7 +69,7 @@ export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit
             item.value = true;
             console.log(item.key.name + ' converted to ' + item.value);
             console.log(item);
-            this.selectedPackageItems.push(item.key);
+            this.selectedPackageItems.push(new PackageItem(item.key.name, item.key.selectedSubOption));
         }
     }
 

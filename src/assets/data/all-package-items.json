@@ -23,19 +23,19 @@
     {
         "name": "Tire & Wheel Clean",
         "itemType": "EXTERIOR",
-        "selectedSubOption": "--Must Select One--",
+        "selectedSubOption": null,
         "subOptions": []
     },
     {
         "name": "Undercarriage Wash",
         "itemType": "EXTERIOR",
-        "selectedSubOption": "--Must Select One--",
+        "selectedSubOption": null,
         "subOptions": []
     },
     {
         "name": "Tire & Wheel Shine",
         "itemType": "EXTERIOR",
-        "selectedSubOption": "--Must Select One--",
+        "selectedSubOption": null,
         "subOptions": []
     },
     {
@@ -63,7 +63,7 @@
     {
         "name": "Windshield Applicant",
         "itemType": "EXTERIOR",
-        "selectedSubOption": "--Must Select One--",
+        "selectedSubOption": null,
         "subOptions": []
     },
     {
@@ -89,37 +89,37 @@
     {
         "name": "Bug Repellant",
         "itemType": "EXTERIOR",
-        "selectedSubOption": "--Must Select One--",
+        "selectedSubOption": null,
         "subOptions": []
     },
     {
         "name": "Rust Inhibitor",
         "itemType": "EXTERIOR",
-        "selectedSubOption": "--Must Select One--",
+        "selectedSubOption": null,
         "subOptions": []
     },
     {
         "name": "Free Self-Serve Vacuum",
         "itemType": "EXTERIOR",
-        "selectedSubOption": "--Must Select One--",
+        "selectedSubOption": null,
         "subOptions": []
     },
     {
         "name": "Windows Wiped",
         "itemType": "INTERIOR",
-        "selectedSubOption": "--Must Select One--",
+        "selectedSubOption": null,
         "subOptions": []
     },
     {
         "name": "Full Interior Vacuum",
         "itemType": "INTERIOR",
-        "selectedSubOption": "--Must Select One--",
+        "selectedSubOption": null,
         "subOptions": []
     },
     {
         "name": "Full Interior Wipe",
         "itemType": "INTERIOR",
-        "selectedSubOption": "--Must Select One--",
+        "selectedSubOption": null,
         "subOptions": []
     },
     {
@@ -140,7 +140,7 @@
     {
         "name": "Trunk Vacuum",
         "itemType": "INTERIOR",
-        "selectedSubOption": "",
+        "selectedSubOption": null,
         "subOptions": []
     },
     {
@@ -158,7 +158,7 @@
     {
         "name": "Air Freshener",
         "itemType": "INTERIOR",
-        "selectedSubOption": "",
+        "selectedSubOption": null,
         "subOptions": []
     }
 ]

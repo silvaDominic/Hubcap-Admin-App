@@ -1,8 +1,8 @@
 export class PackageItem {
 
     public static EMPTY_MODEL = <PackageItem>{
-        name: '',
-        selectedSubOption: ''
+        name: null,
+        selectedSubOption: null
     };
 
     constructor(

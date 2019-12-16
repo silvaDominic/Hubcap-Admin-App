@@ -39,6 +39,7 @@ export class UserService {
                 .subscribe(
                     data => {
                         this.setAuth(data.adminUser);
+                        // CHECK FOR STATUS CODE INSTEAD OF DATA
                         // this.carwashService.registerCarwash();
                         // this.carwashService.registerDisplayPackageItems();
                     },
@@ -52,7 +53,7 @@ export class UserService {
 
     public setAuth(adminUser: AdminUser) {
         // Save JWT sent from server in localstorage
-        this.jwtService.saveToken(adminUser.token);
+        this.jwtService.saveToken(adminUser.token); // Retrieve token from authorization (header), NOT body
         // Set current user data into observable
         this.currentUserSubject.next(adminUser);
         // Set isAuthenticated to true
