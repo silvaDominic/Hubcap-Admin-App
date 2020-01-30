@@ -1,5 +1,10 @@
 <div class="menu-options-block" *ngIf="(packageService.package | async) as focusPackage else loading">
-    <div *ngIf="packageService.getPackageArrayLength() > 0" id="color-key-row" class="row">
+
+    <div id="cancel-package-wrapper" class="new-package-wrapper" *ngIf="packageService.creatingNewPackage && packageService.getPackageArrayLength() > 0">
+        <button mat-button (click)="packageService.cancelNewPackage()"><h5>Cancel Package Creation</h5></button>
+    </div>
+
+    <div *ngIf="!packageService.creatingNewPackage" id="color-key-row" class="row">
         <div class="col-md-4">
             <div class="color-key">
                 <div class="color-line exterior"></div>
@@ -28,7 +33,7 @@
 
     <!-------------------- PACKAGE FORM ---------------------->
 
-    <div *ngIf="packageService.creatingNewPackage == false">
+    <div *ngIf="packageService.creatingNewPackage == false && packageService.getPackageArrayLength() > 0">
         <div class="row">
             <div class="col-md-6">
                 <div class="price-container">
@@ -111,7 +116,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="input-group option-container"
-                     *ngFor="let item of displayPackageItems | keyvalue; let index = index">
+                     *ngFor="let item of packageService.displayPackageItems | async | keyvalue; let index = index">
                     <div [ngClass]="{'input-group-prepend': item.key.subOptions.length > 0}">
                         <button type="button" class="btn option-button"
                                 [ngClass]="{'selected': item.value === true}"
@@ -121,7 +126,7 @@
                         <div class="button-indicator"
                              [ngClass]="{'exterior': item.key.itemType === E_ITEM_TYPE.EXTERIOR, 'interior': item.key.itemType === E_ITEM_TYPE.INTERIOR}"></div>
                     </div>
-                    <select *ngIf="item.key.subOptions.length != 0 || null" class="custom-select"
+                    <select *ngIf="item.key.subOptions.length != 0 || item.key.subOptions.length == null" class="custom-select"
                             (change)="selectInputChange($event, index, item)"
                             [ngClass]="{'selected': item.value === true}" [(ngModel)]="item.key.selectedSubOption">
                         <option *ngFor="let option of item.key.subOptions;" [value]="option">{{option}}</option>
@@ -133,8 +138,24 @@
 
     <!-------------------- NEW PACKAGE FORM ---------------------->
 
-    <form id="new-package-form" *ngIf="packageService.creatingNewPackage == true || packageService.packageArray == null || packageService.packageArray == undefined" [formGroup]="packageForm" novalidate>
+    <form id="new-package-form" *ngIf="packageService.creatingNewPackage == true || packageService.packageArray == null || packageService.packageArray == undefined && packageService.getPackageArrayLength() <= 0" [formGroup]="packageForm" novalidate>
         <mat-horizontal-stepper id="pacakge-form-stepper" class="custom-class" linear="true">
+            <mat-step id="serviceType" label="Service Type">
+                <div formGroupName="serviceTypeFormGroup">
+                    <span>What type of service is this for?</span>
+
+                    <mat-form-field>
+                        <mat-label for="serviceTypeSelect">Service Type</mat-label>
+                        <mat-select id="serviceTypeSelect" name="serviceTypeSelect" formControlName="serviceType"
+                                    (selectionChange)="packageService.changeServiceType(selectField.value, true)" #selectField>
+                            <mat-option value="WASH">Wash</mat-option>
+                            <mat-option value="DETAIL">Detail</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <button mat-button matStepperNext type="submit">Next</button>
+                </div>
+            </mat-step>
+
             <mat-step id="name" label="Name">
                 <div formGroupName="nameFormGroup">
                     <span>What is the name of this package?</span>
@@ -142,6 +163,7 @@
                     <mat-form-field>
                         <input matInput placeholder="Ex: Gold" type="text" formControlName="name" required>
                     </mat-form-field>
+                    <button mat-button matStepperPrevious type="button">Back</button>
                     <button mat-button matStepperNext type="submit">Next</button>
                 </div>
             </mat-step>
@@ -246,7 +268,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="input-group option-container"
-                                 *ngFor="let item of displayPackageItems | keyvalue; let index = index">
+                                 *ngFor="let item of packageService.displayPackageItems | async | keyvalue; let index = index">
                                 <div [ngClass]="{'input-group-prepend': item.key.subOptions.length > 0}">
                                     <button type="button" class="btn option-button"
                                             [ngClass]="{'selected': item.value === true}"
@@ -258,7 +280,7 @@
                                 </div>
                                 <select *ngIf="item.key.subOptions.length != 0 || item.key.subOptions.length == null" class="custom-select"
                                         (change)="selectInputChange($event, index, item)"
-                                        [ngClass]="{'selected': item.value === true}">
+                                        [ngClass]="{'selected': item.value === true}" [(ngModel)]="item.key.selectedSubOption" [ngModelOptions]="{standalone: true}">
                                     <option *ngFor="let option of item.key.subOptions;" [value]="option">{{option}}</option>
                                 </select>
                             </div>

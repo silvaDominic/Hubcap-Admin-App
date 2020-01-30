@@ -77,7 +77,6 @@ export class PromotionService {
                     tempPromo.discountPackages = [];
                     this.promotionSubject.next(tempPromo);
                 }
-
             }
         );
         tempSub.unsubscribe();

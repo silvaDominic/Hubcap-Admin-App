@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import 'rxjs/add/operator/map';
 import {CarwashService} from './carwash.service';
 import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
 import {Package} from '../models/package.model';
@@ -8,6 +7,7 @@ import {BehaviorSubject, Observable, of} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {VEHICLE_TYPE} from '../enums/VEHICLE_TYPE.model';
 import {PackageItem} from '../models/package-item.model';
+import 'rxjs/operators/map';
 
 @Injectable({
     providedIn: 'root',
@@ -15,17 +15,22 @@ import {PackageItem} from '../models/package-item.model';
 export class PackageService {
     private readonly packageSubject = new BehaviorSubject<Package>(<Package>{});
     private readonly packageArraySubject = new BehaviorSubject<Package[]>(<Package[]>[]);
+    private readonly displayPackageItemsSubject = new BehaviorSubject<Map<DisplayPackageItem, boolean>>(new Map<DisplayPackageItem, boolean>());
     private _package: Observable<Package> = this.packageSubject.asObservable();
     private _packageArray: Observable<Package[]> = this.packageArraySubject.asObservable();
-    private _DisplayPackageItems = of(new Array<DisplayPackageItem>());
+    private _displayPackageItems: Observable<Map<DisplayPackageItem, boolean>> = this.displayPackageItemsSubject.asObservable();
+    public selectedPackageItems: PackageItem[] = new Array<PackageItem>();
+
+    public selectedServiceType: SERVICE_TYPE;
     public creatingNewPackage = false;
     private _isMonthly = false;
 
     private _currentPackageIndex: number;
     public serviceReady: boolean;
 
-    constructor(private readonly carwashService: CarwashService, private readonly fb: FormBuilder) {
+    constructor(private readonly carwashService: CarwashService, private readonly packageService: PackageService, private readonly fb: FormBuilder) {
         this.currentPackageIndex = 0;
+        this.selectedServiceType = SERVICE_TYPE.WASH;
         this.loadPackageArray(SERVICE_TYPE.WASH);
     }
 
@@ -41,32 +46,30 @@ export class PackageService {
                 // Check if package array is valid
                 if (packageArray != null && !(packageArray.length <= 0)) {
                     console.log('Package Array VALID', packageArray);
-                    console.log('CURRENT PACKAGE ARRAY: ', this.packageArraySubject.getValue());
                     this.packageArraySubject.next(packageArray);
+                    console.log('CURRENT PACKAGE ARRAY: ', this.packageArraySubject.getValue());
                     // If valid check if the first in the array is valid
                     if (packageArray[this._currentPackageIndex] != null || packageArray[this._currentPackageIndex] != undefined) {
                         console.log('_LOADING PACKAGES COMPLETE_');
-                        console.log('CURRENT PACKAGE: ', this.packageSubject.getValue());
                         this.packageSubject.next(packageArray[this._currentPackageIndex]);
+                        console.log('CURRENT PACKAGE: ', this.packageSubject.getValue());
                         this.serviceReady = true;
                     } else {
                         // If first package of array is invalid, warn browser and create empty one for use in form
                         console.log('Package INVALID', packageArray[this._currentPackageIndex]);
                         console.log('@ Index: ', this._currentPackageIndex);
                         console.log('Creating empty package...');
-                        this.packageSubject.next(Package.EMPTY_MODEL);
                         this.serviceReady = true;
-                        this.creatingNewPackage = true;
+                        this.initNewPackage();
                     }
 
                 } else {
                     // If no packages are found, create empty one for use in form
                     console.log('_NO PACKAGES FOUND_');
                     console.log('Package Creation Required');
-                    this.packageSubject.next(Package.EMPTY_MODEL);
-                    this.creatingNewPackage = true;
+                    this.serviceReady = true;
+                    this.initNewPackage();
                 }
-                this._DisplayPackageItems = this.carwashService.getDisplayPackageItems();
             }
         );
     }
@@ -93,8 +96,8 @@ export class PackageService {
         return this._packageArray;
     }
 
-    get DisplayPackageItems(): Observable<DisplayPackageItem[]> {
-        return this._DisplayPackageItems;
+    get displayPackageItems(): Observable<Map<DisplayPackageItem, boolean>> {
+        return this._displayPackageItems;
     }
 
     public setPackage(index: number): void {
@@ -149,8 +152,19 @@ export class PackageService {
         this._isMonthly = state;
     }
 
+    // Handles changing between Wash and Detail packages
+    public changeServiceType(packageType: string, clearDPIs: boolean = false) {
+        console.log('Changing service type to: ', packageType);
+        this.selectedServiceType = SERVICE_TYPE[packageType];
+        this.setPackageArray(this.selectedServiceType);
+        this.refreshDisplayPackageOptions(clearDPIs);
+    }
+
+    // Initialize a new package by wiping global variables and creating new empty package object
     initNewPackage(): void {
         this.creatingNewPackage = true;
+        this.resetDisplayPackageItems();
+        this.selectedPackageItems = new Array<PackageItem>();
         this.packageSubject.next(
             new Package(
                 Package.EMPTY_MODEL.id,
@@ -180,6 +194,7 @@ export class PackageService {
     // Post and Cache new package
     // WARNING - DUPLICATE CODE WITH 'savePackage()'
     createPackage(packageForm: FormGroup): Promise<boolean> {
+        console.log('Package Form: ', packageForm.value);
         // Instantiate and initialize temp variables for One Time and Monthly price maps
         const oneTimePrices = new Map<VEHICLE_TYPE, number>();
         oneTimePrices.set(VEHICLE_TYPE.REGULAR, packageForm.get('pricingFormGroup.oneTimeRegularPrice').value);
@@ -189,15 +204,13 @@ export class PackageService {
         monthlyPrices.set(VEHICLE_TYPE.REGULAR, packageForm.get('pricingFormGroup.monthlyRegularPrice').value);
         monthlyPrices.set(VEHICLE_TYPE.OVERSIZED, packageForm.get('pricingFormGroup.monthlyOverSizedPrice').value);
 
-        console.log('Package Items from Form: ', packageForm.get('packageItemsFormGroup.packageItems').value);
-
         // Instantiate new Package
         const newPackage = new Package(
             null,
             packageForm.get('nameFormGroup.name').value,
-            SERVICE_TYPE.WASH,
+            packageForm.get('serviceTypeFormGroup.serviceType').value,
             oneTimePrices,
-            <PackageItem[]>packageForm.get('packageItemsFormGroup.packageItems').value, // Not typing properly
+            this.selectedPackageItems,
             packageForm.get('durationFormGroup.duration').value,
             monthlyPrices,
         );
@@ -219,7 +232,8 @@ export class PackageService {
 
             return true;
         }).catch((reason) => {
-            console.warn('Error SAVING package: ' + newPackage.name);
+            console.warn('Error CREATING package: ' + newPackage.name);
+            console.warn(reason);
             return false;
         });
     }
@@ -293,8 +307,115 @@ export class PackageService {
     }
 
     // Static list of packages
-    public getDisplayPackageItems(): Observable<DisplayPackageItem[]> {
-        return this.DisplayPackageItems;
+    public getDisplayPackageItems(): Observable<Map<DisplayPackageItem, boolean>> {
+        return this.displayPackageItems;
+    }
+
+    // Initializes the DISPLAYPackageItemSubject by subscribing to observable and setting initial value
+    public initDisplayPackageItems(): void {
+        console.log('PS -- Init Display Items -- ENTER');
+        // Temp variable used to update behavior subject
+        const updatedDisplayPackageItems: Map<DisplayPackageItem, boolean> = new Map<DisplayPackageItem, boolean>();
+        // Subscribe and update object
+        // Update behavior subject when finished
+        this.carwashService.getDisplayPackageItems().subscribe(res => {
+            console.log('Did DPI register yet?', res);
+            for (const item of res) {
+                updatedDisplayPackageItems.set(item, false);
+            }
+            this.displayPackageItemsSubject.next(updatedDisplayPackageItems);
+            console.log('DPI Subject: ', this.displayPackageItemsSubject.value);
+        }, error => console.log('DPI ERROR: ', error));
+        console.log('PS -- Init Display Items -- EXIT');
+    }
+
+    // Resets the display items (sets them all to false)
+    public resetDisplayPackageItems(): void {
+        console.log('PS -- Reset Display Package Items -- ENTER');
+        // Make sure the behavior subject isn't null
+        if (this.displayPackageItemsSubject.value == null) {
+            console.log('Display packages null. Attempting to reinitialize');
+            this.initDisplayPackageItems();
+        }
+        // Temp variable used to update behavior subject
+        const updatedPackageItems: Map<DisplayPackageItem, boolean> = new Map<DisplayPackageItem, boolean>();
+        for (const item of this.displayPackageItemsSubject.value.keys()) {
+            updatedPackageItems.set(item, false);
+        }
+        // Update behavior subject
+        this.displayPackageItemsSubject.next(updatedPackageItems);
+        console.log('DPI Subject: ', this.displayPackageItemsSubject.value);
+        console.log('PS -- Reset Display Package Items -- EXIT');
+    }
+
+    public togglePIButton(event: any, index: number, item: any) {
+        event.target.classList.toggle('selected');
+        // If selected, deselect and remove from selectedPackageItems array
+        if (item.value == true) {
+            item.value = false;
+            this.selectedPackageItems.filter((packageItem, i) => {
+                if (item.key.name === packageItem.name) {
+                    console.log(item.key.name + ' converted to false ' + packageItem.name);
+                    this.selectedPackageItems.splice(i, 1);
+                }
+            });
+            // If NOT selected, select and add to selectedPackageItems array
+        } else if (item.value == false) {
+            item.value = true;
+            console.log(item.key.name + ' converted to ' + item.value);
+            console.log(item);
+            this.selectedPackageItems.push(new PackageItem(item.key.name, item.key.selectedSubOption));
+        }
+    }
+
+    // Handles resetting display packages and then updating them
+    // NOTE: This method is called on initialization and every time a package selection change is made.
+    public refreshDisplayPackageOptions(resetOnly: boolean = false) {
+        console.log('PS -- Refresh Package Options -- ENTER');
+        // Update local variable when packages change
+        this.selectedPackageItems = this.packageSubject.value.packageItems;
+        this.resetDisplayPackageItems();
+        if (!resetOnly) {
+            this.updateDisplayPackageItems();
+        }
+        console.log('PS -- Refresh Package Options -- EXIT');
+    }
+
+    // Updates display package items according to the current selected package
+    private updateDisplayPackageItems() {
+        console.log('PS -- Update Display Items -- ENTER');
+        // Temp variable used for updating behavior subject
+        const updatedDisplayPackageItems: Map<DisplayPackageItem, boolean> = new Map<DisplayPackageItem, boolean>();
+
+        // NOTE: This feels like an ugly solution
+        // Loop through known STATIC package items that correspond to current package
+        for (const staticItem of this.displayPackageItemsSubject.value.keys()) {
+            // Check against SELECTED list of all package items used for display
+            // NOTE: index is used to also keep track of end of array
+            for (const [i, selectedItem] of this.selectedPackageItems.entries()) {
+                // If the names of both SELECTED and STATIC match
+                // update any suboptions and set temp variable to true
+                if (selectedItem.name === staticItem.name) {
+                    staticItem.selectedSubOption = selectedItem.selectedSubOption;
+                    updatedDisplayPackageItems.set(staticItem, true);
+                    break;
+                } else if (i === this.selectedPackageItems.length - 1) {
+                    updatedDisplayPackageItems.set(staticItem, false);
+                }
+            }
+        }
+        // Update behavior subject after update
+        this.displayPackageItemsSubject.next(updatedDisplayPackageItems);
+        console.log('PS -- Update Display Items -- EXIT');
+    };
+
+    public selectInputChange(event, index, item): void {
+        // If selected, deselect and remove from selectedPackageItems array
+        this.selectedPackageItems.filter((packageItem, i) => {
+            if (item.key.name === packageItem.name) {
+                this.selectedPackageItems[i].selectedSubOption = item.key.selectedSubOption
+            }
+        });
     }
 
     /* --------------------- FORM METHODS ------------------------- */
@@ -305,11 +426,18 @@ export class PackageService {
 
     private generatePackageForm(_package: Package): FormGroup {
         return this.fb.group({
+            serviceTypeFormGroup: this.generateServiceTypeFormGroup(_package),
             nameFormGroup: this.generateNameFormGroup(_package),
             pricingFormGroup: this.generatePricingFormGroup(_package),
             durationFormGroup: this.generateDurationFormGroup(_package),
             packageItemsFormGroup: this.generatePackageItemsFormGroup(_package)
         });
+    }
+
+    private generateServiceTypeFormGroup(_package: Package): FormGroup {
+        return this.fb.group({
+            serviceType: [_package.type, Validators.required]
+        })
     }
 
     private generateNameFormGroup(_package: Package): FormGroup {

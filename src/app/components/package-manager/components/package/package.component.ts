@@ -7,6 +7,7 @@ import {PackageOptionsComponent} from '../package-options/package-options.compon
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {tap} from 'rxjs/operators';
 import {DialogBoxService} from '../../../../_shared/services/dialog-box.service';
+import {VEHICLE_TYPE} from '../../../../_shared/enums/VEHICLE_TYPE.model';
 
 @Component({
     selector: 'app-package',
@@ -17,6 +18,7 @@ import {DialogBoxService} from '../../../../_shared/services/dialog-box.service'
 export class PackageComponent implements OnInit {
 
     @Output() packageSelect = new EventEmitter<number>();
+    public E_VEHICLE_TYPE = VEHICLE_TYPE;
 
     constructor(private readonly packageService: PackageService, private readonly snackBar: MatSnackBar, private readonly dialogBoxService: DialogBoxService) {
     }

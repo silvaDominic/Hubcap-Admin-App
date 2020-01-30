@@ -5,13 +5,11 @@
                 <button mat-button (click)="packageService.initNewPackage()"><h5>Create New Package</h5></button>
             </div>
 
-            <div id="cancel-package-wrapper" class="new-package-wrapper" *ngIf="packageService.creatingNewPackage">
-                <button mat-button (click)="packageService.cancelNewPackage()"><h5>Cancel Package Creation</h5></button>
-            </div>
-
             <ul class="nav nav-fill">
-                <li *ngFor="let _package of packageArray let i = index" class="nav-item" (click)="callSetFocusPackage(i)">
-                    <button mat-button [ngClass]="{'active': (packageService.package | async)?.name === _package.name}">{{_package.name}}</button>
+                <li *ngFor="let _package of packageArray let i = index" class="nav-item"
+                    (click)="callSetFocusPackage(i)">
+                    <button mat-button
+                            [ngClass]="{'active': (packageService.package | async)?.name === _package.name}">{{_package.name}}</button>
                 </li>
             </ul>
 
@@ -24,11 +22,13 @@
         <div class="col-md-12">
             <ul id="prices-tabs" class="nav nav-tabs" role="tablist" *ngIf="!packageService.creatingNewPackage">
                 <li class="nav-item">
-                    <a (click)="packageService.switchToOneTime()" [ngClass]="{'active': !packageService.isMonthly}" class="nav-link" id="home-tab" role="tab" aria-controls="home"
+                    <a (click)="packageService.switchToOneTime()" [ngClass]="{'active': !packageService.isMonthly}"
+                       class="nav-link" id="home-tab" role="tab" aria-controls="home"
                        aria-selected="true">One-Time</a>
                 </li>
                 <li class="nav-item">
-                    <a (click)="packageService.switchToMonthly()" [ngClass]="{'active': packageService.isMonthly}" class="nav-link" id="profile-tab" role="tab" aria-controls="profile"
+                    <a (click)="packageService.switchToMonthly()" [ngClass]="{'active': packageService.isMonthly}"
+                       class="nav-link" id="profile-tab" role="tab" aria-controls="profile"
                        aria-selected="false">Monthly</a>
                 </li>
             </ul>
@@ -39,7 +39,7 @@
                         <div>
                             <img class="item-icon" src="./assets/icons/icon-oval-check-hollow.svg" alt="">
                             <span>{{item.name}}</span>
-                            <strong *ngIf="item.selectedSubOption != null && item.selectedSubOption > 0">&nbsp;({{item.selectedSubOption}})</strong>
+                            <strong *ngIf="item.selectedSubOption != null && item.selectedSubOption.length > 0">&nbsp;({{item.selectedSubOption}})</strong>
                         </div>
                     </mat-list-item>
                 </mat-list>
@@ -54,7 +54,9 @@
         </div>
 
         <div class="row action-row">
-            <button mat-button id="save-all-button" type="button" (click)="savePackageArray(packageArray)">Save ALL Packages</button>
+            <button mat-button id="save-all-button" type="button" (click)="savePackageArray(packageArray)">Save ALL
+                Packages
+            </button>
         </div>
     </div>
 </div>

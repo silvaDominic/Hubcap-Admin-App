@@ -54,6 +54,7 @@ export class CarwashService {
 
     // Register all package items to static variable
     public registerDisplayPackageItems(): void {
+        console.log('Fetching DPIs');
         CarwashService.displayPackageItems = this.fetchDisplayPackageItems();
     }
 
@@ -99,7 +100,7 @@ export class CarwashService {
     }
 
     // Return static list of packageItems
-    public getDisplayPackageItems(): Observable<DisplayPackageItem[]> {
+    public getDisplayPackageItems() {
         return CarwashService.displayPackageItems;
     }
 

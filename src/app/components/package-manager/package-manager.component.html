@@ -1,28 +1,35 @@
 <div id="package-manager-block" class="main-content">
     <div class="container">
-        <div id="nav-section">
+        <div id="nav-section" *ngIf="packageService.creatingNewPackage == false">
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-sm-3">
                     <button mat-raised-button id="wash-button"
-                            (click)="changeServiceType(E_PACKAGE_TYPE.WASH)"
-                            [ngClass]="{'wash-selected': selectedServiceType === E_PACKAGE_TYPE.WASH, '': selectedServiceType !== E_PACKAGE_TYPE.WASH}">Wash</button>
+                            (click)="packageService.changeServiceType(E_PACKAGE_TYPE.WASH)"
+                            [ngClass]="{'wash-selected': packageService.selectedServiceType === E_PACKAGE_TYPE.WASH, '': packageService.selectedServiceType !== E_PACKAGE_TYPE.WASH}">
+                        Wash
+                    </button>
                 </div>
-                <div  class="col-sm-3">
+                <div class="col-sm-3">
                     <button mat-raised-button id="detail-button"
-                            (click)="changeServiceType(E_PACKAGE_TYPE.DETAIL)"
-                            [ngClass]="{'detail-selected': selectedServiceType === E_PACKAGE_TYPE.DETAIL, '': selectedServiceType !== E_PACKAGE_TYPE.DETAIL}">Detail</button>
+                            (click)="packageService.changeServiceType(E_PACKAGE_TYPE.DETAIL)"
+                            [ngClass]="{'detail-selected': packageService.selectedServiceType === E_PACKAGE_TYPE.DETAIL, '': packageService.selectedServiceType !== E_PACKAGE_TYPE.DETAIL}">
+                        Detail
+                    </button>
                 </div>
             </div>
         </div>
 
         <div id="menu-section">
             <div class="row">
-                <div *ngIf="packageService.serviceReady && packageService.getPackageArrayLength() > 0" id="preview-col" class="col-md-3" [ngClass]="{'wash-selected': selectedServiceType === E_PACKAGE_TYPE.WASH, 'detail-selected': selectedServiceType === E_PACKAGE_TYPE.DETAIL}">
+                <div id="preview-col" class="col-md-3"
+                     *ngIf="packageService.serviceReady && !packageService.creatingNewPackage && packageService.getPackageArrayLength() > 0"
+                     [ngClass]="{'wash-selected': packageService.selectedServiceType === E_PACKAGE_TYPE.WASH, 'detail-selected': packageService.selectedServiceType === E_PACKAGE_TYPE.DETAIL}">
                     <app-package (packageSelect)="setFocusPackage($event)"></app-package>
                 </div>
 
-                <div id="package-options-col" [ngClass]="{'col-md-12': packageService.getPackageArrayLength() <= 0, 'col-md-9': packageService.getPackageArrayLength() > 0}">
+                <div id="package-options-col" *ngIf="packageService.serviceReady"
+                     [ngClass]="{'col-md-12': packageService.getPackageArrayLength() <= 0, 'col-md-9': !packageService.creatingNewPackage}">
                     <app-package-options (packageSelect)="setFocusPackage($event)"></app-package-options>
                 </div>
             </div>

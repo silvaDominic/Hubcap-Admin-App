@@ -1,6 +1,26 @@
 #menu-options-block {
 }
 
+#cancel-package-wrapper {
+    color: white;
+    background-color: var(--stop);
+}
+
+.new-package-wrapper {
+    margin: 0 -15px;
+    text-align: center;
+
+    button {
+        height: 100%;
+        width: 100%;
+        padding: 18px 8px !important;
+
+        h5 {
+            margin-bottom: 0 !important;
+        }
+    }
+}
+
 #color-key-row {
     margin: 1em 0;
 
