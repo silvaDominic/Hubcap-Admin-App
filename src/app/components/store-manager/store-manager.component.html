@@ -1,4 +1,4 @@
-<div class="store-manager-block main-content">
+<div class="store-manager-block main-content" *ngIf="storeService.serviceReady else loading">
   <div class="container">
     <div class="store-form-container">
       <div class="card">
@@ -27,3 +27,4 @@
     </div>
   </div>
 </div>
+<ng-template #loading><h1>Loading Store Data..</h1></ng-template>

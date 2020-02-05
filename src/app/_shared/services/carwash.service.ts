@@ -14,6 +14,7 @@ import {CONSTANTS} from '../CONSTANTS';
 import {UserService} from '../../_core/services/user.service';
 import {Utilities} from '../utilities';
 import {CARWASH_COMPONENT} from '../enums/CARWASH_COMPONENT.model';
+import {JwtService} from '../../_core/services/jwt.service';
 
 @Injectable({
     providedIn: 'root'
@@ -24,29 +25,34 @@ export class CarwashService {
     private static carwashSubject = new BehaviorSubject(<Carwash>{});
     private static displayPackageItems = of(new Array<DisplayPackageItem>());
     public static carwash: Observable<Carwash> = CarwashService.carwashSubject.asObservable();
+    private serviceReady: boolean = false;
 
     constructor(
         private readonly http: HttpClient,
         private readonly apiService: ApiService,
-        private readonly userService: UserService
     ) {
     }
 
     // Register Carwash object
-    public registerCarwash(): void {
-        this.fetchCarwash().subscribe(
+    public registerCarwash(): Observable<Carwash> {
+        return this.fetchCarwash().map(
             carwash => {
-                console.log('Response: ', carwash);
                 // Create an empty Carwash object if null
                 if (carwash == null) {
-                    console.log('No carwash created');
+                    console.log('No carwash found');
+                    console.log('Creating empty Carwash...');
                     CarwashService.carwashSubject.next(Utilities.convertToCarwashObject(Carwash.EMPTY_MODEL));
-                    console.log(CarwashService.carwash);
+                    this.serviceReady = true;
+                    console.log('CURRENT CARWASH: ', CarwashService.carwashSubject.getValue());
+                    return CarwashService.carwashSubject.getValue();
                     // Set carwash if one already exists
                 } else if (carwash != null || carwash != undefined) {
+                    console.log('Carwash VALID');
                     CarwashService.carwashSubject.next(Utilities.convertToCarwashObject(carwash));
+                    this.serviceReady = true;
                     console.log('_LOADING CARWASH COMPLETE_');
                     console.log('CURRENT CARWASH: ', CarwashService.carwashSubject.getValue());
+                    return CarwashService.carwashSubject.getValue();
                 }
             }
         );
@@ -72,31 +78,52 @@ export class CarwashService {
     /* ---------------- MAIN GET METHODS -----------------*/
 
     /* PACKAGES */
-    public getAllPackages(type: SERVICE_TYPE): Observable<Package[]> {
-        switch (type) {
-            case SERVICE_TYPE.WASH:
-                return CarwashService.carwash.pipe(
-                    pluck('washPackages'));
-                break;
-            case SERVICE_TYPE.DETAIL:
-                return CarwashService.carwash.pipe(
-                    pluck('detailPackages'));
-                break;
+    public getAllPackages(type: SERVICE_TYPE): Promise<Package[]> {
+            return new Promise<Package[]>((resolve, reject) => {
+                if (!this.serviceReady) {
+                    this.registerCarwash().toPromise().then(carwash => {
+                        switch (type) {
+                            case SERVICE_TYPE.WASH:
+                                resolve(carwash.washPackages);
+                                break;
+                            case SERVICE_TYPE.DETAIL:
+                                resolve(carwash.detailPackages);
+                                break;
 
-            // TODO Find out why merge is not working
-            /*            case SERVICE_TYPE.WASH_AND_DETAIL:
-                            const washPackages = CarwashService.carwash.pipe(
-                                pluck('washPackages'));
-                            const detailPackages = CarwashService.carwash.pipe(
-                                pluck('detailPackages'));
+                            // TODO Find out why merge is not working
+                            case SERVICE_TYPE.WASH_AND_DETAIL:
+                                // Merge Wash and Detail arrays
+                                resolve([...carwash.washPackages, ...carwash.detailPackages]);
+                                break;
+                            default:
+                                console.log('Invalid Package type');
+                                console.log('Package type: ' + type + ' not found');
+                                break;
+                        }
+                    }).catch(reason => {
+                        reject(reason);
+                    });
+                } else {
+                    switch (type) {
+                        case SERVICE_TYPE.WASH:
+                            resolve(CarwashService.carwashSubject.getValue().washPackages);
+                            break;
+                        case SERVICE_TYPE.DETAIL:
+                            resolve(CarwashService.carwashSubject.getValue().detailPackages);
+                            break;
 
-                            return Observable.merge(washPackages, detailPackages);
-                            break;*/
-            default:
-                console.log('Invalid Package type');
-                console.log('Package type: ' + type + ' not found');
-                break;
-        }
+                        // TODO Find out why merge is not working
+                        case SERVICE_TYPE.WASH_AND_DETAIL:
+                            // Merge Wash and Detail arrays
+                            resolve([...CarwashService.carwashSubject.getValue().washPackages, ...CarwashService.carwashSubject.getValue().detailPackages]);
+                            break;
+                        default:
+                            console.log('Invalid Package type');
+                            console.log('Package type: ' + type + ' not found');
+                            break;
+                    }
+                }
+            })
     }
 
     // Return static list of packageItems
@@ -105,13 +132,25 @@ export class CarwashService {
     }
 
     /* STORE */
-    public getCarwashMetaData(): Observable<Store> {
-        return CarwashService.carwash.pipe(pluck('metaData'));
+    public getCarwashMetaData(): Promise<Store> {
+        return new Promise<Store>((resolve, reject) => {
+            this.registerCarwash().toPromise().then(carwash => {
+                resolve(carwash.metaData);
+            }).catch(reason => {
+                reject(reason);
+            })
+        });
     }
 
     /* PROMOTIONS */
-    public getPromotionsArray(): Observable<Promotion[]> {
-        return CarwashService.carwash.pipe(pluck('promotions'));
+    public getPromotionsArray(): Promise<Promotion[]> {
+        return new Promise<Promotion[]>((resolve, reject) => {
+            this.registerCarwash().toPromise().then(carwash => {
+                resolve(carwash.promotions);
+            }).catch(reason => {
+                reject(reason);
+            })
+        });
     }
 
 
@@ -132,7 +171,7 @@ export class CarwashService {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        httpHeaders.set('Bearer Token', this.userService.getToken());
+        // httpHeaders.set('Bearer Token', this.jwtService.getToken());
 
         return this.apiService.post(environment.update_store_url, new HttpParams(), httpHeaders, updatedStore).pipe(take(1)).toPromise();
     }

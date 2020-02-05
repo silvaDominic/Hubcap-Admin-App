@@ -10,13 +10,8 @@ const routes: Routes = [
 
     {
         path: '',
-        redirectTo: 'dashboard',
-        pathMatch: 'full'
-    },
-    {
-        path: '',
         component: AdminLayoutComponent,
-        // canActivate: [AuthGuard],
+        // canLoad: [AuthGuard],
         children: [
             {
                 path: '',

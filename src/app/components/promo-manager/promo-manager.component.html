@@ -1,4 +1,4 @@
-<div id="promo-manager-block" class="main-content">
+<div id="promo-manager-block" class="main-content" *ngIf="promotionService.serviceReady else loading">
     <div>
         <mat-drawer-container id="promo-drawer-container" class="container">
             <div id="outer-history-button-container">
@@ -30,3 +30,4 @@
         </mat-drawer-container>
     </div>
 </div>
+<ng-template #loading><h1>Loading Store Data..</h1></ng-template>

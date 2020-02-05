@@ -34,14 +34,11 @@ export class UserService {
     public populate() {
         // If JWT detected, attempt to get & store user's info
         if (this.jwtService.getToken()) {
-            console.log('getToken() returned something');
+            console.log('getToken() returned something', this.jwtService.getToken());
             this.apiService.get(environment.users_url, new HttpParams(), new HttpHeaders().set('Authorization', this.jwtService.getToken().toString()))
                 .subscribe(
                     data => {
                         this.setAuth(data.adminUser);
-                        // CHECK FOR STATUS CODE INSTEAD OF DATA
-                        // this.carwashService.registerCarwash();
-                        // this.carwashService.registerDisplayPackageItems();
                     },
                     err => this.purgeAuth()
                 );
@@ -52,7 +49,7 @@ export class UserService {
     }
 
     public setAuth(adminUser: AdminUser) {
-        // Save JWT sent from server in localstorage
+        // Save JWT sent from server contained in cookie
         this.jwtService.saveToken(adminUser.token); // Retrieve token from authorization (header), NOT body
         // Set current user data into observable
         this.currentUserSubject.next(adminUser);

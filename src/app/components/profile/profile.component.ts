@@ -14,16 +14,15 @@ export class ProfileComponent implements OnInit {
 
     constructor(private userService: UserService) {}
 
-    private getCurrentUser(): void {
-
-    }
-
     public ngOnInit(): void {
         this.getCurrentUser();
+    }
+
+    private getCurrentUser(): void {
+
     }
 
     public updateProfile(updatedUser: User) {
         // this.userService.updateUser(updatedUser);
     }
-
 }

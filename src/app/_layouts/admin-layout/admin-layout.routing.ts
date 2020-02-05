@@ -12,7 +12,7 @@ import {PageNotFoundComponent} from '../../components/page-not-found/page-not-fo
 export const layoutRoutes: Routes = [
     {
         path: '',
-        redirectTo: 'profile',
+        redirectTo: 'dashboard',
         pathMatch: 'full'
     },
     {

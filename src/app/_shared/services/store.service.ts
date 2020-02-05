@@ -17,7 +17,8 @@ import {environment} from '../../../environments/environment';
 })
 export class StoreService {
     private storeSubject = new BehaviorSubject<Store>(<Store>{});
-    private _store: Observable<Store>;
+    private _store: Observable<Store> = this.storeSubject.asObservable();
+    public serviceReady: boolean = false;
 
     constructor(
         private readonly fb: FormBuilder,
@@ -28,16 +29,26 @@ export class StoreService {
         this.loadStore();
     }
 
-    public loadStore() {
+    public loadStore(): void {
         console.log('_LOADING STORE_');
-        this.carwashService.getCarwashMetaData().subscribe(
+        this.carwashService.getCarwashMetaData().then(
             store => {
-                this._store = this.storeSubject.asObservable();
-                this.storeSubject.next(store);
-                console.log('_LOADING STORE COMPLETE_');
-                console.log('CURRENT STORE: ', this.storeSubject.getValue());
+                console.log('Res: ', store);
+                // Check if store is valid
+                if (store != null && store != undefined) {
+                    console.log('Store VALID ', store);
+                    this.storeSubject.next(store);
+                    console.log('CURRENT STORE: ', this.storeSubject.getValue());
+                    console.log('_LOADING STORE COMPLETE_');
+                    this.serviceReady = true;
+                } else {
+                    //
+                    console.log('_NO STORE FOUND_');
+                    console.log('Store creation required');
+                    this.serviceReady = true;
+                }
             }
-        )
+        ).catch(reason => console.warn(reason));
     }
 
     get store(): Observable<Store> {

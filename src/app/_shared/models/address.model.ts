@@ -4,7 +4,7 @@ export class Address {
 
     public static EMPTY_MODEL = <Address> {
         city: '',
-        state: STATES.NY,
+        state: null,
         street: '',
         zipcode: ''
     };

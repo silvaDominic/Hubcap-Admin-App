@@ -1,4 +1,4 @@
-<div id="package-manager-block" class="main-content">
+<div id="package-manager-block" class="main-content" *ngIf="packageService.serviceReady">
     <div class="container">
         <div id="nav-section" *ngIf="packageService.creatingNewPackage == false">
             <div class="row">
