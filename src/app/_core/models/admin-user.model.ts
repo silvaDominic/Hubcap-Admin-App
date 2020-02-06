@@ -1,8 +1,12 @@
-import {PERMISSION_LEVEL} from '../../_shared/enums/PERMISSION_LEVEL.model';
+import {ROLE} from '../../_shared/enums/ROLE';
 
 export class AdminUser {
-    email: string;
-    token: string;
-    username: string;
-    permissionLevel: PERMISSION_LEVEL;
+
+    public static EMPTY_MODEL = <AdminUser>{
+        email: '',
+        password: '',
+        role: null
+    };
+
+    constructor(public email: string, public password: string, public role: ROLE) {}
 }

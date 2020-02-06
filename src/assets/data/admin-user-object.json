@@ -1,14 +1,5 @@
 {
-    "firstName": "Dom",
-    "lastName": "Silva",
-    "id": "123",
     "email": "dom.92@live.com",
-    "password": "changedPassword",
-    "dateCreated": "08-29-2019",
-    "role": "LOCAL_ADMIN",
-    "storeIds": [
-        "1345"
-    ],
-    "verified": false,
-    "active": false
+    "password": "1password",
+    "role": "LOCAL_ADMIN"
 }

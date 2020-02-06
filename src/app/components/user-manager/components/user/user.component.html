@@ -9,9 +9,9 @@
                         </mat-panel-title>
                         <mat-panel-description>
                             <div>{{roleMap.get(thisUser.role.permissionLevel)}}</div>
-                            <mat-icon *ngIf="thisUser.role.permissionLevel === permissionLevel.FULL_ADMIN_CONTROL">supervisor_account</mat-icon>
-                            <mat-icon *ngIf="thisUser.role.permissionLevel === permissionLevel.LOCAL_ADMIN_CONTROL">account_circle</mat-icon>
-                            <mat-icon *ngIf="thisUser.role.permissionLevel === permissionLevel.FIELD_CONTROL">build</mat-icon>
+                            <mat-icon *ngIf="thisUser.role.permissionLevel === permissionLevel.FULL_ADMIN">supervisor_account</mat-icon>
+                            <mat-icon *ngIf="thisUser.role.permissionLevel === permissionLevel.LOCAL_ADMIN">account_circle</mat-icon>
+                            <mat-icon *ngIf="thisUser.role.permissionLevel === permissionLevel.FIELD_WORKER">build</mat-icon>
                         </mat-panel-description>
                     </mat-expansion-panel-header>
 

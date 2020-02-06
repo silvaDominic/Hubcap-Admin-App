@@ -7,41 +7,54 @@ import {UserManagerComponent} from '../../components/user-manager/user-manager.c
 import {PackageManagerComponent} from '../../components/package-manager/package-manager.component';
 import {PromoManagerComponent} from '../../components/promo-manager/promo-manager.component';
 import {DashboardComponent} from '../../components/dashboard/dashboard.component';
-import {PageNotFoundComponent} from '../../components/page-not-found/page-not-found.component';
 import {CarwashResolverService} from '../../_shared/resolvers/carwash-resolver.service';
+import {ROLE} from '../../_shared/enums/ROLE';
+import {RoleGuard} from '../../_core/services/role-guard.service';
 
 export const layoutRoutes: Routes = [
     {
         path: '',
-        redirectTo: 'dashboard',
+        redirectTo: 'profile',
         pathMatch: 'full'
     },
     {
         path: 'profile',
         component: ProfileComponent,
+        data: {allowedRoles: [ROLE.FULL_ADMIN, ROLE.LOCAL_ADMIN, ROLE.FIELD_WORKER]},
+        canActivate: [RoleGuard]
     },
     {
         path: 'dashboard',
         component: DashboardComponent,
+        data: {allowedRoles: [ROLE.FULL_ADMIN, ROLE.LOCAL_ADMIN, ROLE.FIELD_WORKER]},
+        canActivate: [RoleGuard]
     },
     {
         path: 'schedule-manager',
-        component: ScheduleManagerComponent
+        component: ScheduleManagerComponent,
+        data: {allowedRoles: [ROLE.FULL_ADMIN, ROLE.LOCAL_ADMIN]},
+        canActivate: [RoleGuard]
     },
     {
         path: 'store-manager',
         component: StoreManagerComponent,
+        data: {allowedRoles: [ROLE.FULL_ADMIN, ROLE.LOCAL_ADMIN]},
+        canActivate: [RoleGuard],
         resolve: {
             coreServiceStatus: CarwashResolverService
         }
     },
     {
         path: 'user-manager',
+        data: {allowedRoles: [ROLE.FULL_ADMIN, ROLE.LOCAL_ADMIN]},
+        canActivate: [RoleGuard],
         component: UserManagerComponent
     },
     {
         path: 'package-manager',
         component: PackageManagerComponent,
+        data: {allowedRoles: [ROLE.FULL_ADMIN, ROLE.LOCAL_ADMIN]},
+        canActivate: [RoleGuard],
         resolve: {
             coreServiceStatus: CarwashResolverService
         }
@@ -49,12 +62,16 @@ export const layoutRoutes: Routes = [
     {
         path: 'promotions-manager',
         component: PromoManagerComponent,
+        data: {allowedRoles: [ROLE.FULL_ADMIN, ROLE.LOCAL_ADMIN]},
+        canActivate: [RoleGuard],
         resolve: {
             coreServiceStatus: CarwashResolverService
         }
     },
     {
         path: 'qr-scanner-manager',
+        data: {allowedRoles: [ROLE.FULL_ADMIN, ROLE.LOCAL_ADMIN, ROLE.FIELD_WORKER]},
+        canActivate: [RoleGuard],
         component: QrScannerManagerComponent
     }
 ];

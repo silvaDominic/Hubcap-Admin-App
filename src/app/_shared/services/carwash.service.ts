@@ -23,7 +23,7 @@ export class CarwashService {
     public static carwash: Observable<Carwash> = CarwashService.carwashSubject.asObservable();
     public serviceReady: boolean = false;
 
-    constructor(private readonly http: HttpClient, private readonly apiService: ApiService) {
+    constructor(private readonly http: HttpClient, private readonly apiService: ApiService, private readonly jwtService: JwtService) {
     }
 
     /* ---------------- MAIN GET METHODS -----------------*/
@@ -88,7 +88,7 @@ export class CarwashService {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        // httpHeaders.set('Bearer Token', this.jwtService.getToken());
+        httpHeaders.set('Bearer Token', this.jwtService.getToken());
 
         return this.apiService.post(environment.update_store_url, new HttpParams(), httpHeaders, updatedStore).pipe(take(1)).toPromise();
     }

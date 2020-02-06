@@ -11,6 +11,7 @@ export class StoreManagerComponent implements OnInit {
     constructor(private readonly storeService: StoreService) { }
 
     ngOnInit() {
+
     }
 
 }

@@ -11,16 +11,17 @@ const routes: Routes = [
     {
         path: '',
         component: AdminLayoutComponent,
-        // canLoad: [AuthGuard],
+        canActivate: [AuthGuard],
         children: [
             {
                 path: '',
-                loadChildren: () => import('./_layouts/admin-layout/admin-layout.module').then(mod => mod.AdminLayoutModule)
+                loadChildren: () => import('./_layouts/admin-layout/admin-layout.module').then(mod => mod.AdminLayoutModule),
             }]
     },
-/*    {
-        path: '**', component: PageNotFoundComponent
-    }*/
+    {
+        path: '404',
+        component: PageNotFoundComponent,
+    }
 ];
 
 @NgModule({

@@ -24,7 +24,7 @@ export class StoreService {
         private readonly fb: FormBuilder,
         private readonly http: HttpClient,
         private readonly carwashService: CarwashService,
-        private readonly apiService: ApiService
+        private readonly apiService: ApiService,
     ) {
         this.loadStore();
     }

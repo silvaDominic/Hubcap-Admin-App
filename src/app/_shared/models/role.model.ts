@@ -1,8 +1,8 @@
-import {PERMISSION_LEVEL} from '../enums/PERMISSION_LEVEL.model';
+import {ROLE} from '../enums/ROLE';
 
 export class Role {
 
-    constructor(public name: string, public permissionLevel: PERMISSION_LEVEL) {
+    constructor(public name: string, public permissionLevel: ROLE) {
     }
 
 /*    get permissionLevel(): PERMISSION_LEVEL {

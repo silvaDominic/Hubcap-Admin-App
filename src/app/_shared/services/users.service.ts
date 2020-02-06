@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {PERMISSION_LEVEL} from '../enums/PERMISSION_LEVEL.model';
+import {ROLE} from '../enums/ROLE';
 import {Observable} from 'rxjs';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {User} from '../models/user.model';
@@ -10,12 +10,12 @@ import {User} from '../models/user.model';
 })
 export class UsersService {
 
-    static permissionLevel = PERMISSION_LEVEL;
-    static permissionKeys = Object.keys(PERMISSION_LEVEL);
-    static roleMap: Map<PERMISSION_LEVEL, string> = new Map([
-        [PERMISSION_LEVEL.FULL_ADMIN_CONTROL, 'Full Admin'],
-        [PERMISSION_LEVEL.LOCAL_ADMIN_CONTROL, 'Local Admin'],
-        [PERMISSION_LEVEL.FIELD_CONTROL, 'Field Worker'],
+    static permissionLevel = ROLE;
+    static permissionKeys = Object.keys(ROLE);
+    static roleMap: Map<ROLE, string> = new Map([
+        [ROLE.FULL_ADMIN, 'Full Admin'],
+        [ROLE.LOCAL_ADMIN, 'Local Admin'],
+        [ROLE.FIELD_WORKER, 'Field Worker'],
                                                           ]);
 
     private usersUrl = 'http://localhost:4200/assets/data/users.json';

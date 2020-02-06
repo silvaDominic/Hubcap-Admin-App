@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {ApiService} from './services/api.service';
 import {JwtService} from './services/jwt.service';
 import {UserService} from './services/user.service';
-import {RoleGuard} from './services/role-guared.service';
+import {RoleGuard} from './services/role-guard.service';
 import {AuthGuard} from './services/auth-guard.service';
 import {HttpTokenInterceptor} from './http.token.intercepter';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';

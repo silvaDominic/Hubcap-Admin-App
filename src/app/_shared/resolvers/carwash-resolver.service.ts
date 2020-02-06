@@ -56,8 +56,8 @@ export class CarwashResolverService implements Resolve<boolean> {
 
     // Retrieve Carwash object from backend
     private fetchCarwash(): Observable<Carwash> {
-        // return this.apiService.get<Carwash>(CarwashResolverService.carwashPath);
-        return of(null);
+        return this.apiService.get<Carwash>(CarwashResolverService.carwashPath);
+        // return of(null);
     }
 
     // Retrieve all package items from assets

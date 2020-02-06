@@ -9,8 +9,8 @@ import {Errors} from '../../_core/models/errors.mode';
     templateUrl: './auth.component.html'
 })
 export class AuthComponent implements OnInit {
-    authType: String = '';
-    title: String = '';
+    authType: string = '';
+    title: string = '';
     errors: Errors = {errors: {}};
     isSubmitting = false;
     authForm: FormGroup;
@@ -49,7 +49,7 @@ export class AuthComponent implements OnInit {
         this.userService
             .attemptAuth(this.authType, credentials)
             .subscribe(
-                data => this.router.navigateByUrl('/'), // Make profile default
+                data => this.router.navigateByUrl('/profile'), // Make profile default
                 err => {
                     this.errors = err;
                     this.isSubmitting = false;

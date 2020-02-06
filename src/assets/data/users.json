@@ -9,7 +9,7 @@
     "password": "bestpassword",
     "role": {
       "name": "Full Admin",
-      "permissionLevel": "FULL_ADMIN_CONTROL"
+      "permissionLevel": "FULL_ADMIN"
     },
     "isActive": true,
     "isRegistered": true
@@ -24,7 +24,7 @@
     "password": "okaypassword",
     "role": {
       "name": "Local Admin",
-      "permissionLevel": "LOCAL_ADMIN_CONTROL"
+      "permissionLevel": "LOCAL_ADMIN"
     },
     "isActive": true,
     "isRegistered": true
@@ -39,7 +39,7 @@
     "password": "nopassword",
     "role": {
       "name": "Field Worker",
-      "permissionLevel": "FIELD_CONTROL"
+      "permissionLevel": "FIELD_WORKER"
     },
     "isActive": true,
     "isRegistered": true
@@ -54,7 +54,7 @@
     "password": "1password",
     "role": {
       "name": "Field Worker",
-      "permissionLevel": "FIELD_CONTROL"
+      "permissionLevel": "FIELD_WORKER"
     },
     "isActive": false,
     "isRegistered": true

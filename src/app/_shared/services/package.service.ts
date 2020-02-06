@@ -103,6 +103,8 @@ export class PackageService {
             console.log('@ Index: ', index);
             this._currentPackageIndex = index;
             this.packageSubject.next(this.packageArraySubject.getValue()[index]);
+        } else {
+            console.log('Same index, package not set');
         }
     }
 
@@ -149,13 +151,9 @@ export class PackageService {
         this._isMonthly = state;
     }
 
-    // Handles changing between Wash and Detail packages
-    public changeServiceType(packageType: string, clearDPIs: boolean = false) {
-        console.log('Changing service type to: ', packageType);
-        this.selectedServiceType = SERVICE_TYPE[packageType];
-        this.setPackageArray(this.selectedServiceType);
-        this.refreshDisplayPackageOptions(clearDPIs);
-    }
+
+
+
 
     // Initialize a new package by wiping global variables and creating new empty package object
     initNewPackage(): void {
@@ -316,34 +314,14 @@ export class PackageService {
         // Subscribe and update object
         // Update behavior subject when finished
         this.carwashService.getDisplayPackageItems().subscribe(res => {
-            console.log('Did DPI register yet?', res);
             for (const item of res) {
                 updatedDisplayPackageItems.set(item, false);
             }
             this.displayPackageItemsSubject.next(updatedDisplayPackageItems);
-            console.log('DPI Subject: ', this.displayPackageItemsSubject.value);
-        }, error => console.log('DPI ERROR: ', error));
+        });
         console.log('PS -- Init Display Items -- EXIT');
     }
 
-    // Resets the display items (sets them all to false)
-    public resetDisplayPackageItems(): void {
-        console.log('PS -- Reset Display Package Items -- ENTER');
-        // Make sure the behavior subject isn't null
-        if (this.displayPackageItemsSubject.value == null) {
-            console.log('Display packages null. Attempting to reinitialize');
-            this.initDisplayPackageItems();
-        }
-        // Temp variable used to update behavior subject
-        const updatedPackageItems: Map<DisplayPackageItem, boolean> = new Map<DisplayPackageItem, boolean>();
-        for (const item of this.displayPackageItemsSubject.value.keys()) {
-            updatedPackageItems.set(item, false);
-        }
-        // Update behavior subject
-        this.displayPackageItemsSubject.next(updatedPackageItems);
-        console.log('DPI Subject: ', this.displayPackageItemsSubject.value);
-        console.log('PS -- Reset Display Package Items -- EXIT');
-    }
 
     public togglePIButton(event: any, index: number, item: any) {
         event.target.classList.toggle('selected');
@@ -365,12 +343,32 @@ export class PackageService {
         }
     }
 
+    // Resets the display items (sets them all to false)
+    public resetDisplayPackageItems(): void {
+        console.log('PS -- Reset Display Package Items -- ENTER');
+        // Make sure the behavior subject isn't null
+        if (this.displayPackageItemsSubject.value == null) {
+            console.log('Display packages null. Attempting to reinitialize');
+            this.initDisplayPackageItems();
+        }
+        // Temp variable used to update behavior subject
+        const updatedPackageItems: Map<DisplayPackageItem, boolean> = new Map<DisplayPackageItem, boolean>();
+        for (const item of this.displayPackageItemsSubject.value.keys()) {
+            updatedPackageItems.set(item, false);
+        }
+        // Update behavior subject
+        this.displayPackageItemsSubject.next(updatedPackageItems);
+        console.log('DPI Subject: ', this.displayPackageItemsSubject.value);
+        console.log('PS -- Reset Display Package Items -- EXIT');
+    }
+
     // Handles resetting display packages and then updating them
     // NOTE: This method is called on initialization and every time a package selection change is made.
     public refreshDisplayPackageOptions(resetOnly: boolean = false) {
         console.log('PS -- Refresh Package Options -- ENTER');
         // Update local variable when packages change
         this.selectedPackageItems = this.packageSubject.value.packageItems;
+        console.log('Current selected package items: ', this.selectedPackageItems);
         this.resetDisplayPackageItems();
         if (!resetOnly) {
             this.updateDisplayPackageItems();
@@ -378,11 +376,25 @@ export class PackageService {
         console.log('PS -- Refresh Package Options -- EXIT');
     }
 
+    // Handles changing between Wash and Detail packages
+    public changeServiceType(packageType: string, clearDPIs: boolean = false) {
+        console.log('Changing service type to: ', packageType);
+        this.selectedServiceType = SERVICE_TYPE[packageType];
+        this.setPackageArray(this.selectedServiceType);
+        this.refreshDisplayPackageOptions(clearDPIs);
+    }
+
     // Updates display package items according to the current selected package
     private updateDisplayPackageItems() {
         console.log('PS -- Update Display Items -- ENTER');
         // Temp variable used for updating behavior subject
         const updatedDisplayPackageItems: Map<DisplayPackageItem, boolean> = new Map<DisplayPackageItem, boolean>();
+
+        if (this.selectedPackageItems.length <= 0) {
+            console.log('No selected packages found. Resetting all to false...');
+            this.resetDisplayPackageItems();
+            return;
+        }
 
         // NOTE: This feels like an ugly solution
         // Loop through known STATIC package items that correspond to current package
@@ -402,6 +414,8 @@ export class PackageService {
             }
         }
         // Update behavior subject after update
+        console.log('Updated DPIs: ', updatedDisplayPackageItems);
+        console.log('Updated Selected Packages: ', this.selectedPackageItems);
         this.displayPackageItemsSubject.next(updatedDisplayPackageItems);
         console.log('PS -- Update Display Items -- EXIT');
     };

@@ -5,7 +5,7 @@ import {Role} from '../../../../_shared/models/role.model';
 import {Store} from '../../../../_shared/models/store.model';
 import {MatSnackBar} from '@angular/material';
 import {UsersService} from '../../../../_shared/services/users.service';
-import {PERMISSION_LEVEL} from '../../../../_shared/enums/PERMISSION_LEVEL.model';
+import {ROLE} from '../../../../_shared/enums/ROLE';
 
 @Component({
     selector: 'app-user-form',
@@ -18,7 +18,7 @@ export class UserFormComponent implements OnInit {
 
     userFormGroup: FormGroup;
 
-    permissionLevel = PERMISSION_LEVEL;
+    permissionLevel = ROLE;
     permissionKeys = UsersService.permissionKeys;
     roleMap = UsersService.roleMap;
 

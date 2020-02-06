@@ -6,17 +6,17 @@ import { Observable ,  throwError } from 'rxjs';
 import { JwtService } from './jwt.service';
 import { catchError } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class ApiService {
     constructor(
         private http: HttpClient,
-        private jwtService: JwtService
     ) {}
 
     private formatErrors(error: any) {
         return  throwError(error.error);
     }
-
 
     get<T>(path: string, httpParams: HttpParams = new HttpParams(), httpHeaders: HttpHeaders = new HttpHeaders()): Observable<any> {
         return this.http.get(`${environment.api_url}${path}`, { params: httpParams, headers: httpHeaders })

@@ -4,8 +4,6 @@ import {PackageService} from '../../_shared/services/package.service';
 import {SERVICE_TYPE} from '../../_shared/enums/SERVICE_TYPE';
 import {CarwashService} from '../../_shared/services/carwash.service';
 import {ActivatedRoute} from '@angular/router';
-import {Carwash} from '../../_shared/models/carwash.model';
-import {Utilities} from '../../_shared/utilities';
 
 @Component({
     selector: 'app-package-manager',
@@ -19,9 +17,6 @@ export class PackageManagerComponent implements OnInit, AfterViewInit, OnDestroy
     E_PACKAGE_TYPE = SERVICE_TYPE;
 
     constructor(private route: ActivatedRoute, private carwashService: CarwashService, private readonly packageService: PackageService) {
-        route.data.subscribe(status => {
-            console.log('Carwash status: ', status);
-        })
     }
 
     public ngOnInit() {
@@ -45,11 +40,11 @@ export class PackageManagerComponent implements OnInit, AfterViewInit, OnDestroy
     public setFocusPackage(index: number) {
         // Stage package to be used in sub-components
         if (index == this.packageService.currentPackageIndex) {
-            console.log('Index is same. setPackage call denied');
+            console.log('Index is the same. setPackage() call denied');
         } else {
             this.packageService.setPackage(index);
             this.packageService.refreshDisplayPackageOptions();
-            this.packageOptionsComp.packageForm.reset();
+            this.packageOptionsComp.packageForm.reset(); // Do I need to do this anymore?
         }
     }
 }

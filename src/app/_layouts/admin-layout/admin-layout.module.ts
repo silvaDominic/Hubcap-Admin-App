@@ -27,7 +27,6 @@ import {DashboardComponent} from '../../components/dashboard/dashboard.component
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {layoutRoutes} from './admin-layout.routing';
-import {PageNotFoundComponent} from '../../components/page-not-found/page-not-found.component';
 import {CoreModule} from '../../_core/core.module';
 import {CarwashResolverService} from '../../_shared/resolvers/carwash-resolver.service';
 
@@ -35,8 +34,7 @@ import {CarwashResolverService} from '../../_shared/resolvers/carwash-resolver.s
     imports: [
         RouterModule.forChild(layoutRoutes),
         CommonModule,
-        SharedModule,
-        CoreModule
+        SharedModule
     ],
     declarations: [
         DashboardComponent,
