@@ -11,8 +11,6 @@ import {environment} from '../../../environments/environment';
 import {pluck, take} from 'rxjs/operators';
 import {Store} from '../models/store.model';
 import {CONSTANTS} from '../CONSTANTS';
-import {UserService} from '../../_core/services/user.service';
-import {Utilities} from '../utilities';
 import {CARWASH_COMPONENT} from '../enums/CARWASH_COMPONENT.model';
 import {JwtService} from '../../_core/services/jwt.service';
 
@@ -20,137 +18,56 @@ import {JwtService} from '../../_core/services/jwt.service';
     providedIn: 'root'
 })
 export class CarwashService {
-    private static carwashPath = environment.carwash_url;
-    private static staticPackageItemsPath = environment.display_package_items_url;
-    private static carwashSubject = new BehaviorSubject(<Carwash>{});
-    private static displayPackageItems = of(new Array<DisplayPackageItem>());
+    public static carwashSubject = new BehaviorSubject(<Carwash>{});
+    public static displayPackageItems = of(new Array<DisplayPackageItem>());
     public static carwash: Observable<Carwash> = CarwashService.carwashSubject.asObservable();
-    private serviceReady: boolean = false;
+    public serviceReady: boolean = false;
 
-    constructor(
-        private readonly http: HttpClient,
-        private readonly apiService: ApiService,
-    ) {
-    }
-
-    // Register Carwash object
-    public registerCarwash(): Observable<Carwash> {
-        return this.fetchCarwash().map(
-            carwash => {
-                // Create an empty Carwash object if null
-                if (carwash == null) {
-                    console.log('No carwash found');
-                    console.log('Creating empty Carwash...');
-                    CarwashService.carwashSubject.next(Utilities.convertToCarwashObject(Carwash.EMPTY_MODEL));
-                    this.serviceReady = true;
-                    console.log('CURRENT CARWASH: ', CarwashService.carwashSubject.getValue());
-                    return CarwashService.carwashSubject.getValue();
-                    // Set carwash if one already exists
-                } else if (carwash != null || carwash != undefined) {
-                    console.log('Carwash VALID');
-                    CarwashService.carwashSubject.next(Utilities.convertToCarwashObject(carwash));
-                    this.serviceReady = true;
-                    console.log('_LOADING CARWASH COMPLETE_');
-                    console.log('CURRENT CARWASH: ', CarwashService.carwashSubject.getValue());
-                    return CarwashService.carwashSubject.getValue();
-                }
-            }
-        );
-    }
-
-    // Register all package items to static variable
-    public registerDisplayPackageItems(): void {
-        console.log('Fetching DPIs');
-        CarwashService.displayPackageItems = this.fetchDisplayPackageItems();
-    }
-
-    // Retrieve Carwash object from backend
-    private fetchCarwash(): Observable<Carwash> {
-        return this.apiService.get<Carwash>(CarwashService.carwashPath);
-        // return of(null);
-    }
-
-    // Retrieve all package items from assets
-    private fetchDisplayPackageItems(): Observable<DisplayPackageItem[]> {
-        return this.apiService.get<DisplayPackageItem[]>(CarwashService.staticPackageItemsPath);
+    constructor(private readonly http: HttpClient, private readonly apiService: ApiService) {
     }
 
     /* ---------------- MAIN GET METHODS -----------------*/
 
     /* PACKAGES */
-    public getAllPackages(type: SERVICE_TYPE): Promise<Package[]> {
-            return new Promise<Package[]>((resolve, reject) => {
-                if (!this.serviceReady) {
-                    this.registerCarwash().toPromise().then(carwash => {
-                        switch (type) {
-                            case SERVICE_TYPE.WASH:
-                                resolve(carwash.washPackages);
-                                break;
-                            case SERVICE_TYPE.DETAIL:
-                                resolve(carwash.detailPackages);
-                                break;
+    public getAllPackages(type: SERVICE_TYPE): Observable<Package[]> {
+        switch (type) {
+            case SERVICE_TYPE.WASH:
+                return CarwashService.carwash.pipe(
+                    pluck('washPackages'));
+                break;
+            case SERVICE_TYPE.DETAIL:
+                return CarwashService.carwash.pipe(
+                    pluck('detailPackages'));
+                break;
 
-                            // TODO Find out why merge is not working
-                            case SERVICE_TYPE.WASH_AND_DETAIL:
-                                // Merge Wash and Detail arrays
-                                resolve([...carwash.washPackages, ...carwash.detailPackages]);
-                                break;
-                            default:
-                                console.log('Invalid Package type');
-                                console.log('Package type: ' + type + ' not found');
-                                break;
-                        }
-                    }).catch(reason => {
-                        reject(reason);
-                    });
-                } else {
-                    switch (type) {
-                        case SERVICE_TYPE.WASH:
-                            resolve(CarwashService.carwashSubject.getValue().washPackages);
-                            break;
-                        case SERVICE_TYPE.DETAIL:
-                            resolve(CarwashService.carwashSubject.getValue().detailPackages);
-                            break;
-
-                        // TODO Find out why merge is not working
-                        case SERVICE_TYPE.WASH_AND_DETAIL:
-                            // Merge Wash and Detail arrays
-                            resolve([...CarwashService.carwashSubject.getValue().washPackages, ...CarwashService.carwashSubject.getValue().detailPackages]);
-                            break;
-                        default:
-                            console.log('Invalid Package type');
-                            console.log('Package type: ' + type + ' not found');
-                            break;
-                    }
-                }
-            })
+            // TODO Find out why merge is not working properly
+            case SERVICE_TYPE.WASH_AND_DETAIL:
+                const washPackages = CarwashService.carwash.pipe(
+                    pluck('washPackages'));
+                const detailPackages = CarwashService.carwash.pipe(
+                    pluck('detailPackages'));
+                return Observable.merge(washPackages, detailPackages);
+                break;
+            default:
+                console.log('Invalid Package type');
+                console.log('Package type: ' + type + ' not found');
+                break;
+        }
     }
 
-    // Return static list of packageItems
+    // Return static list of packageItems used for display purposes in template
     public getDisplayPackageItems() {
         return CarwashService.displayPackageItems;
     }
 
     /* STORE */
-    public getCarwashMetaData(): Promise<Store> {
-        return new Promise<Store>((resolve, reject) => {
-            this.registerCarwash().toPromise().then(carwash => {
-                resolve(carwash.metaData);
-            }).catch(reason => {
-                reject(reason);
-            })
-        });
+    public getCarwashMetaData(): Observable<Store> {
+        return CarwashService.carwash.pipe(pluck('metaData'));
     }
 
     /* PROMOTIONS */
-    public getPromotionsArray(): Promise<Promotion[]> {
-        return new Promise<Promotion[]>((resolve, reject) => {
-            this.registerCarwash().toPromise().then(carwash => {
-                resolve(carwash.promotions);
-            }).catch(reason => {
-                reject(reason);
-            })
-        });
+    public getPromotionsArray(): Observable<Promotion[]> {
+        return CarwashService.carwash.pipe(pluck('promotions'));
     }
 
 

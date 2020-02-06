@@ -8,6 +8,7 @@ import {PackageManagerComponent} from '../../components/package-manager/package-
 import {PromoManagerComponent} from '../../components/promo-manager/promo-manager.component';
 import {DashboardComponent} from '../../components/dashboard/dashboard.component';
 import {PageNotFoundComponent} from '../../components/page-not-found/page-not-found.component';
+import {CarwashResolverService} from '../../_shared/resolvers/carwash-resolver.service';
 
 export const layoutRoutes: Routes = [
     {
@@ -29,7 +30,10 @@ export const layoutRoutes: Routes = [
     },
     {
         path: 'store-manager',
-        component: StoreManagerComponent
+        component: StoreManagerComponent,
+        resolve: {
+            coreServiceStatus: CarwashResolverService
+        }
     },
     {
         path: 'user-manager',
@@ -37,11 +41,17 @@ export const layoutRoutes: Routes = [
     },
     {
         path: 'package-manager',
-        component: PackageManagerComponent
+        component: PackageManagerComponent,
+        resolve: {
+            coreServiceStatus: CarwashResolverService
+        }
     },
     {
         path: 'promotions-manager',
-        component: PromoManagerComponent
+        component: PromoManagerComponent,
+        resolve: {
+            coreServiceStatus: CarwashResolverService
+        }
     },
     {
         path: 'qr-scanner-manager',

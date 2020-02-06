@@ -46,9 +46,8 @@ export class PromotionService {
     }
 
     public loadPromotions(): void {
-        this.serviceReady = false;
         console.log('_LOADING PROMOTIONS_');
-        this.carwashService.getPromotionsArray().then(
+        this.carwashService.getPromotionsArray().subscribe(
             promotions => {
                 if (promotions != null) {
                     this.promotionArraySubject.next(promotions);
@@ -62,11 +61,11 @@ export class PromotionService {
                     console.log('_NO PROMOTIONS FOUND_');
                 }
             }
-        ).catch(reason => console.warn(reason));
+        );
     }
 
     public loadPackageArray(type: SERVICE_TYPE, skipReset: boolean = false): void {
-        this.carwashService.getAllPackages(type).then(
+        const tempSub = this.carwashService.getAllPackages(type).subscribe(
             packageArray => {
                 this.currentPackageArray = packageArray;
                 console.log('Current Package Array', this.currentPackageArray);
@@ -78,7 +77,8 @@ export class PromotionService {
                     this.promotionSubject.next(tempPromo);
                 }
             }
-        ).catch(reason => console.warn(reason));
+        );
+        tempSub.unsubscribe();
     }
 
     public get promotion(): Observable<Promotion> {

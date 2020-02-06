@@ -36,17 +36,16 @@ export class PackageService {
 
     // Initializes packages and package items
     public loadPackageArray(type: SERVICE_TYPE): void {
-        this.serviceReady = false;
-
         console.log('_LOADING PACKAGES_');
-        this.carwashService.getAllPackages(type).then(
+        // this.mainSubscription = this.carwashService.getAllPackages(type).subscribe(
+        this.carwashService.getAllPackages(type).subscribe(
             packageArray => {
                 // Check if package array is valid
                 if (packageArray != null && !(packageArray.length <= 0)) {
                     console.log('Package Array VALID', packageArray);
                     this.packageArraySubject.next(packageArray);
                     console.log('CURRENT PACKAGE ARRAY: ', this.packageArraySubject.getValue());
-                    // If valid check if the first package in the array is valid
+                    // If valid check if the first in the array is valid
                     if (packageArray[this._currentPackageIndex] != null || packageArray[this._currentPackageIndex] != undefined) {
                         console.log('_LOADING PACKAGES COMPLETE_');
                         this.packageSubject.next(packageArray[this._currentPackageIndex]);
@@ -69,7 +68,7 @@ export class PackageService {
                     this.initNewPackage();
                 }
             }
-        ).catch(reason => console.warn(reason));
+        );
     }
 
     get package(): Observable<Package> {

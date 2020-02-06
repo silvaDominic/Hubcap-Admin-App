@@ -19,6 +19,9 @@ export class PackageManagerComponent implements OnInit, AfterViewInit, OnDestroy
     E_PACKAGE_TYPE = SERVICE_TYPE;
 
     constructor(private route: ActivatedRoute, private carwashService: CarwashService, private readonly packageService: PackageService) {
+        route.data.subscribe(status => {
+            console.log('Carwash status: ', status);
+        })
     }
 
     public ngOnInit() {

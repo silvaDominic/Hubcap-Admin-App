@@ -29,6 +29,7 @@ import {RouterModule} from '@angular/router';
 import {layoutRoutes} from './admin-layout.routing';
 import {PageNotFoundComponent} from '../../components/page-not-found/page-not-found.component';
 import {CoreModule} from '../../_core/core.module';
+import {CarwashResolverService} from '../../_shared/resolvers/carwash-resolver.service';
 
 @NgModule({
     imports: [
@@ -64,7 +65,7 @@ import {CoreModule} from '../../_core/core.module';
     ],
     exports: [
     ],
-    providers: []
+    providers: [CarwashResolverService]
 })
 
 export class AdminLayoutModule {

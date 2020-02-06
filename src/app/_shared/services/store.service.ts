@@ -31,7 +31,7 @@ export class StoreService {
 
     public loadStore(): void {
         console.log('_LOADING STORE_');
-        this.carwashService.getCarwashMetaData().then(
+        this.carwashService.getCarwashMetaData().subscribe(
             store => {
                 console.log('Res: ', store);
                 // Check if store is valid
@@ -48,7 +48,7 @@ export class StoreService {
                     this.serviceReady = true;
                 }
             }
-        ).catch(reason => console.warn(reason));
+        )
     }
 
     get store(): Observable<Store> {

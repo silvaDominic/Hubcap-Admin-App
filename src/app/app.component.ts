@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {CarwashService} from './_shared/services/carwash.service';
 import {UserService} from './_core/services/user.service';
 
 @Component({
@@ -9,12 +8,10 @@ import {UserService} from './_core/services/user.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private userService: UserService, private carWashService: CarwashService) {
+  constructor(private userService: UserService) {
   }
 
   public ngOnInit(): void {
-      // this.carWashService.registerCarwash();
-      this.carWashService.registerDisplayPackageItems();
       // this.userService.populate();
   }
 }
