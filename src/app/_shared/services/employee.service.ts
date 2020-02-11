@@ -3,12 +3,12 @@ import {Injectable} from '@angular/core';
 import {ROLE} from '../enums/ROLE';
 import {Observable} from 'rxjs';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {User} from '../models/user.model';
+import {Employee} from '../models/employee.model';
 
 @Injectable({
     providedIn: 'root'
 })
-export class UsersService {
+export class EmployeeService {
 
     static permissionLevel = ROLE;
     static permissionKeys = Object.keys(ROLE);
@@ -31,20 +31,20 @@ export class UsersService {
 
     constructor(private readonly http: HttpClient, private readonly fb: FormBuilder) {}
 
-    fetchAllUsers(): Observable<User[]> {
-        return this.http.get<User[]>(this.usersUrl)
+    fetchAllUsers(): Observable<Employee[]> {
+        return this.http.get<Employee[]>(this.usersUrl)
     }
 
-    fetchUser(): Observable<User> {
-        return this.http.get<User>(this.currentUserUrl);
+    fetchUser(): Observable<Employee> {
+        return this.http.get<Employee>(this.currentUserUrl);
     }
 
-    newUser(user: User): Observable<User> {
-        return this.http.post<User>(this.usersUrl, user);
+    newUser(user: Employee): Observable<Employee> {
+        return this.http.post<Employee>(this.usersUrl, user);
     }
 
-    updateUser(user: User): Observable<User> {
-        return this.http.put<User>(this.currentUserUrl, user);
+    updateUser(user: Employee): Observable<Employee> {
+        return this.http.put<Employee>(this.currentUserUrl, user);
     }
 
     public generateUserForm(apiResponse: any): FormGroup {

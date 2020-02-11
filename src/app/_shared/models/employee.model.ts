@@ -1,6 +1,6 @@
-import {Role} from './role.model';
+import {ROLE} from '../enums/ROLE';
 
-export class User {
+export class Employee {
     constructor(public id: string,
                 public firstName: string,
                 public lastName: string,
@@ -8,7 +8,7 @@ export class User {
                 public email: string,
                 public phoneNumber: string,
                 public storeIds: string[],
-                public role: Role,
+                public role: ROLE,
                 public isActive: boolean,
                 public isRegistered: boolean) {
     }

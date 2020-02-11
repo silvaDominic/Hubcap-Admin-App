@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../../_shared/models/user.model';
+import {Employee} from '../../_shared/models/employee.model';
 import {Store} from '../../_shared/models/store.model';
-import {UsersService} from '../../_shared/services/users.service';
+import {EmployeeService} from '../../_shared/services/employee.service';
 import {StoreService} from '../../_shared/services/store.service';
 
 @Component({
   selector: 'app-user-manager',
-  templateUrl: './user-manager.component.html',
-  styleUrls: ['./user-manager.component.scss']
+  templateUrl: './employee-manager.component.html',
+  styleUrls: ['./employee-manager.component.scss']
 })
-export class UserManagerComponent implements OnInit {
-    users: User[];
+export class EmployeeManagerComponent implements OnInit {
+    users: Employee[];
     stores: Store[];
 
     error: string;
 
-  constructor(private usersService: UsersService, private storesService: StoreService) { }
+  constructor(private usersService: EmployeeService, private storesService: StoreService) { }
 
     ngOnInit() {
         this.getAllUsers()

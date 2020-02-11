@@ -2,21 +2,24 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {BrowserModule} from '@angular/platform-browser';
 import {Routes, RouterModule} from '@angular/router';
-import {AdminLayoutComponent} from './_layouts/admin-layout/admin-layout.component';
 import {AuthGuard} from './_core/services/auth-guard.service';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
+import {AuthComponent} from './components/auth/auth.component';
 
 const routes: Routes = [
 
     {
         path: '',
-        component: AdminLayoutComponent,
-        canActivate: [AuthGuard],
-        children: [
-            {
-                path: '',
-                loadChildren: () => import('./_layouts/admin-layout/admin-layout.module').then(mod => mod.AdminLayoutModule),
-            }]
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+    },
+    {
+        path: 'dashboard',
+        loadChildren: () => import('./components/dashboard/dashboard.module').then(mod => mod.DashboardModule),
+    },
+    {
+        path: 'login',
+        component: AuthComponent
     },
     {
         path: '404',

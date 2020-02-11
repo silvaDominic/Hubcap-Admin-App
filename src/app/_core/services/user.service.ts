@@ -9,16 +9,18 @@ import 'rxjs/add/operator/do';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {ApiService} from './api.service';
 import {JwtService} from './jwt.service';
-import {AdminUser} from '../models/admin-user.model';
+import {User} from '../models/admin-user.model';
 import {environment} from '../../../environments/environment';
 import {ROLE} from '../../_shared/enums/ROLE';
+import {UserCredentials} from '../../_shared/models/user-credentials.model';
+import {CONSTANTS} from '../../_shared/CONSTANTS';
 
 
 @Injectable({
     providedIn: 'root',
 })
 export class UserService {
-    private currentUserSubject = new BehaviorSubject<AdminUser>(AdminUser.EMPTY_MODEL);
+    private currentUserSubject = new BehaviorSubject<User>(User.EMPTY_MODEL);
     private _currentUser = this.currentUserSubject.asObservable().distinctUntilChanged();
 
     private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
@@ -52,21 +54,25 @@ export class UserService {
         }
     }
 
-    public setAuth(adminUser: AdminUser): void {
+    public setAuth(adminUser: User): void {
         // Save JWT sent from server contained in cookie
-        // this.jwtService.saveToken(adminUser.token); // Retrieve token from authorization (header), NOT body
+        this.jwtService.saveToken(adminUser.token);
         // Set current user data into observable
         this.currentUserSubject.next(adminUser);
         // Set isAuthenticated to true
         this.isAuthenticatedSubject.next(true);
     }
 
-    public get currentUser(): Observable<AdminUser> {
+    public get currentUser(): Observable<User> {
         return this._currentUser;
     }
 
-    public getCurrentUserValue(): AdminUser {
+    public getCurrentUserValue(): User {
         return this.currentUserSubject.getValue();
+    }
+
+    public getToken(): string {
+        return this.currentUserSubject.getValue().token;
     }
 
     public purgeAuth() {
@@ -74,42 +80,47 @@ export class UserService {
         // Remove JWT from localstorage
         this.jwtService.destroyToken();
         // Set current user to an empty object
-        this.currentUserSubject.next(AdminUser.EMPTY_MODEL);
+        this.currentUserSubject.next(User.EMPTY_MODEL);
         // Set auth status to false
         this.isAuthenticatedSubject.next(false);
     }
 
-    public attemptAuth(type, credentials): Observable<AdminUser> {
+    public attemptAuth(type, credentials): Observable<User> {
         const route = (type === 'login') ? '/login' : '';
-        
-        const validUser = {
-            "email": "dom.92@live.com",
-            "password": "1password",
-        };
 
-        if (credentials.email == validUser.email && credentials.password == validUser.password) {
-            const currentUser = new AdminUser(
-                validUser.email,
-                validUser.password,
-                ROLE.FIELD_WORKER
-            );
-
-            this.setAuth(currentUser);
-            console.log('Attempt success. Logging in.');
-            return of(currentUser);
+        if (this.fakeResponse(credentials) == true) {
+            this.setAuth(CONSTANTS.VALID_USER);
+            return of(CONSTANTS.VALID_USER);
+        } else {
+            this.purgeAuth();
+            return;
         }
-        
-/*        return this.apiService.post(environment.users_url + route, new HttpParams(), new HttpHeaders(), {adminUser: credentials})
-            .map(
-                data => {
-                    this.setAuth(data.adminUser);
-                    return data;
-                }
-            );*/
+
+
+        /*        return this.apiService.post(environment.users_url + route, new HttpParams(), new HttpHeaders(), {adminUser: credentials})
+                    .map(
+                        data => {
+                            this.setAuth(data.adminUser);
+                            return data;
+                        }
+                    );*/
+    }
+
+    private fakeResponse(credentials: UserCredentials): boolean {
+
+        if (credentials.email === CONSTANTS.VALID_USER.email && credentials.password === CONSTANTS.VALID_USER.password) {
+            console.log('Attempt success. Logging in.');
+            return true;
+        } else if (credentials.adminCode === CONSTANTS.VALID_USER_ADMIN) {
+            return true;
+        } else {
+            console.log('Attempt failure. Redirecting to Login.');
+            return false;
+        }
     }
 
     // Update the user on the server (email, pass, etc)
-    public update(adminUser): Observable<AdminUser> {
+    public update(adminUser): Observable<User> {
         return this.apiService
             .post(environment.users_url, new HttpParams().set(adminUser, adminUser)) // TODO Look into this
             .map(data => {

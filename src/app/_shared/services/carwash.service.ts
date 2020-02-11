@@ -12,7 +12,7 @@ import {pluck, take} from 'rxjs/operators';
 import {Store} from '../models/store.model';
 import {CONSTANTS} from '../CONSTANTS';
 import {CARWASH_COMPONENT} from '../enums/CARWASH_COMPONENT.model';
-import {JwtService} from '../../_core/services/jwt.service';
+import {UserService} from '../../_core/services/user.service';
 
 @Injectable({
     providedIn: 'root'
@@ -23,7 +23,7 @@ export class CarwashService {
     public static carwash: Observable<Carwash> = CarwashService.carwashSubject.asObservable();
     public serviceReady: boolean = false;
 
-    constructor(private readonly http: HttpClient, private readonly apiService: ApiService, private readonly jwtService: JwtService) {
+    constructor(private readonly http: HttpClient, private readonly apiService: ApiService, private readonly userService: UserService) {
     }
 
     /* ---------------- MAIN GET METHODS -----------------*/
@@ -78,7 +78,7 @@ export class CarwashService {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        // httpHeaders.set('Bearer Token', this.userService.getToken());
+        httpHeaders.set('Bearer Token', this.userService.getCurrentUserValue().token);
 
         // Make post and save new object on success
         return this.apiService.post(environment.new_store_url, new HttpParams(), httpHeaders, newStore).pipe(take(1)).toPromise();
@@ -88,7 +88,7 @@ export class CarwashService {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        httpHeaders.set('Bearer Token', this.jwtService.getToken());
+        httpHeaders.set('Bearer Token', this.userService.getCurrentUserValue().token);
 
         return this.apiService.post(environment.update_store_url, new HttpParams(), httpHeaders, updatedStore).pipe(take(1)).toPromise();
     }

@@ -1,6 +1,7 @@
 import {Promotion} from './models/promotion.model';
-import {Frequency} from './models/frequency.model';
 import {Discount} from './models/discount.model';
+import {User} from '../_core/models/admin-user.model';
+import {ROLE} from './enums/ROLE';
 
 export const CONSTANTS = {
     SHORT_WEEKDAY: {weekday: 'short'},
@@ -24,5 +25,17 @@ export const CONSTANTS = {
         null,
         null,
         true
-    )
+    ),
+    VALID_USER: new User(
+        'Dominic',
+        'Silva',
+        'dom.92@live.com',
+        '123',
+        ROLE.FULL_ADMIN,
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9' +
+        '.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ' +
+        '.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
+        '6099231111'
+    ),
+    VALID_USER_ADMIN: '123456789'
 };

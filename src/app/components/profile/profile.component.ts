@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from '../../_shared/models/user.model';
+import {Employee} from '../../_shared/models/employee.model';
 import {UserService} from '../../_core/services/user.service';
 
 @Component({
@@ -9,7 +9,7 @@ import {UserService} from '../../_core/services/user.service';
 })
 export class ProfileComponent implements OnInit {
 
-    currentUser: User;
+    currentUser: Employee;
     error: string;
 
     constructor(private userService: UserService) {}
@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
 
     }
 
-    public updateProfile(updatedUser: User) {
+    public updateProfile(updatedUser: Employee) {
         // this.userService.updateUser(updatedUser);
     }
 }
