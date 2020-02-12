@@ -31,11 +31,23 @@ export const CONSTANTS = {
         'Silva',
         'dom.92@live.com',
         '123',
-        ROLE.FULL_ADMIN,
+        ROLE.LOCAL_ADMIN,
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9' +
         '.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ' +
         '.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
         '6099231111'
     ),
-    VALID_USER_ADMIN: '123456789'
+    VALID_USER_ADMIN: '123456789',
+    ADMIN_ROUTES: [
+        { path: '/store-manager', title: 'My Store', icon: 'store', class: '' },
+        { path: '/employee-manager', title: 'Users', icon: 'people', class: ''},
+        { path: '/package-manager', title: 'Package Manager',  icon: 'view_carousel', class: '' },
+        { path: '/promotions-manager', title: 'Promotional Manager',  icon: 'stars', class: '' },
+        { path: '/schedule-manager', title: 'Scheduler', icon: 'calendar_today', class: '' },
+    ],
+    BASE_ROUTES: [
+        { path: '/profile', title: 'Profile',  icon: 'person', class: '' },
+        { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
+        { path: '/qr-scanner-manager', title: 'QR Scanner', icon: 'control_camera', class: '' },
+    ]
 };

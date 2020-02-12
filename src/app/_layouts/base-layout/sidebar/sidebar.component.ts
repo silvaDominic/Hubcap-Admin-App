@@ -1,39 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from '../../../_core/services/user.service';
 
 declare const $: any;
-declare interface RouteInfo {
-    path: string;
-    title: string;
-    icon: string;
-    class: string;
-}
-
-export const ROUTES: RouteInfo[] = [
-    { path: '/store-manager', title: 'My Store', icon: 'store', class: '' },
-    { path: '/employee-manager', title: 'Users', icon: 'people', class: ''},
-    { path: '/profile', title: 'Profile',  icon: 'person', class: '' },
-    { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
-    { path: '/package-manager', title: 'Package Manager',  icon: 'view_carousel', class: '' },
-    { path: '/promotions-manager', title: 'Promotional Manager',  icon: 'stars', class: '' },
-    { path: '/schedule-manager', title: 'Scheduler', icon: 'calendar_today', class: '' },
-    { path: '/qr-scanner-manager', title: 'QR Scanner', icon: 'control_camera', class: '' }
-];
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+    selector: 'app-sidebar',
+    templateUrl: './sidebar.component.html',
+    styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  menuItems: any[];
+    menuItems: any[];
 
-  constructor() { }
+    constructor(private readonly userService: UserService) {
+    }
 
-  ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
-  }
+    ngOnInit() {
+        this.menuItems = this.userService.getAllowedRoutes().filter(menuItem => menuItem);
+    }
 
-  isMobileMenu() {
-      return $(window).width() <= 991;
-  };
+    isMobileMenu() {
+        return $(window).width() <= 991;
+    };
 }

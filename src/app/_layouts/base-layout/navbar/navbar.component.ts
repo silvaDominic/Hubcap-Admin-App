@@ -1,7 +1,8 @@
 import {Component, OnInit, ElementRef} from '@angular/core';
-import {ROUTES} from '../sidebar/sidebar.component';
+// import {ROUTES} from '../sidebar/sidebar.component';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
+import {UserService} from '../../../_core/services/user.service';
 
 @Component({
     selector: 'app-navbar',
@@ -16,7 +17,10 @@ export class NavbarComponent implements OnInit {
     private toggleButton: any;
     private _sidebarVisible: boolean;
 
-    constructor(location: Location, private element: ElementRef, private router: Router) {
+    constructor(location: Location,
+                private element: ElementRef,
+                private router: Router,
+                private userService: UserService) {
         this.location = location;
         this._sidebarVisible = false;
     }
@@ -26,7 +30,7 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.listTitles = ROUTES.filter(listTitle => listTitle);
+        this.listTitles = this.userService.getAllowedRoutes().filter(listTitle => listTitle);
         const navbar: HTMLElement = this.element.nativeElement;
         this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
         this.router.events.subscribe((event) => {

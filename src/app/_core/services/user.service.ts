@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
+import {Observable, of, throwError} from 'rxjs';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import 'rxjs/add/operator/map';
@@ -11,9 +11,10 @@ import {ApiService} from './api.service';
 import {JwtService} from './jwt.service';
 import {User} from '../models/admin-user.model';
 import {environment} from '../../../environments/environment';
-import {ROLE} from '../../_shared/enums/ROLE';
 import {UserCredentials} from '../../_shared/models/user-credentials.model';
 import {CONSTANTS} from '../../_shared/CONSTANTS';
+import {ROLE} from '../../_shared/enums/ROLE';
+import {RouteInfo} from '../models/route-info.interface';
 
 
 @Injectable({
@@ -37,9 +38,12 @@ export class UserService {
     // Verify JWT in localstorage with server & load user's info.
     // This runs once on application startup.
     public populate(): void {
-        // If JWT detected, attempt to get & store user's info
+        this.purgeAuth();
+
+/*        // If JWT detected, attempt to get & store user's info
         if (this.jwtService.getToken()) {
             console.log('getToken() returned something', this.jwtService.getToken());
+            // this.setAuth(CONSTANTS.VALID_USER)
             this.apiService.get(environment.users_url, new HttpParams(), new HttpHeaders().set('Authorization', this.jwtService.getToken().toString()))
                 .subscribe(
                     data => {
@@ -51,7 +55,7 @@ export class UserService {
             // Remove any potential remnants of previous auth states
             console.log('No token detected. Purging Auth');
             this.purgeAuth();
-        }
+        }*/
     }
 
     public setAuth(adminUser: User): void {
@@ -92,8 +96,8 @@ export class UserService {
             this.setAuth(CONSTANTS.VALID_USER);
             return of(CONSTANTS.VALID_USER);
         } else {
-            this.purgeAuth();
-            return;
+            console.log('Throwing error');
+            throw throwError(new Error('Invalid Login'));
         }
 
 
@@ -128,5 +132,17 @@ export class UserService {
                 this.currentUserSubject.next(data.adminUser);
                 return data.adminUser;
             });
+    }
+
+    public getAllowedRoutes(): RouteInfo[] {
+        const currentUserRole = this.currentUserSubject.getValue().role;
+
+        if (currentUserRole !== ROLE.FIELD_WORKER) {
+            return CONSTANTS.ADMIN_ROUTES.concat(CONSTANTS.BASE_ROUTES);
+        } else if (currentUserRole === ROLE.FIELD_WORKER) {
+            return CONSTANTS.BASE_ROUTES;
+        } else {
+            console.warn('Error setting ROUTES');
+        }
     }
 }

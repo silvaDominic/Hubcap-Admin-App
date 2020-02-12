@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../_core/services/user.service';
-import {Errors} from '../../_core/models/errors.mode';
+import {Errors} from '../../_core/models/errors.interface';
 
 @Component({
     selector: 'app-auth-page',
@@ -37,7 +37,7 @@ export class AuthComponent implements OnInit {
         })
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.route.url.subscribe(data => {
             // Get the last piece of the URL (it's either 'login' or 'register')
             this.authType = data[data.length - 1].path;
@@ -46,24 +46,25 @@ export class AuthComponent implements OnInit {
         });
     }
 
-    public toggleIsAdmin() {
-
-    }
-
-    submitForm() {
+    // TODO Consider changing the logic
+    submitForm(): void {
         this.isSubmitting = true;
         this.errors = {errors: {}};
 
         const credentials = (this.authType == 'login' ? this.loginForm.value : this.registerForm.value);
         this.userService
-            .attemptAuth(this.authType, credentials)
-            .subscribe(
-                data => this.router.navigateByUrl('/profile'), // Make profile default
-                err => {
-                    this.errors = err;
-                    this.isSubmitting = false;
-                    // Redirect back to register/login
-                }
-            );
+            .attemptAuth(this.authType, credentials).subscribe(
+            data => {
+                console.log('Redirecting to profile');
+                // Make profile default
+                this.router.navigateByUrl('/profile');
+            },
+            err => {
+                console.log('ERROR: ', err);
+                this.errors = err;
+                this.isSubmitting = false;
+                // Redirect back to register/login
+            }
+        );
     }
 }

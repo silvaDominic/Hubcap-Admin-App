@@ -9,12 +9,7 @@ import { take } from 'rxjs/operators';
     providedIn: 'root',
 })
 export class AuthGuard implements CanActivate, CanLoad {
-    constructor(
-        private router: Router,
-        private userService: UserService
-    ) {
-        console.log('AuthGuard active')
-    }
+    constructor(private router: Router, private userService: UserService) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
         return this.userService.isAuthenticated.pipe(take(1)).map(auth => {
@@ -36,7 +31,7 @@ export class AuthGuard implements CanActivate, CanLoad {
             }
             console.warn('User not authenticated. ACCESS DENIED.');
             // navigate to login page
-            this.router.navigate(['/login']);
+            this.router.navigate([route.path + '/login']);
             // you can save redirect url so after authing we can move them back to the page they requested
             return false;
         });

@@ -11,7 +11,9 @@ import {HttpClientModule} from '@angular/common/http';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import {DialogBoxComponent} from './_shared/components/dialog-box/dialog-box.component';
 import {SharedModule} from './_shared/shared.module';
-import {DashboardModule} from './components/dashboard/dashboard.module';
+import {AdminLayoutComponent} from './_layouts/admin-layout/admin-layout.component';
+import {AuthGuard} from './_core/services/auth-guard.service';
+import {RoleGuard} from './_core/services/role-guard.service';
 
 @NgModule({
     imports: [
@@ -28,7 +30,8 @@ import {DashboardModule} from './components/dashboard/dashboard.module';
     ],
     declarations: [
         AppComponent,
-        PageNotFoundComponent
+        PageNotFoundComponent,
+        AdminLayoutComponent
     ],
     exports: [],
     providers: [],
