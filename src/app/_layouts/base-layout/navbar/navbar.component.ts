@@ -131,4 +131,9 @@ export class NavbarComponent implements OnInit {
         }
         return title;
     }
+
+    public logout() {
+        this.userService.purgeAuth();
+        this.router.navigateByUrl('/login')
+    }
 }

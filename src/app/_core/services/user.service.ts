@@ -11,10 +11,11 @@ import {ApiService} from './api.service';
 import {JwtService} from './jwt.service';
 import {User} from '../models/admin-user.model';
 import {environment} from '../../../environments/environment';
-import {UserCredentials} from '../../_shared/models/user-credentials.model';
+import {UserLoginCredentials, UserRegisterCredentials} from '../../_shared/models/user-credentials.model';
 import {CONSTANTS} from '../../_shared/CONSTANTS';
 import {ROLE} from '../../_shared/enums/ROLE';
 import {RouteInfo} from '../models/route-info.interface';
+import {map} from 'rxjs/operators';
 
 
 @Injectable({
@@ -38,16 +39,16 @@ export class UserService {
     // Verify JWT in localstorage with server & load user's info.
     // This runs once on application startup.
     public populate(): void {
-        this.purgeAuth();
+        // this.purgeAuth();
 
-/*        // If JWT detected, attempt to get & store user's info
+        // If JWT detected, attempt to get & store user's info
         if (this.jwtService.getToken()) {
-            console.log('getToken() returned something', this.jwtService.getToken());
             // this.setAuth(CONSTANTS.VALID_USER)
             this.apiService.get(environment.users_url, new HttpParams(), new HttpHeaders().set('Authorization', this.jwtService.getToken().toString()))
                 .subscribe(
                     data => {
-                        this.setAuth(data.adminUser);
+                        console.log('User Valid, Starting App');
+                        this.setAuth(data);
                     },
                     err => this.purgeAuth()
                 );
@@ -55,7 +56,7 @@ export class UserService {
             // Remove any potential remnants of previous auth states
             console.log('No token detected. Purging Auth');
             this.purgeAuth();
-        }*/
+        }
     }
 
     public setAuth(adminUser: User): void {
@@ -89,17 +90,39 @@ export class UserService {
         this.isAuthenticatedSubject.next(false);
     }
 
+    // WARNING: This method contains test code -- NOT FINAL
     public attemptAuth(type, credentials): Observable<User> {
-        const route = (type === 'login') ? '/login' : '';
-
-        if (this.fakeResponse(credentials) == true) {
-            this.setAuth(CONSTANTS.VALID_USER);
-            return of(CONSTANTS.VALID_USER);
+        if (type === 'login') {
+            return this.fakeLoginResponse(credentials).pipe(
+                map(user => {
+                    if (user.token) {
+                        this.setAuth(user);
+                        return user;
+                    } else {
+                        console.log('Auth attempt failure');
+                        console.log('Throwing error');
+                        throw throwError(new Error('Invalid Login'));
+                    }
+                })
+            );
+        } else if (type === 'register') {
+            return this.fakeRegisterResponse(credentials).pipe(
+                map(user => {
+                    if (user.token) {
+                        this.setAuth(user);
+                        return user;
+                    } else {
+                        console.log('Auth attempt failure');
+                        console.log('Throwing error');
+                        throw throwError(new Error('Invalid Login'));
+                    }
+                })
+            );
         } else {
+            console.warn('Error attempting Authentication.');
             console.log('Throwing error');
             throw throwError(new Error('Invalid Login'));
         }
-
 
         /*        return this.apiService.post(environment.users_url + route, new HttpParams(), new HttpHeaders(), {adminUser: credentials})
                     .map(
@@ -110,16 +133,27 @@ export class UserService {
                     );*/
     }
 
-    private fakeResponse(credentials: UserCredentials): boolean {
-
+    // TEST METHOD
+    private fakeLoginResponse(credentials: UserLoginCredentials): Observable<User> {
         if (credentials.email === CONSTANTS.VALID_USER.email && credentials.password === CONSTANTS.VALID_USER.password) {
             console.log('Attempt success. Logging in.');
-            return true;
-        } else if (credentials.adminCode === CONSTANTS.VALID_USER_ADMIN) {
-            return true;
+            return of(CONSTANTS.VALID_USER);
+        } else {
+
+
+        }
+    }
+
+    // TEST METHOD
+    private fakeRegisterResponse(credentials: UserRegisterCredentials): Observable<User> {
+        console.log('Submitted Register credentials: ', credentials);
+        if (credentials.registryCode === CONSTANTS.REGISTRY_CODE) {
+            console.log('Attempt success. Registering User.');
+            return of(CONSTANTS.VALID_USER);
         } else {
             console.log('Attempt failure. Redirecting to Login.');
-            return false;
+            console.log('Throwing error');
+            throw throwError(new Error('Invalid Registry'));
         }
     }
 

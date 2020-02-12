@@ -18,6 +18,10 @@ const routes: Routes = [
         component: AuthComponent
     },
     {
+        path: 'register',
+        component: AuthComponent
+    },
+    {
         path: '404',
         component: PageNotFoundComponent,
     },

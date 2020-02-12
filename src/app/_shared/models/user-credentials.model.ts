@@ -1,5 +1,13 @@
-export interface UserCredentials {
+export interface UserLoginCredentials {
     email: string,
     password: string,
-    adminCode?: string
+}
+
+export interface UserRegisterCredentials {
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string,
+    registryCode: string,
+    phoneNumber ?: string
 }

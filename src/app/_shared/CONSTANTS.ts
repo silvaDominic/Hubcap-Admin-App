@@ -37,7 +37,7 @@ export const CONSTANTS = {
         '.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
         '6099231111'
     ),
-    VALID_USER_ADMIN: '123456789',
+    REGISTRY_CODE: '123456',
     ADMIN_ROUTES: [
         { path: '/store-manager', title: 'My Store', icon: 'store', class: '' },
         { path: '/employee-manager', title: 'Users', icon: 'people', class: ''},

@@ -12,8 +12,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import {DialogBoxComponent} from './_shared/components/dialog-box/dialog-box.component';
 import {SharedModule} from './_shared/shared.module';
 import {AdminLayoutComponent} from './_layouts/admin-layout/admin-layout.component';
-import {AuthGuard} from './_core/services/auth-guard.service';
-import {RoleGuard} from './_core/services/role-guard.service';
+import {CookieModule, CookieOptionsProvider, CookieService} from 'ngx-cookie';
 
 @NgModule({
     imports: [
@@ -24,17 +23,21 @@ import {RoleGuard} from './_core/services/role-guard.service';
         BaseLayoutModule,
         RouterModule,
         AppRoutingModule,
-        CoreModule,
         AuthModule,
-        SharedModule
+        CoreModule,
+        SharedModule,
+        CookieModule.forRoot()
     ],
     declarations: [
         AppComponent,
-        PageNotFoundComponent,
-        AdminLayoutComponent
+        AdminLayoutComponent,
+        PageNotFoundComponent
     ],
     exports: [],
-    providers: [],
+    providers: [
+        CookieService,
+        CookieOptionsProvider
+    ],
     entryComponents: [DialogBoxComponent],
     bootstrap: [AppComponent]
 })

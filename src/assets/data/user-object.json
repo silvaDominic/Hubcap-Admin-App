@@ -1,9 +1,9 @@
 {
-    "firstName": "Ruzin",
-    "lastName": "Wadwah",
-    "email": "Ruzin23@gmail.com",
-    "id": "1234567",
-    "password": "okaypassword",
-    "dateCreated": "08-30-2019",
-    "role": "FIELD_WORKER"
+    "firstName": "Dominic",
+    "lastName": "Silva",
+    "email": "dom.92@live.com",
+    "password": "123",
+    "role": "FULL_ADMIN",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+    "phoneNumber": "6099231111"
 }

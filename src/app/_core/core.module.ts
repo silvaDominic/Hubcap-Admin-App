@@ -6,12 +6,13 @@ import {UserService} from './services/user.service';
 import {RoleGuard} from './services/role-guard.service';
 import {AuthGuard} from './services/auth-guard.service';
 import {HttpTokenInterceptor} from './http.token.intercepter';
+import {CookieModule, CookieService, CookieOptionsProvider} from 'ngx-cookie';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 
 
 @NgModule({
     imports: [
-        CommonModule,
+        CommonModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
@@ -19,7 +20,8 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
         AuthGuard,
         RoleGuard,
         JwtService,
-        UserService],
+        UserService
+    ],
     declarations: []
 })
 export class CoreModule { }

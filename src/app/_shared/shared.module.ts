@@ -15,6 +15,7 @@ import {SatDatepickerModule, SatNativeDateModule} from 'saturn-datepicker';
 import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {CookieModule} from 'ngx-cookie';
 
 
 @NgModule({

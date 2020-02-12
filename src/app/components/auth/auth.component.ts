@@ -54,10 +54,14 @@ export class AuthComponent implements OnInit {
         const credentials = (this.authType == 'login' ? this.loginForm.value : this.registerForm.value);
         this.userService
             .attemptAuth(this.authType, credentials).subscribe(
-            data => {
-                console.log('Redirecting to profile');
-                // Make profile default
-                this.router.navigateByUrl('/profile');
+            user => {
+                if (this.authType === 'register') {
+                    console.log('NEW User. Redirecting to login');
+                    this.router.navigateByUrl('/login');
+                } else if (this.authType === 'login') {
+                    console.log('EXISTING User. Redirecting to profile');
+                    this.router.navigateByUrl('/profile');
+                }
             },
             err => {
                 console.log('ERROR: ', err);
