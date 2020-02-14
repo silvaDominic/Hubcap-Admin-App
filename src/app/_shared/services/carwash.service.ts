@@ -78,7 +78,7 @@ export class CarwashService {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        httpHeaders.set('Bearer Token', this.userService.getCurrentUserValue().token);
+        httpHeaders.set('Hubcap Token', this.userService.getCurrentUserValue().token);
 
         // Make post and save new object on success
         return this.apiService.post(environment.new_store_url, new HttpParams(), httpHeaders, newStore).pipe(take(1)).toPromise();
@@ -88,7 +88,7 @@ export class CarwashService {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        httpHeaders.set('Bearer Token', this.userService.getCurrentUserValue().token);
+        httpHeaders.set('Hubcap Token', this.userService.getCurrentUserValue().token);
 
         return this.apiService.post(environment.update_store_url, new HttpParams(), httpHeaders, updatedStore).pipe(take(1)).toPromise();
     }
@@ -106,7 +106,7 @@ export class CarwashService {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        // httpHeaders.set('Bearer Token', this.userService.getToken());
+        httpHeaders.set('Hubcap Token', this.userService.getToken());
 
         console.log('Package to Post: ', newPackage);
 
@@ -118,7 +118,7 @@ export class CarwashService {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        // httpHeaders.set('Bearer Token', this.userService.getToken());
+        httpHeaders.set('Hubcap Token', this.userService.getToken());
 
         console.log('Package to Post: ', newPackage);
 
@@ -130,7 +130,7 @@ export class CarwashService {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        // httpHeaders.set('Bearer Token', this.userService.getToken());
+        httpHeaders.set('Hubcap Token', this.userService.getToken());
 
         // Make post and return promise for subservice to resolve
         return this.apiService.post(environment.update_package_array_url, new HttpParams(), httpHeaders, newPackageArray).pipe(take(1)).toPromise();
@@ -140,7 +140,7 @@ export class CarwashService {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        // httpHeaders.set('Bearer Token', this.userService.getToken());
+        httpHeaders.set('Hubcap Token', this.userService.getToken());
 
         const httpParams = new HttpParams();
         httpParams.set('type', CARWASH_COMPONENT.PACKAGE);
@@ -169,7 +169,7 @@ export class CarwashService {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        // httpHeaders.set('Bearer Token', this.userService.getToken());
+        httpHeaders.set('Hubcap Token', this.userService.getToken());
 
         console.log('Promotion to Post: ', newPromotion);
 
@@ -181,7 +181,7 @@ export class CarwashService {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        // httpHeaders.set('Bearer Token', this.userService.getToken());
+        httpHeaders.set('Hubcap Token', this.userService.getToken());
 
         console.log('Promotion to Post: ', newPromotion);
 
@@ -193,7 +193,7 @@ export class CarwashService {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        // httpHeaders.set('Bearer Token', this.userService.getToken());
+        httpHeaders.set('Hubcap Token', this.userService.getToken());
 
         const httpParams = new HttpParams();
         httpParams.set('type', CARWASH_COMPONENT.PROMOTION);

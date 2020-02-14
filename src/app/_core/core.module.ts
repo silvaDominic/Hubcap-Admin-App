@@ -6,7 +6,6 @@ import {UserService} from './services/user.service';
 import {RoleGuard} from './services/role-guard.service';
 import {AuthGuard} from './services/auth-guard.service';
 import {HttpTokenInterceptor} from './http.token.intercepter';
-import {CookieModule, CookieService, CookieOptionsProvider} from 'ngx-cookie';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 
 

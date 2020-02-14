@@ -1,15 +1,10 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {Store} from '../../../../_shared/models/store.model';
-import {StoreHours} from '../../../../_shared/models/store-hours.model';
 import {HoursException} from '../../../../_shared/models/hours-exception.model';
 import {StoreService} from '../../../../_shared/services/store.service';
 import {DAY} from '../../../../_shared/enums/DAY.model';
-import {Address} from '../../../../_shared/models/address.model';
 import {STATES} from '../../../../_shared/enums/STATES.model';
 import {CARWASH_TYPE} from '../../../../_shared/enums/CARWASH_TYPE.model';
-import {MatDialog} from '@angular/material/dialog';
-import {DialogBoxService} from '../../../../_shared/services/dialog-box.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({

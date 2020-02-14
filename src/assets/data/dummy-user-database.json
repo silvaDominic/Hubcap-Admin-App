@@ -1,0 +1,20 @@
+[
+    {
+        "firstName": "Dominic",
+        "lastName": "Silva",
+        "email": "dom.92@live.com",
+        "password": "123",
+        "role": "FULL_ADMIN",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+        "phoneNumber": "6099231111"
+    },
+    {
+        "firstName": "Chatrik",
+        "lastName": "Sohdi",
+        "email": "chitchat@gmail.com",
+        "password": "chutiya",
+        "role": "FIELD_WORKER",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkNoYXRyaWsgRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.O_PnS_WpEYCG4VRBUDyfyMy8N643XfykUhwLjMA6fw8",
+        "phoneNumber": "1234567895"
+    }
+]

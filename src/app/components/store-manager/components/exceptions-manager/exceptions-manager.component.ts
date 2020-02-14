@@ -11,13 +11,10 @@ import {StoreService} from '../../../../_shared/services/store.service';
 })
 export class ExceptionsManagerComponent implements OnInit {
 
-    public exceptions: Observable<HoursException[]>;
-
     constructor(private storeService: StoreService) {
     }
 
     ngOnInit() {
-        this.exceptions = this.storeService.getHoursExceptions();
     }
 
 }

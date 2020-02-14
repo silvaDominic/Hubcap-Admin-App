@@ -2,8 +2,8 @@
     <mat-accordion>
       <mat-expansion-panel hideToggle>
         <mat-expansion-panel-header>
-          <mat-icon *ngIf="thisException.exceptionType === exceptionType.MODIFIED">date_range</mat-icon>
-          <mat-icon *ngIf="thisException.exceptionType === exceptionType.CLOSED">event_busy</mat-icon>
+          <mat-icon *ngIf="thisException.exceptionType === E_HOURS_EXCEPTION_TYPE.MODIFIED">date_range</mat-icon>
+          <mat-icon *ngIf="thisException.exceptionType === E_HOURS_EXCEPTION_TYPE.CLOSED">event_busy</mat-icon>
           <mat-panel-title>
             <span><strong>{{thisException.name}}</strong></span>
           </mat-panel-title>
@@ -12,7 +12,7 @@
         <div class="row">
           <div class="col-md-6">
             <mat-form-field>
-              <input matInput placeholder="Exception Name" type="text" [(ngModel)]="thisException.name">
+              <input matInput placeholder="Exception Name" [(ngModel)]="thisException.name" type="text">
             </mat-form-field>
           </div>
 
@@ -28,13 +28,13 @@
         <div class="row">
           <div class="col-md-12">
             <mat-radio-group class="exception-radio-group" [(ngModel)]="thisException.exceptionType">
-              <mat-radio-button value="MODIFIED" class="exception-radio-button">Limited Hours</mat-radio-button>
-              <mat-radio-button value="CLOSED" class="exception-radio-button">Closed</mat-radio-button>
+              <mat-radio-button value="MODIFIED" class="exception-radio-button" type="radio">Limited Hours</mat-radio-button>
+              <mat-radio-button value="CLOSED" class="exception-radio-button" type="radio">Closed</mat-radio-button>
             </mat-radio-group>
           </div>
         </div>
 
-        <div class="row" *ngIf="thisException.exceptionType === exceptionType.MODIFIED">
+        <div class="row" *ngIf="thisException.exceptionType === E_HOURS_EXCEPTION_TYPE.MODIFIED">
           <div class="col-md-6">
             <mat-form-field>
               <mat-label for="openTime">Open</mat-label>

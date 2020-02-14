@@ -124,13 +124,14 @@ export class UserService {
             throw throwError(new Error('Invalid Login'));
         }
 
-        /*        return this.apiService.post(environment.users_url + route, new HttpParams(), new HttpHeaders(), {adminUser: credentials})
-                    .map(
-                        data => {
-                            this.setAuth(data.adminUser);
-                            return data;
-                        }
-                    );*/
+        return this.apiService.post(environment.users_url, new HttpParams(), new HttpHeaders(), {user: credentials}).pipe(
+            map(
+                data => {
+                    this.setAuth(data.adminUser);
+                    return data;
+                }
+            )
+        );
     }
 
     // TEST METHOD

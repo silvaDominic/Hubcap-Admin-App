@@ -17,9 +17,9 @@ export class ExceptionComponent implements OnInit {
     currentDate: Date;
     exceptionDate: Date;
 
-    exceptionType = HOURS_EXCEPTION_TYPE;
+    E_HOURS_EXCEPTION_TYPE = HOURS_EXCEPTION_TYPE;
 
-    constructor(private readonly storeService: StoreService, private readonly atp: AmazingTimePickerService) {
+    constructor(private readonly storeService: StoreService, private atp: AmazingTimePickerService) {
         this.currentDate = new Date();
         this.exceptionDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDay());
     }
