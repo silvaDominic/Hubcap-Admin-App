@@ -1,138 +1,127 @@
 <div class="store-form-block">
     <div class="row">
         <div class="col-md-12">
-            <mat-accordion id="store-create-accordion">
-                <mat-expansion-panel hideToggle>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <span><strong>Create New Store</strong></span>
-                        </mat-panel-title>
-                        <mat-panel-description>
-                            <div></div>
-                            <mat-icon>add_circle</mat-icon>
-                        </mat-panel-description>
-                    </mat-expansion-panel-header>
+            <form [formGroup]="storeForm" class="store-fields">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="store-form-header">
+                            <h4 *ngIf="(storeService.store | async).id === null">Store Info</h4>
+                            <h4 *ngIf="(storeService.store | async).id !== null">{{(storeService.store | async).name}}</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <mat-form-field>
+                            <input matInput placeholder="Store Name" formControlName="name" type="text">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field>
+                            <mat-label for="carwash-type">Carwash Type</mat-label>
+                            <mat-select id="carwash-type" formControlName="type">
+                                <mat-option *ngFor="let type of E_CARWASH_TYPE_KEYS"
+                                            [value]="type">{{type}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <mat-form-field>
+                            <input matInput placeholder="Street" formControlName="streetAddress" type="text">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field>
+                            <input matInput placeholder="Phone Number" formControlName="phoneNumber" text="tel">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field>
+                            <input matInput placeholder="Store Email" formControlName="email" type="email">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field>
+                            <input matInput placeholder="Website" formControlName="website" type="url">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <mat-form-field>
+                            <input matInput placeholder="City" formControlName="city" type="text">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field>
+                            <mat-label for="state">State</mat-label>
+                            <mat-select id="state" formControlName="state">
+                                <mat-option *ngFor="let state of E_STATE_KEYS"
+                                            [value]="state">{{state}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field>
+                            <input matInput placeholder="Zip" formControlName="zipcode">
+                        </mat-form-field>
+                    </div>
+                </div>
 
-                    <form [formGroup]="storeForm" class="store-fields">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="store-form-header">
-                                    <h4>Store Info</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <mat-form-field>
-                                    <input matInput placeholder="Store Name" formControlName="name" type="text">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-md-4">
-                                <mat-form-field>
-                                    <mat-label for="carwash-type">Carwash Type</mat-label>
-                                    <mat-select id="carwash-type" formControlName="type">
-                                        <mat-option *ngFor="let type of E_CARWASH_TYPE_KEYS"
-                                                    [value]="type">{{type}}</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <mat-form-field>
-                                    <input matInput placeholder="Street" formControlName="streetAddress" type="text">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-md-4">
-                                <mat-form-field>
-                                    <input matInput placeholder="Phone Number" formControlName="phoneNumber" text="tel">
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <mat-form-field>
-                                    <input matInput placeholder="Store Email" formControlName="email" type="email">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-md-6">
-                                <mat-form-field>
-                                    <input matInput placeholder="Website" formControlName="website" type="url">
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <mat-form-field>
-                                    <input matInput placeholder="City" formControlName="city" type="text">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-md-4">
-                                <mat-form-field>
-                                    <mat-label for="state">State</mat-label>
-                                    <mat-select id="state" formControlName="state">
-                                        <mat-option *ngFor="let state of E_STATE_KEYS"
-                                                    [value]="state">{{state}}</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-md-4">
-                                <mat-form-field>
-                                    <input matInput placeholder="Zip" formControlName="zipcode">
-                                </mat-form-field>
-                            </div>
-                        </div>
+                <hr>
 
-                        <hr>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="store-form-header">
-                                    <h4>Store Hours</h4>
-                                </div>
-                                <div class="hours-block" formArrayName="storeHours">
-                                    <div class="list-group-item" *ngFor="let day of E_DAY_KEYS; let i = index;"
-                                         formGroupName="{{i}}">
-                                        <div class="row">
-                                            <div class="col-md-4 day-checkbox-container">
-                                                <mat-checkbox formControlName="isOpen">{{day}}</mat-checkbox>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <mat-form-field>
-                                                    <mat-label for="openTime">Open</mat-label>
-                                                    <input matInput id="openTime" atp-time-picker
-                                                           formControlName="openTime" type="time">
-                                                </mat-form-field>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <mat-form-field>
-                                                    <mat-label for="closeTime">Close</mat-label>
-                                                    <input matInput id="closeTime" atp-time-picker
-                                                           formControlName="closeTime" type="time">
-                                                </mat-form-field>
-                                            </div>
-                                        </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="store-form-header">
+                            <h4>Store Hours</h4>
+                        </div>
+                        <div class="hours-block" formArrayName="storeHours">
+                            <div class="list-group-item"
+                                 *ngFor="let day of E_DAY_KEYS let hour of storeForm.get('storeHours').value; let i = index;"
+                                 formGroupName="{{i}}">
+                                <div class="row">
+                                    <div class="col-md-4 day-checkbox-container">
+                                        <mat-checkbox formControlName="isOpen">{{day}}</mat-checkbox>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field>
+                                            <mat-label for="openTime">Open</mat-label>
+                                            <input matInput id="openTime" atp-time-picker
+                                                   formControlName="openTime" type="time">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field>
+                                            <mat-label for="closeTime">Close</mat-label>
+                                            <input matInput id="closeTime" atp-time-picker
+                                                   formControlName="closeTime" type="time">
+                                        </mat-form-field>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <hr>
+                <hr>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="store-form-header">
-                                    <h4>Exceptions</h4>
-                                </div>
-                                <app-exceptions-manager></app-exceptions-manager>
-                            </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="store-form-header">
+                            <h4>Exceptions</h4>
                         </div>
-                    </form>
-                    <mat-action-row>
-                        <button mat-raised-button color="primary" (click)="createStore(storeForm)">Create Store</button>
-                    </mat-action-row>
-                </mat-expansion-panel>
-            </mat-accordion>
+                        <app-exceptions-manager></app-exceptions-manager>
+                    </div>
+                </div>
+            </form>
+            <mat-action-row>
+                <button *ngIf="(storeService.store | async).id === null" mat-raised-button color="primary" (click)="createStore(storeForm)">Create Store</button>
+                <button *ngIf="(storeService.store | async).id !== null" mat-raised-button color="primary" (click)="createStore(storeForm)">Update Store</button>
+            </mat-action-row>
         </div>
     </div>
 </div>

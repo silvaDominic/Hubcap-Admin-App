@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {SharedModule} from '../../_shared/shared.module';
 import {StoreManagerComponent} from './store-manager.component';
-import {StoreComponent} from './components/store/store.component';
 import {StoreFormComponent} from './components/store-form/store-form.component';
 import {StoreManagerRoutingModule} from './store-manager.routing';
 import {ExceptionsManagerComponent} from './components/exceptions-manager/exceptions-manager.component';
@@ -15,7 +14,6 @@ import {ExceptionFormComponent} from './components/exceptions-manager/exception-
     ],
     declarations: [
         StoreManagerComponent,
-        StoreComponent,
         StoreFormComponent,
         ExceptionsManagerComponent,
         ExceptionComponent,

@@ -17,7 +17,7 @@ import {CONSTANTS} from '../CONSTANTS';
     providedIn: 'root'
 })
 export class StoreService {
-    private storeSubject = new BehaviorSubject<Store>(<Store>{});
+    private storeSubject = new BehaviorSubject<Store>(null);
     private _store: Observable<Store> = this.storeSubject.asObservable();
     public serviceReady: boolean = false;
 
@@ -61,7 +61,11 @@ export class StoreService {
     }
 
     public getForm(): FormGroup {
-        return this.generateStoreForm(Store.EMPTY_MODEL);
+        if (this.storeSubject == null) {
+            return this.generateStoreForm(Store.EMPTY_MODEL);
+        } else {
+            return this.generateStoreForm(this.storeSubject.getValue());
+        }
     }
 
 
@@ -95,6 +99,8 @@ export class StoreService {
     }
 
     /* STORE HANDLERS */
+
+    /* Used for NEW and UPDATED stores*/
     public createStore(storeForm: FormGroup): Promise<boolean> {
         const addressCoordinates = new Map<string, string>();
 
@@ -160,56 +166,6 @@ export class StoreService {
             );
         });
     }
-
-    public updateStore(updatedStore: Store): Promise<boolean> {
-        console.log('Store to update: ', updatedStore);
-        const addressCoordinates = new Map<string, string>();
-
-        // Create address string for Geocode API call
-        const fullAddressQuery = (
-            updatedStore.address.street + ',' +
-            updatedStore.address.city + ',' +
-            updatedStore.address.state
-        );
-
-        // Set params for Geocode API call
-        let httpParams = new HttpParams();
-        httpParams = httpParams.set('address', fullAddressQuery);
-        httpParams = httpParams.set('key', environment.GOOGLE_API_KEY);
-
-        let httpHeaders = new HttpHeaders();
-        httpHeaders = httpHeaders.set('Access-Control-Allow-Headers', 'Content-Type, POST, GET, PUT, DELETE, OPTIONS, HEAD, Authorization');
-        httpHeaders = httpHeaders.set('Access-Control-Allow-Origin', '*');
-        httpHeaders = httpHeaders.set('Content-Type', 'application/json');
-
-        return new Promise((resolve, reject) => {
-            this.apiService.getGeoLocation(httpParams, httpHeaders).subscribe(
-                geoResponse => {
-                    // Convert lat & lng to CarwashCoordinates
-                    addressCoordinates.set('lat', geoResponse.data.results[0].geometry.location.lat);
-                    addressCoordinates.set('lng', geoResponse.data.results[0].geometry.location.lng);
-                    // Create new store object to be pushed to backend
-                    console.log('LAT AND LONG VALUES: ', addressCoordinates);
-                    // Post new store
-                    return this.carwashService.updateStore(updatedStore).then((response) => {
-                        console.log('Store post SUCCESS: ', response);
-                        updatedStore.id = response.id;
-                        this.storeSubject.next(updatedStore);
-
-                        this.carwashService.cacheStore(updatedStore);
-                        resolve(true);
-                    }).catch(reason => {
-                        reject(reason);
-                    });
-                },
-                error => {
-                    console.log('Unable to retrieve coordinates.', error);
-                    reject();
-                }
-            );
-        });
-    }
-
 
     deleteStore(id: string) {
 
@@ -281,7 +237,7 @@ export class StoreService {
                     Validators.minLength(CONSTANTS.PHONE_NUM_MIN_LENGTH_VALIDATOR)
                 ]
             ],
-            storeHours: this.fb.array(this.addStoreHours().map
+            storeHours: this.fb.array(store.hoursOfOperation.storeHours.map
             (storeHours => this.generateHoursForm(storeHours))),
             website: [store.website]
         });
@@ -290,8 +246,8 @@ export class StoreService {
     private generateHoursForm(storeHours: StoreHours): FormGroup {
         return this.fb.group({
             day: [storeHours.day, Validators.required],
-            openTime: [storeHours.openTime, {disabled: true}, [Validators.required]],
-            closeTime: [storeHours.closeTime, {disabled: true}, [Validators.required]],
+            openTime: [storeHours.openTime, [Validators.required]],
+            closeTime: [storeHours.closeTime, [Validators.required]],
             isOpen: [storeHours.isOpen, Validators.required]
         });
     }
@@ -309,16 +265,6 @@ export class StoreService {
             openTime: [exception.openTime],
             closeTime: [exception.closeTime]
         });
-    }
-
-    private addStoreHours() {
-        const hours = [];
-        Object.keys(DAY).forEach(function (day) {
-            const dayEnum: DAY = DAY[day];
-            hours.push(new StoreHours(dayEnum));
-        });
-        console.log('Form Store Hours: ', hours);
-        return hours;
     }
 }
 

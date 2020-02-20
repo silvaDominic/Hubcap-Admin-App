@@ -23,11 +23,11 @@ export class StoreFormComponent {
 
     constructor(private readonly storeService: StoreService, private readonly snackBar: MatSnackBar) {
         this.storeForm = this.storeService.getForm();
+        console.log(this.storeForm);
         this.formExceptions = [];
     }
 
     public createStore(storeForm: FormGroup): void {
-        console.log(this.findInvalidControls());
         if (storeForm.valid) {
             this.storeService.createStore(storeForm).then((response) => {
                 if (response == true) {
@@ -37,7 +37,15 @@ export class StoreFormComponent {
                 }
             });
         } else {
-            alert('Please fill out the remaining fields');
+            alert(
+                'Please fill out the remaining fields \n' +
+
+                this.findInvalidControls().map(
+                    control => {
+                        return control.toString() + '\n'
+                    }
+                )
+            );
         }
     }
 

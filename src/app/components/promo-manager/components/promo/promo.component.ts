@@ -6,8 +6,7 @@ import {CONSTANTS} from '../../../../_shared/CONSTANTS';
 import {FREQUENCY} from '../../../../_shared/enums/FREQUENCY.model';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {DialogBoxService} from '../../../../_shared/services/dialog-box.service';
-import {map, tap} from 'rxjs/operators';
-import {PROMO_FORM_STEPS} from '../../../../_shared/enums/PROMO_FORM_STEPS.model';
+import {tap} from 'rxjs/operators';
 
 @Component({
     selector: 'app-promo',

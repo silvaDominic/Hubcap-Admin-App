@@ -22,12 +22,4 @@ export class PromoManagerComponent implements OnInit, OnDestroy {
             this.promotionService.cancelNewPromotion();
         }
     }
-
-    public setFocusPromotion(index: number) {
-        this.promotionService.setPromotion(index);
-    }
-
-    public setFocusPromotionById(id: string) {
-        this.promotionService.setPromotionById(id);
-    }
 }
