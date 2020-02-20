@@ -12,10 +12,10 @@ import {AmazingTimePickerModule} from 'amazing-time-picker';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
 import {SatDatepickerModule, SatNativeDateModule} from 'saturn-datepicker';
-import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
+import {DialogBoxComponent} from './components/dialog-box/dialog-box.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {CookieModule} from 'ngx-cookie';
+import {DisableControlDirective} from './directives/disable-control.directive';
 
 
 @NgModule({
@@ -50,7 +50,11 @@ import {CookieModule} from 'ngx-cookie';
         SatDatepickerModule,
         SatNativeDateModule,
         MatDatepickerModule,
-        MatDialogModule
+        MatDialogModule,
+    ],
+    declarations: [
+        DialogBoxComponent,
+        DisableControlDirective
     ],
     exports: [
         CommonModule,
@@ -82,9 +86,11 @@ import {CookieModule} from 'ngx-cookie';
         AmazingTimePickerModule,
         SatDatepickerModule,
         SatNativeDateModule,
-        MatDatepickerModule
-    ],
-    declarations: [DialogBoxComponent]
+        MatDatepickerModule,
+        DialogBoxComponent,
+        DisableControlDirective
+    ]
 })
 
-export class SharedModule {}
+export class SharedModule {
+}

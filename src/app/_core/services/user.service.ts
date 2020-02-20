@@ -39,12 +39,9 @@ export class UserService {
     // Verify JWT in localstorage with server & load user's info.
     // This runs once on application startup.
     public populate(): void {
-        // this.purgeAuth();
-
         // If JWT detected, attempt to get & store user's info
         if (this.jwtService.getToken()) {
-            // this.setAuth(CONSTANTS.VALID_USER)
-            this.apiService.get(environment.users_url, new HttpParams(), new HttpHeaders().set('Authorization', this.jwtService.getToken().toString()))
+            this.apiService.get(environment.users_url, new HttpParams(), new HttpHeaders().set('Authorization', this.jwtService.getToken()))
                 .subscribe(
                     data => {
                         console.log('User Valid, Starting App');
@@ -159,14 +156,14 @@ export class UserService {
     }
 
     // Update the user on the server (email, pass, etc)
-    public update(adminUser): Observable<User> {
+    public update(user: User): Observable<User> {
         return this.apiService
-            .post(environment.users_url, new HttpParams().set(adminUser, adminUser)) // TODO Look into this
-            .map(data => {
-                // Update the currentUser observable
-                this.currentUserSubject.next(data.adminUser);
-                return data.adminUser;
-            });
+            .post(environment.assets_url_base + user.firstName + '-user-object.json', new HttpParams()).pipe( // TODO Look into this
+                map(_user => {
+                    // Update the currentUser observable
+                    this.currentUserSubject.next(_user);
+                    return _user;
+                }));
     }
 
     public getAllowedRoutes(): RouteInfo[] {

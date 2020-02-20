@@ -26,7 +26,8 @@ export class StoreFormComponent {
         this.formExceptions = [];
     }
 
-    createStore(storeForm: FormGroup) {
+    public createStore(storeForm: FormGroup): void {
+        console.log(this.findInvalidControls());
         if (storeForm.valid) {
             this.storeService.createStore(storeForm).then((response) => {
                 if (response == true) {
@@ -40,7 +41,18 @@ export class StoreFormComponent {
         }
     }
 
-    private openSnackBar(message: string, action: string) {
+    public findInvalidControls(): any {
+        const invalidCtrls = [];
+        const controls = this.storeForm.controls;
+        for (const name in controls) {
+            if (controls[name].invalid) {
+                invalidCtrls.push(name);
+            }
+        }
+        return invalidCtrls;
+    }
+
+    private openSnackBar(message: string, action: string): void {
         this.snackBar.open(message, action, {
             duration: 4000,
         });

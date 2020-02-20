@@ -11,6 +11,7 @@ import {Address} from '../models/address.model';
 import {pluck} from 'rxjs/operators';
 import {ApiService} from '../../_core/services/api.service';
 import {environment} from '../../../environments/environment';
+import {CONSTANTS} from '../CONSTANTS';
 
 @Injectable({
     providedIn: 'root'
@@ -240,14 +241,46 @@ export class StoreService {
     public generateStoreForm(store: Store): FormGroup {
         return this.fb.group({
             id: [store.id],
-            name: [store.name, Validators.required],
+            name: [store.name,
+                [
+                    Validators.required,
+                    Validators.pattern(CONSTANTS.ALPHABET_NUM_EXT_VALIDATOR),
+                    Validators.maxLength(CONSTANTS.STORE_NAME_MAX_LENGTH_VALIDATOR)
+                ]
+            ],
             type: [store.type, Validators.required],
-            streetAddress: [store.address.street, Validators.required],
-            city: [store.address.city, Validators.required],
+            streetAddress: [store.address.street,
+                [
+                    Validators.required,
+                    Validators.pattern(CONSTANTS.ALPHABET_NUM_EXT_VALIDATOR)
+                ]
+            ],
+            city: [store.address.city,
+                [
+                    Validators.required, Validators.pattern(CONSTANTS.ALPHABET_NORM_VALIDATOR)
+                ]
+            ],
             state: [store.address.state, Validators.required],
-            zipcode: [store.address.zipcode, Validators.required],
-            email: [store.email, [Validators.required, Validators.email]],
-            phoneNumber: [store.phoneNumber, Validators.required],
+            zipcode: [store.address.zipcode,
+                [
+                    Validators.required,
+                    Validators.pattern(CONSTANTS.NUM_ONLY_VALIDATOR),
+                    Validators.minLength(CONSTANTS.ZIPCODE_MIN_LENGTH_VALIDATOR)
+                ]
+            ],
+            email: [store.email,
+                [
+                    Validators.required,
+                    Validators.email
+                ]
+            ],
+            phoneNumber: [store.phoneNumber,
+                [
+                    Validators.required,
+                    Validators.pattern(CONSTANTS.NUM_ONLY_VALIDATOR),
+                    Validators.minLength(CONSTANTS.PHONE_NUM_MIN_LENGTH_VALIDATOR)
+                ]
+            ],
             storeHours: this.fb.array(this.addStoreHours().map
             (storeHours => this.generateHoursForm(storeHours))),
             website: [store.website]
@@ -257,15 +290,20 @@ export class StoreService {
     private generateHoursForm(storeHours: StoreHours): FormGroup {
         return this.fb.group({
             day: [storeHours.day, Validators.required],
-            openTime: [storeHours.openTime, Validators.required],
-            closeTime: [storeHours.closeTime, Validators.required],
+            openTime: [storeHours.openTime, {disabled: true}, [Validators.required]],
+            closeTime: [storeHours.closeTime, {disabled: true}, [Validators.required]],
             isOpen: [storeHours.isOpen, Validators.required]
         });
     }
 
     public generateExceptionsForm(exception: HoursException): FormGroup {
         return this.fb.group({
-            name: [exception.name, Validators.required],
+            name: [exception.name,
+                [
+                    Validators.required,
+                    Validators.pattern(CONSTANTS.ALPHABET_EXT_VALIDATOR)
+                ]
+            ],
             date: [exception.date, Validators.required],
             exceptionType: [exception.exceptionType, Validators.required],
             openTime: [exception.openTime],

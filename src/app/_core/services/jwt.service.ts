@@ -9,15 +9,15 @@ export class JwtService {
     constructor(private readonly cookieService: CookieService) {}
 
     getToken(): string {
-        return this.cookieService.get('jwtToken'); // change to cookie
+        return this.cookieService.get('authToken'); // change to cookie
     }
 
     saveToken(token: string) {
-        this.cookieService.put('jwtToken', token);
+        this.cookieService.put('authToken', token);
     }
 
     destroyToken() {
-        this.cookieService.remove('jwtToken');
+        this.cookieService.remove('authToken');
     }
 
 }

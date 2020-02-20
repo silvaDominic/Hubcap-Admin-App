@@ -9,6 +9,7 @@ export const environment = {
     carwash_url: '/assets/data/carwash.json',
     display_package_items_url: '/assets/data/all-package-items.json',
     users_url: '/assets/data/dummy-user-database.json',
+    assets_url_base: '/assets/data/',
     geolocation_base_url: 'https://maps.googleapis.com/maps/api/geocode/json',
     GOOGLE_API_KEY: 'AIzaSyBmP-8g9b_1PsCHdNnlkThfMwLA1ADlrNU',
     new_store_url: '',
