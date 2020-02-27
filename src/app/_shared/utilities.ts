@@ -9,6 +9,7 @@ import {Package} from './models/package.model';
 import {Store} from './models/store.model';
 import {PackageItem} from './models/package-item.model';
 import {Frequency} from './models/frequency.model';
+import {FormGroup} from '@angular/forms';
 
 export class Utilities {
 
@@ -158,6 +159,17 @@ export class Utilities {
             data.closeTime,
             data.isOpen
         );
+    }
+
+    public static findInvalidControls(form: FormGroup): any {
+        const invalidCtrls = [];
+        const controls = form.controls;
+        for (const name in controls) {
+            if (controls[name].invalid) {
+                invalidCtrls.push(name);
+            }
+        }
+        return invalidCtrls;
     }
 
     constructor() {}

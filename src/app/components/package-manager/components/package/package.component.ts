@@ -8,6 +8,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {tap} from 'rxjs/operators';
 import {DialogBoxService} from '../../../../_shared/services/dialog-box.service';
 import {VEHICLE_TYPE} from '../../../../_shared/enums/VEHICLE_TYPE.model';
+import {FormGroup} from '@angular/forms';
+import {Utilities} from '../../../../_shared/utilities';
 
 @Component({
     selector: 'app-package',
@@ -19,28 +21,45 @@ export class PackageComponent implements OnInit {
 
     @Output() packageSelect = new EventEmitter<number>();
     public E_VEHICLE_TYPE = VEHICLE_TYPE;
+    public packageForm: FormGroup;
 
     constructor(private readonly packageService: PackageService, private readonly snackBar: MatSnackBar, private readonly dialogBoxService: DialogBoxService) {
     }
 
     ngOnInit() {
         console.log('package init');
+        this.packageForm = this.packageService.getForm();
     }
 
     callSetFocusPackage(index: number) {
         this.packageService.creatingNewPackage = false;
         this.packageSelect.emit(index);
+        this.packageForm.reset();
+        this.packageForm = this.packageService.getForm();
     }
 
     public savePackage(updatedPackage: Package): void {
-        this.packageService.savePackage(updatedPackage).then((result) => {
-            if (result == true) {
-                this.openSnackBar(updatedPackage.name + ' Promo', 'Created')
-                // Otherwise, display alert
-            } else if (result == false) {
-                alert('Error SAVING ' + updatedPackage.name + '.' + ' Try again or contact your Admin.')
-            }
-        });
+        if (this.packageForm.valid) {
+            this.packageService.savePackage(updatedPackage).then((result) => {
+                if (result == true) {
+                    this.openSnackBar(updatedPackage.name + ' Promo', 'Created')
+                    // Otherwise, display alert
+                } else if (result == false) {
+                    alert('Error SAVING ' + updatedPackage.name + '.' + ' Try again or contact your Admin.')
+                }
+            });
+        } else {
+            alert(
+                'Please fill out the remaining fields \n' +
+
+                Utilities.findInvalidControls(this.packageForm).map(
+                    control => {
+                        return control.toString() + '\n'
+                    }
+                )
+            );
+        }
+
     }
 
     public savePackageArray(updatedPackageArray: Package[]): void {

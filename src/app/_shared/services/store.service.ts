@@ -213,7 +213,8 @@ export class StoreService {
             ],
             city: [store.address.city,
                 [
-                    Validators.required, Validators.pattern(CONSTANTS.ALPHABET_NORM_VALIDATOR)
+                    Validators.required,
+                    Validators.pattern(CONSTANTS.ALPHABET_NORM_VALIDATOR)
                 ]
             ],
             state: [store.address.state, Validators.required],
@@ -257,7 +258,7 @@ export class StoreService {
             name: [exception.name,
                 [
                     Validators.required,
-                    Validators.pattern(CONSTANTS.ALPHABET_EXT_VALIDATOR)
+                    Validators.pattern(CONSTANTS.ALPHABET_NORM_VALIDATOR)
                 ]
             ],
             date: [exception.date, Validators.required],

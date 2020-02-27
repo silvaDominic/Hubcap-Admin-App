@@ -8,6 +8,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {VEHICLE_TYPE} from '../enums/VEHICLE_TYPE.model';
 import {PackageItem} from '../models/package-item.model';
 import 'rxjs/operators/map';
+import {CONSTANTS} from '../CONSTANTS';
 
 @Injectable({
     providedIn: 'root',
@@ -152,9 +153,6 @@ export class PackageService {
     }
 
 
-
-
-
     // Initialize a new package by wiping global variables and creating new empty package object
     initNewPackage(): void {
         this.creatingNewPackage = true;
@@ -166,7 +164,7 @@ export class PackageService {
                 Package.EMPTY_MODEL.name,
                 Package.EMPTY_MODEL.type,
                 Package.EMPTY_MODEL.oneTimePrices,
-                Package.EMPTY_MODEL.packageItems,
+                this.selectedPackageItems,
                 Package.EMPTY_MODEL.duration,
                 Package.EMPTY_MODEL.monthlyPrices
             )
@@ -180,6 +178,7 @@ export class PackageService {
         this.creatingNewPackage = false;
         if (this.packageArraySubject.getValue().length > 0 && this.packageArraySubject.getValue() != null) {
             this.setPackage(0);
+            this.refreshDisplayPackageOptions();
         } else {
             console.log('No package to default to. Current index set to null');
             this.currentPackageIndex = null;
@@ -354,6 +353,7 @@ export class PackageService {
         // Temp variable used to update behavior subject
         const updatedPackageItems: Map<DisplayPackageItem, boolean> = new Map<DisplayPackageItem, boolean>();
         for (const item of this.displayPackageItemsSubject.value.keys()) {
+            item.selectedSubOption = null;
             updatedPackageItems.set(item, false);
         }
         // Update behavior subject
@@ -432,7 +432,11 @@ export class PackageService {
     /* --------------------- FORM METHODS ------------------------- */
 
     public getForm(): FormGroup {
-        return this.generatePackageForm(Package.EMPTY_MODEL);
+        if (this.packageSubject == null) {
+            return this.generatePackageForm(Package.EMPTY_MODEL);
+        } else {
+            return this.generatePackageForm(this.packageSubject.getValue());
+        }
     }
 
     private generatePackageForm(_package: Package): FormGroup {
@@ -441,7 +445,8 @@ export class PackageService {
             nameFormGroup: this.generateNameFormGroup(_package),
             pricingFormGroup: this.generatePricingFormGroup(_package),
             durationFormGroup: this.generateDurationFormGroup(_package),
-            packageItemsFormGroup: this.generatePackageItemsFormGroup(_package)
+            packageItemsFormGroup: this.fb.array(Array.from(this.displayPackageItemsSubject.getValue().keys())
+                .map(item => this.generatePackageItemsFormGroup(item)))
         });
     }
 
@@ -453,28 +458,63 @@ export class PackageService {
 
     private generateNameFormGroup(_package: Package): FormGroup {
         return this.fb.group({
-            name: [_package.name, Validators.required]
+            name: [_package.name,
+                [
+                    Validators.required,
+                    Validators.pattern(CONSTANTS.ALPHABET_NUM_EXT_VALIDATOR),
+                    Validators.maxLength(CONSTANTS.PACKAGE_NAME_MAX_LENGTH_VALIDATOR)
+                ]
+            ]
         });
     }
 
     private generatePricingFormGroup(_package: Package): FormGroup {
         return this.fb.group({
-            oneTimeRegularPrice: [_package.oneTimePrices[VEHICLE_TYPE.REGULAR], Validators.required],
-            oneTimeOverSizedPrice: [_package.oneTimePrices[VEHICLE_TYPE.OVERSIZED], Validators.required],
-            monthlyRegularPrice: [_package.monthlyPrices[VEHICLE_TYPE.REGULAR], Validators.required],
-            monthlyOverSizedPrice: [_package.monthlyPrices[VEHICLE_TYPE.OVERSIZED], Validators.required]
+            oneTimeRegularPrice: [_package.oneTimePrices[VEHICLE_TYPE.REGULAR],
+                [
+                    Validators.required,
+                    Validators.maxLength(CONSTANTS.PACKAGE_PRICE_MAX_LENGTH_VALIDATOR),
+                    Validators.pattern(CONSTANTS.NUM_ONLY_VALIDATOR)
+                ]
+            ],
+            oneTimeOverSizedPrice: [_package.oneTimePrices[VEHICLE_TYPE.OVERSIZED],
+                [
+                    Validators.required,
+                    Validators.maxLength(CONSTANTS.PACKAGE_PRICE_MAX_LENGTH_VALIDATOR),
+                    Validators.pattern(CONSTANTS.NUM_ONLY_VALIDATOR)
+                ]
+            ],
+            monthlyRegularPrice: [_package.monthlyPrices[VEHICLE_TYPE.REGULAR],
+                [
+                    Validators.maxLength(CONSTANTS.PACKAGE_PRICE_MAX_LENGTH_VALIDATOR),
+                    Validators.pattern(CONSTANTS.NUM_ONLY_VALIDATOR)
+                ]
+            ],
+            monthlyOverSizedPrice: [_package.monthlyPrices[VEHICLE_TYPE.OVERSIZED],
+                [
+                    Validators.maxLength(CONSTANTS.PACKAGE_PRICE_MAX_LENGTH_VALIDATOR),
+                    Validators.pattern(CONSTANTS.NUM_ONLY_VALIDATOR)
+                ]
+            ],
         });
     }
 
     private generateDurationFormGroup(_package: Package): FormGroup {
         return this.fb.group({
-            duration: [_package.duration, Validators.required]
+            duration: [_package.duration,
+                [
+                    Validators.required,
+                    Validators.pattern(CONSTANTS.NUM_ONLY_VALIDATOR),
+                    Validators.maxLength(CONSTANTS.PACKAGE_DURATION_MAX_LENGTH_VALIDATOR)
+                ]
+            ]
         });
     }
 
-    private generatePackageItemsFormGroup(_package: Package): FormGroup {
+    private generatePackageItemsFormGroup(packageItem: DisplayPackageItem | PackageItem): FormGroup {
         return this.fb.group({
-            packageItems: [_package.packageItems, Validators.required]
+            name: [packageItem.name],
+            selectedSubOption: [packageItem.selectedSubOption]
         });
     }
 }

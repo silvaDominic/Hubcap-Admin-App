@@ -6,6 +6,7 @@ import {DAY} from '../../../../_shared/enums/DAY.model';
 import {STATES} from '../../../../_shared/enums/STATES.model';
 import {CARWASH_TYPE} from '../../../../_shared/enums/CARWASH_TYPE.model';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {Utilities} from '../../../../_shared/utilities';
 
 @Component({
   selector: 'app-store-form',
@@ -40,24 +41,13 @@ export class StoreFormComponent {
             alert(
                 'Please fill out the remaining fields \n' +
 
-                this.findInvalidControls().map(
+                Utilities.findInvalidControls(this.storeForm).map(
                     control => {
                         return control.toString() + '\n'
                     }
                 )
             );
         }
-    }
-
-    public findInvalidControls(): any {
-        const invalidCtrls = [];
-        const controls = this.storeForm.controls;
-        for (const name in controls) {
-            if (controls[name].invalid) {
-                invalidCtrls.push(name);
-            }
-        }
-        return invalidCtrls;
     }
 
     private openSnackBar(message: string, action: string): void {

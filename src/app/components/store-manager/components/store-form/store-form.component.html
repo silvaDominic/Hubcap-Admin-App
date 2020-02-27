@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="store-form-header">
-                            <h4 *ngIf="(storeService.store | async).id === null">Store Info</h4>
+                            <h4 *ngIf="(storeService.store | async).id === null">Create New Store</h4>
                             <h4 *ngIf="(storeService.store | async).id !== null">{{(storeService.store | async).name}}</h4>
                         </div>
                     </div>

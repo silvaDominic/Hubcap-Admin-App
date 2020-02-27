@@ -2,9 +2,8 @@
     {
         "name": "Wash",
         "itemType": "EXTERIOR",
-        "selectedSubOption": "--Must Select One--",
+        "selectedSubOption": null,
         "subOptions" : [
-            "--Must Select One--",
             "Soft Touch",
             "Touch Free",
             "Hand Wash"
@@ -13,9 +12,8 @@
     {
         "name": "Dry",
         "itemType": "EXTERIOR",
-        "selectedSubOption": "--Must Select One--",
+        "selectedSubOption": null,
         "subOptions" : [
-            "--Must Select One--",
             "Machine Dry",
             "Hand Dry"
         ]
@@ -41,9 +39,8 @@
     {
         "name": "Exterior Gloss/Car Shine",
         "itemType": "EXTERIOR",
-        "selectedSubOption": "--Must Select One--",
+        "selectedSubOption": null,
         "subOptions": [
-            "--Must Select One--",
             "Hot Wax",
             "Clear Coat Protectant",
             "Blue Coral Pink Spray Wax",
@@ -69,9 +66,8 @@
     {
         "name": "Exterior Protectant",
         "itemType": "EXTERIOR",
-        "selectedSubOption": "--Must Select One--",
+        "selectedSubOption": null,
         "subOptions": [
-            "--Must Select One--",
             "Clearcoat Conditioner",
             "Lava Paint Sealant",
             "Carnauba Wax",
@@ -125,9 +121,8 @@
     {
         "name": "Interior Conditioning/Dressing",
         "itemType": "INTERIOR",
-        "selectedSubOption": "--Must Select One--",
+        "selectedSubOption": null,
         "subOptions": [
-            "--Must Select One--",
             "All Interior",
             "Door Jambs",
             "Dashboard",
@@ -146,9 +141,8 @@
     {
         "name": "Mats Washed/Shampooed",
         "itemType": "INTERIOR",
-        "selectedSubOption": "--Must Select One--",
+        "selectedSubOption": null,
         "subOptions": [
-            "--Must Select One--",
             "Rubber Mats",
             "Upholstery Mats",
             "Trunk Mats",
@@ -162,4 +156,3 @@
         "subOptions": []
     }
 ]
-

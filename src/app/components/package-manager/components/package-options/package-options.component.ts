@@ -1,9 +1,10 @@
 import {AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {PackageService} from '../../../../_shared/services/package.service';
 import {ITEM_TYPE} from '../../../../_shared/enums/ITEM_TYPE.model';
-import {FormGroup} from '@angular/forms';
+import {FormArray, FormGroup, Validators} from '@angular/forms';
 import {VEHICLE_TYPE} from '../../../../_shared/enums/VEHICLE_TYPE.model';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {Utilities} from '../../../../_shared/utilities';
 
 @Component({
     selector: 'app-package-options',
@@ -37,6 +38,7 @@ export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit
 
     private initForm(): void {
         this.packageForm = this.packageService.getForm();
+        console.log('Package Form on Init: ', this.packageForm);
     }
 
     public toggleIsMonthly(event): void {
@@ -44,6 +46,18 @@ export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit
     }
 
     public buttonToggle(event, index, item): void {
+        if (item.value === false && item.key.subOptions.length != 0 || item.key.subOptions.length == null) {
+            console.log('Selected a SELECT. Updating Validators.');
+            const arrayControl = this.packageForm.get('packageItemsFormGroup') as FormArray;
+            arrayControl.at(index).get('selectedSubOption').setValidators([Validators.required]);
+            arrayControl.at(index).get('selectedSubOption').updateValueAndValidity();
+
+        } else if (item.value === true && item.key.subOptions.length != 0 || item.key.subOptions.length == null) {
+            console.log('Deselected a SELECT. Updating Validators.');
+            const arrayControl = this.packageForm.get('packageItemsFormGroup') as FormArray;
+            arrayControl.at(index).get('selectedSubOption').clearValidators();
+            arrayControl.at(index).get('selectedSubOption').updateValueAndValidity();
+        }
         this.packageService.togglePIButton(event, index, item);
     }
 
@@ -52,20 +66,36 @@ export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit
     }
 
     public createPackage(packageForm: FormGroup): void {
-        this.packageService.createPackage(packageForm).then((result) => {
-            if (result == true) {
-                this.callSetFocusPackage(this.packageService.getPackageArrayLength() - 1);
-                this.openSnackBar(packageForm.get('nameFormGroup.name').value + ' Promo', 'Created');
-                // Otherwise, display alert
-            } else {
-                alert('Error CREATING ' + packageForm.get('nameFormGroup.name').value + '.' + ' Try again or contact your Admin.')
-            }
-        });
+        console.log(this.packageForm);
+        if (packageForm.valid) {
+            this.packageService.createPackage(packageForm).then((result) => {
+                if (result == true) {
+                    this.callSetFocusPackage(this.packageService.getPackageArrayLength() - 1);
+                    this.openSnackBar(packageForm.get('nameFormGroup.name').value + ' Promo', 'Created');
+                    // Otherwise, display alert
+                } else {
+                    alert('Error CREATING ' + packageForm.get('nameFormGroup.name').value + '.' + ' Try again or contact your Admin.')
+                }
+            });
+        }  else {
+            alert(
+                'Please fill out the remaining fields \n' +
+
+                Utilities.findInvalidControls(this.packageForm).map(
+                    control => {
+                        return control.toString() + '\n'
+                    }
+                )
+            );
+        }
+
     }
 
     public callSetFocusPackage(index: number) {
         this.packageService.creatingNewPackage = false;
         this.packageSelect.emit(index);
+        this.packageForm = this.packageService.getForm();
+        this.packageForm.updateValueAndValidity();
     }
 
     private initDisplayItems() {
