@@ -56,6 +56,10 @@ export class StoreService {
         return this._store;
     }
 
+    public getStoreId(): string {
+        return this.storeSubject.getValue().id;
+    }
+
     public getHoursExceptions(): Observable<HoursException[]> {
         return this.storeSubject.pipe(pluck('hoursOfOperation', 'hoursExceptions'));
     }
@@ -100,12 +104,8 @@ export class StoreService {
 
     /* STORE HANDLERS */
 
-    /* Used for NEW and UPDATED stores*/
-    public updateStore(storeForm: FormGroup, isNew: boolean = false): Promise<boolean> {
-
-        console.log(storeForm);
-
-        const id = this.storeSubject.getValue().id;
+    /* Used for NEW stores*/
+    public createStore(storeForm: FormGroup): Promise<boolean> {
 
         const addressCoordinates = new Map<string, string>();
 
@@ -123,7 +123,7 @@ export class StoreService {
         httpParams = httpParams.set('address', fullAddressQuery);
         httpParams = httpParams.set('key', environment.GEOLOCATION_API_KEY);
 
-        console.log('Params httpParams');
+        console.log('Params ', httpParams);
 
         return new Promise((resolve, reject) => {
             // Geocode API call
@@ -144,7 +144,7 @@ export class StoreService {
                     );
 
                     const newStore = new Store(
-                        id,
+                        null,
                         storeForm.get('name').value,
                         storeForm.get('type').value,
                         newAddress,
@@ -159,15 +159,10 @@ export class StoreService {
                     console.log(newStore);
 
                     // Post new store
-                    return this.carwashService.postNewStore(newStore).then((res) => {
+                    return this.carwashService.postNewStore(newStore).then((res: Store) => {
                         console.log('Store post SUCCESS: ', res);
 
-                        // Set id if new and update store
-                        if (isNew) {
-                            newStore.id = res.id;
-                        }
-
-                        this.storeSubject.next(newStore);
+                        this.storeSubject.next(res);
 
                         // Update carwash object
                         this.carwashService.cacheStore(newStore);
@@ -183,32 +178,85 @@ export class StoreService {
         });
     }
 
-    deleteStore(id: string) {
+    /* Used for UPDATING stores*/
+    public updateStore(storeForm: FormGroup): Promise<boolean> {
 
+        const addressCoordinates = new Map<string, string>();
+
+        // Create address string for Geocode API call
+        const fullAddressQuery = (
+            storeForm.get('streetAddress').value + ' ' +
+            storeForm.get('city').value + ' ' +
+            storeForm.get('state').value
+        );
+
+        console.log(fullAddressQuery);
+
+        // Set params for Geocode API call
+        let httpParams = new HttpParams();
+        httpParams = httpParams.set('address', fullAddressQuery);
+        httpParams = httpParams.set('key', environment.GEOLOCATION_API_KEY);
+
+        console.log('Params ', httpParams);
+
+        return new Promise((resolve, reject) => {
+            // Geocode API call
+            this.apiService.getGeoLocation(httpParams).subscribe(
+                geoResponse => {
+                    // Convert lat & lng to CarwashCoordinates
+                    console.log(geoResponse);
+
+                    addressCoordinates.set('lat', geoResponse.results[0].geometry.location.lat);
+                    addressCoordinates.set('lng', geoResponse.results[0].geometry.location.lng);
+                    // Create new store object to be pushed to backend
+
+                    const newAddress = new Address(
+                        storeForm.get('city').value,
+                        storeForm.get('state').value,
+                        storeForm.get('streetAddress').value,
+                        storeForm.get('zipcode').value,
+                    );
+
+                    const newStore = new Store(
+                        this.storeSubject.getValue().id,
+                        storeForm.get('name').value,
+                        storeForm.get('type').value,
+                        newAddress,
+                        storeForm.get('phoneNumber').value,
+                        addressCoordinates,
+                        storeForm.get('storeHours').value,
+                        storeForm.get('email').value,
+                        storeForm.get('website').value,
+                    );
+
+                    console.log('LAT AND LONG VALUES: ', addressCoordinates);
+                    console.log(newStore);
+
+                    // Post new store
+                    return this.carwashService.updateStore(newStore).then((res: Store) => {
+                        console.log('Store post SUCCESS: ', res);
+
+                        this.storeSubject.next(res);
+
+                        // Update carwash object
+                        this.carwashService.cacheStore(newStore);
+                        resolve(true);
+                    }).catch(reason => {
+                        reject(reason);
+                    });
+                }, error => {
+                    console.warn('Unable to retrieve address coordinates.', error);
+                    reject();
+                }
+            );
+        });
     }
+
+/*    deleteStore(id: string) {
+
+    }*/
 
     /* --------------------- UTILITY METHODS ------------------------- */
-
-    public instantiateStore(storeForm: FormGroup, coordinates: Map<string, string>): Store {
-        const newAddress = new Address(
-            storeForm.get('city').value,
-            storeForm.get('state').value,
-            storeForm.get('streetAddress').value,
-            storeForm.get('zipcode').value,
-        );
-
-        return new Store(
-            null,
-            storeForm.get('name').value,
-            storeForm.get('type').value,
-            newAddress,
-            storeForm.get('phoneNumber').value,
-            coordinates,
-            storeForm.get('storeHours.hoursOfOperation').value,
-            storeForm.get('email').value,
-            storeForm.get('website').value,
-        );
-    }
 
     public generateStoreForm(store: Store): FormGroup {
         return this.fb.group({

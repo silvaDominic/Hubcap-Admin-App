@@ -119,7 +119,7 @@
                 </div>
             </form>
             <mat-action-row>
-                <button *ngIf="(storeService.store | async).id === null" mat-raised-button color="primary" (click)="updateStore(storeForm, true)">Create Store</button>
+                <button *ngIf="(storeService.store | async).id === null" mat-raised-button color="primary" (click)="createStore(storeForm)">Create Store</button>
                 <button *ngIf="(storeService.store | async).id !== null" mat-raised-button color="primary" (click)="updateStore(storeForm)">Update Store</button>
             </mat-action-row>
         </div>

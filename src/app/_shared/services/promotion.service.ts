@@ -215,7 +215,8 @@ export class PromotionService {
                 // Set new ID generated from backend and cache new store
                 console.log('Promotion Post SUCCESS: ', res);
 
-                this.promotionSubject.next(Promotion.EMPTY_MODEL);
+                // Reset form back to promo template after creation
+                this.promotionSubject.next(CONSTANTS.PROMOTION_TEMPLATE);
 
                 const currentPromotionArrayValue = this.promotionArraySubject.getValue();
                 this.promotionArraySubject.next([...currentPromotionArrayValue, newPromotion]);
@@ -241,7 +242,7 @@ export class PromotionService {
         );
 
         const newPromotion = new Promotion(
-            null,
+            this.promotionSubject.getValue().id,
             promoForm.get('nameFormGroup.name').value,
             promoForm.get('descriptionFormGroup.description').value,
             promoForm.get('serviceTypeFormGroup.serviceType').value,

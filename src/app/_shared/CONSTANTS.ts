@@ -11,6 +11,7 @@ export const CONSTANTS = {
     WASH_ICONS_REF: ['iconA-wash-bronze.svg', 'iconA-wash-silver.svg', 'iconA-wash-gold.svg'],
     DETAIL_ICONS_REF: ['iconA-detail-interior.svg', 'iconA-detail-exterior.svg', 'iconA-detail-both.svg'],
     DEFAULT_CONTENT_TYPE: 'application/json',
+    TOKEN_KEY_NAME: 'Bearer Token',
     NUM_NON_NEG_WHOLE_VALIDATOR: /^(?:[1-9][0-9]*|0)$/,
     NUM_ONLY_VALIDATOR: /^\d+$/,
     NUM_ONLY_NON_ZERO: /^[1-9]\d*$/,

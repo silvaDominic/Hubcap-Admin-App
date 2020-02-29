@@ -171,8 +171,9 @@ export class PackageService {
         );
         // Current index null until package created or existing package selected
         this._currentPackageIndex = null;
-        console.log('Initialized Package: ', this.packageSubject.getValue());
     }
+
+
 
     cancelNewPackage(): void {
         this.creatingNewPackage = false;
@@ -186,11 +187,7 @@ export class PackageService {
     }
 
     // Post and Cache new package
-    // WARNING - DUPLICATE CODE WITH 'savePackage()'
-    updatePackage(packageForm: FormGroup, isNew: boolean = false): Promise<boolean> {
-
-        const id = this.packageSubject.getValue().id;
-        console.log('Current package to update....', this.packageSubject.getValue());
+    createPackage(packageForm: FormGroup): Promise<boolean> {
 
         // Instantiate and initialize temp variables for One Time and Monthly price maps
         const oneTimePrices = new Map<VEHICLE_TYPE, number>();
@@ -203,7 +200,7 @@ export class PackageService {
 
         // Instantiate new Package
         const newPackage = new Package(
-            id,
+            null,
             packageForm.get('nameFormGroup.name').value,
             packageForm.get('serviceTypeFormGroup.serviceType').value,
             oneTimePrices,
@@ -214,14 +211,56 @@ export class PackageService {
 
         console.log('Creating new package: ', newPackage);
 
-        return this.carwashService.postNewPackage(newPackage).then((res) => {
+        return this.carwashService.postNewPackage(newPackage).then((res: Package) => {
             console.log('Package Post SUCCESS', res);
 
-            // Set id if new and update package
-            if (isNew) {
-                newPackage.id = res.id;
-            }
-            this.packageSubject.next(newPackage);
+            this.packageSubject.next(res);
+
+            // Update package array
+            const currentPackagesArrayValue = this.packageArraySubject.getValue();
+            this.packageArraySubject.next([...currentPackagesArrayValue, newPackage]);
+
+            // Update carwash object
+            this.carwashService.cachePackages([...currentPackagesArrayValue, newPackage], newPackage.type);
+
+            return true;
+        }).catch((reason) => {
+            console.warn('Error CREATING package: ' + newPackage.name);
+            console.warn(reason);
+            return false;
+        });
+    }
+
+    // Post and Cache new package
+    // WARNING - DUPLICATE CODE WITH 'savePackage()'
+    updatePackage(packageForm: FormGroup): Promise<boolean> {
+
+        // Instantiate and initialize temp variables for One Time and Monthly price maps
+        const oneTimePrices = new Map<VEHICLE_TYPE, number>();
+        oneTimePrices.set(VEHICLE_TYPE.REGULAR, packageForm.get('pricingFormGroup.oneTimeRegularPrice').value);
+        oneTimePrices.set(VEHICLE_TYPE.OVERSIZED, packageForm.get('pricingFormGroup.oneTimeOverSizedPrice').value);
+
+        const monthlyPrices = new Map<VEHICLE_TYPE, number>();
+        monthlyPrices.set(VEHICLE_TYPE.REGULAR, packageForm.get('pricingFormGroup.monthlyRegularPrice').value);
+        monthlyPrices.set(VEHICLE_TYPE.OVERSIZED, packageForm.get('pricingFormGroup.monthlyOverSizedPrice').value);
+
+        // Instantiate new Package
+        const newPackage = new Package(
+            this.packageSubject.getValue().id,
+            packageForm.get('nameFormGroup.name').value,
+            packageForm.get('serviceTypeFormGroup.serviceType').value,
+            oneTimePrices,
+            this.selectedPackageItems,
+            packageForm.get('durationFormGroup.duration').value,
+            monthlyPrices,
+        );
+
+        console.log('Creating new package: ', newPackage);
+
+        return this.carwashService.updatePackage(newPackage).then((res: Package) => {
+            console.log('Package Post SUCCESS', res);
+
+            this.packageSubject.next(res);
 
             // Update package array
             const currentPackagesArrayValue = this.packageArraySubject.getValue();

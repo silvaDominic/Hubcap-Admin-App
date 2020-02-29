@@ -140,7 +140,7 @@ export class NavbarComponent implements OnInit {
     public logout() {
         const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        httpHeaders.set('Authorization', this.userService.getToken());
+        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
 
         this.userService.purgeAuth();
         this.apiService.post(environment.logout_url, new HttpParams(), httpHeaders);

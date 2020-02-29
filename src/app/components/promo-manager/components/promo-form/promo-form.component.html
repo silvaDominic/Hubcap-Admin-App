@@ -240,7 +240,7 @@
 
                     <button mat-button matStepperPrevious type="button">Back</button>
                     <button *ngIf="promotionService.creatingNewPromotion == false" mat-raised-button color="primary"
-                            type="button" (click)="updatePromotion(promotionForm); openSnackBar(focusPromotion.name + ' Promo', 'Saved')">
+                            type="button" (click)="updatePromotion(promotionForm);">
                         Save Promo
                     </button>
 
@@ -248,7 +248,6 @@
                             type="button" (click)="createPromotion(promotionForm);">Create Promo</button>
                 </mat-step>
             </mat-vertical-stepper>
-            <!--            <pre>{{promotionForm.value | json}}</pre>-->
         </form>
     </div>
 </div>

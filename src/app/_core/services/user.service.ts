@@ -121,6 +121,10 @@ export class UserService {
             throw throwError(new Error('Invalid Login'));
         }
 
+        const httpHeaders = new HttpHeaders();
+        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
+        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.getToken()); // { Authorization: Bearer Token [TOKEN] }
+
         return this.apiService.post(environment.users_url, new HttpParams(), new HttpHeaders(), {user: credentials}).pipe(
             map(
                 data => {

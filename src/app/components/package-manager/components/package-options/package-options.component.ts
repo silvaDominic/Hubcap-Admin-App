@@ -71,16 +71,41 @@ export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit
         this.packageService.selectInputChange(event, index, item);
     }
 
-    public updatePackage(packageForm: FormGroup, isNew: boolean = false): void {
+    public createPackage(packageForm: FormGroup): void {
         console.log('Submitting Package Form: ', this.packageForm);
         if (packageForm.valid) {
-            this.packageService.updatePackage(packageForm, true).then((result) => {
+            this.packageService.createPackage(packageForm).then((result) => {
                 if (result == true) {
                     this.callSetFocusPackage(this.packageService.getPackageArrayLength() - 1);
                     this.openSnackBar(packageForm.get('nameFormGroup.name').value + ' Promo', 'Created');
                     // Otherwise, display alert
                 } else {
                     alert('Error CREATING ' + packageForm.get('nameFormGroup.name').value + '.' + ' Try again or contact your Admin.')
+                }
+            });
+        } else if (!packageForm.valid) {
+            alert(
+                'Please fill out the remaining fields \n' +
+
+                Utilities.findInvalidControls(this.packageForm).map(
+                    control => {
+                        return control.toString() + '\n'
+                    }
+                )
+            );
+        }
+    }
+
+    public updatePackage(packageForm: FormGroup): void {
+        console.log('Submitting Package Form: ', this.packageForm);
+        if (packageForm.valid) {
+            this.packageService.updatePackage(packageForm).then((result) => {
+                if (result == true) {
+                    this.callSetFocusPackage(this.packageService.getPackageArrayLength() - 1);
+                    this.openSnackBar(packageForm.get('nameFormGroup.name').value + ' Promo', 'Created');
+                    // Otherwise, display alert
+                } else {
+                    alert('Error UPDATING ' + packageForm.get('nameFormGroup.name').value + '.' + ' Try again or contact your Admin.')
                 }
             });
         } else if (!packageForm.valid) {

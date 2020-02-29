@@ -60,7 +60,7 @@ export class PromoFormComponent implements OnInit {
         this.promotionService.createNewPromotion(promoForm).then((res) => {
             // Display success message, if the promotion was successfully posted
             if (res == true) {
-                this.openSnackBar(promoForm.get('nameFormGroup.name').value + ' Promo', 'Created')
+                this.openSnackBar(promoForm.get('nameFormGroup.name').value + ' Promo', 'CREATED')
             // Otherwise, display alert
             } else {
                 alert('Error CREATING ' + promoForm.get('nameFormGroup.name').value + '.' + ' Try again or contact your Admin.')
@@ -69,10 +69,10 @@ export class PromoFormComponent implements OnInit {
     }
 
     updatePromotion(promoForm: FormGroup) {
-        this.promotionService.createNewPromotion(promoForm).then((result) => {
+        this.promotionService.updatePromotion(promoForm).then((result) => {
             // Display success message, if the promotion was successfully posted
             if (result == true) {
-                this.openSnackBar(promoForm.get('nameFormGroup.name').value + ' Promo', 'Updated')
+                this.openSnackBar(promoForm.get('nameFormGroup.name').value + ' Promo', 'UPDATED')
                 // Otherwise, display alert
             } else {
                 alert('Error UPDATING ' + promoForm.get('nameFormGroup.name').value + '.' + ' Try again or contact your Admin.')

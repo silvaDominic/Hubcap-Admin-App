@@ -28,13 +28,35 @@ export class StoreFormComponent {
         this.formExceptions = [];
     }
 
-    public updateStore(storeForm: FormGroup, isNew: boolean = false): void {
+    public createStore(storeForm: FormGroup): void {
         if (storeForm.valid) {
-            this.storeService.updateStore(storeForm, isNew).then((response) => {
+            this.storeService.createStore(storeForm).then((response) => {
                 if (response == true) {
                     this.openSnackBar(this.storeForm.get('name').value, 'Created')
                 } else {
                     alert('Error CREATING ' + this.storeForm.get('name').value + '.' + ' Try again or contact your Admin.')
+                }
+            });
+        } else {
+            alert(
+                'Please fill out the remaining fields \n' +
+
+                Utilities.findInvalidControls(this.storeForm).map(
+                    control => {
+                        return control.toString() + '\n'
+                    }
+                )
+            );
+        }
+    }
+
+    public updateStore(storeForm: FormGroup): void {
+        if (storeForm.valid) {
+            this.storeService.updateStore(storeForm).then((response) => {
+                if (response == true) {
+                    this.openSnackBar(this.storeForm.get('name').value, 'Created')
+                } else {
+                    alert('Error UPDATING ' + this.storeForm.get('name').value + '.' + ' Try again or contact your Admin.')
                 }
             });
         } else {

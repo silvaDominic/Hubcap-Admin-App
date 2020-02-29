@@ -134,6 +134,7 @@
                             formControlName="selectedSubOption"
                             (change)="selectInputChange($event, index, item)"
                             [ngClass]="{'selected': item.value === true}"
+                            [(ngModel)]="item.key.selectedSubOption"
                             [attr.disabled]="!item.value ? 'disabled' : null">
                         <option *ngFor="let option of item.key.subOptions;"
                                 [value]="option">{{option}}</option>
@@ -297,6 +298,7 @@
                                         formControlName="selectedSubOption"
                                         (change)="selectInputChange($event, index, item)"
                                         [ngClass]="{'selected': item.value === true}"
+                                        [(ngModel)]="item.key.selectedSubOption"
                                         [attr.disabled]="!item.value ? 'disabled' : null">
                                     <option *ngFor="let option of item.key.subOptions;"
                                             [value]="option">{{option}}</option>
@@ -316,7 +318,7 @@
 
                     <button mat-button matStepperPrevious type="button">Back</button>
                     <button type="button" mat-raised-button color="primary"
-                            (click)="updatePackage(packageForm, true)">
+                            (click)="createPackage(packageForm)">
                         Create Package
                     </button>
                 </div>
