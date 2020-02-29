@@ -20,25 +20,22 @@ import {Utilities} from '../../../../_shared/utilities';
 export class PackageComponent implements OnInit {
 
     @Output() packageSelect = new EventEmitter<number>();
+    @Output() saveForm = new EventEmitter<boolean>();
     public E_VEHICLE_TYPE = VEHICLE_TYPE;
-    public packageForm: FormGroup;
 
     constructor(private readonly packageService: PackageService, private readonly snackBar: MatSnackBar, private readonly dialogBoxService: DialogBoxService) {
     }
 
     ngOnInit() {
         console.log('package init');
-        this.packageForm = this.packageService.getForm();
     }
 
     callSetFocusPackage(index: number) {
         this.packageService.creatingNewPackage = false;
         this.packageSelect.emit(index);
-        this.packageForm.reset();
-        this.packageForm = this.packageService.getForm();
     }
 
-    public savePackage(updatedPackage: Package): void {
+/*    public savePackage(updatedPackage: Package): void {
         if (this.packageForm.valid) {
             this.packageService.savePackage(updatedPackage).then((result) => {
                 if (result == true) {
@@ -59,11 +56,14 @@ export class PackageComponent implements OnInit {
                 )
             );
         }
+    }*/
 
+    public savePackage(): void {
+        this.saveForm.emit(true);
     }
 
     public savePackageArray(updatedPackageArray: Package[]): void {
-        const currentServiceType = this.packageService.getCurrentPackageType()
+        const currentServiceType = this.packageService.getCurrentPackageType();
 
         this.packageService.savePackageArray(updatedPackageArray, currentServiceType).then((result) => {
             if (result == true) {
@@ -74,6 +74,7 @@ export class PackageComponent implements OnInit {
             }
         });
     }
+
 
     public deletePackage(id: string): void {
         this.dialogBoxService.openDialogBox('Delete Package', 'Are you sure you want to perform this action?')

@@ -14,7 +14,7 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
         CommonModule
     ],
     providers: [
-        { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
+/*        { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },*/
         ApiService,
         AuthGuard,
         RoleGuard,

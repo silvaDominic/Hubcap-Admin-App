@@ -49,7 +49,7 @@
 
     <div id="action-row-wrapper" *ngIf="(packageService.package | async) as focusPackage">
         <div class="row action-row">
-            <button mat-button type="button" (click)="savePackage(focusPackage)">Save Package</button>
+            <button mat-button type="button" (click)="savePackage()">Save Package</button>
             <button id="delete-button" type="button" mat-button (click)="deletePackage(focusPackage.id)">Delete</button>
         </div>
 

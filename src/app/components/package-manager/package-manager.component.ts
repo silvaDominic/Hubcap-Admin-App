@@ -10,7 +10,7 @@ import {ActivatedRoute} from '@angular/router';
     templateUrl: './package-manager.component.html',
     styleUrls: ['./package-manager.component.scss']
 })
-export class PackageManagerComponent implements OnInit, AfterViewInit, OnDestroy {
+export class PackageManagerComponent implements OnInit, OnDestroy {
     @ViewChild(PackageOptionsComponent, {static : false}) packageOptionsComp;
 
     // Used for comparison
@@ -26,14 +26,16 @@ export class PackageManagerComponent implements OnInit, AfterViewInit, OnDestroy
         }
     }
 
-    public ngAfterViewInit(): void {
-    }
-
     public ngOnDestroy(): void {
         console.log('COMP DESTORYED INITIATED');
         if (this.packageService.creatingNewPackage) {
             this.packageService.cancelNewPackage();
         }
+    }
+
+    public changeServiceType(serviceType: SERVICE_TYPE) {
+        this.packageService.changeServiceType((serviceType));
+        this.packageOptionsComp.resetForm();
     }
 
     // Sets focus to selected package and displays related package options
@@ -44,7 +46,7 @@ export class PackageManagerComponent implements OnInit, AfterViewInit, OnDestroy
         } else {
             this.packageService.setPackage(index);
             this.packageService.refreshDisplayPackageOptions();
-            this.packageOptionsComp.packageForm.reset(); // Do I need to do this anymore?
+            this.packageOptionsComp.resetForm();
         }
     }
 }

@@ -34,7 +34,7 @@
 
     <!-------------------- PACKAGE FORM ---------------------->
 
-    <form id="existing-package-form" [formGroup]="packageForm"
+    <form id="existing-package-form" [formGroup]="packageForm" #formRef="ngForm" (ngSubmit)="updatePackage(packageForm)"
           *ngIf="packageService.creatingNewPackage == false && packageService.getPackageArrayLength() > 0">
         <div class="row">
             <div class="col-md-6">
@@ -133,7 +133,8 @@
                             class="custom-select"
                             formControlName="selectedSubOption"
                             (change)="selectInputChange($event, index, item)"
-                            [ngClass]="{'selected': item.value === true}">
+                            [ngClass]="{'selected': item.value === true}"
+                            [attr.disabled]="!item.value ? 'disabled' : null">
                         <option *ngFor="let option of item.key.subOptions;"
                                 [value]="option">{{option}}</option>
                     </select>
@@ -295,7 +296,8 @@
                                         class="custom-select"
                                         formControlName="selectedSubOption"
                                         (change)="selectInputChange($event, index, item)"
-                                        [ngClass]="{'selected': item.value === true}">
+                                        [ngClass]="{'selected': item.value === true}"
+                                        [attr.disabled]="!item.value ? 'disabled' : null">
                                     <option *ngFor="let option of item.key.subOptions;"
                                             [value]="option">{{option}}</option>
                                 </select>
@@ -313,8 +315,9 @@
                     <p>All Set! Click <strong>Create Package</strong> to make package live!</p>
 
                     <button mat-button matStepperPrevious type="button">Back</button>
-                    <button type="submit" mat-raised-button color="primary"
-                            (click)="createPackage(packageForm)">Create Package
+                    <button type="button" mat-raised-button color="primary"
+                            (click)="updatePackage(packageForm, true)">
+                        Create Package
                     </button>
                 </div>
             </mat-step>

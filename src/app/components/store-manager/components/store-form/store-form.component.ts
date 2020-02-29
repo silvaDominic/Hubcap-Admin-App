@@ -28,9 +28,9 @@ export class StoreFormComponent {
         this.formExceptions = [];
     }
 
-    public createStore(storeForm: FormGroup): void {
+    public updateStore(storeForm: FormGroup, isNew: boolean = false): void {
         if (storeForm.valid) {
-            this.storeService.createStore(storeForm).then((response) => {
+            this.storeService.updateStore(storeForm, isNew).then((response) => {
                 if (response == true) {
                     this.openSnackBar(this.storeForm.get('name').value, 'Created')
                 } else {

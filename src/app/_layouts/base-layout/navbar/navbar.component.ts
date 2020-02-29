@@ -3,6 +3,10 @@ import {Component, OnInit, ElementRef} from '@angular/core';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {UserService} from '../../../_core/services/user.service';
+import {ApiService} from '../../../_core/services/api.service';
+import {environment} from '../../../../environments/environment';
+import {HttpHeaders, HttpParams} from '@angular/common/http';
+import {CONSTANTS} from '../../../_shared/CONSTANTS';
 
 @Component({
     selector: 'app-navbar',
@@ -20,7 +24,8 @@ export class NavbarComponent implements OnInit {
     constructor(location: Location,
                 private element: ElementRef,
                 private router: Router,
-                private userService: UserService) {
+                private userService: UserService,
+                private apiService: ApiService) {
         this.location = location;
         this._sidebarVisible = false;
     }
@@ -133,7 +138,12 @@ export class NavbarComponent implements OnInit {
     }
 
     public logout() {
+        const httpHeaders = new HttpHeaders();
+        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
+        httpHeaders.set('Authorization', this.userService.getToken());
+
         this.userService.purgeAuth();
-        this.router.navigateByUrl('/login')
+        this.apiService.post(environment.logout_url, new HttpParams(), httpHeaders);
+        // this.router.navigateByUrl('/login')
     }
 }

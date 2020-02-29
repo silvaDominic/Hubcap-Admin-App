@@ -187,8 +187,11 @@ export class PackageService {
 
     // Post and Cache new package
     // WARNING - DUPLICATE CODE WITH 'savePackage()'
-    createPackage(packageForm: FormGroup): Promise<boolean> {
-        console.log('Package Form: ', packageForm.value);
+    updatePackage(packageForm: FormGroup, isNew: boolean = false): Promise<boolean> {
+
+        const id = this.packageSubject.getValue().id;
+        console.log('Current package to update....', this.packageSubject.getValue());
+
         // Instantiate and initialize temp variables for One Time and Monthly price maps
         const oneTimePrices = new Map<VEHICLE_TYPE, number>();
         oneTimePrices.set(VEHICLE_TYPE.REGULAR, packageForm.get('pricingFormGroup.oneTimeRegularPrice').value);
@@ -200,7 +203,7 @@ export class PackageService {
 
         // Instantiate new Package
         const newPackage = new Package(
-            null,
+            id,
             packageForm.get('nameFormGroup.name').value,
             packageForm.get('serviceTypeFormGroup.serviceType').value,
             oneTimePrices,
@@ -214,7 +217,10 @@ export class PackageService {
         return this.carwashService.postNewPackage(newPackage).then((res) => {
             console.log('Package Post SUCCESS', res);
 
-            // Update package
+            // Set id if new and update package
+            if (isNew) {
+                newPackage.id = res.id;
+            }
             this.packageSubject.next(newPackage);
 
             // Update package array
@@ -228,29 +234,6 @@ export class PackageService {
         }).catch((reason) => {
             console.warn('Error CREATING package: ' + newPackage.name);
             console.warn(reason);
-            return false;
-        });
-    }
-
-    // Update and save updated package
-    // WARNING - DUPLICATE CODE WITH 'createNewPackage()'
-    savePackage(updatedPackage: Package): Promise<boolean> {
-        return this.carwashService.updatePackage(updatedPackage).then((res) => {
-            console.log('Package Post SUCCESS', res);
-
-            // Update package
-            this.packageSubject.next(updatedPackage);
-
-            // Update package array
-            const currentPackagesArrayValue = this.packageArraySubject.getValue();
-            this.packageArraySubject.next([...currentPackagesArrayValue, updatedPackage]);
-
-            // Update carwash object
-            this.carwashService.cachePackages([...currentPackagesArrayValue, updatedPackage], updatedPackage.type);
-
-            return true;
-        }).catch((reason) => {
-            console.warn('Error SAVING package: ' + updatedPackage.name);
             return false;
         });
     }
@@ -474,26 +457,26 @@ export class PackageService {
                 [
                     Validators.required,
                     Validators.maxLength(CONSTANTS.PACKAGE_PRICE_MAX_LENGTH_VALIDATOR),
-                    Validators.pattern(CONSTANTS.NUM_ONLY_VALIDATOR)
+                    Validators.pattern(CONSTANTS.NUM_ONLY_NON_ZERO)
                 ]
             ],
             oneTimeOverSizedPrice: [_package.oneTimePrices[VEHICLE_TYPE.OVERSIZED],
                 [
                     Validators.required,
                     Validators.maxLength(CONSTANTS.PACKAGE_PRICE_MAX_LENGTH_VALIDATOR),
-                    Validators.pattern(CONSTANTS.NUM_ONLY_VALIDATOR)
+                    Validators.pattern(CONSTANTS.NUM_ONLY_NON_ZERO)
                 ]
             ],
             monthlyRegularPrice: [_package.monthlyPrices[VEHICLE_TYPE.REGULAR],
                 [
                     Validators.maxLength(CONSTANTS.PACKAGE_PRICE_MAX_LENGTH_VALIDATOR),
-                    Validators.pattern(CONSTANTS.NUM_ONLY_VALIDATOR)
+                    Validators.pattern(CONSTANTS.NUM_ONLY_NON_ZERO)
                 ]
             ],
             monthlyOverSizedPrice: [_package.monthlyPrices[VEHICLE_TYPE.OVERSIZED],
                 [
                     Validators.maxLength(CONSTANTS.PACKAGE_PRICE_MAX_LENGTH_VALIDATOR),
-                    Validators.pattern(CONSTANTS.NUM_ONLY_VALIDATOR)
+                    Validators.pattern(CONSTANTS.NUM_ONLY_NON_ZERO)
                 ]
             ],
         });
@@ -504,7 +487,7 @@ export class PackageService {
             duration: [_package.duration,
                 [
                     Validators.required,
-                    Validators.pattern(CONSTANTS.NUM_ONLY_VALIDATOR),
+                    Validators.pattern(CONSTANTS.NUM_ONLY_NON_ZERO),
                     Validators.maxLength(CONSTANTS.PACKAGE_DURATION_MAX_LENGTH_VALIDATOR)
                 ]
             ]

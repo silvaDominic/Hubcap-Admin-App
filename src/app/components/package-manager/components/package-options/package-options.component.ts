@@ -1,7 +1,7 @@
-import {AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {PackageService} from '../../../../_shared/services/package.service';
 import {ITEM_TYPE} from '../../../../_shared/enums/ITEM_TYPE.model';
-import {FormArray, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {VEHICLE_TYPE} from '../../../../_shared/enums/VEHICLE_TYPE.model';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Utilities} from '../../../../_shared/utilities';
@@ -16,6 +16,8 @@ export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit
 
     public isMonthly = false;
     public packageForm: FormGroup;
+    @ViewChild('formRef', {static: false})
+    public formRef: FormGroupDirective;
 
     // Enums variables
     E_ITEM_TYPE = ITEM_TYPE;
@@ -28,6 +30,10 @@ export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit
         console.log('package options init');
         this.initDisplayItems();
         this.initForm();
+    }
+
+    public submitFormProgrammatically() {
+        this.formRef.onSubmit(undefined);
     }
 
     public ngOnDestroy(): void {
@@ -65,10 +71,10 @@ export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit
         this.packageService.selectInputChange(event, index, item);
     }
 
-    public createPackage(packageForm: FormGroup): void {
-        console.log(this.packageForm);
+    public updatePackage(packageForm: FormGroup, isNew: boolean = false): void {
+        console.log('Submitting Package Form: ', this.packageForm);
         if (packageForm.valid) {
-            this.packageService.createPackage(packageForm).then((result) => {
+            this.packageService.updatePackage(packageForm, true).then((result) => {
                 if (result == true) {
                     this.callSetFocusPackage(this.packageService.getPackageArrayLength() - 1);
                     this.openSnackBar(packageForm.get('nameFormGroup.name').value + ' Promo', 'Created');
@@ -77,7 +83,7 @@ export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit
                     alert('Error CREATING ' + packageForm.get('nameFormGroup.name').value + '.' + ' Try again or contact your Admin.')
                 }
             });
-        }  else {
+        } else if (!packageForm.valid) {
             alert(
                 'Please fill out the remaining fields \n' +
 
@@ -88,12 +94,15 @@ export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit
                 )
             );
         }
-
     }
 
     public callSetFocusPackage(index: number) {
         this.packageService.creatingNewPackage = false;
         this.packageSelect.emit(index);
+    }
+
+    public resetForm() {
+        this.packageForm.reset();
         this.packageForm = this.packageService.getForm();
         this.packageForm.updateValueAndValidity();
     }

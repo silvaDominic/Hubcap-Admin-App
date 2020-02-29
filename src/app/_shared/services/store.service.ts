@@ -101,7 +101,12 @@ export class StoreService {
     /* STORE HANDLERS */
 
     /* Used for NEW and UPDATED stores*/
-    public createStore(storeForm: FormGroup): Promise<boolean> {
+    public updateStore(storeForm: FormGroup, isNew: boolean = false): Promise<boolean> {
+
+        console.log(storeForm);
+
+        const id = this.storeSubject.getValue().id;
+
         const addressCoordinates = new Map<string, string>();
 
         // Create address string for Geocode API call
@@ -116,15 +121,19 @@ export class StoreService {
         // Set params for Geocode API call
         let httpParams = new HttpParams();
         httpParams = httpParams.set('address', fullAddressQuery);
-        httpParams = httpParams.set('key', environment.GOOGLE_API_KEY);
+        httpParams = httpParams.set('key', environment.GEOLOCATION_API_KEY);
+
+        console.log('Params httpParams');
 
         return new Promise((resolve, reject) => {
             // Geocode API call
             this.apiService.getGeoLocation(httpParams).subscribe(
                 geoResponse => {
                     // Convert lat & lng to CarwashCoordinates
-                    addressCoordinates.set('lat', geoResponse.data.results[0].geometry.location.lat);
-                    addressCoordinates.set('lng', geoResponse.data.results[0].geometry.location.lng);
+                    console.log(geoResponse);
+
+                    addressCoordinates.set('lat', geoResponse.results[0].geometry.location.lat);
+                    addressCoordinates.set('lng', geoResponse.results[0].geometry.location.lng);
                     // Create new store object to be pushed to backend
 
                     const newAddress = new Address(
@@ -135,25 +144,32 @@ export class StoreService {
                     );
 
                     const newStore = new Store(
-                        null,
+                        id,
                         storeForm.get('name').value,
                         storeForm.get('type').value,
                         newAddress,
                         storeForm.get('phoneNumber').value,
                         addressCoordinates,
-                        storeForm.get('hoursOfOperation').value,
+                        storeForm.get('storeHours').value,
                         storeForm.get('email').value,
                         storeForm.get('website').value,
                     );
 
                     console.log('LAT AND LONG VALUES: ', addressCoordinates);
+                    console.log(newStore);
 
                     // Post new store
-                    return this.carwashService.postNewStore(newStore).then((response) => {
-                        console.log('Store post SUCCESS: ', response);
-                        newStore.id = response.id;
+                    return this.carwashService.postNewStore(newStore).then((res) => {
+                        console.log('Store post SUCCESS: ', res);
+
+                        // Set id if new and update store
+                        if (isNew) {
+                            newStore.id = res.id;
+                        }
+
                         this.storeSubject.next(newStore);
 
+                        // Update carwash object
                         this.carwashService.cacheStore(newStore);
                         resolve(true);
                     }).catch(reason => {
@@ -188,7 +204,7 @@ export class StoreService {
             newAddress,
             storeForm.get('phoneNumber').value,
             coordinates,
-            storeForm.get('hoursOfOperation').value,
+            storeForm.get('storeHours.hoursOfOperation').value,
             storeForm.get('email').value,
             storeForm.get('website').value,
         );
@@ -221,7 +237,7 @@ export class StoreService {
             zipcode: [store.address.zipcode,
                 [
                     Validators.required,
-                    Validators.pattern(CONSTANTS.NUM_ONLY_VALIDATOR),
+                    Validators.pattern(CONSTANTS.NUM_NON_NEG_WHOLE_VALIDATOR),
                     Validators.minLength(CONSTANTS.ZIPCODE_MIN_LENGTH_VALIDATOR)
                 ]
             ],
@@ -234,7 +250,7 @@ export class StoreService {
             phoneNumber: [store.phoneNumber,
                 [
                     Validators.required,
-                    Validators.pattern(CONSTANTS.NUM_ONLY_VALIDATOR),
+                    Validators.pattern(CONSTANTS.NUM_NON_NEG_WHOLE_VALIDATOR),
                     Validators.minLength(CONSTANTS.PHONE_NUM_MIN_LENGTH_VALIDATOR)
                 ]
             ],
@@ -246,10 +262,10 @@ export class StoreService {
 
     private generateHoursForm(storeHours: StoreHours): FormGroup {
         return this.fb.group({
-            day: [storeHours.day, Validators.required],
-            openTime: [storeHours.openTime, [Validators.required]],
-            closeTime: [storeHours.closeTime, [Validators.required]],
-            isOpen: [storeHours.isOpen, Validators.required]
+            day: [storeHours.day],
+            openTime: [storeHours.openTime],
+            closeTime: [storeHours.closeTime],
+            isOpen: [storeHours.isOpen]
         });
     }
 
