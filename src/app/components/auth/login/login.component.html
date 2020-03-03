@@ -1,0 +1,35 @@
+<div class="auth-page jumbotron jumbotron-fluid">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-6 offset-md-3 col-xs-12">
+                <h1 class="text-xs-center">{{ title }}</h1>
+                <p class="text-xs-center">
+                    <a [routerLink]="['/register']">Need an account?</a>
+                </p>
+
+                <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+                    <fieldset [disabled]="isSubmitting">
+                        <mat-form-field>
+                            <input
+                                    matInput
+                                    formControlName="email"
+                                    placeholder="Email"
+                                    type="text"/>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input
+                                    matInput
+                                    formControlName="password"
+                                    placeholder="Password"
+                                    type="password"/>
+                        </mat-form-field>
+                        <button class="btn btn-lg btn-primary pull-xs-right" type="submit">
+                            {{ title }}
+                        </button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

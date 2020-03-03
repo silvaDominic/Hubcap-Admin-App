@@ -198,6 +198,9 @@ export class PackageService {
         monthlyPrices.set(VEHICLE_TYPE.REGULAR, packageForm.get('pricingFormGroup.monthlyRegularPrice').value);
         monthlyPrices.set(VEHICLE_TYPE.OVERSIZED, packageForm.get('pricingFormGroup.monthlyOverSizedPrice').value);
 
+        const packageItems = new Array<PackageItem>();
+        console.log('Package Items from form: ', packageForm.get('packageItems').value);
+
         // Instantiate new Package
         const newPackage = new Package(
             null,

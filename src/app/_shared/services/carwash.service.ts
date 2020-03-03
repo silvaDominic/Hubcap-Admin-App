@@ -20,7 +20,7 @@ import {
     PackageObject,
     PromotionObject,
     StoreObject
-} from '../models/post.interface';
+} from '../interfaces/post.interface';
 
 @Injectable({
     providedIn: 'root'

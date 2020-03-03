@@ -4,8 +4,9 @@ import {BrowserModule} from '@angular/platform-browser';
 import {Routes, RouterModule} from '@angular/router';
 import {AuthGuard} from './_core/services/auth-guard.service';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
-import {AuthComponent} from './components/auth/auth.component';
+import {LoginComponent} from './components/auth/login/login.component';
 import {AdminLayoutComponent} from './_layouts/admin-layout/admin-layout.component';
+import {RegisterComponent} from './components/auth/register/register.component';
 
 const routes: Routes = [
     {
@@ -15,11 +16,11 @@ const routes: Routes = [
     },
     {
         path: 'login',
-        component: AuthComponent
+        component: LoginComponent
     },
     {
         path: 'register',
-        component: AuthComponent
+        component: RegisterComponent
     },
     {
         path: '404',

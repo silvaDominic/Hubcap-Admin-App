@@ -39,20 +39,25 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="price-container">
-                    <div class="form-group" formGroupName="nameFormGroup">
-                        <label for="time">Package Name</label>
-                        <input formControlName="name" type="text" class="form-control" id="name" required name="name">
-                    </div>
+                    <mat-form-field formGroupName="nameFormGroup">
+                        <input
+                                matInput
+                                formControlName="name"
+                                placeholder="Name"
+                                type="text"/>
+                    </mat-form-field>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="price-container">
-                    <div class="form-group" formGroupName="durationFormGroup">
-                        <label for="time">Duration (In Minutes)</label>
-                        <input formControlName="duration" type="text" class="form-control" id="time" required
-                               name="estimatedTime">
-                    </div>
+                    <mat-form-field formGroupName="durationFormGroup">
+                        <input
+                                matInput
+                                formControlName="duration"
+                                placeholder="Duration (In Minutes)"
+                                type="text"/>
+                    </mat-form-field>
                 </div>
             </div>
         </div>
@@ -63,23 +68,27 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="price-container">
-                            <div class="form-group">
-                                <label for="price">Price</label>
+                            <mat-form-field>
                                 <img src="./assets/icons/icon-repeat-one.svg" alt="">
-                                <input formControlName="oneTimeRegularPrice" type="text" class="form-control" id="price"
-                                       required name="price">
-                            </div>
+                                <input
+                                        matInput
+                                        formControlName="oneTimeRegularPrice"
+                                        placeholder="Price"
+                                        type="text"/>
+                            </mat-form-field>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="price-container">
-                            <div class="form-group">
-                                <label for="over-sized-price">Over-sized price</label>
+                            <mat-form-field>
                                 <img src="./assets/icons/icon-repeat-one.svg" alt="">
-                                <input formControlName="oneTimeOverSizedPrice" type="text" class="form-control" id="over-sized-price" required
-                                       name="over-sized-price">
-                            </div>
+                                <input
+                                        matInput
+                                        formControlName="oneTimeOverSizedPrice"
+                                        placeholder="Over-sized price"
+                                        type="text"/>
+                            </mat-form-field>
                         </div>
                     </div>
                 </div>
@@ -91,21 +100,26 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="price-container">
-                            <div class="form-group">
-                                <label for="price">Price</label>
+                            <mat-form-field>
                                 <img src="./assets/icons/icon-calendar-hollow.svg" alt="">
-                                <input formControlName="monthlyRegularPrice" type="text" class="form-control" id="price" required name="price">
-                            </div>
+                                <input
+                                        matInput
+                                        formControlName="monthlyRegularPrice"
+                                        placeholder="Price"
+                                        type="text"/>
+                            </mat-form-field>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="price-container">
-                            <div class="form-group">
-                                <label for="over-sized-price">Over-sized price</label>
+                            <mat-form-field>
                                 <img src="./assets/icons/icon-calendar-hollow.svg" alt="">
-                                <input formControlName="monthlyOverSizedPrice" type="text" class="form-control" id="over-sized-price" required
-                                       name="over-sized-price">
-                            </div>
+                                <input
+                                        matInput
+                                        formControlName="monthlyOverSizedPrice"
+                                        placeholder="Over-sized price"
+                                        type="text"/>
+                            </mat-form-field>
                         </div>
                     </div>
                 </div>

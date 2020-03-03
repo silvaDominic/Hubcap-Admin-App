@@ -105,7 +105,7 @@ export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit
                     this.openSnackBar(packageForm.get('nameFormGroup.name').value + ' Promo', 'Created');
                     // Otherwise, display alert
                 } else {
-                    alert('Error UPDATING ' + packageForm.get('nameFormGroup.name').value + '.' + ' Try again or contact your Admin.')
+                    alert('Error UPDATING ' + packageForm.get('nameFormGroup.name').value + '.' + ' Try again or contact your Admin.');
                 }
             });
         } else if (!packageForm.valid) {

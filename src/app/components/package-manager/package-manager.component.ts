@@ -45,8 +45,8 @@ export class PackageManagerComponent implements OnInit, OnDestroy {
             console.log('Index is the same. setPackage() call denied');
         } else {
             this.packageService.setPackage(index);
-            this.packageService.refreshDisplayPackageOptions();
             this.packageOptionsComp.resetForm();
+            this.packageService.refreshDisplayPackageOptions();
         }
     }
 }

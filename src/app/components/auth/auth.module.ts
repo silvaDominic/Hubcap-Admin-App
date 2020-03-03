@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 
-import { AuthComponent } from './auth.component';
+import { LoginComponent } from './login/login.component';
 import { NoAuthGuard } from './no-auth-guard.service';
 import { AuthRoutingModule } from './auth.routing';
 import {SharedModule} from '../../_shared/shared.module';
+import {RegisterComponent} from './register/register.component';
 
 @NgModule({
     imports: [
@@ -11,7 +12,8 @@ import {SharedModule} from '../../_shared/shared.module';
         SharedModule
     ],
     declarations: [
-        AuthComponent
+        LoginComponent,
+        RegisterComponent
     ],
     providers: [NoAuthGuard]
 })

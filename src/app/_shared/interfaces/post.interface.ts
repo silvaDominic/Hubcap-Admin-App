@@ -1,6 +1,6 @@
-import {Package} from './package.model';
-import {Promotion} from './promotion.model';
-import {Store} from './store.model';
+import {Package} from '../models/package.model';
+import {Promotion} from '../models/promotion.model';
+import {Store} from '../models/store.model';
 
 export interface PackageObject {
     carWashId: string,

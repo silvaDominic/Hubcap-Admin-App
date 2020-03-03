@@ -14,8 +14,9 @@ import {environment} from '../../../environments/environment';
 import {UserLoginCredentials, UserRegisterCredentials} from '../../_shared/models/user-credentials.model';
 import {CONSTANTS} from '../../_shared/CONSTANTS';
 import {ROLE} from '../../_shared/enums/ROLE';
-import {RouteInfo} from '../models/route-info.interface';
+import {RouteInfo} from '../interfaces/route-info.interface';
 import {map} from 'rxjs/operators';
+import {LoginCredentials, RegisterCredentials} from '../../_shared/interfaces/credentials.interface';
 
 
 @Injectable({
@@ -41,7 +42,7 @@ export class UserService {
     public populate(): void {
         // If JWT detected, attempt to get & store user's info
         if (this.jwtService.getToken()) {
-            this.apiService.get(environment.users_url, new HttpParams(), new HttpHeaders().set('Authorization', this.jwtService.getToken()))
+            this.apiService.get(environment.register_url, new HttpParams(), new HttpHeaders().set('Authorization', this.jwtService.getToken()))
                 .subscribe(
                     data => {
                         console.log('User Valid, Starting App');
@@ -88,51 +89,66 @@ export class UserService {
     }
 
     // WARNING: This method contains test code -- NOT FINAL
-    public attemptAuth(type, credentials): Observable<User> {
-        if (type === 'login') {
-            return this.fakeLoginResponse(credentials).pipe(
-                map(user => {
-                    if (user.token) {
-                        this.setAuth(user);
-                        return user;
-                    } else {
-                        console.log('Auth attempt failure');
-                        console.log('Throwing error');
-                        throw throwError(new Error('Invalid Login'));
-                    }
-                })
-            );
-        } else if (type === 'register') {
-            return this.fakeRegisterResponse(credentials).pipe(
-                map(user => {
-                    if (user.token) {
-                        this.setAuth(user);
-                        return user;
-                    } else {
-                        console.log('Auth attempt failure');
-                        console.log('Throwing error');
-                        throw throwError(new Error('Invalid Login'));
-                    }
-                })
-            );
-        } else {
-            console.warn('Error attempting Authentication.');
-            console.log('Throwing error');
-            throw throwError(new Error('Invalid Login'));
-        }
+    public attemptRegistryAuth(credentials: RegisterCredentials) {
+        // Delete or comment out when testing real API calls
+        return this.fakeRegisterResponse(credentials).pipe(
+            map(user => {
+                if (user.token) {
+                    this.setAuth(user);
+                    return user;
+                } else {
+                    console.log('Auth attempt failure');
+                    console.log('Throwing error');
+                    throw throwError(new Error('Invalid Registry'));
+                }
+            })
+        );
 
-        const httpHeaders = new HttpHeaders();
+        // Uncomment this to test API call for LOGIN
+/*        const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
         httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.getToken()); // { Authorization: Bearer Token [TOKEN] }
 
-        return this.apiService.post(environment.users_url, new HttpParams(), new HttpHeaders(), {user: credentials}).pipe(
+        return this.apiService.post(environment.register_url, new HttpParams(), new HttpHeaders(), {credentials}).pipe(
             map(
                 data => {
                     this.setAuth(data.adminUser);
                     return data;
                 }
             )
+        );*/
+    }
+
+    // WARNING: This method contains test code -- NOT FINAL
+    public attemptLoginAuth(credentials: LoginCredentials): Observable<User> {
+
+        // Delete or comment out when testing real API calls
+        return this.fakeLoginResponse(credentials).pipe(
+            map(user => {
+                if (user.token) {
+                    this.setAuth(user);
+                    return user;
+                } else {
+                    console.log('Auth attempt failure');
+                    console.log('Throwing error');
+                    throw throwError(new Error('Invalid Login'));
+                }
+            })
         );
+
+        // Uncomment this to test API call for REGISTER
+/*        const httpHeaders = new HttpHeaders();
+        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
+        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.getToken()); // { Authorization: Bearer Token [TOKEN] }
+
+        return this.apiService.post(environment.signIn_url, new HttpParams(), new HttpHeaders(), {credentials}).pipe(
+            map(
+                data => {
+                    this.setAuth(data.adminUser);
+                    return data;
+                }
+            )
+        );*/
     }
 
     // TEST METHOD
