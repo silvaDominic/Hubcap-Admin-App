@@ -1,64 +1,236 @@
-import { HttpClient } from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {ROLE} from '../enums/ROLE';
-import {Observable} from 'rxjs';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Injectable, OnInit} from '@angular/core';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Employee} from '../models/employee.model';
+import {CONSTANTS} from '../CONSTANTS';
+import {ApiService} from '../../_core/services/api.service';
+import {ActivatedRoute} from '@angular/router';
+import {map, take} from 'rxjs/operators';
+import {DeleteEmployeeObject, EmployeeObject, NewEmployeeObject, PackageObject} from '../interfaces/post.interface';
+import {environment} from '../../../environments/environment';
+import {CarwashService} from './carwash.service';
+import {UserService} from '../../_core/services/user.service';
+import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Role} from '../models/role.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class EmployeeService {
 
-    static permissionLevel = ROLE;
-    static permissionKeys = Object.keys(ROLE);
-    static roleMap: Map<ROLE, string> = new Map([
-        [ROLE.FULL_ADMIN, 'Full Admin'],
-        [ROLE.LOCAL_ADMIN, 'Local Admin'],
-        [ROLE.FIELD_WORKER, 'Field Worker'],
-                                                          ]);
+    public readonly employeeArraySubject = new BehaviorSubject(<Employee[]>[]);
+    private _employeeArray: Observable<Employee[]> = this.employeeArraySubject.asObservable();
+    public serviceReady: boolean;
 
-    private usersUrl = 'http://localhost:4200/assets/data/users.json';
-    private currentUserUrl = 'http://localhost:4200/assets/data/current-user.json';
-
-    static generatePassword() {
-        return Math.random().toString(); // Will be made more comprehensive in the future
+    constructor(private readonly http: HttpClient,
+                private readonly fb: FormBuilder,
+                private readonly apiService: ApiService,
+                private readonly activatedRoute: ActivatedRoute,
+                private readonly carwashService: CarwashService,
+                private readonly userService: UserService,
+                private readonly snackBar: MatSnackBar
+    ) {
+        this.activatedRoute.data.pipe(
+            map(data => {
+                console.log('Activated Route Data: ', data);
+            })
+        );
     }
 
-    static generateUserId() {
-        return '#' + Math.random().toString(); // Will be made more comprehensive in the future
+    public getBlankForm(): FormGroup {
+        return this.generateEmployeeForm(Employee.EMPTY_MODEL);
     }
 
-    constructor(private readonly http: HttpClient, private readonly fb: FormBuilder) {}
-
-    fetchAllUsers(): Observable<Employee[]> {
-        return this.http.get<Employee[]>(this.usersUrl)
+    public getFormById(id: string): FormGroup {
+        const employeeIndex = this.getEmployeeIndexById(id);
+        const employee = this.employeeArraySubject.getValue()[employeeIndex];
+        return this.generateEmployeeForm(employee);
     }
 
-    fetchUser(): Observable<Employee> {
-        return this.http.get<Employee>(this.currentUserUrl);
+    public getEmployeeIndexById(id: string) {
+        return this.employeeArraySubject.getValue().findIndex(employee => employee.id === id);
     }
 
-    newUser(user: Employee): Observable<Employee> {
-        return this.http.post<Employee>(this.usersUrl, user);
+    // Makes a request to create a new employee slot based on the role
+    // Returns a 6-digit employee code in the form of a string
+    public createEmployee(employeeRoleForm: FormGroup): Promise<string> {
+        console.log('New Employee request made');
+        console.log('Fetching Employee Code from DB');
+
+        const role = employeeRoleForm.get('role').value;
+
+        // Set HttpHeaders
+        const httpHeaders = new HttpHeaders();
+        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
+        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
+
+        const postObject: NewEmployeeObject = {
+            carWashId: this.carwashService.getStoreId(),
+            employeeRole: role,
+        };
+
+        console.log('Post Object: ', postObject);
+
+        // Make post and return promise
+        return this.apiService.post(environment.new_employee_url, new HttpParams(), httpHeaders, postObject).pipe(take(1)).toPromise();
     }
 
-    updateUser(user: Employee): Observable<Employee> {
-        return this.http.put<Employee>(this.currentUserUrl, user);
+    // This method might change
+    public updateEmployee(userFormGroup: FormGroup, userId): Promise<boolean> {
+        const updatedEmployee = new Employee(
+            userId,
+            userFormGroup.get('firstName').value,
+            userFormGroup.get('lastName').value,
+            userFormGroup.get('email').value,
+            userFormGroup.get('phoneNumber').value,
+            userFormGroup.get('storeIds').value,
+            userFormGroup.get('role').value,
+            userFormGroup.get('isActive').value,
+            userFormGroup.get('isRegistered').value,
+        );
+
+        console.log('Updating employee: ', updatedEmployee);
+
+        return this.postUpdateEmployee(updatedEmployee).then((res: Employee) => {
+            console.log('Employee Post SUCCESS', res);
+
+            const currentEmployeeArray = this.employeeArraySubject.getValue();
+            // Update employee array with newly updated employee
+            currentEmployeeArray[this.getEmployeeIndexById(updatedEmployee.id)] = updatedEmployee;
+
+            // Update behavior subject
+            this.employeeArraySubject.next(currentEmployeeArray);
+
+            return true;
+
+        }).catch(reason => {
+            console.warn('Error CREATING employee: ', updatedEmployee);
+            console.warn(reason);
+            return false;
+        });
     }
 
-    public generateUserForm(apiResponse: any): FormGroup {
+    private postUpdateEmployee(updatedEmployee: Employee): Promise<any> {
+        // Set HttpHeaders
+        const httpHeaders = new HttpHeaders();
+        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
+        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
+
+        const postObject: EmployeeObject = {
+            carWashId: this.carwashService.getStoreId(),
+            employee: updatedEmployee,
+        };
+
+        console.log('Post Object: ', postObject);
+
+        // Make post and return promise
+        return this.apiService.post(environment.new_employee_url, new HttpParams(), httpHeaders, postObject).pipe(take(1)).toPromise();
+    }
+
+    // Delete package from database and remove locally
+    deleteEmployee(id: string): Promise<boolean> {
+        const currentEmployeeArray = this.employeeArraySubject.getValue();
+
+        return new Promise<boolean>(((resolve, reject) => {
+            currentEmployeeArray.some(
+                (employee, i) => {
+                    if (employee.id === id) {
+                        return this.deleteEmployeeFromDB(id).then((result) => {
+                                console.log('Employee deletion SUCCESS: ', result);
+                                currentEmployeeArray.splice(i, 1);
+
+                                this.employeeArraySubject.next(currentEmployeeArray);
+                                resolve(true);
+                            }
+                        ).catch(reason => {
+                            reject('Error DELETING employee: ' + employee.id);
+                        });
+                    } else if (i == currentEmployeeArray.length - 1) {
+                        reject('Employee with ID: ' + id + ' does not exist. Try again or contact your Admin for help');
+                    }
+                }
+            );
+        }));
+    }
+
+    private deleteEmployeeFromDB(id: string): Promise<any> {
+        // Set HttpHeaders
+        const httpHeaders = new HttpHeaders();
+        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
+        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
+
+        const postObject: DeleteEmployeeObject = {
+            carWashId: this.carwashService.getStoreId(),
+            employeeId: id
+        };
+
+        // Make post and return promise
+        return this.apiService.post(environment.delete_employee_url, new HttpParams(), httpHeaders, postObject).pipe(take(1)).toPromise();
+
+    }
+
+    /* --------------------- FORM METHODS ------------------------- */
+
+    public generateRoleForm(): FormGroup {
+        return this.fb.group({
+            role: [null, Validators.required]
+        })
+    }
+
+    public generateEmployeeForm(apiResponse: any): FormGroup {
         return this.fb.group({
             id: [apiResponse.id],
-            firstName: [apiResponse.firstName, Validators.required],
-            lastName: [apiResponse.lastName, Validators.required],
-            email: [apiResponse.email, Validators.required, Validators.email],
-            phoneNumber: [apiResponse.phoneNumber, Validators.required],
+            firstName: [apiResponse.firstName,
+                [
+                    Validators.required,
+                    Validators.pattern(CONSTANTS.ALPHABET_NORM_VALIDATOR),
+                    Validators.maxLength(CONSTANTS.FIRST_NAME_MAX_LENGTH_VALIDATOR)
+                ]
+            ],
+            lastName: [apiResponse.lastName,
+                [
+                    Validators.required,
+                    Validators.pattern(CONSTANTS.ALPHABET_NORM_VALIDATOR),
+                    Validators.maxLength(CONSTANTS.LAST_NAME_MAX_LENGTH_VALIDATOR)
+                ]
+            ],
+            email: [apiResponse.email,
+                [
+                    Validators.required,
+                    Validators.email
+                ]
+            ],
+            phoneNumber: [apiResponse.phoneNumber,
+                [
+                    Validators.required,
+                    Validators.minLength(CONSTANTS.PHONE_NUM_MIN_LENGTH_VALIDATOR)
+                ]
+            ],
             storeIds: [apiResponse.storeIds],
-            password: [apiResponse.password],
-            permissionLevel: [apiResponse.permissionLevel],
+            password: [apiResponse.password,
+                [
+                    Validators.required,
+                    Validators.minLength(CONSTANTS.PASSWORD_MIN_LENGTH_VALIDATOR),
+                    Validators.maxLength(CONSTANTS.PASSWORD_MAX_LENGTH_VALIDATOR)
+                ]
+            ],
+            role: [apiResponse.role,
+                [
+                    Validators.required
+                ]
+            ],
             isActive: [apiResponse.isActive],
             isRegistered: [apiResponse.isRegistered]
+        });
+    }
+
+    /* --------------------- UTIL METHODS ------------------------- */
+
+    public openSnackBar(message: string, action: string): void {
+        this.snackBar.open(message, action, {
+            duration: 7000,
         });
     }
 

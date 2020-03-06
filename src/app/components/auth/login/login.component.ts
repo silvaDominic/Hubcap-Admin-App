@@ -33,8 +33,8 @@ export class LoginComponent implements OnInit {
             'password': ['',
                 [
                     Validators.required,
-                    Validators.minLength(6),
-                    Validators.maxLength(25)
+                    Validators.minLength(CONSTANTS.PASSWORD_MIN_LENGTH_VALIDATOR),
+                    Validators.maxLength(CONSTANTS.PASSWORD_MAX_LENGTH_VALIDATOR)
                 ]
             ]
         });

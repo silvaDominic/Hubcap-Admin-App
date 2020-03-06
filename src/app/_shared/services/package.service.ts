@@ -9,6 +9,7 @@ import {VEHICLE_TYPE} from '../enums/VEHICLE_TYPE.model';
 import {PackageItem} from '../models/package-item.model';
 import 'rxjs/operators/map';
 import {CONSTANTS} from '../CONSTANTS';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Injectable({
     providedIn: 'root',
@@ -29,7 +30,10 @@ export class PackageService {
     private _currentPackageIndex: number;
     public serviceReady: boolean;
 
-    constructor(private readonly carwashService: CarwashService, private readonly packageService: PackageService, private readonly fb: FormBuilder) {
+    constructor(private readonly carwashService: CarwashService,
+                private readonly packageService: PackageService,
+                private readonly fb: FormBuilder,
+                private readonly snackBar: MatSnackBar) {
         this.currentPackageIndex = 0;
         this.selectedServiceType = SERVICE_TYPE.WASH;
         this.loadPackageArray(SERVICE_TYPE.WASH);
@@ -130,6 +134,10 @@ export class PackageService {
         return this.packageSubject.getValue().type;
     }
 
+    public getPackageIndexById(id: string): number {
+        return this.packageArraySubject.getValue().findIndex(_package => _package.id === id);
+    }
+
     // Check whether monthly prices has any values
     public hasMonthly(): boolean {
         console.log('Has monthly? ', this.packageSubject.getValue().monthlyPrices.get(VEHICLE_TYPE.REGULAR));
@@ -217,7 +225,10 @@ export class PackageService {
         return this.carwashService.postNewPackage(newPackage).then((res: Package) => {
             console.log('Package Post SUCCESS', res);
 
-            this.packageSubject.next(res);
+            // Set if of new promo
+            newPackage.id = res.id;
+
+            this.packageSubject.next(newPackage);
 
             // Update package array
             const currentPackagesArrayValue = this.packageArraySubject.getValue();
@@ -248,7 +259,7 @@ export class PackageService {
         monthlyPrices.set(VEHICLE_TYPE.OVERSIZED, packageForm.get('pricingFormGroup.monthlyOverSizedPrice').value);
 
         // Instantiate new Package
-        const newPackage = new Package(
+        const updatedPackage = new Package(
             this.packageSubject.getValue().id,
             packageForm.get('nameFormGroup.name').value,
             packageForm.get('serviceTypeFormGroup.serviceType').value,
@@ -258,23 +269,29 @@ export class PackageService {
             monthlyPrices,
         );
 
-        console.log('Creating new package: ', newPackage);
+        console.log('Creating new package: ', updatedPackage);
 
-        return this.carwashService.updatePackage(newPackage).then((res: Package) => {
+        return this.carwashService.updatePackage(updatedPackage).then((res: Package) => {
             console.log('Package Post SUCCESS', res);
 
-            this.packageSubject.next(res);
+            // Update behavior subject
+            this.packageSubject.next(updatedPackage);
 
-            // Update package array
             const currentPackagesArrayValue = this.packageArraySubject.getValue();
-            this.packageArraySubject.next([...currentPackagesArrayValue, newPackage]);
+
+            // Update package array with newly updated package
+            currentPackagesArrayValue[this.currentPackageIndex] = updatedPackage;
+
+            // Update behavior subject with latest package array value
+            this.packageArraySubject.next(currentPackagesArrayValue);
 
             // Update carwash object
-            this.carwashService.cachePackages([...currentPackagesArrayValue, newPackage], newPackage.type);
+            this.carwashService.cachePackages([...currentPackagesArrayValue, updatedPackage], updatedPackage.type);
 
             return true;
+
         }).catch((reason) => {
-            console.warn('Error CREATING package: ' + newPackage.name);
+            console.warn('Error CREATING package: ' + updatedPackage.name);
             console.warn(reason);
             return false;
         });
@@ -540,6 +557,14 @@ export class PackageService {
         return this.fb.group({
             name: [packageItem.name],
             selectedSubOption: [packageItem.selectedSubOption]
+        });
+    }
+
+    /* --------------------- UTIL METHODS ------------------------- */
+
+    public openSnackBar(message: string, action: string) {
+        this.snackBar.open(message, action, {
+            duration: 4000,
         });
     }
 }

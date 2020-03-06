@@ -1,6 +1,8 @@
 import {Package} from '../models/package.model';
 import {Promotion} from '../models/promotion.model';
 import {Store} from '../models/store.model';
+import {Role} from '../models/role.model';
+import {Employee} from '../models/employee.model';
 
 export interface PackageObject {
     carWashId: string,
@@ -39,4 +41,19 @@ export interface StoreObject {
 export interface NewStoreObject {
     userName: string,
     store: Store,
+}
+
+export interface NewEmployeeObject {
+    carWashId: string,
+    employeeRole: Role
+}
+
+export interface EmployeeObject {
+    carWashId: string,
+    employee: Employee
+}
+
+export interface DeleteEmployeeObject {
+    carWashId: string,
+    employeeId: string
 }

@@ -1,72 +1,54 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import {Employee} from '../../../../_shared/models/employee.model';
-import {Role} from '../../../../_shared/models/role.model';
-import {Store} from '../../../../_shared/models/store.model';
-import {MatSnackBar} from '@angular/material';
+import {Component} from '@angular/core';
 import {EmployeeService} from '../../../../_shared/services/employee.service';
 import {ROLE} from '../../../../_shared/enums/ROLE';
+import {FormGroup} from '@angular/forms';
+import {Utilities} from '../../../../_shared/utilities';
 
 @Component({
-    selector: 'app-user-form',
+    selector: 'app-employee-form',
     templateUrl: './employee-form.component.html',
     styleUrls: ['./employee-form.component.scss']
 })
-export class EmployeeFormComponent implements OnInit {
-    @Input() stores: Store[];
-    @Input() users: Employee[];
-
-    userFormGroup: FormGroup;
-
+export class EmployeeFormComponent {
+    employeeCode: string;
+    codeGenerated: boolean = false;
+    employeeRoleForm: FormGroup;
     E_ROLE_KEYS = Object.keys(ROLE);
 
-    static initUserForm(): Employee {
-        return new Employee(
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            [],
-            null,
-            false,
-            false
-        );
+    constructor(private readonly employeeService: EmployeeService) {
+        this.employeeRoleForm = this.employeeService.generateRoleForm();
     }
 
-  constructor(userService: EmployeeService, private snackBar: MatSnackBar) {
-      this.userFormGroup = userService.generateUserForm(EmployeeFormComponent.initUserForm());
-  }
+    public createEmployee(employeeRoleForm: FormGroup): void {
+        // Comment this out to test real API call
+        return this.fakeResponse();
 
-  ngOnInit() {
-  }
-
-    createUser() {
-        const newUser = new Employee(
-            EmployeeService.generateUserId(),
-            this.userFormGroup.get('firstName').value,
-            this.userFormGroup.get('lastName').value,
-            EmployeeService.generatePassword(),
-            this.userFormGroup.get('email').value,
-            this.userFormGroup.get('phoneNumber').value,
-            this.userFormGroup.get('storeIds').value,
-            this.userFormGroup.get('role').value,
-            false,
-            false
-        );
-        this.users.push(newUser);
-
-        this.openSnackBar('User ' + newUser.firstName + ' ' + newUser.lastName, 'Created');
-
-    /*        this.usersService.newUser(newUser)
-            .subscribe(_user => this.users.push(_user));*/
+        if (employeeRoleForm.valid) {
+            this.employeeService.createEmployee(employeeRoleForm).then(result => {
+                this.employeeService.openSnackBar('Employee Code', 'GENERATED');
+                this.employeeCode = result;
+                this.codeGenerated = true;
+                console.log('Code Generated');
+            }).catch(reason => {
+                alert('Error generating code. Please try again or contact your Admin.');
+                console.warn(reason);
+            });
+        } else if (!employeeRoleForm.valid) {
+            alert(
+                'Please select the new employee\'s role.'
+            );
+        }
     }
 
-    openSnackBar(message: string, action: string) {
-        this.snackBar.open(message, action, {
-            duration: 7000,
-        });
+    private fakeResponse(): void {
+        this.employeeCode = (Math.floor(Math.pow(Math.random() * 10, 6))).toString();
+        this.codeGenerated = true;
+        console.log('Code Generated');
     }
 
+    private resetForm(): void {
+        this.employeeRoleForm.reset();
+        this.employeeCode = null;
+        this.codeGenerated = false;
+    }
 }

@@ -13,6 +13,7 @@ import {PackageManagerModule} from '../../components/package-manager/package-man
 import {PromoManagerModule} from '../../components/promo-manager/promo-manager.module';
 import {ScheduleManagerModule} from '../../components/schedule-manager/schedule-manager.module';
 import {EmployeeManagerModule} from '../../components/employee-manager/employee-manager.module';
+import {EmployeeResolverService} from '../../_shared/resolvers/employee-resolver.service';
 
 
 @NgModule({
@@ -33,7 +34,7 @@ import {EmployeeManagerModule} from '../../components/employee-manager/employee-
     ],
     exports: [
     ],
-    providers: [CarwashResolverService]
+    providers: [CarwashResolverService, EmployeeResolverService]
 })
 
 export class AdminLayoutModule {

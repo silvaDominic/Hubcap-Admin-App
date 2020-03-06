@@ -1,59 +1,41 @@
-<mat-accordion id="user-create-accordion">
-  <mat-expansion-panel hideToggle>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <span><strong>Create New User</strong></span>
-      </mat-panel-title>
-      <mat-panel-description><div></div><mat-icon>add_circle</mat-icon></mat-panel-description>
-    </mat-expansion-panel-header>
+<mat-accordion id="employee-create-accordion">
+    <mat-expansion-panel hideToggle (closed)="resetForm()">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <span><strong>Create New User</strong></span>
+            </mat-panel-title>
+            <mat-panel-description>
+                <div></div>
+                <mat-icon>add_circle</mat-icon>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
 
-    <form [formGroup]="userFormGroup" class="user-fields">
-      <div class="row">
-        <div class="col-md-6">
-          <mat-form-field>
-            <input matInput placeholder="First name" formControlName="firstName">
-          </mat-form-field>
+        <div class="row">
+            <div class="col-md-12">
+                <form [formGroup]="employeeRoleForm">
+                    <div>Select the role of the employee you'd like to add.</div>
+                    <mat-form-field>
+                        <mat-label for="roleSelect">Role</mat-label>
+                        <mat-select id="roleSelect" formControlName="role">
+                            <mat-option *ngFor="let role of E_ROLE_KEYS" [value]="role" >{{role}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </form>
+            </div>
         </div>
-        <div class="col-md-6">
-          <mat-form-field>
-            <input matInput placeholder="Last name" formControlName="lastName">
-          </mat-form-field>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-md-6">
-          <mat-form-field>
-            <input matInput placeholder="Email" formControlName="email">
-          </mat-form-field>
+        <div class="text-center" *ngIf="employeeRoleForm.valid">
+            <button [disabled]="codeGenerated" mat-raised-button color="primary" (click)=createEmployee(employeeRoleForm)>Get Code</button>
+            <div *ngIf="employeeCode != null">
+                <h3>Give this code to the employee you plan to make a {{employeeRoleForm.get('role').value}}</h3>
+                <h1 class="text-success" *ngIf="employeeCode != null; else loading">{{employeeCode}}</h1>
+                <h3>They can use it to register at this address: <strong>www.hubcap.com/admin</strong></h3>
+            </div>
+            <button *ngIf="employeeCode != null" mat-raised-button color="accent" (click)="resetForm()">Add Another Employee</button>
         </div>
-        <div class="col-md-6">
-          <mat-form-field>
-            <input matInput placeholder="Phone number" formControlName="phoneNumber">
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <mat-form-field>
-            <mat-label for="roleSelect">Role</mat-label>
-            <mat-select id="roleSelect" formControlName="role">
-              <mat-option *ngFor="let role of E_ROLE_KEYS" [value]="role" >{{role}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col-md-6">
-          <mat-form-field>
-            <mat-label for="storeSelect">Stores</mat-label>
-            <mat-select id="storeSelect" multiple formControlName="storeIds">
-              <mat-option *ngFor="let store of stores" [value]="store.id">{{store.name}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-    </form>
-    <mat-action-row>
-      <button mat-raised-button color="primary" (click)="createUser()">Create User</button>
-    </mat-action-row>
-  </mat-expansion-panel>
+    </mat-expansion-panel>
 </mat-accordion>
+
+<ng-template #loading>
+    ...Fetching Employee code
+</ng-template>

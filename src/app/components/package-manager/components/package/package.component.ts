@@ -23,7 +23,7 @@ export class PackageComponent implements OnInit {
     @Output() saveForm = new EventEmitter<boolean>();
     public E_VEHICLE_TYPE = VEHICLE_TYPE;
 
-    constructor(private readonly packageService: PackageService, private readonly snackBar: MatSnackBar, private readonly dialogBoxService: DialogBoxService) {
+    constructor(private readonly packageService: PackageService, private readonly dialogBoxService: DialogBoxService) {
     }
 
     ngOnInit() {
@@ -35,29 +35,6 @@ export class PackageComponent implements OnInit {
         this.packageSelect.emit(index);
     }
 
-/*    public savePackage(updatedPackage: Package): void {
-        if (this.packageForm.valid) {
-            this.packageService.savePackage(updatedPackage).then((result) => {
-                if (result == true) {
-                    this.openSnackBar(updatedPackage.name + ' Promo', 'Created')
-                    // Otherwise, display alert
-                } else if (result == false) {
-                    alert('Error SAVING ' + updatedPackage.name + '.' + ' Try again or contact your Admin.')
-                }
-            });
-        } else {
-            alert(
-                'Please fill out the remaining fields \n' +
-
-                Utilities.findInvalidControls(this.packageForm).map(
-                    control => {
-                        return control.toString() + '\n'
-                    }
-                )
-            );
-        }
-    }*/
-
     public savePackage(): void {
         this.saveForm.emit(true);
     }
@@ -67,7 +44,7 @@ export class PackageComponent implements OnInit {
 
         this.packageService.savePackageArray(updatedPackageArray, currentServiceType).then((result) => {
             if (result == true) {
-                this.openSnackBar(currentServiceType + ' Packages', 'Updated')
+                this.packageService.openSnackBar(currentServiceType + ' Packages', 'Updated')
                 // Otherwise, display alert
             } else if (result == false) {
                 alert('Error SAVING ' + currentServiceType + ' packages.' + ' Try again or contact your Admin.')
@@ -85,7 +62,7 @@ export class PackageComponent implements OnInit {
                         // Display success message, if the Package was successfully deleted
                         this.packageService.getPackageById(id).pipe(
                             tap(_package => {
-                                this.openSnackBar(_package.name + ' Package', 'Deleted');
+                                this.packageService.openSnackBar(_package.name + ' Package', 'Deleted');
                             })).subscribe().unsubscribe(); // This does not feel right
                     }).catch((reason) => {
                         // Display error message
@@ -98,11 +75,5 @@ export class PackageComponent implements OnInit {
                     });
                 }
             });
-    }
-
-    private openSnackBar(message: string, action: string) {
-        this.snackBar.open(message, action, {
-            duration: 4000,
-        });
     }
 }

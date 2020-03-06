@@ -215,10 +215,15 @@ export class PromotionService {
                 // Set new ID generated from backend and cache new store
                 console.log('Promotion Post SUCCESS: ', res);
 
+                // Set id of new promo
+                newPromotion.id = res.id;
+
                 // Reset form back to promo template after creation
                 this.promotionSubject.next(CONSTANTS.PROMOTION_TEMPLATE);
 
                 const currentPromotionArrayValue = this.promotionArraySubject.getValue();
+
+                // Update behavior subject and cache current value
                 this.promotionArraySubject.next([...currentPromotionArrayValue, newPromotion]);
                 this.carwashService.cachePromotions([...currentPromotionArrayValue, newPromotion]);
                 return true;
@@ -241,7 +246,7 @@ export class PromotionService {
             promoForm.get('discountFormGroup.discountFeatures').value,
         );
 
-        const newPromotion = new Promotion(
+        const updatedPromotion = new Promotion(
             this.promotionSubject.getValue().id,
             promoForm.get('nameFormGroup.name').value,
             promoForm.get('descriptionFormGroup.description').value,
@@ -257,21 +262,25 @@ export class PromotionService {
             true
         );
 
-        console.log('Creating new promo: ', newPromotion);
+        console.log('Updating promo: ', updatedPromotion);
 
-        return this.carwashService.updatePromotion(newPromotion).then((res) => {
-                // Set new ID generated from backend and cache new store
+        return this.carwashService.updatePromotion(updatedPromotion).then((res) => {
                 console.log('Promotion Post SUCCESS: ', res);
 
-                this.promotionSubject.next(Promotion.EMPTY_MODEL);
+                // Given empty model to clear form
+                this.promotionSubject.next(CONSTANTS.PROMOTION_TEMPLATE);
 
                 const currentPromotionArrayValue = this.promotionArraySubject.getValue();
-                this.promotionArraySubject.next([...currentPromotionArrayValue, newPromotion]);
-                this.carwashService.cachePromotions([...currentPromotionArrayValue, newPromotion]);
+                // Update promo array with newly updated promo
+                currentPromotionArrayValue[this.currentPromotionIndex] = updatedPromotion;
+
+                // Update behavior subject and cache current value
+                this.promotionArraySubject.next(currentPromotionArrayValue);
+                this.carwashService.cachePromotions(currentPromotionArrayValue);
                 return true;
             }
         ).catch(reason => {
-            console.warn('Error POSTING promotion: ' + newPromotion.name);
+            console.warn('Error POSTING promotion: ' + updatedPromotion.name);
             return false;
         })
     }

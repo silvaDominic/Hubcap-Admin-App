@@ -5,22 +5,21 @@
         <div class="card">
           <div class="card-header">
             <div class="card-title text-center">
-              <h4>Users and Roles</h4>
+              <h4>Employees and Roles</h4>
             </div>
           </div>
           <div class="card-body">
             <div id="user-form-container">
-              <app-user-form [users]="users" [stores]="stores"></app-user-form>
+              <app-employee-form></app-employee-form>
             </div>
 
             <hr>
 
-            <div *ngIf="users">
-              <div id="users-container" *ngFor="let user of users">
-                <app-user [thisUser]="user" [stores]="stores"></app-user>
+            <div>
+              <div id="users-container">
+                <app-employee *ngFor="let employee of (this.employeeService.employeeArraySubject | async)" [thisEmployee] = employee></app-employee>
               </div>
             </div>
-
           </div>
         </div>
       </div>

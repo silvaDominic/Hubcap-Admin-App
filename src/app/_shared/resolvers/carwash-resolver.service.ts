@@ -1,5 +1,4 @@
 import {ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot} from '@angular/router';
-import {UserService} from '../../_core/services/user.service';
 import {Observable, of} from 'rxjs';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/observable/merge';
@@ -21,7 +20,6 @@ export class CarwashResolverService implements Resolve<boolean> {
 
     constructor(
         private router: Router,
-        private userService: UserService,
         private carwashService: CarwashService,
         private apiService: ApiService
     ) {
@@ -30,14 +28,17 @@ export class CarwashResolverService implements Resolve<boolean> {
     resolve(route: ActivatedRouteSnapshot,
             state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
+        // Fetch both the DPIs and Carwash objects
         return Observable.forkJoin(
             this.fetchDisplayPackageItems(), // data[0]
             this.fetchCarwash() // data[1]
         ).map(data => {
+            // Convert DPI from JS object into Observable object
             CarwashService.displayPackageItems = of(data[0]);
             if (data[1] == null) {
                 console.log('No carwash found');
                 console.log('Creating empty Carwash...');
+                // Generate and empty carwash object if no carwash is found
                 CarwashService.carwashSubject.next(Utilities.convertToCarwashObject(Carwash.EMPTY_MODEL));
                 this.carwashService.serviceReady = true;
                 console.log('CURRENT CARWASH: ', CarwashService.carwashSubject.getValue());
@@ -45,6 +46,7 @@ export class CarwashResolverService implements Resolve<boolean> {
                 // Set carwash if one already exists
             } else if (data[1] != null || data[1] != undefined) {
                 console.log('Carwash VALID');
+                // Convert the response object into a Carwash Object
                 CarwashService.carwashSubject.next(Utilities.convertToCarwashObject(data[1]));
                 this.carwashService.serviceReady = true;
                 console.log('_LOADING CARWASH COMPLETE_');

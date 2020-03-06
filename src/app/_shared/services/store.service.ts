@@ -162,6 +162,9 @@ export class StoreService {
                     return this.carwashService.postNewStore(newStore).then((res: Store) => {
                         console.log('Store post SUCCESS: ', res);
 
+                        // Set if of new store
+                        newStore.id = res.id;
+
                         this.storeSubject.next(res);
 
                         // Update carwash object
@@ -217,7 +220,7 @@ export class StoreService {
                         storeForm.get('zipcode').value,
                     );
 
-                    const newStore = new Store(
+                    const updatedStore = new Store(
                         this.storeSubject.getValue().id,
                         storeForm.get('name').value,
                         storeForm.get('type').value,
@@ -230,16 +233,16 @@ export class StoreService {
                     );
 
                     console.log('LAT AND LONG VALUES: ', addressCoordinates);
-                    console.log(newStore);
+                    console.log(updatedStore);
 
                     // Post new store
-                    return this.carwashService.updateStore(newStore).then((res: Store) => {
+                    return this.carwashService.updateStore(updatedStore).then((res: Store) => {
                         console.log('Store post SUCCESS: ', res);
 
-                        this.storeSubject.next(res);
+                        this.storeSubject.next(updatedStore);
 
                         // Update carwash object
-                        this.carwashService.cacheStore(newStore);
+                        this.carwashService.cacheStore(updatedStore);
                         resolve(true);
                     }).catch(reason => {
                         reject(reason);

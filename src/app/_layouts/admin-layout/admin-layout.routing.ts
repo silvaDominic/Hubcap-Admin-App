@@ -11,6 +11,7 @@ import {CarwashResolverService} from '../../_shared/resolvers/carwash-resolver.s
 import {ROLE} from '../../_shared/enums/ROLE';
 import {RoleGuard} from '../../_core/services/role-guard.service';
 import {AuthGuard} from '../../_core/services/auth-guard.service';
+import {EmployeeResolverService} from '../../_shared/resolvers/employee-resolver.service';
 
 export const layoutRoutes: Routes = [
     {
@@ -32,7 +33,7 @@ export const layoutRoutes: Routes = [
         canLoad: [RoleGuard],
         loadChildren: () => import('../../components/store-manager/store-manager.module').then(mod => mod.StoreManagerModule),
         resolve: {
-            coreServiceStatus: CarwashResolverService
+            carwashServiceStatus: CarwashResolverService
         }
     },
     {
@@ -41,7 +42,7 @@ export const layoutRoutes: Routes = [
         canLoad: [AuthGuard],
         loadChildren: () => import('../../components/package-manager/package-manager.module').then(mod => mod.PackageManagerModule),
         resolve: {
-            coreServiceStatus: CarwashResolverService
+            carwashServiceStatus: CarwashResolverService
         }
     },
     {
@@ -51,7 +52,7 @@ export const layoutRoutes: Routes = [
         canLoad: [RoleGuard],
         loadChildren: () => import('../../components/promo-manager/promo-manager.module').then(mod => mod.PromoManagerModule),
         resolve: {
-            coreServiceStatus: CarwashResolverService
+            carwashServiceStatus: CarwashResolverService
         }
     },
     {
@@ -60,6 +61,10 @@ export const layoutRoutes: Routes = [
         data: {allowedRoles: [ROLE.FULL_ADMIN, ROLE.LOCAL_ADMIN]},
         canLoad: [RoleGuard],
         loadChildren: () => import('../../components/employee-manager/employee-manager.module').then(mod => mod.EmployeeManagerModule),
+        resolve: {
+            employeeServiceStatus: EmployeeResolverService,
+            carwashServiceStatus: CarwashResolverService
+        }
     },
     {
         path: 'schedule-manager',

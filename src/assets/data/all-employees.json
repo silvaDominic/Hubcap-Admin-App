@@ -7,10 +7,7 @@
     "phoneNumber": "1234567895",
     "storeIds": ["1140", "1141"],
     "password": "bestpassword",
-    "role": {
-      "name": "Full Admin",
-      "permissionLevel": "FULL_ADMIN"
-    },
+    "role": "FULL_ADMIN",
     "isActive": true,
     "isRegistered": true
   },
@@ -22,10 +19,7 @@
     "phoneNumber": "4561239516",
     "storeIds": ["1140"],
     "password": "okaypassword",
-    "role": {
-      "name": "Local Admin",
-      "permissionLevel": "LOCAL_ADMIN"
-    },
+    "role": "LOCAL_ADMIN",
     "isActive": true,
     "isRegistered": true
   },
@@ -37,10 +31,7 @@
     "phoneNumber": "4679138254",
     "storeIds": ["1140"],
     "password": "nopassword",
-    "role": {
-      "name": "Field Worker",
-      "permissionLevel": "FIELD_WORKER"
-    },
+    "role": "FIELD_WORKER",
     "isActive": true,
     "isRegistered": true
   },
@@ -52,10 +43,7 @@
     "phoneNumber": "7416482593",
     "storeIds": ["1140", "1141"],
     "password": "1password",
-    "role": {
-      "name": "Field Worker",
-      "permissionLevel": "FIELD_WORKER"
-    },
+    "role": "FIELD_WORKER",
     "isActive": false,
     "isRegistered": true
   }

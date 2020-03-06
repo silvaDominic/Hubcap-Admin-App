@@ -3,8 +3,8 @@ import {PackageService} from '../../../../_shared/services/package.service';
 import {ITEM_TYPE} from '../../../../_shared/enums/ITEM_TYPE.model';
 import {FormArray, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {VEHICLE_TYPE} from '../../../../_shared/enums/VEHICLE_TYPE.model';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import {Utilities} from '../../../../_shared/utilities';
+import {DialogBoxService} from '../../../../_shared/services/dialog-box.service';
 
 @Component({
     selector: 'app-package-options',
@@ -23,7 +23,7 @@ export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit
     E_ITEM_TYPE = ITEM_TYPE;
     E_VEHICLE_TYPE = VEHICLE_TYPE;
 
-    constructor(private readonly packageService: PackageService, private readonly snackBar: MatSnackBar) {
+    constructor(private readonly packageService: PackageService) {
     }
 
     public ngOnInit() {
@@ -77,7 +77,7 @@ export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit
             this.packageService.createPackage(packageForm).then((result) => {
                 if (result == true) {
                     this.callSetFocusPackage(this.packageService.getPackageArrayLength() - 1);
-                    this.openSnackBar(packageForm.get('nameFormGroup.name').value + ' Promo', 'Created');
+                    this.packageService.openSnackBar(packageForm.get('nameFormGroup.name').value + ' Promo', 'Created');
                     // Otherwise, display alert
                 } else {
                     alert('Error CREATING ' + packageForm.get('nameFormGroup.name').value + '.' + ' Try again or contact your Admin.')
@@ -102,7 +102,7 @@ export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit
             this.packageService.updatePackage(packageForm).then((result) => {
                 if (result == true) {
                     this.callSetFocusPackage(this.packageService.getPackageArrayLength() - 1);
-                    this.openSnackBar(packageForm.get('nameFormGroup.name').value + ' Promo', 'Created');
+                    this.packageService.openSnackBar(packageForm.get('nameFormGroup.name').value + ' Promo', 'Created');
                     // Otherwise, display alert
                 } else {
                     alert('Error UPDATING ' + packageForm.get('nameFormGroup.name').value + '.' + ' Try again or contact your Admin.');
@@ -137,11 +137,5 @@ export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit
         this.packageService.initDisplayPackageItems();
         this.packageService.refreshDisplayPackageOptions();
         console.log('PO_COMP -- Init Display Items -- EXIT');
-    }
-
-    private openSnackBar(message: string, action: string) {
-        this.snackBar.open(message, action, {
-            duration: 4000,
-        });
     }
 }

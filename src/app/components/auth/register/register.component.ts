@@ -29,33 +29,35 @@ export class RegisterComponent implements OnInit {
             'firstName': ['',
                 [
                     Validators.required,
-                    Validators.maxLength(20),
+                    Validators.maxLength(CONSTANTS.FIRST_NAME_MAX_LENGTH_VALIDATOR),
                     Validators.pattern(CONSTANTS.ALPHABET_NORM_VALIDATOR)
                 ]
             ],
             'lastName': ['',
                 [
                     Validators.required,
-                    Validators.maxLength(30),
+                    Validators.maxLength(CONSTANTS.LAST_NAME_MAX_LENGTH_VALIDATOR),
                     Validators.pattern(CONSTANTS.ALPHABET_NORM_VALIDATOR)
                 ]
             ],
             'email': ['',
-                [Validators.required,
+                [
+                    Validators.required,
                     Validators.email
                 ]
             ],
             'password': ['',
                 [
                     Validators.required,
-                    Validators.minLength(6),
-                    Validators.maxLength(25)
+                    Validators.minLength(CONSTANTS.PASSWORD_MIN_LENGTH_VALIDATOR),
+                    Validators.maxLength(CONSTANTS.PASSWORD_MAX_LENGTH_VALIDATOR)
                 ]
             ],
             'registryCode': ['',
-                [Validators.required,
-                    Validators.maxLength(6),
-                    Validators.minLength(6)
+                [
+                    Validators.required,
+                    Validators.maxLength(CONSTANTS.REGISTRY_CODE_LENGTH_VALIDATOR),
+                    Validators.minLength(CONSTANTS.REGISTRY_CODE_LENGTH_VALIDATOR)
                 ]
             ]
         });

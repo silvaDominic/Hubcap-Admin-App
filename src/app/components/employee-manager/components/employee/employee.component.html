@@ -2,34 +2,35 @@
     <div class="row">
         <div class="col-md-12">
             <mat-accordion>
-                <mat-expansion-panel hideToggle [ngClass]="{'not-registered': !thisUser.isRegistered, 'is-active': thisUser.isActive, 'not-active': !thisUser.isActive}">
+                <mat-expansion-panel hideToggle [ngClass]="{'not-registered': !thisEmployee.isRegistered, 'is-active': thisEmployee.isActive, 'not-active': !thisEmployee.isActive}">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            {{thisUser.firstName}}
+                            {{thisEmployee.firstName}}
                         </mat-panel-title>
                         <mat-panel-description>
-                            <div>{{roleMap.get(thisUser.role.permissionLevel)}}</div>
-                            <mat-icon *ngIf="thisUser.role.permissionLevel === permissionLevel.FULL_ADMIN">supervisor_account</mat-icon>
-                            <mat-icon *ngIf="thisUser.role.permissionLevel === permissionLevel.LOCAL_ADMIN">account_circle</mat-icon>
-                            <mat-icon *ngIf="thisUser.role.permissionLevel === permissionLevel.FIELD_WORKER">build</mat-icon>
+                            <div>{{thisEmployee.role}}</div>
+                            <mat-icon *ngIf="thisEmployee.role === E_ROLE.FULL_ADMIN">supervisor_account</mat-icon>
+                            <mat-icon *ngIf="thisEmployee.role === E_ROLE.LOCAL_ADMIN">account_circle</mat-icon>
+                            <mat-icon *ngIf="thisEmployee.role === E_ROLE.FIELD_WORKER">build</mat-icon>
                         </mat-panel-description>
                     </mat-expansion-panel-header>
 
-                    <div class="row register-warning" *ngIf="!thisUser.isRegistered">
+                    <div class="row register-warning" *ngIf="!thisEmployee.isRegistered">
                         <div class="col-12">
                             <h5><strong>WAITING ON USER TO REGISTER</strong></h5>
                         </div>
                     </div>
-                    <div class="user-fields">
+
+                    <form [formGroup]="employeeForm" class="user-fields">
                         <div class="row">
                             <div class="col-md-6">
                                 <mat-form-field>
-                                    <input matInput placeholder="First name" [ngModel]="thisUser.firstName">
+                                    <input matInput placeholder="First name" formControlName="firstName">
                                 </mat-form-field>
                             </div>
                             <div class="col-md-6">
                                 <mat-form-field>
-                                    <input matInput placeholder="Last name" [ngModel]="thisUser.lastName">
+                                    <input matInput placeholder="Last name" formControlName="lastName">
                                 </mat-form-field>
                             </div>
                         </div>
@@ -37,39 +38,38 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <mat-form-field>
-                                    <input matInput placeholder="Email" [ngModel]="thisUser.email">
+                                    <input matInput placeholder="Email" formControlName="email">
                                 </mat-form-field>
                             </div>
                             <div class="col-md-6">
                                 <mat-form-field>
-                                    <input matInput placeholder="Phone number" [ngModel]="thisUser.phoneNumber">
+                                    <input matInput placeholder="Phone number" formControlName="phoneNumber">
                                 </mat-form-field>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-md-6">
                                 <mat-form-field>
-                                    <mat-label>Permission Level</mat-label>
-                                    <mat-select id="permissionSelect" [(ngModel)]="thisUser.role.permissionLevel">
-                                        <mat-option *ngFor="let permission of permissionKeys" [value]="permission">{{permission}}</mat-option>
+                                    <mat-label for="roleSelect">Role</mat-label>
+                                    <mat-select id="roleSelect" formControlName="role">
+                                        <mat-option *ngFor="let role of E_ROLE_KEYS" [value]="role" >{{role}}</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
-                            <div class="col-md-6">
-                                <mat-form-field>
-                                    <mat-label for="storeSelect">Stores</mat-label>
-                                    <mat-select id="storeSelect" multiple [(ngModel)]="thisUser.storeIds">
-                                        <mat-option *ngFor="let store of stores" [value]="store.id">{{store.name}}</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
+                            <!--        <div class="col-md-6">
+                                      <mat-form-field>
+                                        <mat-label for="storeSelect">Stores</mat-label>
+                                        <mat-select id="storeSelect" multiple formControlName="storeIds">
+                                          <mat-option *ngFor="let store of stores" [value]="store.id">{{store.name}}</mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </div>-->
                         </div>
-                    </div>
+                    </form>
                     <mat-action-row class="user-actions">
-                        <div class="active-status"><mat-checkbox [(ngModel)]="thisUser.isActive">Active</mat-checkbox></div>
-                        <button mat-raised-button color="primary" (click)="updateUser(thisUser)">Update User</button>
-                        <button mat-raised-button color="warn" (click)="deleteUser(thisUser)">Delete User</button>
+                        <div class="active-status"><mat-checkbox [(ngModel)]="thisEmployee.isActive">Active</mat-checkbox></div>
+                        <button mat-raised-button color="primary" (click)="updateEmployee(employeeForm, thisEmployee.id)">Update User</button>
+                        <button mat-raised-button color="warn" (click)="deleteEmployee(thisEmployee.id)">Delete User</button>
                     </mat-action-row>
                 </mat-expansion-panel>
             </mat-accordion>

@@ -10,6 +10,7 @@ import {Store} from './models/store.model';
 import {PackageItem} from './models/package-item.model';
 import {Frequency} from './models/frequency.model';
 import {FormGroup} from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 export class Utilities {
 
