@@ -77,7 +77,7 @@ export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit
             this.packageService.createPackage(packageForm).then((result) => {
                 if (result == true) {
                     this.callSetFocusPackage(this.packageService.getPackageArrayLength() - 1);
-                    this.packageService.openSnackBar(packageForm.get('nameFormGroup.name').value + ' Promo', 'Created');
+                    this.packageService.openSnackBar(packageForm.get('nameFormGroup.name').value + ' Package', 'Created');
                     // Otherwise, display alert
                 } else {
                     alert('Error CREATING ' + packageForm.get('nameFormGroup.name').value + '.' + ' Try again or contact your Admin.')

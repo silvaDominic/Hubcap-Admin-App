@@ -9,6 +9,7 @@ export const environment = {
     carwash_url: '/assets/data/carwash.json',
     display_package_items_url: '/assets/data/all-package-items.json',
     all_employees_url: '/assets/data/all-employees.json',
+    user_sign_in_url: '',
     register_url: '',
     signIn_url: '',
     logout_url: '',

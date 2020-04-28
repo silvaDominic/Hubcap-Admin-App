@@ -11,7 +11,6 @@ import {ApiService} from './api.service';
 import {JwtService} from './jwt.service';
 import {User} from '../models/admin-user.model';
 import {environment} from '../../../environments/environment';
-import {UserLoginCredentials, UserRegisterCredentials} from '../../_shared/models/user-credentials.model';
 import {CONSTANTS} from '../../_shared/CONSTANTS';
 import {ROLE} from '../../_shared/enums/ROLE';
 import {RouteInfo} from '../interfaces/route-info.interface';
@@ -42,7 +41,7 @@ export class UserService {
     public populate(): void {
         // If JWT detected, attempt to get & store user's info
         if (this.jwtService.getToken()) {
-            this.apiService.get(environment.register_url, new HttpParams(), new HttpHeaders().set('Authorization', this.jwtService.getToken()))
+            this.apiService.get(environment.user_sign_in_url, new HttpParams(), new HttpHeaders().set('Authorization', this.jwtService.getToken()))
                 .subscribe(
                     data => {
                         console.log('User Valid, Starting App');
@@ -92,7 +91,7 @@ export class UserService {
     public attemptRegistryAuth(credentials: RegisterCredentials) {
         // Delete or comment out when testing real API calls
         return this.fakeRegisterResponse(credentials).pipe(
-            map(user => {
+            map((user: User) => {
                 if (user.token) {
                     this.setAuth(user);
                     return user;
@@ -104,19 +103,19 @@ export class UserService {
             })
         );
 
-        // Uncomment this to test API call for LOGIN
-/*        const httpHeaders = new HttpHeaders();
+        // Uncomment this to test API call for REGISTER
+        const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.getToken()); // { Authorization: Bearer Token [TOKEN] }
+        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.jwtService.getToken()); // { Authorization: Bearer [TOKEN] }
 
-        return this.apiService.post(environment.register_url, new HttpParams(), new HttpHeaders(), {credentials}).pipe(
+        return this.apiService.post(environment.register_url, new HttpParams(), httpHeaders, {credentials}).pipe(
             map(
-                data => {
-                    this.setAuth(data.adminUser);
-                    return data;
+                user => {
+                    this.setAuth(user);
+                    return user;
                 }
             )
-        );*/
+        );
     }
 
     // WARNING: This method contains test code -- NOT FINAL
@@ -136,34 +135,35 @@ export class UserService {
             })
         );
 
-        // Uncomment this to test API call for REGISTER
-/*        const httpHeaders = new HttpHeaders();
+        // Uncomment this to test API call for LOGIN
+        const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.getToken()); // { Authorization: Bearer Token [TOKEN] }
+        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.jwtService.getToken()); // { Authorization: Bearer [TOKEN] }
 
-        return this.apiService.post(environment.signIn_url, new HttpParams(), new HttpHeaders(), {credentials}).pipe(
+        return this.apiService.post(environment.signIn_url, new HttpParams(), httpHeaders, {credentials}).pipe(
             map(
-                data => {
-                    this.setAuth(data.adminUser);
-                    return data;
+                user => {
+                    this.setAuth(user);
+                    return user;
                 }
             )
-        );*/
+        );
     }
 
     // TEST METHOD
-    private fakeLoginResponse(credentials: UserLoginCredentials): Observable<User> {
-        if (credentials.email === CONSTANTS.VALID_USER.email && credentials.password === CONSTANTS.VALID_USER.password) {
+    private fakeLoginResponse(credentials: LoginCredentials): Observable<User> {
+        if (credentials.userName === CONSTANTS.VALID_USER.email && credentials.password === CONSTANTS.VALID_USER.password) {
             console.log('Attempt success. Logging in.');
             return of(CONSTANTS.VALID_USER);
         } else {
-
-
+            console.log('Attempt failure. Redirecting to Login.');
+            console.log('Throwing error');
+            throw throwError(new Error('Invalid Registry'));
         }
     }
 
     // TEST METHOD
-    private fakeRegisterResponse(credentials: UserRegisterCredentials): Observable<User> {
+    private fakeRegisterResponse(credentials: RegisterCredentials): Observable<User> {
         console.log('Submitted Register credentials: ', credentials);
         if (credentials.registryCode === CONSTANTS.REGISTRY_CODE) {
             console.log('Attempt success. Registering User.');

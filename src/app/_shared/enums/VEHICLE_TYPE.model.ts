@@ -1,4 +1,4 @@
 export enum VEHICLE_TYPE {
-        REGULAR = 'REGULAR',
+    REGULAR = 'REGULAR',
     OVERSIZED = 'OVERSIZED'
 }

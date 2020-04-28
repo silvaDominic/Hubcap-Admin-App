@@ -3,13 +3,14 @@ import {CarwashService} from './carwash.service';
 import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
 import {Package} from '../models/package.model';
 import {DisplayPackageItem} from '../models/display-package-item.model';
-import {BehaviorSubject, Observable, of} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {VEHICLE_TYPE} from '../enums/VEHICLE_TYPE.model';
 import {PackageItem} from '../models/package-item.model';
 import 'rxjs/operators/map';
 import {CONSTANTS} from '../CONSTANTS';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {Price} from '../models/price.model';
 
 @Injectable({
     providedIn: 'root',
@@ -104,7 +105,7 @@ export class PackageService {
 
     public setPackage(index: number): void {
         if (index !== this._currentPackageIndex) {
-            console.log('_SET PACKAGE_');
+            console.log('_SET PACKAGE_', this.packageArraySubject.getValue()[index]);
             console.log('@ Index: ', index);
             this._currentPackageIndex = index;
             this.packageSubject.next(this.packageArraySubject.getValue()[index]);
@@ -140,8 +141,8 @@ export class PackageService {
 
     // Check whether monthly prices has any values
     public hasMonthly(): boolean {
-        console.log('Has monthly? ', this.packageSubject.getValue().monthlyPrices.get(VEHICLE_TYPE.REGULAR));
-        return !!(this.packageSubject.getValue().monthlyPrices.get(VEHICLE_TYPE.REGULAR) !== null || 0);
+        console.log('Has monthly? ', this.packageSubject.getValue().monthlyPrices.REGULAR);
+        return !!(this.packageSubject.getValue().monthlyPrices.REGULAR !== null || 0);
     }
 
     switchToMonthly() {
@@ -196,18 +197,15 @@ export class PackageService {
 
     // Post and Cache new package
     createPackage(packageForm: FormGroup): Promise<boolean> {
-
         // Instantiate and initialize temp variables for One Time and Monthly price maps
-        const oneTimePrices = new Map<VEHICLE_TYPE, number>();
-        oneTimePrices.set(VEHICLE_TYPE.REGULAR, packageForm.get('pricingFormGroup.oneTimeRegularPrice').value);
-        oneTimePrices.set(VEHICLE_TYPE.OVERSIZED, packageForm.get('pricingFormGroup.oneTimeOverSizedPrice').value);
+        const oneTimePrices = new Price(packageForm.get('pricingFormGroup.oneTimeRegularPrice').value, packageForm.get('pricingFormGroup.oneTimeOverSizedPrice').value);
+        console.log('OTP: ', oneTimePrices);
 
-        const monthlyPrices = new Map<VEHICLE_TYPE, number>();
-        monthlyPrices.set(VEHICLE_TYPE.REGULAR, packageForm.get('pricingFormGroup.monthlyRegularPrice').value);
-        monthlyPrices.set(VEHICLE_TYPE.OVERSIZED, packageForm.get('pricingFormGroup.monthlyOverSizedPrice').value);
+        const monthlyPrices = new Price(packageForm.get('pricingFormGroup.monthlyRegularPrice').value, packageForm.get('pricingFormGroup.monthlyOverSizedPrice').value);
+        console.log('MP: ', monthlyPrices);
 
         const packageItems = new Array<PackageItem>();
-        console.log('Package Items from form: ', packageForm.get('packageItems').value);
+        console.log('Package Items from form: ', packageForm.get('packageItemsFormGroup').value);
 
         // Instantiate new Package
         const newPackage = new Package(
@@ -222,10 +220,10 @@ export class PackageService {
 
         console.log('Creating new package: ', newPackage);
 
-        return this.carwashService.postNewPackage(newPackage).then((res: Package) => {
+        return this.carwashService.postNewPackage(newPackage).then((res) => {
             console.log('Package Post SUCCESS', res);
 
-            // Set if of new promo
+            // Set id if new package
             newPackage.id = res.id;
 
             this.packageSubject.next(newPackage);
@@ -238,9 +236,10 @@ export class PackageService {
             this.carwashService.cachePackages([...currentPackagesArrayValue, newPackage], newPackage.type);
 
             return true;
-        }).catch((reason) => {
+        }).catch((res) => {
             console.warn('Error CREATING package: ' + newPackage.name);
-            console.warn(reason);
+            console.warn(res);
+
             return false;
         });
     }
@@ -250,13 +249,11 @@ export class PackageService {
     updatePackage(packageForm: FormGroup): Promise<boolean> {
 
         // Instantiate and initialize temp variables for One Time and Monthly price maps
-        const oneTimePrices = new Map<VEHICLE_TYPE, number>();
-        oneTimePrices.set(VEHICLE_TYPE.REGULAR, packageForm.get('pricingFormGroup.oneTimeRegularPrice').value);
-        oneTimePrices.set(VEHICLE_TYPE.OVERSIZED, packageForm.get('pricingFormGroup.oneTimeOverSizedPrice').value);
+        const oneTimePrices = new Price(packageForm.get('pricingFormGroup.oneTimeRegularPrice').value, packageForm.get('pricingFormGroup.oneTimeOverSizedPrice').value);
+        console.log('OTP: ', oneTimePrices);
 
-        const monthlyPrices = new Map<VEHICLE_TYPE, number>();
-        monthlyPrices.set(VEHICLE_TYPE.REGULAR, packageForm.get('pricingFormGroup.monthlyRegularPrice').value);
-        monthlyPrices.set(VEHICLE_TYPE.OVERSIZED, packageForm.get('pricingFormGroup.monthlyOverSizedPrice').value);
+        const monthlyPrices = new Price(packageForm.get('pricingFormGroup.monthlyRegularPrice').value, packageForm.get('pricingFormGroup.monthlyOverSizedPrice').value);
+        console.log('MP: ', monthlyPrices);
 
         // Instantiate new Package
         const updatedPackage = new Package(
@@ -286,7 +283,7 @@ export class PackageService {
             this.packageArraySubject.next(currentPackagesArrayValue);
 
             // Update carwash object
-            this.carwashService.cachePackages([...currentPackagesArrayValue, updatedPackage], updatedPackage.type);
+            this.carwashService.cachePackages(currentPackagesArrayValue, updatedPackage.type);
 
             return true;
 

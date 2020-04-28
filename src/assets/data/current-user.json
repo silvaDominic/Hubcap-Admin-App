@@ -6,10 +6,7 @@
   "phoneNumber": "1234567895",
   "storeIds": ["1140", "1141"],
   "password": "bestpassword",
-  "role": {
-    "name": "Full Admin",
-    "permissionLevel": "FULL_ADMIN_CONTROL"
-  },
+  "role": "FULL_ADMIN",
   "isActive": true,
   "isRegistered": true
 }

@@ -1,10 +1,10 @@
 export interface LoginCredentials {
-    email: string,
+    userName: string,
     password: string
 }
 
 export interface RegisterCredentials {
-    email: string,
+    userName: string,
     firstName: string,
     lastName: string,
     password: string,

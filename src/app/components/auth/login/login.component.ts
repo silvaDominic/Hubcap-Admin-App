@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../../_core/services/user.service';
 import {Errors} from '../../../_core/interfaces/errors.interface';
 import {CONSTANTS} from '../../../_shared/CONSTANTS';
-import {LoginCredentials, RegisterCredentials} from '../../../_shared/interfaces/credentials.interface';
+import {LoginCredentials} from '../../../_shared/interfaces/credentials.interface';
 import {Utilities} from '../../../_shared/utilities';
 
 @Component({
@@ -26,15 +26,14 @@ export class LoginComponent implements OnInit {
 
         this.loginForm = this.fb.group({
             'email': ['',
-                [Validators.required,
+                [
+                    Validators.required,
                     Validators.email
                 ]
             ],
             'password': ['',
                 [
-                    Validators.required,
-                    Validators.minLength(CONSTANTS.PASSWORD_MIN_LENGTH_VALIDATOR),
-                    Validators.maxLength(CONSTANTS.PASSWORD_MAX_LENGTH_VALIDATOR)
+                    Validators.required
                 ]
             ]
         });
@@ -62,7 +61,7 @@ export class LoginComponent implements OnInit {
         } else if (this.loginForm.valid) {
 
             const credentials: LoginCredentials = {
-                email: this.loginForm.get('email').value,
+                userName: this.loginForm.get('email').value,
                 password: this.loginForm.get('password').value,
             };
 
