@@ -3,7 +3,7 @@ import {Discount} from './models/discount.model';
 import {User} from '../_core/models/admin-user.model';
 import {ROLE} from './enums/ROLE';
 
-export const CONSTANTS = {
+export const constants = {
     SHORT_WEEKDAY: {weekday: 'short'},
     SHORT_MONTH: {month: 'short'},
     NUM_DAY: {day: 'numeric'},

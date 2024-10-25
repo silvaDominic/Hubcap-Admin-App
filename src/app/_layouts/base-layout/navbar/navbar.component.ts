@@ -6,7 +6,7 @@ import {UserService} from '../../../_core/services/user.service';
 import {ApiService} from '../../../_core/services/api.service';
 import {environment} from '../../../../environments/environment';
 import {HttpHeaders, HttpParams} from '@angular/common/http';
-import {CONSTANTS} from '../../../_shared/constants';
+import {constants} from '../../../_shared/constants';
 
 @Component({
     selector: 'app-navbar',
@@ -139,8 +139,8 @@ export class NavbarComponent implements OnInit {
 
     public logout() {
         const httpHeaders = new HttpHeaders();
-        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
+        httpHeaders.set('Content-Type', constants.DEFAULT_CONTENT_TYPE);
+        httpHeaders.set('Authorization', constants.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
 
         this.userService.purgeAuth();
         this.apiService.post(environment.logout_url, new HttpParams(), httpHeaders);

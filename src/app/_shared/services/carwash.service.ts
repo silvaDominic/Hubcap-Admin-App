@@ -11,7 +11,7 @@ import {environment} from '../../../environments/environment';
 import {take, map} from 'rxjs/operators';
 import {merge} from 'rxjs';
 import {Store} from '../models/store.model';
-import {CONSTANTS} from '../constants';
+import {constants} from '../constants';
 import {UserService} from '../../_core/services/user.service';
 import {
     DeletePackageObject,
@@ -87,8 +87,8 @@ export class CarwashService {
     public postNewStore(newStore: Store): Promise<any> {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
-        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
+        httpHeaders.set('Content-Type', constants.DEFAULT_CONTENT_TYPE);
+        httpHeaders.set('Authorization', constants.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
 
         const postObject: NewStoreObject = {
             userName: this.userService.getCurrentUserValue().email,
@@ -102,8 +102,8 @@ export class CarwashService {
     public updateStore(updatedStore: Store): Promise<any> {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
-        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
+        httpHeaders.set('Content-Type', constants.DEFAULT_CONTENT_TYPE);
+        httpHeaders.set('Authorization', constants.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
 
         const postObject: StoreObject = {
             carWashId: this.getStoreId(),
@@ -128,8 +128,8 @@ export class CarwashService {
     public postNewPackage(newPackage: Package): Promise<any> {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
-        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
+        httpHeaders.set('Content-Type', constants.DEFAULT_CONTENT_TYPE);
+        httpHeaders.set('Authorization', constants.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
 
         const postObject: PackageObject = {
             carWashId: this.getStoreId(),
@@ -145,8 +145,8 @@ export class CarwashService {
     public updatePackage(updatedPackage: Package): Promise<any> {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
-        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
+        httpHeaders.set('Content-Type', constants.DEFAULT_CONTENT_TYPE);
+        httpHeaders.set('Authorization', constants.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
 
         const postObject: PackageObject = {
             carWashId: this.getStoreId(),
@@ -163,8 +163,8 @@ export class CarwashService {
     public updatePackageArray(updatedPackageArray: Package[]): Promise<any> {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
-        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
+        httpHeaders.set('Content-Type', constants.DEFAULT_CONTENT_TYPE);
+        httpHeaders.set('Authorization', constants.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
 
         const postObject: PackageArrayObject = {
             carWashId: this.getStoreId(),
@@ -180,8 +180,8 @@ export class CarwashService {
     public deletePackage(id: string): Promise<any> {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
-        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
+        httpHeaders.set('Content-Type', constants.DEFAULT_CONTENT_TYPE);
+        httpHeaders.set('Authorization', constants.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
 
         const postObject: DeletePackageObject = {
             carWashId: this.getStoreId(),
@@ -212,8 +212,8 @@ export class CarwashService {
     public postNewPromotion(newPromotion: Promotion): Promise<any> {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
-        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
+        httpHeaders.set('Content-Type', constants.DEFAULT_CONTENT_TYPE);
+        httpHeaders.set('Authorization', constants.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
 
         const postObject: PromotionObject = {
             carWashId: this.getStoreId(),
@@ -229,8 +229,8 @@ export class CarwashService {
     public updatePromotion(newPromotion: Promotion): Promise<any> {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
-        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
+        httpHeaders.set('Content-Type', constants.DEFAULT_CONTENT_TYPE);
+        httpHeaders.set('Authorization', constants.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
 
         const postObject: PromotionObject = {
             carWashId: this.getStoreId(),
@@ -247,8 +247,8 @@ export class CarwashService {
     public deletePromotion(id: string): Promise<any> {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
-        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
+        httpHeaders.set('Content-Type', constants.DEFAULT_CONTENT_TYPE);
+        httpHeaders.set('Authorization', constants.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
 
         const postObject: DeletePromotionObject = {
             carWashId: this.getStoreId(),

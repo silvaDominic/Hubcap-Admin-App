@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {SERVICE_TYPE} from '../../../../_shared/enums/SERVICE_TYPE';
 import {DISCOUNT_TYPE} from '../../../../_shared/enums/DISCOUNT_TYPE.model';
 import {PromotionService} from '../../../../_shared/services/promotion.service';
-import {CONSTANTS} from '../../../../_shared/constants';
+import {constants} from '../../../../_shared/constants';
 import {PackageService} from '../../../../_shared/services/package.service';
 import {FREQUENCY} from '../../../../_shared/enums/FREQUENCY.model';
 import {PROMO_FORM_STEPS} from '../../../../_shared/enums/PROMO_FORM_STEPS.model';
@@ -20,7 +20,7 @@ export class PromoOverviewComponent implements OnInit {
     public E_FREQUENCY = FREQUENCY;
     public E_PROMO_FORM_STEPS = PROMO_FORM_STEPS;
 
-    public C_CONSTANTS = CONSTANTS;
+    public C_CONSTANTS = constants;
 
     constructor(public readonly promotionService: PromotionService, public readonly packageService: PackageService) {
 

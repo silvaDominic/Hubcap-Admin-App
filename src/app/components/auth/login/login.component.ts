@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../../_core/services/user.service';
 import {Errors} from '../../../_core/interfaces/errors.interface';
-import {CONSTANTS} from '../../../_shared/constants';
+import {constants} from '../../../_shared/constants';
 import {LoginCredentials} from '../../../_shared/interfaces/credentials.interface';
 import {Utilities} from '../../../_shared/utilities';
 

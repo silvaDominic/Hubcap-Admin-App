@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from '../../_core/services/api.service';
 import {HttpHeaders, HttpParams} from '@angular/common/http';
-import {CONSTANTS} from '../constants';
+import {constants} from '../constants';
 import {environment} from '../../../environments/environment';
 import {take} from 'rxjs/operators';
 import {Client} from '../models/client.model';
@@ -21,7 +21,7 @@ export class QrScannerService {
 
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
-        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
+        httpHeaders.set('Content-Type', constants.DEFAULT_CONTENT_TYPE);
         // httpHeaders.set('Bearer Token', this.userService.getToken());
 
         console.log('Client Confirmed: ', client);

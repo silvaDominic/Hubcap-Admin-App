@@ -10,7 +10,7 @@ import {Package} from '../models/package.model';
 import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
 import {Frequency} from '../models/frequency.model';
 import {PROMO_FORM_STEPS} from '../enums/PROMO_FORM_STEPS.model';
-import {CONSTANTS} from '../constants';
+import {constants} from '../constants';
 import {map} from 'rxjs/operators';
 
 @Injectable({
@@ -52,7 +52,7 @@ export class PromotionService {
             promotions => {
                 if (promotions != null) {
                     this.promotionArraySubject.next(promotions);
-                    this.promotionSubject.next(CONSTANTS.PROMOTION_TEMPLATE);
+                    this.promotionSubject.next(constants.PROMOTION_TEMPLATE);
                     // this.currentPromotionId = this.promotionSubject.getValue().id;
                     this.serviceReady = true;
                     this.resetValidFormSteps(true);
@@ -176,7 +176,7 @@ export class PromotionService {
         } else if (this.promotionArraySubject.getValue().length <= 0) {
             console.log('No promotion to default to. Current index set to null');
             this.currentPromotionIndex = null;
-            this.promotionSubject.next(CONSTANTS.PROMOTION_TEMPLATE);
+            this.promotionSubject.next(constants.PROMOTION_TEMPLATE);
             this.resetValidFormSteps(true);
         }
     }
@@ -220,7 +220,7 @@ export class PromotionService {
                 newPromotion.id = res.id;
 
                 // Reset form back to promo template after creation
-                this.promotionSubject.next(CONSTANTS.PROMOTION_TEMPLATE);
+                this.promotionSubject.next(constants.PROMOTION_TEMPLATE);
 
                 const currentPromotionArrayValue = this.promotionArraySubject.getValue();
 
@@ -269,7 +269,7 @@ export class PromotionService {
                 console.log('Promotion Post SUCCESS: ', res);
 
                 // Given empty model to clear form
-                this.promotionSubject.next(CONSTANTS.PROMOTION_TEMPLATE);
+                this.promotionSubject.next(constants.PROMOTION_TEMPLATE);
 
                 const currentPromotionArrayValue = this.promotionArraySubject.getValue();
                 // Update promo array with newly updated promo

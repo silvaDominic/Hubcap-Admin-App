@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Promotion} from '../../../../_shared/models/promotion.model';
 import {DISCOUNT_TYPE} from '../../../../_shared/enums/DISCOUNT_TYPE.model';
 import {PromotionService} from '../../../../_shared/services/promotion.service';
-import {CONSTANTS} from '../../../../_shared/constants';
+import {constants} from '../../../../_shared/constants';
 import {FREQUENCY} from '../../../../_shared/enums/FREQUENCY.model';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {DialogBoxService} from '../../../../_shared/services/dialog-box.service';
@@ -21,7 +21,7 @@ export class PromoComponent implements OnInit {
 
     public E_FREQUENCY = FREQUENCY;
     public E_DISCOUNT_TYPE = DISCOUNT_TYPE;
-    public C_CONSTANTS = CONSTANTS;
+    public C_CONSTANTS = constants;
 
     constructor(public readonly promotionService: PromotionService,
                 private readonly snackBar: MatSnackBar,

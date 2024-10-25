@@ -3,7 +3,7 @@ import {Errors} from '../../../_core/interfaces/errors.interface';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../../_core/services/user.service';
-import {CONSTANTS} from '../../../_shared/constants';
+import {constants} from '../../../_shared/constants';
 import {RegisterCredentials} from '../../../_shared/interfaces/credentials.interface';
 import {Utilities} from '../../../_shared/utilities';
 
@@ -29,15 +29,15 @@ export class RegisterComponent implements OnInit {
             'firstName': ['',
                 [
                     Validators.required,
-                    Validators.maxLength(CONSTANTS.FIRST_NAME_MAX_LENGTH_VALIDATOR),
-                    Validators.pattern(CONSTANTS.ALPHABET_NORM_VALIDATOR)
+                    Validators.maxLength(constants.FIRST_NAME_MAX_LENGTH_VALIDATOR),
+                    Validators.pattern(constants.ALPHABET_NORM_VALIDATOR)
                 ]
             ],
             'lastName': ['',
                 [
                     Validators.required,
-                    Validators.maxLength(CONSTANTS.LAST_NAME_MAX_LENGTH_VALIDATOR),
-                    Validators.pattern(CONSTANTS.ALPHABET_NORM_VALIDATOR)
+                    Validators.maxLength(constants.LAST_NAME_MAX_LENGTH_VALIDATOR),
+                    Validators.pattern(constants.ALPHABET_NORM_VALIDATOR)
                 ]
             ],
             'email': ['',
@@ -49,15 +49,15 @@ export class RegisterComponent implements OnInit {
             'password': ['',
                 [
                     Validators.required,
-                    Validators.minLength(CONSTANTS.PASSWORD_MIN_LENGTH_VALIDATOR),
-                    Validators.maxLength(CONSTANTS.PASSWORD_MAX_LENGTH_VALIDATOR)
+                    Validators.minLength(constants.PASSWORD_MIN_LENGTH_VALIDATOR),
+                    Validators.maxLength(constants.PASSWORD_MAX_LENGTH_VALIDATOR)
                 ]
             ],
             'registryCode': ['',
                 [
                     Validators.required,
-                    Validators.maxLength(CONSTANTS.REGISTRY_CODE_LENGTH_VALIDATOR),
-                    Validators.minLength(CONSTANTS.REGISTRY_CODE_LENGTH_VALIDATOR)
+                    Validators.maxLength(constants.REGISTRY_CODE_LENGTH_VALIDATOR),
+                    Validators.minLength(constants.REGISTRY_CODE_LENGTH_VALIDATOR)
                 ]
             ]
         });

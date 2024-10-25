@@ -7,7 +7,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {VEHICLE_TYPE} from '../enums/VEHICLE_TYPE.model';
 import {PackageItem} from '../models/package-item.model';
-import {CONSTANTS} from '../constants';
+import {constants} from '../constants';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Price} from '../models/price.model';
 import {map} from 'rxjs/operators';
@@ -503,8 +503,8 @@ export class PackageService {
             name: [_package.name,
                 [
                     Validators.required,
-                    Validators.pattern(CONSTANTS.ALPHABET_NUM_EXT_VALIDATOR),
-                    Validators.maxLength(CONSTANTS.PACKAGE_NAME_MAX_LENGTH_VALIDATOR)
+                    Validators.pattern(constants.ALPHABET_NUM_EXT_VALIDATOR),
+                    Validators.maxLength(constants.PACKAGE_NAME_MAX_LENGTH_VALIDATOR)
                 ]
             ]
         });
@@ -515,27 +515,27 @@ export class PackageService {
             oneTimeRegularPrice: [_package.oneTimePrices[VEHICLE_TYPE.REGULAR],
                 [
                     Validators.required,
-                    Validators.maxLength(CONSTANTS.PACKAGE_PRICE_MAX_LENGTH_VALIDATOR),
-                    Validators.pattern(CONSTANTS.NUM_ONLY_NON_ZERO)
+                    Validators.maxLength(constants.PACKAGE_PRICE_MAX_LENGTH_VALIDATOR),
+                    Validators.pattern(constants.NUM_ONLY_NON_ZERO)
                 ]
             ],
             oneTimeOverSizedPrice: [_package.oneTimePrices[VEHICLE_TYPE.OVERSIZED],
                 [
                     Validators.required,
-                    Validators.maxLength(CONSTANTS.PACKAGE_PRICE_MAX_LENGTH_VALIDATOR),
-                    Validators.pattern(CONSTANTS.NUM_ONLY_NON_ZERO)
+                    Validators.maxLength(constants.PACKAGE_PRICE_MAX_LENGTH_VALIDATOR),
+                    Validators.pattern(constants.NUM_ONLY_NON_ZERO)
                 ]
             ],
             monthlyRegularPrice: [_package.monthlyPrices[VEHICLE_TYPE.REGULAR],
                 [
-                    Validators.maxLength(CONSTANTS.PACKAGE_PRICE_MAX_LENGTH_VALIDATOR),
-                    Validators.pattern(CONSTANTS.NUM_ONLY_NON_ZERO)
+                    Validators.maxLength(constants.PACKAGE_PRICE_MAX_LENGTH_VALIDATOR),
+                    Validators.pattern(constants.NUM_ONLY_NON_ZERO)
                 ]
             ],
             monthlyOverSizedPrice: [_package.monthlyPrices[VEHICLE_TYPE.OVERSIZED],
                 [
-                    Validators.maxLength(CONSTANTS.PACKAGE_PRICE_MAX_LENGTH_VALIDATOR),
-                    Validators.pattern(CONSTANTS.NUM_ONLY_NON_ZERO)
+                    Validators.maxLength(constants.PACKAGE_PRICE_MAX_LENGTH_VALIDATOR),
+                    Validators.pattern(constants.NUM_ONLY_NON_ZERO)
                 ]
             ],
         });
@@ -546,8 +546,8 @@ export class PackageService {
             duration: [_package.duration,
                 [
                     Validators.required,
-                    Validators.pattern(CONSTANTS.NUM_ONLY_NON_ZERO),
-                    Validators.maxLength(CONSTANTS.PACKAGE_DURATION_MAX_LENGTH_VALIDATOR)
+                    Validators.pattern(constants.NUM_ONLY_NON_ZERO),
+                    Validators.maxLength(constants.PACKAGE_DURATION_MAX_LENGTH_VALIDATOR)
                 ]
             ]
         });

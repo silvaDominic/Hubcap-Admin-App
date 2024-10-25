@@ -7,7 +7,7 @@ import {ApiService} from './api.service';
 import {JwtService} from './jwt.service';
 import {User} from '../models/admin-user.model';
 import {environment} from '../../../environments/environment';
-import {CONSTANTS} from '../../_shared/constants';
+import {constants} from '../../_shared/constants';
 import {ROLE} from '../../_shared/enums/ROLE';
 import {RouteInfo} from '../interfaces/route-info.interface';
 import {map} from 'rxjs/operators';
@@ -101,8 +101,8 @@ export class UserService {
 
         // Uncomment this to test API call for REGISTER
         const httpHeaders = new HttpHeaders();
-        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.jwtService.getToken()); // { Authorization: Bearer [TOKEN] }
+        httpHeaders.set('Content-Type', constants.DEFAULT_CONTENT_TYPE);
+        httpHeaders.set('Authorization', constants.TOKEN_KEY_NAME + ' ' + this.jwtService.getToken()); // { Authorization: Bearer [TOKEN] }
 
         return this.apiService.post(environment.register_url, new HttpParams(), httpHeaders, {credentials}).pipe(
             map(
@@ -133,8 +133,8 @@ export class UserService {
 
         // Uncomment this to test API call for LOGIN
         const httpHeaders = new HttpHeaders();
-        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.jwtService.getToken()); // { Authorization: Bearer [TOKEN] }
+        httpHeaders.set('Content-Type', constants.DEFAULT_CONTENT_TYPE);
+        httpHeaders.set('Authorization', constants.TOKEN_KEY_NAME + ' ' + this.jwtService.getToken()); // { Authorization: Bearer [TOKEN] }
 
         return this.apiService.post(environment.signIn_url, new HttpParams(), httpHeaders, {credentials}).pipe(
             map(
@@ -148,9 +148,9 @@ export class UserService {
 
     // TEST METHOD
     private fakeLoginResponse(credentials: LoginCredentials): Observable<User> {
-        if (credentials.userName === CONSTANTS.VALID_USER.email && credentials.password === CONSTANTS.VALID_USER.password) {
+        if (credentials.userName === constants.VALID_USER.email && credentials.password === constants.VALID_USER.password) {
             console.log('Attempt success. Logging in.');
-            return of(CONSTANTS.VALID_USER);
+            return of(constants.VALID_USER);
         } else {
             console.log('Attempt failure. Redirecting to Login.');
             console.log('Throwing error');
@@ -161,9 +161,9 @@ export class UserService {
     // TEST METHOD
     private fakeRegisterResponse(credentials: RegisterCredentials): Observable<User> {
         console.log('Submitted Register credentials: ', credentials);
-        if (credentials.registryCode === CONSTANTS.REGISTRY_CODE) {
+        if (credentials.registryCode === constants.REGISTRY_CODE) {
             console.log('Attempt success. Registering User.');
-            return of(CONSTANTS.VALID_USER);
+            return of(constants.VALID_USER);
         } else {
             console.log('Attempt failure. Redirecting to Login.');
             console.log('Throwing error');
@@ -186,9 +186,9 @@ export class UserService {
         const currentUserRole = this.currentUserSubject.getValue().role;
 
         if (currentUserRole !== ROLE.FIELD_WORKER) {
-            return CONSTANTS.ADMIN_ROUTES.concat(CONSTANTS.BASE_ROUTES);
+            return constants.ADMIN_ROUTES.concat(constants.BASE_ROUTES);
         } else if (currentUserRole === ROLE.FIELD_WORKER) {
-            return CONSTANTS.BASE_ROUTES;
+            return constants.BASE_ROUTES;
         } else {
             console.warn('Error setting ROUTES');
         }

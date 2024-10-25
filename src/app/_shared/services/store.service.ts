@@ -10,7 +10,7 @@ import {Address} from '../models/address.model';
 import {map} from 'rxjs/operators';
 import {ApiService} from '../../_core/services/api.service';
 import {environment} from '../../../environments/environment';
-import {CONSTANTS} from '../constants';
+import {constants} from '../constants';
 
 @Injectable({
     providedIn: 'root'
@@ -266,29 +266,29 @@ export class StoreService {
             name: [store.name,
                 [
                     Validators.required,
-                    Validators.pattern(CONSTANTS.ALPHABET_NUM_EXT_VALIDATOR),
-                    Validators.maxLength(CONSTANTS.STORE_NAME_MAX_LENGTH_VALIDATOR)
+                    Validators.pattern(constants.ALPHABET_NUM_EXT_VALIDATOR),
+                    Validators.maxLength(constants.STORE_NAME_MAX_LENGTH_VALIDATOR)
                 ]
             ],
             type: [store.type, Validators.required],
             streetAddress: [store.address.street,
                 [
                     Validators.required,
-                    Validators.pattern(CONSTANTS.ALPHABET_NUM_EXT_VALIDATOR)
+                    Validators.pattern(constants.ALPHABET_NUM_EXT_VALIDATOR)
                 ]
             ],
             city: [store.address.city,
                 [
                     Validators.required,
-                    Validators.pattern(CONSTANTS.ALPHABET_NORM_VALIDATOR)
+                    Validators.pattern(constants.ALPHABET_NORM_VALIDATOR)
                 ]
             ],
             state: [store.address.state, Validators.required],
             zipcode: [store.address.zipcode,
                 [
                     Validators.required,
-                    Validators.pattern(CONSTANTS.NUM_NON_NEG_WHOLE_VALIDATOR),
-                    Validators.minLength(CONSTANTS.ZIPCODE_MIN_LENGTH_VALIDATOR)
+                    Validators.pattern(constants.NUM_NON_NEG_WHOLE_VALIDATOR),
+                    Validators.minLength(constants.ZIPCODE_MIN_LENGTH_VALIDATOR)
                 ]
             ],
             email: [store.email,
@@ -300,8 +300,8 @@ export class StoreService {
             phoneNumber: [store.phoneNumber,
                 [
                     Validators.required,
-                    Validators.pattern(CONSTANTS.NUM_NON_NEG_WHOLE_VALIDATOR),
-                    Validators.minLength(CONSTANTS.PHONE_NUM_MIN_LENGTH_VALIDATOR)
+                    Validators.pattern(constants.NUM_NON_NEG_WHOLE_VALIDATOR),
+                    Validators.minLength(constants.PHONE_NUM_MIN_LENGTH_VALIDATOR)
                 ]
             ],
             storeHours: this.fb.array(store.hoursOfOperation.storeHours.map
@@ -324,7 +324,7 @@ export class StoreService {
             name: [exception.name,
                 [
                     Validators.required,
-                    Validators.pattern(CONSTANTS.ALPHABET_NORM_VALIDATOR)
+                    Validators.pattern(constants.ALPHABET_NORM_VALIDATOR)
                 ]
             ],
             date: [exception.date, Validators.required],

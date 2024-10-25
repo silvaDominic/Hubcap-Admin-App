@@ -3,7 +3,7 @@ import {Injectable, OnInit} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Employee} from '../models/employee.model';
-import {CONSTANTS} from '../constants';
+import {constants} from '../constants';
 import {ApiService} from '../../_core/services/api.service';
 import {ActivatedRoute} from '@angular/router';
 import {map, take} from 'rxjs/operators';
@@ -63,8 +63,8 @@ export class EmployeeService {
 
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
-        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
+        httpHeaders.set('Content-Type', constants.DEFAULT_CONTENT_TYPE);
+        httpHeaders.set('Authorization', constants.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
 
         const postObject: NewEmployeeObject = {
             carWashId: this.carwashService.getStoreId(),
@@ -115,8 +115,8 @@ export class EmployeeService {
     private postUpdateEmployee(updatedEmployee: Employee): Promise<any> {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
-        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
+        httpHeaders.set('Content-Type', constants.DEFAULT_CONTENT_TYPE);
+        httpHeaders.set('Authorization', constants.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
 
         const postObject: EmployeeObject = {
             carWashId: this.carwashService.getStoreId(),
@@ -158,8 +158,8 @@ export class EmployeeService {
     private deleteEmployeeFromDB(id: string): Promise<any> {
         // Set HttpHeaders
         const httpHeaders = new HttpHeaders();
-        httpHeaders.set('Content-Type', CONSTANTS.DEFAULT_CONTENT_TYPE);
-        httpHeaders.set('Authorization', CONSTANTS.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
+        httpHeaders.set('Content-Type', constants.DEFAULT_CONTENT_TYPE);
+        httpHeaders.set('Authorization', constants.TOKEN_KEY_NAME + ' ' + this.userService.getToken()); // { Authorization: Bearer Token [TOKEN] }
 
         const postObject: DeleteEmployeeObject = {
             carWashId: this.carwashService.getStoreId(),
@@ -185,15 +185,15 @@ export class EmployeeService {
             firstName: [apiResponse.firstName,
                 [
                     Validators.required,
-                    Validators.pattern(CONSTANTS.ALPHABET_NORM_VALIDATOR),
-                    Validators.maxLength(CONSTANTS.FIRST_NAME_MAX_LENGTH_VALIDATOR)
+                    Validators.pattern(constants.ALPHABET_NORM_VALIDATOR),
+                    Validators.maxLength(constants.FIRST_NAME_MAX_LENGTH_VALIDATOR)
                 ]
             ],
             lastName: [apiResponse.lastName,
                 [
                     Validators.required,
-                    Validators.pattern(CONSTANTS.ALPHABET_NORM_VALIDATOR),
-                    Validators.maxLength(CONSTANTS.LAST_NAME_MAX_LENGTH_VALIDATOR)
+                    Validators.pattern(constants.ALPHABET_NORM_VALIDATOR),
+                    Validators.maxLength(constants.LAST_NAME_MAX_LENGTH_VALIDATOR)
                 ]
             ],
             email: [apiResponse.email,
@@ -205,15 +205,15 @@ export class EmployeeService {
             phoneNumber: [apiResponse.phoneNumber,
                 [
                     Validators.required,
-                    Validators.minLength(CONSTANTS.PHONE_NUM_MIN_LENGTH_VALIDATOR)
+                    Validators.minLength(constants.PHONE_NUM_MIN_LENGTH_VALIDATOR)
                 ]
             ],
             storeIds: [apiResponse.storeIds],
             password: [apiResponse.password,
                 [
                     Validators.required,
-                    Validators.minLength(CONSTANTS.PASSWORD_MIN_LENGTH_VALIDATOR),
-                    Validators.maxLength(CONSTANTS.PASSWORD_MAX_LENGTH_VALIDATOR)
+                    Validators.minLength(constants.PASSWORD_MIN_LENGTH_VALIDATOR),
+                    Validators.maxLength(constants.PASSWORD_MAX_LENGTH_VALIDATOR)
                 ]
             ],
             role: [apiResponse.role,
