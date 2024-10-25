@@ -11,7 +11,7 @@ import {Utilities} from '../../../../_shared/utilities';
 })
 export class EmployeeFormComponent {
     employeeCode: string;
-    codeGenerated: boolean = false;
+    codeGenerated = false;
     employeeRoleForm: FormGroup;
     E_ROLE_KEYS = Object.keys(ROLE);
 
@@ -46,7 +46,7 @@ export class EmployeeFormComponent {
         console.log('Code Generated');
     }
 
-    private resetForm(): void {
+    public resetForm(): void {
         this.employeeRoleForm.reset();
         this.employeeCode = null;
         this.codeGenerated = false;

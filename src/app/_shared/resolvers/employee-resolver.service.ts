@@ -5,6 +5,7 @@ import {ApiService} from '../../_core/services/api.service';
 import {Observable} from 'rxjs';
 import {Employee} from '../models/employee.model';
 import {EmployeeService} from '../services/employee.service';
+import {map} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
@@ -22,7 +23,7 @@ export class EmployeeResolverService implements Resolve<boolean> {
             state: RouterStateSnapshot): Observable<boolean> {
 
         // Fetch all employees
-        return this.fetchAllEmployees().map(data => {
+        return this.fetchAllEmployees().pipe(map(data => {
             if (data == null) {
                 console.log('No employees found');
                 console.log('Creating empty employee list');
@@ -34,7 +35,7 @@ export class EmployeeResolverService implements Resolve<boolean> {
                 this.employeeService.employeeArraySubject.next(data);
                 return true;
             }
-        })
+        }))
     }
 
     // Retrieve Employee array object from backend

@@ -1,6 +1,6 @@
 // -----------------------------------------
 // input-group and input-group-addon styles
-//  note: exceptionForm-groups are not required
+//  note: form-groups are not required
 //
 @mixin input-group-button-variation($vertical-padding) {
   .input-group-btn {
@@ -10,7 +10,7 @@
   }
 }
 
-// default margin - no exceptionForm-group required
+// default margin - no form-group required
 @include input-group-button-variation(input-padding-y);
 
 .bmd-form-group-sm {
@@ -22,7 +22,7 @@
 }
 
 .input-group {
-  // may be in or outside of exceptionForm-group
+  // may be in or outside of form-group
 
   .input-group-text {
     display: flex;

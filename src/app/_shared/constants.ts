@@ -58,15 +58,15 @@ export const CONSTANTS = {
     ),
     REGISTRY_CODE: '123456',
     ADMIN_ROUTES: [
-        { path: '/store-manager', title: 'My Store', icon: 'store', class: '' },
-        { path: '/employee-manager', title: 'Employee Manager', icon: 'people', class: ''},
-        { path: '/package-manager', title: 'Package Manager',  icon: 'view_carousel', class: '' },
-        { path: '/promotions-manager', title: 'Promotional Manager',  icon: 'stars', class: '' },
-        { path: '/schedule-manager', title: 'Scheduler', icon: 'calendar_today', class: '' },
+        {path: '/store-manager', title: 'My Store', icon: 'store', class: ''},
+        {path: '/employee-manager', title: 'Employee Manager', icon: 'people', class: ''},
+        {path: '/package-manager', title: 'Package Manager', icon: 'view_carousel', class: ''},
+        {path: '/promotions-manager', title: 'Promotional Manager', icon: 'stars', class: ''},
+        {path: '/schedule-manager', title: 'Scheduler', icon: 'calendar_today', class: ''},
     ],
     BASE_ROUTES: [
-        { path: '/profile', title: 'Profile',  icon: 'person', class: '' },
-        { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
-        { path: '/qr-scanner-manager', title: 'QR Scanner', icon: 'control_camera', class: '' },
+        {path: '/profile', title: 'Profile', icon: 'person', class: ''},
+        {path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: ''},
+        {path: '/qr-scanner-manager', title: 'QR Scanner', icon: 'control_camera', class: ''},
     ]
 };

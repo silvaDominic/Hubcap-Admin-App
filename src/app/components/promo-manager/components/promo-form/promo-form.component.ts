@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {AmazingTimePickerService} from 'amazing-time-picker';
 import {PackageService} from '../../../../_shared/services/package.service';
 import {Promotion} from '../../../../_shared/models/promotion.model';
 import {SERVICE_TYPE} from '../../../../_shared/enums/SERVICE_TYPE';
-import {MatSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {DISCOUNT_TYPE} from '../../../../_shared/enums/DISCOUNT_TYPE.model';
 import {PromotionService} from '../../../../_shared/services/promotion.service';
 import {DAY} from '../../../../_shared/enums/DAY.model';
@@ -39,9 +38,10 @@ export class PromoFormComponent implements OnInit {
 
     public error: string;
 
-    constructor(private readonly atpService: AmazingTimePickerService, private readonly snackBar: MatSnackBar,
-                private readonly packageService: PackageService, private readonly promotionService: PromotionService) {
+    constructor(private readonly snackBar: MatSnackBar,
+                public readonly packageService: PackageService, public readonly promotionService: PromotionService) {
 
+        // TODO Look into this and decided if you need to delete it
         // For Amazing Time Picker
         this.currentDate = new Date();
         this.startDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDay());

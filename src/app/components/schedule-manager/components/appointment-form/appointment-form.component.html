@@ -34,14 +34,20 @@
         <div class="row">
           <div class="col-md-6">
             <mat-form-field>
-              <mat-label for="startTime">Drop Off Time</mat-label>
-              <input matInput id="dropOffTime" type="time" atp-time-picker formControlName="dropOffTime">
+                <mat-label>Drop Off Time</mat-label>
+                <input id="dropOffTime" type="time" matInput [matDatepicker]="dropOffTime" formControlName="dropOffTime">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="dropOffTime"></mat-datepicker-toggle>
+                <mat-datepicker #dropOffTime></mat-datepicker>
             </mat-form-field>
           </div>
           <div class="col-md-6">
             <mat-form-field>
-              <mat-label for="startTime">Pick Up Time</mat-label>
-              <input matInput id="pickUpTime" type="time" atp-time-picker formControlName="pickUpTime">
+                <mat-label>Drop Off Time</mat-label>
+                <input id="pickUpTime" type="time" matInput [matDatepicker]="pickUpTime" formControlName="pickUpTime">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="pickUpTime"></mat-datepicker-toggle>
+                <mat-datepicker #pickUpTime></mat-datepicker>
             </mat-form-field>
           </div>
         </div>

@@ -6,7 +6,7 @@ import {UserService} from '../../../_core/services/user.service';
 import {ApiService} from '../../../_core/services/api.service';
 import {environment} from '../../../../environments/environment';
 import {HttpHeaders, HttpParams} from '@angular/common/http';
-import {CONSTANTS} from '../../../_shared/CONSTANTS';
+import {CONSTANTS} from '../../../_shared/constants';
 
 @Component({
     selector: 'app-navbar',

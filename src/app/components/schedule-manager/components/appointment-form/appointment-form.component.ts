@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AmazingTimePickerService} from 'amazing-time-picker';
 import {FormGroup} from '@angular/forms';
 import {Appointment} from '../../../../_shared/models/appointment.model';
 import {AppointmentService} from '../../../../_shared/services/appointment.service';
+import {PackageService} from '../../../../_shared/services/package.service';
 
 @Component({
   selector: 'app-appointment-form',
@@ -14,6 +14,7 @@ export class AppointmentFormComponent implements OnInit {
     @Input() appointments: Appointment[];
     appointmentFormGroup: FormGroup;
     vehiclesKeys = AppointmentService.vehiclesKeys;
+    packagesKeys = PackageService.packagesKeys;
 
     currentDate: Date;
     startDate: Date;
@@ -33,7 +34,7 @@ export class AppointmentFormComponent implements OnInit {
         )
     }
 
-    constructor(private appointmentService: AppointmentService, private atp: AmazingTimePickerService) {
+    constructor(private appointmentService: AppointmentService) {
         this.appointmentFormGroup = appointmentService.generateAppointmentForm(AppointmentFormComponent.initAppointment());
 
         this.currentDate = new Date();

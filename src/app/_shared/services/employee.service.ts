@@ -3,7 +3,7 @@ import {Injectable, OnInit} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Employee} from '../models/employee.model';
-import {CONSTANTS} from '../CONSTANTS';
+import {CONSTANTS} from '../constants';
 import {ApiService} from '../../_core/services/api.service';
 import {ActivatedRoute} from '@angular/router';
 import {map, take} from 'rxjs/operators';

@@ -2,16 +2,27 @@ import {NgModule} from '@angular/core';
 
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {
-    MatButtonModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule, MatExpansionModule,
-    MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatNativeDateModule, MatRadioModule,
-    MatRippleModule, MatSelectModule, MatSidenavModule, MatSnackBarModule, MatStepperModule, MatTabsModule,
-    MatToolbarModule, MatTooltipModule
-} from '@angular/material';
-import {AmazingTimePickerModule} from 'amazing-time-picker';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {MatListModule} from '@angular/material/list';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatRippleModule} from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
-import {SatDatepickerModule, SatNativeDateModule} from 'saturn-datepicker';
 import {DialogBoxComponent} from './components/dialog-box/dialog-box.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
@@ -34,7 +45,6 @@ import {DisableControlDirective} from './directives/disable-control.directive';
         MatListModule,
         MatTooltipModule,
         MatCheckboxModule,
-        MatNativeDateModule,
         MatTabsModule,
         MatIconModule,
         MatStepperModule,
@@ -46,9 +56,6 @@ import {DisableControlDirective} from './directives/disable-control.directive';
         MatSidenavModule,
         MatToolbarModule,
         MatProgressBarModule,
-        AmazingTimePickerModule,
-        SatDatepickerModule,
-        SatNativeDateModule,
         MatDatepickerModule,
         MatDialogModule,
     ],
@@ -71,7 +78,6 @@ import {DisableControlDirective} from './directives/disable-control.directive';
         MatListModule,
         MatTooltipModule,
         MatCheckboxModule,
-        MatNativeDateModule,
         MatTabsModule,
         MatIconModule,
         MatStepperModule,
@@ -83,9 +89,6 @@ import {DisableControlDirective} from './directives/disable-control.directive';
         MatSidenavModule,
         MatToolbarModule,
         MatProgressBarModule,
-        AmazingTimePickerModule,
-        SatDatepickerModule,
-        SatNativeDateModule,
         MatDatepickerModule,
         DialogBoxComponent,
         DisableControlDirective

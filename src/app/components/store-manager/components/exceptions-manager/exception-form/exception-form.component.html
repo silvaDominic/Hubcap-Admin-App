@@ -1,57 +1,71 @@
 <div class="exception-form-block">
-  <mat-accordion class="exception-create-accordion">
-    <mat-expansion-panel hideToggle>
-      <mat-expansion-panel-header>
-        <mat-icon>add_circle</mat-icon>
-        <mat-panel-title>
-          <span><strong>Create New Exception</strong></span>
-        </mat-panel-title>
-        <mat-panel-description><div></div></mat-panel-description>
-      </mat-expansion-panel-header>
-      <form [formGroup]="exceptionForm">
-        <div class="row">
-          <div class="col-md-6">
-            <mat-form-field>
-              <input matInput placeholder="Exception Name" type="text" formControlName="name">
-            </mat-form-field>
-          </div>
+    <mat-accordion class="exception-create-accordion">
+        <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+                <mat-icon>add_circle</mat-icon>
+                <mat-panel-title>
+                    <span><strong>Create New Exception</strong></span>
+                </mat-panel-title>
+                <mat-panel-description>
+                    <div></div>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <form [formGroup]="exceptionForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field>
+                            <input matInput placeholder="Exception Name" type="text" formControlName="name">
+                        </mat-form-field>
+                    </div>
 
-          <div class="col-md-6">
-            <mat-form-field>
-              <input matInput [matDatepicker]="startDate" placeholder="Choose a date" formControlName="date" required>
-              <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
-              <mat-datepicker #startDate startView="year" [startAt]="startDate" ></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
+                    <div class="col-md-6">
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="startDate" placeholder="Choose a date"
+                                   formControlName="date" required>
+                            <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                            <mat-datepicker #startDate startView="year" [startAt]="startDate"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
 
-        <div class="row">
-          <div class="col-md-6">
-            <mat-radio-group class="exception-radio-group" formControlName="exceptionType">
-              <mat-radio-button value="MODIFIED" class="exception-radio-button">Limited Hours</mat-radio-button>
-              <mat-radio-button value="CLOSED" class="exception-radio-button">Closed</mat-radio-button>
-            </mat-radio-group>
-          </div>
-        </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-radio-group class="exception-radio-group" formControlName="exceptionType">
+                            <mat-radio-button value="MODIFIED" class="exception-radio-button">Limited Hours
+                            </mat-radio-button>
+                            <mat-radio-button value="CLOSED" class="exception-radio-button">Closed</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
 
-        <div class="row" *ngIf="exceptionForm.controls['exceptionType'].value === exceptionType.MODIFIED">
-          <div class="col-md-6">
-            <mat-form-field>
-              <mat-label for="openTime">Open</mat-label>
-              <input matInput id="openTime" type="time" atp-time-picker formControlName="openTime">
-            </mat-form-field>
-          </div>
-          <div class="col-md-6">
-            <mat-form-field>
-              <mat-label for="closeTime">Close</mat-label>
-              <input matInput id="closeTime" type="time" atp-time-picker formControlName="closeTime">
-            </mat-form-field>
-          </div>
-        </div>
-      </form>
-      <mat-action-row>
-        <button mat-raised-button color="primary" (click)="createException(exceptionForm)">Add Exception</button>
-      </mat-action-row>
-    </mat-expansion-panel>
-  </mat-accordion>
+                <div class="row" *ngIf="exceptionForm.controls['exceptionType'].value === exceptionType.MODIFIED">
+                    <div class="col-md-6">
+                        <mat-form-field>
+                            <mat-label>Open</mat-label>
+                            <input id="openTime" type="time" matInput [matDatepicker]="openTime"
+                                   formControlName="openTime">
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matSuffix [for]="openTime"></mat-datepicker-toggle>
+                            <mat-datepicker #openTime></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field>
+                            <mat-label>Close</mat-label>
+                            <input id="closeTime" type="time" matInput [matDatepicker]="closeTime"
+                                   formControlName="closeTime">
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matSuffix [for]="closeTime"></mat-datepicker-toggle>
+                            <mat-datepicker #closeTime></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+            </form>
+            <mat-action-row>
+                <button mat-raised-button color="primary" (click)="createException(exceptionForm)">Add Exception
+                </button>
+            </mat-action-row>
+        </mat-expansion-panel>
+    </mat-accordion>
 </div>

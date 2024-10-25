@@ -10,7 +10,8 @@ import {Package} from '../models/package.model';
 import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
 import {Frequency} from '../models/frequency.model';
 import {PROMO_FORM_STEPS} from '../enums/PROMO_FORM_STEPS.model';
-import {CONSTANTS} from '../CONSTANTS';
+import {CONSTANTS} from '../constants';
+import {map} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -110,9 +111,9 @@ export class PromotionService {
     }
 
     getPromotionById(id): Observable<Promotion> {
-        return this.promotionArraySubject.map(
+        return this.promotionArraySubject.pipe(map(
             promotionArray => promotionArray.filter(promotion => promotion.id === id)[0]
-        );
+        ));
     }
 
     public setPromotion(index: number): void {

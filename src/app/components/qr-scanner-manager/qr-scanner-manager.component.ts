@@ -26,7 +26,7 @@ export class QrScannerManagerComponent implements OnInit, AfterViewInit {
     public scanVerified: boolean;
     public successCounter: number;
 
-    constructor(private readonly renderer: Renderer2, private readonly qrService: QrScannerService, private readonly dialogBox: DialogBoxService) {
+    constructor(private readonly renderer: Renderer2, public readonly qrService: QrScannerService, private readonly dialogBox: DialogBoxService) {
         this.isReady = false;
         this.scannedPreviously = false;
         this.scanSuccess = false;

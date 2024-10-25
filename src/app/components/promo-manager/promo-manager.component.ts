@@ -10,7 +10,7 @@ import {SERVICE_TYPE} from '../../_shared/enums/SERVICE_TYPE';
 })
 export class PromoManagerComponent implements OnInit, OnDestroy {
 
-    constructor(private readonly promotionService: PromotionService) {}
+    constructor(public readonly promotionService: PromotionService) {}
 
     public ngOnInit(): void {
         console.log('promo-manager init');

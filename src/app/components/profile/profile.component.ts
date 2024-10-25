@@ -12,7 +12,7 @@ export class ProfileComponent implements OnInit {
     currentUser: Employee;
     error: string;
 
-    constructor(private userService: UserService) {}
+    constructor(public userService: UserService) {}
 
     public ngOnInit(): void {
         this.userService.isAuthenticated.subscribe(auth => console.log('In Profile, ', auth));

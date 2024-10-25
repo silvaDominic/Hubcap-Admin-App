@@ -52,7 +52,6 @@
                 </mat-step>
 
                 <!--FREQUENCY GROUP-->
-
                 <mat-step [stepControl]="frequencyFormGroup" id="frequency" label="Scheduling">
                     <div formGroupName="schedulingFormGroup">
                         <div class="row">
@@ -136,16 +135,22 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <mat-form-field>
-                                    <mat-label for="startTime">Choose a start time</mat-label>
-                                    <input matInput id="startTime" type="time" atp-time-picker formControlName="startTime"
-                                           [(ngModel)]="focusPromotion.startTime">
+                                     <mat-label>Choose a start time</mat-label>
+                                    <input id="openTime" type="time" matInput [matDatepicker]="startTime"
+                                           formControlName="startTime">
+                                    <mat-hint>MM/DD/YYYY</mat-hint>
+                                    <mat-datepicker-toggle matSuffix [for]="startTime"></mat-datepicker-toggle>
+                                    <mat-datepicker #startTime></mat-datepicker>
                                 </mat-form-field>
                             </div>
                             <div class="col-sm-6">
                                 <mat-form-field>
-                                    <mat-label for="endTime">Choose an end time</mat-label>
-                                    <input matInput id="endTime" type="time" atp-time-picker formControlName="endTime"
-                                           [(ngModel)]="focusPromotion.endTime">
+                                    <mat-label>Choose an end time</mat-label>
+                                    <input id="endTime" type="time" matInput [matDatepicker]="endTime"
+                                           formControlName="endTime">
+                                    <mat-hint>MM/DD/YYYY</mat-hint>
+                                    <mat-datepicker-toggle matSuffix [for]="endTime"></mat-datepicker-toggle>
+                                    <mat-datepicker #endTime></mat-datepicker>
                                 </mat-form-field>
                             </div>
                         </div>

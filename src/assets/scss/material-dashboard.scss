@@ -1,24 +1,25 @@
 /*!
 
- =========================================================
- * Material Dashboard Angular - v2.2.0
- =========================================================
+=========================================================
+* Material Dashboard Angular - v2.8.0
+=========================================================
 
- * Product Page: https://www.creative-tim.com/product/material-dashboard-angular2
- * Copyright 2018 Creative Tim (http://www.creative-tim.com)
+* Product Page: https://www.creative-tim.com/product/material-dashboard-angular2
+* Copyright 2021 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/material-dashboard-angular2/blob/master/LICENSE.md)
 
- * Designed by www.invisionapp.com Coded by www.creative-tim.com
+* Coded by Creative Tim
 
- =========================================================
+=========================================================
 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
- */
+*/
  @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
  @import "core/variables";
  @import "core/mixins";
- @import "~bootstrap/scss/bootstrap";
+ @import "bootstrap/scss/bootstrap";
 
 
  // Core Components
@@ -54,3 +55,5 @@
  @import "core/plugins/perfect-scrollbar";
 
  @import "core/responsive";
+
+@import "core/angular-modal.scss";

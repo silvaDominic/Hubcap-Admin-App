@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from '../../_core/services/api.service';
 import {HttpHeaders, HttpParams} from '@angular/common/http';
-import {CONSTANTS} from '../CONSTANTS';
+import {CONSTANTS} from '../constants';
 import {environment} from '../../../environments/environment';
 import {take} from 'rxjs/operators';
 import {Client} from '../models/client.model';

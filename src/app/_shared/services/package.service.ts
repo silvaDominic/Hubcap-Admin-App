@@ -7,15 +7,18 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {VEHICLE_TYPE} from '../enums/VEHICLE_TYPE.model';
 import {PackageItem} from '../models/package-item.model';
-import 'rxjs/operators/map';
-import {CONSTANTS} from '../CONSTANTS';
+import {CONSTANTS} from '../constants';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Price} from '../models/price.model';
+import {map} from 'rxjs/operators';
+import {ALL_PACKAGES} from '../enums/ALL_PACKAGES.model';
 
 @Injectable({
     providedIn: 'root',
 })
 export class PackageService {
+    static packagesKeys = Object.keys(ALL_PACKAGES);
+
     private readonly packageSubject = new BehaviorSubject<Package>(<Package>{});
     private readonly packageArraySubject = new BehaviorSubject<Package[]>(<Package[]>[]);
     private readonly displayPackageItemsSubject = new BehaviorSubject<Map<DisplayPackageItem, boolean>>(new Map<DisplayPackageItem, boolean>());
@@ -86,9 +89,9 @@ export class PackageService {
     }
 
     getPackageById(id: string) {
-        return this.packageArraySubject.map(
+        return this.packageArraySubject.pipe(map(
             packageArray => packageArray.filter(_package => _package.id === id)[0]
-        );
+        ));
     }
 
     get packageArray(): Observable<Package[]> {

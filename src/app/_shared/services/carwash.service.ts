@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Carwash} from '../models/carwash.model';
-import {BehaviorSubject, Observable, of} from 'rxjs';
+import {BehaviorSubject, firstValueFrom, Observable, of} from 'rxjs';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {DisplayPackageItem} from '../models/display-package-item.model';
 import {Package} from '../models/package.model';
@@ -8,10 +8,10 @@ import {Promotion} from '../models/promotion.model';
 import {SERVICE_TYPE} from '../enums/SERVICE_TYPE';
 import {ApiService} from '../../_core/services/api.service';
 import {environment} from '../../../environments/environment';
-import {pluck, take} from 'rxjs/operators';
+import {take, map} from 'rxjs/operators';
+import {merge} from 'rxjs';
 import {Store} from '../models/store.model';
-import {CONSTANTS} from '../CONSTANTS';
-import {CARWASH_COMPONENT} from '../enums/CARWASH_COMPONENT.model';
+import {CONSTANTS} from '../constants';
 import {UserService} from '../../_core/services/user.service';
 import {
     DeletePackageObject,
@@ -29,7 +29,7 @@ export class CarwashService {
     public static carwashSubject = new BehaviorSubject(<Carwash>{});
     public static displayPackageItems = of(new Array<DisplayPackageItem>());
     public static carwash: Observable<Carwash> = CarwashService.carwashSubject.asObservable();
-    public serviceReady: boolean = false;
+    public serviceReady = false;
 
     constructor(private readonly http: HttpClient,
                 private readonly apiService: ApiService,
@@ -43,21 +43,18 @@ export class CarwashService {
         switch (type) {
             case SERVICE_TYPE.WASH:
                 return CarwashService.carwash.pipe(
-                    pluck('washPackages'));
-                break;
+                    map(carwash => carwash.washPackages));
             case SERVICE_TYPE.DETAIL:
                 return CarwashService.carwash.pipe(
-                    pluck('detailPackages'));
-                break;
+                    map(carwash => carwash.detailPackages));
 
             // TODO Find out why merge is not working properly
             case SERVICE_TYPE.WASH_AND_DETAIL:
                 const washPackages = CarwashService.carwash.pipe(
-                    pluck('washPackages'));
+                    map(carwash => carwash.washPackages));
                 const detailPackages = CarwashService.carwash.pipe(
-                    pluck('detailPackages'));
-                return Observable.merge(washPackages, detailPackages);
-                break;
+                    map(carwash => carwash.washPackages));
+                return merge(washPackages, detailPackages);
             default:
                 console.log('Invalid Package type');
                 console.log('Package type: ' + type + ' not found');
@@ -72,12 +69,12 @@ export class CarwashService {
 
     /* STORE */
     public getCarwashMetaData(): Observable<Store> {
-        return CarwashService.carwash.pipe(pluck('metaData'));
+        return CarwashService.carwash.pipe(map(carwash => carwash.metaData));
     }
 
     /* PROMOTIONS */
     public getPromotionsArray(): Observable<Promotion[]> {
-        return CarwashService.carwash.pipe(pluck('promotions'));
+        return CarwashService.carwash.pipe(map(carwash => carwash.promotions));
     }
 
     public getStoreId(): string {
@@ -99,7 +96,7 @@ export class CarwashService {
         };
 
         // Make post and save new object on success
-        return this.apiService.post(environment.new_store_url, new HttpParams(), httpHeaders, postObject).pipe(take(1)).toPromise();
+        return firstValueFrom(this.apiService.post(environment.new_store_url, new HttpParams(), httpHeaders, postObject).pipe(take(1)));
     }
 
     public updateStore(updatedStore: Store): Promise<any> {
@@ -116,7 +113,7 @@ export class CarwashService {
 
         console.log('Post Object: ', postObject);
 
-        return this.apiService.post(environment.update_store_url, new HttpParams(), httpHeaders, postObject).pipe(take(1)).toPromise();
+        return firstValueFrom(this.apiService.post(environment.update_store_url, new HttpParams(), httpHeaders, postObject).pipe(take(1)));
     }
 
     public cacheStore(storeToCache: Store): void {
@@ -142,7 +139,7 @@ export class CarwashService {
         console.log('Post Object: ', postObject);
 
         // Make post and return promise for subservice to resolve
-        return this.apiService.post(environment.new_package_url, new HttpParams(), httpHeaders, postObject).pipe(take(1)).toPromise();
+        return firstValueFrom(this.apiService.post(environment.new_package_url, new HttpParams(), httpHeaders, postObject).pipe(take(1)));
     }
 
     public updatePackage(updatedPackage: Package): Promise<any> {
@@ -160,7 +157,7 @@ export class CarwashService {
         console.log('Post Object: ', postObject);
 
         // Make post and return promise for subservice to resolve
-        return this.apiService.post(environment.update_package_url, new HttpParams(), httpHeaders, postObject).pipe(take(1)).toPromise();
+        return firstValueFrom(this.apiService.post(environment.update_package_url, new HttpParams(), httpHeaders, postObject).pipe(take(1)));
     }
 
     public updatePackageArray(updatedPackageArray: Package[]): Promise<any> {
@@ -177,7 +174,7 @@ export class CarwashService {
         console.log('Post Object: ', postObject);
 
         // Make post and return promise for subservice to resolve
-        return this.apiService.post(environment.update_package_array_url, new HttpParams(), httpHeaders, postObject).pipe(take(1)).toPromise();
+        return firstValueFrom(this.apiService.post(environment.update_package_array_url, new HttpParams(), httpHeaders, postObject).pipe(take(1)));
     }
 
     public deletePackage(id: string): Promise<any> {
@@ -194,7 +191,7 @@ export class CarwashService {
         console.log('Post Object: ', postObject);
 
         // Make post and return promise for subservice to resolve
-        return this.apiService.post(environment.delete_package_url, new HttpParams(), httpHeaders, postObject).pipe(take(1)).toPromise();
+        return firstValueFrom(this.apiService.post(environment.delete_package_url, new HttpParams(), httpHeaders, postObject).pipe(take(1)));
     }
 
     public cachePackages(packageArrayToCache: Package[], type: SERVICE_TYPE): void {
@@ -226,7 +223,7 @@ export class CarwashService {
         console.log('Post Object: ', postObject);
 
         // Make post and return promise for subservice to resolve
-        return this.apiService.post(environment.new_promotion_url, new HttpParams(), httpHeaders, postObject).pipe(take(1)).toPromise();
+        return firstValueFrom(this.apiService.post(environment.new_promotion_url, new HttpParams(), httpHeaders, postObject).pipe(take(1)));
     }
 
     public updatePromotion(newPromotion: Promotion): Promise<any> {
@@ -244,7 +241,7 @@ export class CarwashService {
         console.log('Post Object: ', postObject);
 
         // Make post and return promise for subservice to resolve
-        return this.apiService.post(environment.update_promotion_url, new HttpParams(), httpHeaders, postObject).pipe(take(1)).toPromise();
+        return firstValueFrom(this.apiService.post(environment.update_promotion_url, new HttpParams(), httpHeaders, postObject).pipe(take(1)));
     }
 
     public deletePromotion(id: string): Promise<any> {
@@ -261,7 +258,7 @@ export class CarwashService {
         console.log('Post Object: ', postObject);
 
         // Make post and return promise for subservice to resolve
-        return this.apiService.post(environment.delete_promotion_url, new HttpParams(), httpHeaders, postObject).pipe(take(1)).toPromise();
+        return firstValueFrom(this.apiService.post(environment.delete_promotion_url, new HttpParams(), httpHeaders, postObject).pipe(take(1)));
     }
 
     public cachePromotions(promotionArrayToCache: Promotion[]): void {

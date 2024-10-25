@@ -3,7 +3,7 @@ import {Errors} from '../../../_core/interfaces/errors.interface';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../../_core/services/user.service';
-import {CONSTANTS} from '../../../_shared/CONSTANTS';
+import {CONSTANTS} from '../../../_shared/constants';
 import {RegisterCredentials} from '../../../_shared/interfaces/credentials.interface';
 import {Utilities} from '../../../_shared/utilities';
 
@@ -13,9 +13,9 @@ import {Utilities} from '../../../_shared/utilities';
     styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-    title: string = 'Register';
+    title = 'Register';
     errors: Errors = {errors: {}};
-    isSubmitting: boolean = false;
+    isSubmitting = false;
     registerForm: FormGroup;
 
     constructor(
@@ -94,22 +94,22 @@ export class RegisterComponent implements OnInit {
 
             console.log('CREDS: ', credentials);
             this.userService
-                .attemptRegistryAuth(credentials).subscribe(
-                user => {
+                .attemptRegistryAuth(credentials).subscribe({
+                next: (user) => {
                     console.log('NEW User. Redirecting to login');
                     this.isSubmitting = false;
                     alert('You have successfully been registered. Please login to access your account.');
                     this.router.navigateByUrl('/login');
 
                 },
-                err => {
-                    console.log('ERROR: ', err);
-                    this.errors = err;
+                error: (error) => {
+                    console.log('ERROR: ', error);
+                    this.errors = error;
                     this.isSubmitting = false;
                     alert('Unable to register. Please try again.');
                     this.router.navigateByUrl('/register');
                 }
-            );
+            });
         }
     }
 }

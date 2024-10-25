@@ -1,9 +1,9 @@
 import {Component, OnInit, AfterViewInit} from '@angular/core';
 import {Location, PopStateEvent} from '@angular/common';
-import 'rxjs/add/operator/filter';
 import {Router, NavigationEnd, NavigationStart} from '@angular/router';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 import PerfectScrollbar from 'perfect-scrollbar';
+import {filter} from 'rxjs';
 
 @Component({
     selector: 'app-admin-layout',
@@ -50,7 +50,7 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
                 }
             }
         });
-        this._router = this.router.events.filter(event => event instanceof NavigationEnd).subscribe((event: NavigationEnd) => {
+        this._router = this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
             elemMainPanel.scrollTop = 0;
             elemSidebar.scrollTop = 0;
         });

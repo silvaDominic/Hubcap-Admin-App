@@ -1,17 +1,13 @@
 import {Injectable} from '@angular/core';
-import {Observable, of, throwError} from 'rxjs';
+import {distinctUntilChanged, Observable, of, throwError} from 'rxjs';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {ReplaySubject} from 'rxjs/ReplaySubject';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/do';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {ReplaySubject} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import {ApiService} from './api.service';
 import {JwtService} from './jwt.service';
 import {User} from '../models/admin-user.model';
 import {environment} from '../../../environments/environment';
-import {CONSTANTS} from '../../_shared/CONSTANTS';
+import {CONSTANTS} from '../../_shared/constants';
 import {ROLE} from '../../_shared/enums/ROLE';
 import {RouteInfo} from '../interfaces/route-info.interface';
 import {map} from 'rxjs/operators';
@@ -23,7 +19,7 @@ import {LoginCredentials, RegisterCredentials} from '../../_shared/interfaces/cr
 })
 export class UserService {
     private currentUserSubject = new BehaviorSubject<User>(User.EMPTY_MODEL);
-    private _currentUser = this.currentUserSubject.asObservable().distinctUntilChanged();
+    private _currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
 
     private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
     public isAuthenticated = this.isAuthenticatedSubject.asObservable();
@@ -42,13 +38,13 @@ export class UserService {
         // If JWT detected, attempt to get & store user's info
         if (this.jwtService.getToken()) {
             this.apiService.get(environment.user_sign_in_url, new HttpParams(), new HttpHeaders().set('Authorization', this.jwtService.getToken()))
-                .subscribe(
-                    data => {
+                .subscribe({
+                    next: (data) => {
                         console.log('User Valid, Starting App');
                         this.setAuth(data);
                     },
-                    err => this.purgeAuth()
-                );
+                    error: (error) => this.purgeAuth()
+                });
         } else {
             // Remove any potential remnants of previous auth states
             console.log('No token detected. Purging Auth');
@@ -130,7 +126,7 @@ export class UserService {
                 } else {
                     console.log('Auth attempt failure');
                     console.log('Throwing error');
-                    throw throwError(new Error('Invalid Login'));
+                    throw new Error('Invalid Login');
                 }
             })
         );
@@ -158,7 +154,7 @@ export class UserService {
         } else {
             console.log('Attempt failure. Redirecting to Login.');
             console.log('Throwing error');
-            throw throwError(new Error('Invalid Registry'));
+            throw new Error('Invalid Registry');
         }
     }
 

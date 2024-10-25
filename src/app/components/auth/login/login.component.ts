@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../../_core/services/user.service';
 import {Errors} from '../../../_core/interfaces/errors.interface';
-import {CONSTANTS} from '../../../_shared/CONSTANTS';
+import {CONSTANTS} from '../../../_shared/constants';
 import {LoginCredentials} from '../../../_shared/interfaces/credentials.interface';
 import {Utilities} from '../../../_shared/utilities';
 
@@ -12,9 +12,9 @@ import {Utilities} from '../../../_shared/utilities';
     templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
-    title: string = 'Login';
+    title = 'Login';
     errors: Errors = {errors: {}};
-    isSubmitting: boolean = false;
+    isSubmitting = false;
     loginForm: FormGroup;
 
     constructor(
@@ -67,19 +67,19 @@ export class LoginComponent implements OnInit {
 
             console.log('CREDS: ', credentials);
             this.userService
-                .attemptLoginAuth(credentials).subscribe(
-                user => {
+                .attemptLoginAuth(credentials).subscribe({
+                next: (user) => {
                     console.log('EXISTING User. Redirecting to profile');
                     this.router.navigateByUrl('/profile');
                     this.isSubmitting = false;
                 },
-                err => {
+                error: (err) => {
                     console.log('ERROR: ', err);
                     this.errors = err;
                     this.isSubmitting = false;
                     this.router.navigateByUrl('/login');
                 }
-            );
+            });
         }
     }
 }

@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {AmazingTimePickerService} from 'amazing-time-picker';
 import {HoursException} from '../../../../../_shared/models/hours-exception.model';
 import {StoreService} from '../../../../../_shared/services/store.service';
 import {HOURS_EXCEPTION_TYPE} from '../../../../../_shared/enums/HOURS_EXCEPTION_TYPE.model';
@@ -19,7 +18,7 @@ export class ExceptionFormComponent implements OnInit {
     currentDate: Date;
     startDate: Date;
 
-    constructor(private readonly storeService: StoreService, private readonly atp: AmazingTimePickerService) {
+    constructor(private readonly storeService: StoreService) {
         this.exceptionForm = this.storeService.generateExceptionsForm(HoursException.EMPTY_MODEL);
 
         this.currentDate = new Date();

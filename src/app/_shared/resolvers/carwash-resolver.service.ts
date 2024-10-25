@@ -1,7 +1,5 @@
 import {ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot} from '@angular/router';
-import {Observable, of} from 'rxjs';
-import 'rxjs/add/observable/forkJoin';
-import 'rxjs/add/observable/merge';
+import {forkJoin, Observable, of} from 'rxjs';
 import {CarwashService} from '../services/carwash.service';
 import {Utilities} from '../utilities';
 import {Carwash} from '../models/carwash.model';
@@ -9,6 +7,7 @@ import {Injectable} from '@angular/core';
 import {DisplayPackageItem} from '../models/display-package-item.model';
 import {ApiService} from '../../_core/services/api.service';
 import {environment} from '../../../environments/environment';
+import {map} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
@@ -29,10 +28,10 @@ export class CarwashResolverService implements Resolve<boolean> {
             state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
         // Fetch both the DPIs and Carwash objects
-        return Observable.forkJoin(
+        return forkJoin(
             this.fetchDisplayPackageItems(), // data[0]
             this.fetchCarwash() // data[1]
-        ).map(data => {
+        ).pipe(map(data => {
             // Convert DPI from JS object into Observable object
             CarwashService.displayPackageItems = of(data[0]);
             if (data[1] == null) {
@@ -53,7 +52,7 @@ export class CarwashResolverService implements Resolve<boolean> {
                 console.log('CURRENT CARWASH: ', CarwashService.carwashSubject.getValue());
                 return true;
             }
-        });
+        }));
     }
 
     // Retrieve Carwash object from backend

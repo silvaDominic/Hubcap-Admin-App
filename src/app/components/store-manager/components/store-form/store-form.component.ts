@@ -22,7 +22,7 @@ export class StoreFormComponent {
     E_STATE_KEYS = Object.keys(STATES);
     E_CARWASH_TYPE_KEYS = Object.keys(CARWASH_TYPE);
 
-    constructor(private readonly storeService: StoreService, private readonly snackBar: MatSnackBar) {
+    constructor(public readonly storeService: StoreService, private readonly snackBar: MatSnackBar) {
         this.storeForm = this.storeService.getForm();
         console.log(this.storeForm);
         this.formExceptions = [];

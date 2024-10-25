@@ -1,6 +1,5 @@
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {DAY} from '../enums/DAY.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CarwashService} from './carwash.service';
 import {StoreHours} from '../models/store-hours.model';
@@ -8,10 +7,10 @@ import {HoursException} from '../models/hours-exception.model';
 import {Store} from '../models/store.model';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {Address} from '../models/address.model';
-import {pluck} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {ApiService} from '../../_core/services/api.service';
 import {environment} from '../../../environments/environment';
-import {CONSTANTS} from '../CONSTANTS';
+import {CONSTANTS} from '../constants';
 
 @Injectable({
     providedIn: 'root'
@@ -19,7 +18,7 @@ import {CONSTANTS} from '../CONSTANTS';
 export class StoreService {
     private storeSubject = new BehaviorSubject<Store>(null);
     private _store: Observable<Store> = this.storeSubject.asObservable();
-    public serviceReady: boolean = false;
+    public serviceReady = false;
 
     constructor(
         private readonly fb: FormBuilder,
@@ -61,7 +60,7 @@ export class StoreService {
     }
 
     public getHoursExceptions(): Observable<HoursException[]> {
-        return this.storeSubject.pipe(pluck('hoursOfOperation', 'hoursExceptions'));
+        return this.storeSubject.pipe(map(hoursException => hoursException?.hoursOfOperation?.hoursExceptions));
     }
 
     public getForm(): FormGroup {
@@ -127,8 +126,8 @@ export class StoreService {
 
         return new Promise((resolve, reject) => {
             // Geocode API call
-            this.apiService.getGeoLocation(httpParams).subscribe(
-                geoResponse => {
+            this.apiService.getGeoLocation(httpParams).subscribe({
+                next: (geoResponse) => {
                     // Convert lat & lng to CarwashCoordinates
                     console.log(geoResponse);
 
@@ -173,11 +172,11 @@ export class StoreService {
                     }).catch(reason => {
                         reject(reason);
                     });
-                }, error => {
+                }, error: (error) => {
                     console.warn('Unable to retrieve address coordinates.', error);
                     reject();
                 }
-            );
+            });
         });
     }
 
@@ -204,8 +203,8 @@ export class StoreService {
 
         return new Promise((resolve, reject) => {
             // Geocode API call
-            this.apiService.getGeoLocation(httpParams).subscribe(
-                geoResponse => {
+            this.apiService.getGeoLocation(httpParams).subscribe({
+                next: (geoResponse) => {
                     // Convert lat & lng to CarwashCoordinates
                     console.log(geoResponse);
 
@@ -247,11 +246,11 @@ export class StoreService {
                     }).catch(reason => {
                         reject(reason);
                     });
-                }, error => {
+                }, error: (error) => {
                     console.warn('Unable to retrieve address coordinates.', error);
                     reject();
                 }
-            );
+            });
         });
     }
 

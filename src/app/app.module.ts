@@ -23,7 +23,7 @@ import {CookieModule, CookieOptionsProvider, CookieService} from 'ngx-cookie';
         AuthModule,
         CoreModule,
         SharedModule,
-        CookieModule.forRoot()
+        CookieModule.withOptions()
     ],
     declarations: [
         AppComponent,

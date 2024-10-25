@@ -23,7 +23,7 @@ export class PackageOptionsComponent implements OnInit, OnDestroy, AfterViewInit
     E_ITEM_TYPE = ITEM_TYPE;
     E_VEHICLE_TYPE = VEHICLE_TYPE;
 
-    constructor(private readonly packageService: PackageService) {
+    constructor(public readonly packageService: PackageService) {
     }
 
     public ngOnInit() {

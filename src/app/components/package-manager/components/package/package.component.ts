@@ -23,7 +23,7 @@ export class PackageComponent implements OnInit {
     @Output() saveForm = new EventEmitter<boolean>();
     public E_VEHICLE_TYPE = VEHICLE_TYPE;
 
-    constructor(private readonly packageService: PackageService, private readonly dialogBoxService: DialogBoxService) {
+    constructor(public readonly packageService: PackageService, private readonly dialogBoxService: DialogBoxService) {
     }
 
     ngOnInit() {

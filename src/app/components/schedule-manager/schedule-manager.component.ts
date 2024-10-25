@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Appointment} from '../../_shared/models/appointment.model';
-import {MatCalendar} from '@angular/material';
 import {AppointmentService} from '../../_shared/services/appointment.service';
+import {MatDatepicker} from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-scheduler',
@@ -13,15 +13,17 @@ export class ScheduleManagerComponent implements OnInit {
   appointments: Appointment[];
   error: string;
 
-  @ViewChild('calendar', {static : true}) calendar: MatCalendar<Date>;
+  @ViewChild('calendar', {static : true}) calendar: MatDatepicker<Date>;
   selectedDate: Date;
 
   constructor(private appointmentService: AppointmentService) { }
 
   ngOnInit() {
     this.getAllAppointments()
-        .subscribe(appointments => this.appointments = appointments,
-            error => this.error = error);
+        .subscribe({
+          next: (appointments) => this.appointments = appointments,
+          error: (error) => this.error = error
+        });
   }
 
   getAllAppointments() {

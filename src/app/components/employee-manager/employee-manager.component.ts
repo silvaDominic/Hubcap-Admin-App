@@ -10,7 +10,7 @@ import {StoreService} from '../../_shared/services/store.service';
 export class EmployeeManagerComponent implements OnInit {
     error: string;
 
-  constructor(private employeeService: EmployeeService, private storesService: StoreService) { }
+  constructor(public readonly employeeService: EmployeeService, private storesService: StoreService) { }
 
     ngOnInit() {
 

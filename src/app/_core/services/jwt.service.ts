@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {CookieService} from 'ngx-cookie';
-import {CONSTANTS} from '../../_shared/CONSTANTS';
+import {CONSTANTS} from '../../_shared/constants';
 
 @Injectable({
     providedIn: 'root',

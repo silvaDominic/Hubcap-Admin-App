@@ -89,16 +89,20 @@
                                     </div>
                                     <div class="col-md-4">
                                         <mat-form-field>
-                                            <mat-label for="openTime">Open</mat-label>
-                                            <input matInput id="openTime" atp-time-picker
-                                                   formControlName="openTime" type="time">
+                                            <mat-label>Open</mat-label>
+                                            <input id="dropOffTime" type="time" matInput [matDatepicker]="openTime" formControlName="openTime">
+                                            <mat-hint>MM/DD/YYYY</mat-hint>
+                                            <mat-datepicker-toggle matSuffix [for]="openTime"></mat-datepicker-toggle>
+                                            <mat-datepicker #openTime></mat-datepicker>
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-4">
                                         <mat-form-field>
-                                            <mat-label for="closeTime">Close</mat-label>
-                                            <input matInput id="closeTime" atp-time-picker
-                                                   formControlName="closeTime" type="time">
+                                            <mat-label>Close</mat-label>
+                                            <input id="closeTime" type="time" matInput [matDatepicker]="closeTime" formControlName="closeTime">
+                                            <mat-hint>MM/DD/YYYY</mat-hint>
+                                            <mat-datepicker-toggle matSuffix [for]="closeTime"></mat-datepicker-toggle>
+                                            <mat-datepicker #closeTime></mat-datepicker>
                                         </mat-form-field>
                                     </div>
                                 </div>

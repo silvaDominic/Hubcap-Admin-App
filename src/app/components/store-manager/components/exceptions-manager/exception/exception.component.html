@@ -37,14 +37,20 @@
         <div class="row" *ngIf="thisException.exceptionType === E_HOURS_EXCEPTION_TYPE.MODIFIED">
           <div class="col-md-6">
             <mat-form-field>
-              <mat-label for="openTime">Open</mat-label>
-              <input matInput id="openTime" type="time" atp-time-picker [(ngModel)]="thisException.openTime">
+              <mat-label>Open</mat-label>
+                <input id="openTime" type="time" matInput [matDatepicker]="openTime" formControlName="openTime" [(ngModel)]="thisException.closeTime">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="openTime"></mat-datepicker-toggle>
+                <mat-datepicker #openTime></mat-datepicker>
             </mat-form-field>
           </div>
           <div class="col-md-6">
             <mat-form-field>
-              <mat-label for="closeTime">Close</mat-label>
-              <input matInput id="closeTime" type="time" atp-time-picker [(ngModel)]="thisException.closeTime">
+                <mat-label>Close</mat-label>
+                <input id="closeTime" type="time" matInput [matDatepicker]="closeTime" formControlName="closeTime" [(ngModel)]="thisException.closeTime">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="closeTime"></mat-datepicker-toggle>
+                <mat-datepicker #closeTime></mat-datepicker>
             </mat-form-field>
           </div>
         </div>

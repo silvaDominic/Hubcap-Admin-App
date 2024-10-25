@@ -320,24 +320,3 @@ $gray-dark:              lighten($gray-base, 20%) !default;   // #333
 $gray:                   lighten($gray-base, 33.5%) !default; // #555
 $gray-light:             #999999 !default; // #999999
 $gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
-
-// Hubcap
-// Neutral
-$cloud: #f7f8f9 !default;
-$dust: #ced4d6 !default;
-$smoke: #8c989e !default;
-$tire: #203641 !default;
-
-// Accent
-$hc-blue: #3883f2 !default;
-$go: #26c19d !default;
-$hc-yellow: #fccf47 !default;
-$stop: #f74f9e !default;
-
-// Brand
-$hc-primary: #3883f2 !default;
-$hc-secondary: #2cb9d9 !default;
-
-// Specialty
-$promo-orange: #ff8d17 !default;
-$promo-yellow: #ffdf80 !default;

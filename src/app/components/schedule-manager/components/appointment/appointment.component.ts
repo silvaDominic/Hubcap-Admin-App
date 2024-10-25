@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Appointment} from '../../../../_shared/models/appointment.model';
 import {AppointmentService} from '../../../../_shared/services/appointment.service';
+import {PackageService} from '../../../../_shared/services/package.service';
 
 @Component({
     selector: 'app-appointment',
@@ -11,6 +12,7 @@ export class AppointmentComponent implements OnInit {
 
     @Input() thisAppointment: Appointment;
     vehiclesKeys = AppointmentService.vehiclesKeys;
+    packagesKeys = PackageService.packagesKeys;
 
     currentDate: Date;
     appointmentDate: Date;
@@ -23,11 +25,11 @@ export class AppointmentComponent implements OnInit {
     ngOnInit() {
     }
 
-    updateAppointment() {
+    updateAppointment(appointment: Appointment) {
 
     }
 
-    deleteAppointment() {
+    deleteAppointment(appointment: Appointment) {
 
     }
 

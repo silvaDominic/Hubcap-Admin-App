@@ -32,17 +32,14 @@
     .logo-img{
         width: 35px;
         display: block;
-        max-height: 35px;
+        max-height: 30px;
         margin-left: 13px;
         margin-right: 15px;
 
         img{
-            width: 50px;
+            width: 35px;
             top: 16px;
             position: absolute;
-            padding: 5px;
-            border-radius: 5px;
-            background-color: $hc-blue;
         }
     }
     .sidebar-wrapper{
@@ -267,19 +264,6 @@
             line-height: 20px;
         }
 
-        .title-text {
-            padding: $padding-small-vertical $padding-zero;
-            display: inline-block;
-            font-size: 22px;
-            color: $smoke;
-            white-space: nowrap;
-            font-weight: $font-weight-default;
-            line-height: 40px;
-            overflow: hidden;
-            text-align: center;
-            display: block;
-        }
-
         .simple-text{
             text-transform: uppercase;
             padding: $padding-small-vertical $padding-zero;
@@ -293,8 +277,6 @@
             text-align: center;
             display: block;
         }
-
-
     }
 
     .logo-tim{
@@ -321,7 +303,7 @@
         }
     }
 
-    &[data-color="primary"]{
+    &[data-color="purple"]{
         @include set-background-color-button($brand-primary);
     }
     &[data-color="azure"]{
@@ -393,8 +375,8 @@
     @include transition (0.33s, cubic-bezier(0.685, 0.0473, 0.346, 1));
 
      .main-content{
-        margin-top: 60px;
-        padding: 0px 15px;
+        margin-top: 70px;
+        padding: 30px 15px;
         min-height: calc(100vh - 123px);
     }
 

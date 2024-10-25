@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {StoreService} from '../../_shared/services/store.service';
 
 @Component({
@@ -8,7 +8,9 @@ import {StoreService} from '../../_shared/services/store.service';
 })
 export class StoreManagerComponent implements OnInit {
 
-    constructor(private readonly storeService: StoreService) { }
+    @Input() loading: any;
+
+    constructor(public readonly storeService: StoreService) { }
 
     ngOnInit() {
 

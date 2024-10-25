@@ -12,7 +12,7 @@ export class PromoHistoryComponent implements OnInit {
     activePromos: Promotion[];
     inActivePromos: Promotion[];
 
-    constructor(private promotionService: PromotionService) {
+    constructor(public promotionService: PromotionService) {
         this.activePromos = [];
         this.inActivePromos = [];
     }
